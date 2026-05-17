@@ -1,4 +1,3 @@
-cat > /mnt/user-data/outputs/auralis_skyshare.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -623,8 +622,3 @@ document.querySelectorAll('.rv,.rv2,.rv3').forEach(function(el){obs.observe(el);
 </script>
 </body>
 </html>
-HTMLEOF
-echo "Done"
-Output
-
-Done
