@@ -1,0 +1,1310 @@
+html = r'''<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auralis SkyShare</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#F5F0E8;
+  --cream2:#EDE6D8;
+  --cream3:#E0D8C8;
+  --warm:#D4C4A0;
+  --gold:#C9A535;
+  --gold2:#E8C96A;
+  --navy:#0A1628;
+  --navy2:#142140;
+  --dark:#060C14;
+  --muted:rgba(10,22,40,.45);
+  --mutedl:rgba(245,240,232,.5);
+}
+html,body{width:100%;overflow-x:hidden}
+body{background:var(--dark);font-family:'Inter',sans-serif;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;z-index:99999;pointer-events:none}
+#cur-d{width:5px;height:5px;background:var(--gold2);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:transform .08s}
+#cur-r{width:32px;height:32px;border:1px solid rgba(232,201,122,.5);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:all .14s ease}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+#loader-logo{opacity:0;transform:translateY(20px);transition:all 1s ease}
+#loader-logo img{height:32px;filter:brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(10deg) brightness(.9)}
+.loader-bar{width:200px;height:1px;background:rgba(255,255,255,.1);overflow:hidden;position:relative}
+.loader-fill{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(to right,transparent,var(--gold),transparent);animation:lFill 2.2s ease forwards .3s}
+@keyframes lFill{to{left:100%}}
+#loader-pct{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.3);font-family:'Cormorant Garamond',serif}
+#loader-sub{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.2);text-transform:uppercase;font-family:'Inter',sans-serif}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .6s ease}
+#nav.scrolled{padding:16px 48px;background:rgba(6,12,20,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,165,53,.08)}
+.nav-logo img{height:24px;object-fit:contain;filter:brightness(0) invert(1) sepia(1) saturate(1.5) hue-rotate(10deg) brightness(.85);cursor:pointer;transition:opacity .3s}
+.nav-logo img:hover{opacity:.7}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;cursor:pointer;transition:color .3s;font-family:'Inter',sans-serif;font-weight:400}
+.nav-links a:hover,.nav-links a.act{color:rgba(255,255,255,.9)}
+.nav-right{display:flex;gap:12px;align-items:center}
+.nav-op{background:transparent;border:1px solid rgba(201,165,53,.4);color:rgba(201,165,53,.85);padding:8px 20px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s}
+.nav-op:hover{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+.nav-ar{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:8px 20px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s}
+.nav-ar:hover{background:rgba(255,255,255,.12);color:#fff}
+
+/* PAGES */
+.pg{display:none;animation:pgIn .5s ease}
+.pg.act{display:block}
+@keyframes pgIn{from{opacity:0}to{opacity:1}}
+
+/* ═══════ HERO / HOME ═══════ */
+#pg-home{background:var(--dark)}
+
+/* TUNNEL SCENE */
+.tunnel-wrap{position:relative;width:100%;height:100vh;overflow:hidden;perspective:1200px}
+.tunnel-canvas{position:absolute;inset:0}
+
+/* CSS 3D tunnel — Cartier-style corridor */
+.corridor{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform-style:preserve-3d}
+.wall-seg{position:absolute;transform-style:preserve-3d}
+
+/* Hero text over tunnel */
+.hero-text{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 40px}
+.hero-eyebrow{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:6px;color:rgba(201,165,53,.7);text-transform:uppercase;margin-bottom:28px;opacity:0;transform:translateY(30px);transition:all 1.2s ease}
+.hero-eyebrow.show{opacity:1;transform:translateY(0)}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,8vw,110px);font-weight:300;line-height:.9;letter-spacing:-2px;color:#fff;margin-bottom:12px;opacity:0;transform:translateY(40px);transition:all 1.2s ease .15s}
+.hero-h1.show{opacity:1;transform:translateY(0)}
+.hero-h1 em{font-style:italic;color:var(--gold2)}
+.hero-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(14px,1.8vw,20px);font-weight:300;color:rgba(255,255,255,.45);letter-spacing:3px;text-transform:uppercase;margin-bottom:40px;opacity:0;transform:translateY(30px);transition:all 1.2s ease .3s}
+.hero-h2.show{opacity:1;transform:translateY(0)}
+.hero-cta-row{display:flex;gap:16px;justify-content:center;opacity:0;transform:translateY(20px);transition:all 1s ease .5s}
+.hero-cta-row.show{opacity:1;transform:translateY(0)}
+.cta-main{background:rgba(201,165,53,.12);border:1px solid rgba(201,165,53,.4);color:var(--gold2);padding:14px 40px;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .4s;backdrop-filter:blur(10px)}
+.cta-main:hover{background:var(--gold);color:var(--dark);letter-spacing:4px}
+.cta-sec{background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);padding:14px 36px;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .4s;backdrop-filter:blur(6px)}
+.cta-sec:hover{border-color:rgba(255,255,255,.4);color:#fff}
+
+/* Scroll indicator */
+.scroll-ind{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:30;opacity:0;transition:opacity 1s ease 1.5s}
+.scroll-ind.show{opacity:1}
+.scroll-line{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold2),transparent);animation:sLine 2s ease-in-out infinite}
+@keyframes sLine{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.08)}}
+.scroll-label{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.3);text-transform:uppercase;font-family:'Inter',sans-serif}
+
+/* CANVAS 3D scene */
+#tunnel-c{position:absolute;inset:0;width:100%;height:100%}
+
+/* SCROLL SECTIONS on home */
+.scroll-chapter{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+
+/* Chapter 1: Stats */
+.ch-stats{background:var(--dark)}
+.stats-inner{position:relative;z-index:10;text-align:center}
+.stats-eyebrow{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:40px;display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);max-width:900px;margin:0 auto}
+.sg-i{background:var(--dark);padding:48px 32px;text-align:center;position:relative;overflow:hidden;transition:background .4s}
+.sg-i:hover{background:rgba(201,165,53,.04)}
+.sg-i::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .6s;transform-origin:center}
+.sg-i:hover::after{transform:scaleX(1)}
+.sg-n{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold2);letter-spacing:-2px;line-height:1;display:block}
+.sg-l{font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-top:10px;display:block;font-family:'Inter',sans-serif}
+
+/* Chapter 2: Come Funziona */
+.ch-how{background:linear-gradient(180deg,var(--dark) 0%,#0A1020 100%)}
+.ch-how-inner{max-width:1000px;margin:0 auto;padding:0 48px;position:relative;z-index:10}
+.ch-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,68px);font-weight:300;color:#fff;letter-spacing:-1.5px;line-height:1;margin-bottom:64px;text-align:center}
+.ch-title em{font-style:italic;color:var(--gold2)}
+.how-line{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06)}
+.hl-step{background:#0A1020;padding:48px 36px;position:relative;transition:all .5s}
+.hl-step:hover{background:rgba(201,165,53,.04)}
+.hl-n{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:rgba(201,165,53,.08);line-height:1;margin-bottom:20px;letter-spacing:-3px}
+.hl-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#fff;margin-bottom:12px;letter-spacing:-.3px}
+.hl-desc{font-size:12px;color:rgba(255,255,255,.38);line-height:1.8;letter-spacing:.3px;font-weight:300}
+.hl-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s;transform-origin:left}
+.hl-step:hover .hl-line{transform:scaleX(1)}
+
+/* ANIMATE ON SCROLL */
+.anim-up{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease}
+.anim-up.vis{opacity:1;transform:translateY(0)}
+.anim-up.d1{transition-delay:.12s}
+.anim-up.d2{transition-delay:.24s}
+.anim-up.d3{transition-delay:.36s}
+.anim-fade{opacity:0;transition:opacity 1.2s ease}
+.anim-fade.vis{opacity:1}
+.anim-split{overflow:hidden}
+.anim-split-inner{transform:translateY(100%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.anim-split.vis .anim-split-inner{transform:translateY(0)}
+
+/* ═══════ EMPTY LEG PAGE ═══════ */
+#pg-emptyleg{background:var(--dark);min-height:100vh}
+.el-hero-scene{height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+#el-canvas{position:absolute;inset:0;width:100%;height:100%}
+.el-hero-text{position:relative;z-index:10;text-align:center}
+.el-hero-text h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,96px);font-weight:300;color:#fff;letter-spacing:-2px;line-height:.95}
+.el-hero-text h1 em{font-style:italic;color:var(--gold2)}
+.el-hero-text p{font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:20px;font-family:'Inter',sans-serif}
+
+/* Map section */
+.el-map-section{padding:0;background:var(--dark);position:relative}
+.map-container{background:linear-gradient(135deg,#060C18 0%,#0A1628 100%);margin:0;padding:52px 60px;position:relative;overflow:hidden}
+.map-container::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,165,53,.05) 0%,transparent 70%)}
+.map-svg{width:100%;display:block}
+.map-legend{position:absolute;bottom:20px;left:28px;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.25);text-transform:uppercase;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:8px}
+.map-legend::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* EL cards */
+.el-cards-wrap{padding:72px 60px 100px;max-width:1160px;margin:0 auto}
+.el-cards-head{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#fff;letter-spacing:-1px;margin-bottom:36px;display:flex;align-items:center;gap:20px}
+.el-cards-head::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.07)}
+.el-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07)}
+.el-c{background:var(--dark);padding:32px 28px;transition:background .4s;cursor:pointer;position:relative;overflow:hidden}
+.el-c:hover{background:#0E1828}
+.el-c::before{content:"EMPTY LEG";position:absolute;top:0;right:0;font-size:8px;letter-spacing:1.5px;color:var(--gold);background:rgba(201,165,53,.07);border-left:1px solid rgba(201,165,53,.15);border-bottom:1px solid rgba(201,165,53,.15);padding:5px 12px;font-family:'Inter',sans-serif}
+.el-route{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.el-iata{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#fff;letter-spacing:-1px;line-height:1}
+.el-arrow-row{flex:1;display:flex;align-items:center;gap:6px}
+.el-dash{flex:1;height:1px;background:linear-gradient(to right,rgba(255,255,255,.1),var(--gold),rgba(255,255,255,.1))}
+.el-plane{color:var(--gold);font-size:14px}
+.el-specs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.el-spec .v{font-size:13px;font-weight:500;color:rgba(255,255,255,.8);font-family:'Inter',sans-serif}
+.el-spec .k{font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,.25);text-transform:uppercase;margin-top:3px;font-family:'Inter',sans-serif}
+.el-foot{display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid rgba(255,255,255,.06);padding-top:18px}
+.el-price{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold2);letter-spacing:-1px}
+.el-save{font-size:9px;letter-spacing:1px;color:#2E9E60;background:rgba(46,158,96,.08);border:1px solid rgba(46,158,96,.18);padding:3px 8px;margin-top:4px;font-family:'Inter',sans-serif;display:inline-block}
+.el-foot-right{text-align:right}
+.el-cd{font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.5px;font-family:'Inter',sans-serif;margin-bottom:8px}
+.el-cd span{color:rgba(255,255,255,.6);font-weight:500}
+.el-btn{background:transparent;border:1px solid rgba(201,165,53,.3);color:var(--gold2);padding:10px 20px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s}
+.el-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);letter-spacing:2.5px}
+
+/* ═══════ PRENOTA ═══════ */
+#pg-prenota{min-height:100vh;background:var(--dark);display:grid;grid-template-columns:1fr 1fr}
+.prenota-left{padding:120px 64px 80px;position:relative;overflow:hidden;background:var(--dark)}
+#prenota-cabin{position:absolute;inset:0;opacity:.15;pointer-events:none}
+.prenota-right{background:linear-gradient(160deg,#060C18 0%,#0A1420 100%);padding:120px 56px 80px;position:sticky;top:0;height:100vh;overflow-y:auto;border-left:1px solid rgba(255,255,255,.05)}
+.pren-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;display:block;font-family:'Inter',sans-serif}
+.pren-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,54px);font-weight:300;color:#fff;letter-spacing:-1.5px;line-height:1;margin-bottom:12px}
+.pren-sub{font-size:12px;color:rgba(255,255,255,.35);line-height:1.8;margin-bottom:48px;font-family:'Inter',sans-serif;letter-spacing:.3px;max-width:400px}
+.f-sec{margin-bottom:36px}
+.f-sec-lbl{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-family:'Inter',sans-serif}
+.f-sec-lbl::before{content:attr(data-n);width:20px;height:20px;border:1px solid rgba(201,165,53,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.25);text-transform:uppercase;font-family:'Inter',sans-serif}
+.fg input,.fg select,.fg textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:13px 14px;font-size:13px;color:rgba(255,255,255,.8);outline:none;font-family:'Inter',sans-serif;transition:border-color .3s;-webkit-appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(201,165,53,.4)}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.2)}
+.fg select option{background:#0A1628}
+.sub-btn{width:100%;padding:16px;background:linear-gradient(135deg,rgba(201,165,53,.15),rgba(201,165,53,.08));border:1px solid rgba(201,165,53,.35);color:var(--gold2);font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .4s;margin-top:12px}
+.sub-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);letter-spacing:3.5px}
+.sub-note{font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin-top:12px;letter-spacing:.5px;font-family:'Inter',sans-serif}
+/* Right: info panel */
+.pr-info-eye{font-size:9px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:20px;display:block;font-family:'Inter',sans-serif}
+.pr-info-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#fff;letter-spacing:-.5px;margin-bottom:28px;line-height:1.1}
+.pr-list{list-style:none;margin-bottom:36px}
+.pr-list li{font-size:12px;color:rgba(255,255,255,.4);padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.pr-list li::before{content:"—";color:var(--gold);font-size:10px;flex-shrink:0}
+.pr-contact{border:1px solid rgba(255,255,255,.06);padding:24px}
+.pr-contact-lbl{font-size:9px;letter-spacing:2.5px;color:var(--gold2);text-transform:uppercase;margin-bottom:14px;display:block;font-family:'Inter',sans-serif}
+.pr-contact a{display:block;font-size:12px;color:rgba(255,255,255,.38);text-decoration:none;margin-bottom:8px;letter-spacing:.3px;font-family:'Inter',sans-serif;transition:color .2s}
+.pr-contact a:hover{color:rgba(255,255,255,.7)}
+
+/* ═══════ CHI SIAMO ═══════ */
+#pg-about{min-height:100vh;background:var(--dark)}
+.about-cinematic{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 64px 80px}
+#about-canvas{position:absolute;inset:0;width:100%;height:100%}
+.about-hero-text{position:relative;z-index:10;max-width:600px}
+.abt-eye{font-size:10px;letter-spacing:4px;color:var(--gold2);text-transform:uppercase;margin-bottom:16px;display:block;font-family:'Inter',sans-serif}
+.abt-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,80px);font-weight:300;color:#fff;letter-spacing:-2.5px;line-height:.95;margin-bottom:20px}
+.abt-h1 em{font-style:italic;color:var(--gold2)}
+.abt-p{font-size:13px;color:rgba(255,255,255,.38);line-height:1.8;max-width:480px;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.about-body{padding:100px 64px;max-width:1100px;margin:0 auto}
+.abt-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:100px}
+.abt-text-block p{font-size:13px;color:rgba(255,255,255,.38);line-height:1.9;margin-bottom:18px;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.abt-text-block p strong{color:rgba(255,255,255,.75);font-weight:500}
+.abt-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);margin-bottom:80px}
+.abn-i{background:var(--dark);padding:48px 32px;text-align:center}
+.abn-n{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold2);letter-spacing:-2px;display:block;line-height:1}
+.abn-l{font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,.25);text-transform:uppercase;margin-top:8px;display:block;font-family:'Inter',sans-serif}
+.abt-values{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.06)}
+.av{background:var(--dark);padding:40px 36px;transition:background .4s;position:relative;overflow:hidden}
+.av:hover{background:#0E1828}
+.av-n{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;font-family:'Inter',sans-serif}
+.av-t{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#fff;margin-bottom:10px;letter-spacing:-.3px}
+.av-d{font-size:12px;color:rgba(255,255,255,.32);line-height:1.8;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.av-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s;transform-origin:left}
+.av:hover .av-line{transform:scaleX(1)}
+
+/* ═══════ CONTATTI ═══════ */
+#pg-contatti{min-height:100vh;background:var(--dark)}
+.cont-scene{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 64px 80px}
+#cont-canvas{position:absolute;inset:0;width:100%;height:100%}
+.cont-fly-jet{position:absolute;top:0;left:0;right:0;height:120px;z-index:50;overflow:hidden;pointer-events:none}
+#fly-jet-svg{position:absolute;top:28px;left:-280px}
+.cont-hero-text{position:relative;z-index:10}
+.cont-body{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06)}
+.cont-left{background:var(--dark);padding:72px 64px}
+.cont-right{background:#070D1A;padding:72px 56px}
+.cont-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,42px);font-weight:300;color:#fff;letter-spacing:-1.2px;margin-bottom:40px;line-height:1}
+.cont-title em{font-style:italic;color:var(--gold2)}
+.ci-item{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.ci-ico{width:38px;height:38px;border:1px solid rgba(201,165,53,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:var(--gold)}
+.ci-lbl{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.25);text-transform:uppercase;margin-bottom:5px;display:block;font-family:'Inter',sans-serif}
+.ci-val{font-size:13px;color:rgba(255,255,255,.7);font-family:'Inter',sans-serif;font-weight:400}
+.ci-sub{font-size:11px;color:rgba(255,255,255,.25);margin-top:3px;font-family:'Inter',sans-serif}
+.cont-form{display:flex;flex-direction:column;gap:12px}
+.cont-form-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#fff;letter-spacing:-.5px;margin-bottom:24px}
+.c-input{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:13px 14px;font-size:13px;color:rgba(255,255,255,.7);outline:none;font-family:'Inter',sans-serif;transition:border-color .3s}
+.c-input:focus{border-color:rgba(201,165,53,.35)}
+.c-input::placeholder{color:rgba(255,255,255,.18)}
+.c-btn{padding:14px;background:rgba(201,165,53,.1);border:1px solid rgba(201,165,53,.3);color:var(--gold2);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s}
+.c-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+
+/* PARTNER / PILOT pages */
+#pg-partner,#pg-pilot{min-height:100vh;background:var(--dark)}
+.op-hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 64px 80px}
+#part-canvas,#pilot-canvas{position:absolute;inset:0;width:100%;height:100%}
+.op-reserved-badge{display:inline-block;background:rgba(201,165,53,.1);border:1px solid rgba(201,165,53,.25);color:rgba(201,165,53,.8);font-size:9px;letter-spacing:2.5px;padding:6px 16px;text-transform:uppercase;margin-bottom:16px;font-family:'Inter',sans-serif}
+.op-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,88px);font-weight:300;color:#fff;letter-spacing:-3px;line-height:.9;margin-bottom:16px}
+.op-title em{font-style:italic;color:var(--gold2)}
+.op-sub{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.5px;font-family:'Inter',sans-serif;max-width:420px;line-height:1.7}
+.op-body{padding:80px 64px;max-width:1100px;margin:0 auto}
+.op-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);margin-bottom:2px}
+.op-card{background:var(--dark);padding:44px 36px;transition:background .4s;position:relative;overflow:hidden}
+.op-card:hover{background:#0C1624}
+.op-card-n{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;font-family:'Inter',sans-serif}
+.op-card-t{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#fff;margin-bottom:12px;letter-spacing:-.3px}
+.op-card-d{font-size:12px;color:rgba(255,255,255,.3);line-height:1.8;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.op-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.op-tag{font-size:9px;color:rgba(201,165,53,.7);background:rgba(201,165,53,.06);border:1px solid rgba(201,165,53,.15);padding:4px 12px;font-family:'Inter',sans-serif;letter-spacing:.5px}
+.op-card-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s;transform-origin:left}
+.op-card:hover .op-card-line{transform:scaleX(1)}
+.op-cta-band{background:linear-gradient(135deg,rgba(201,165,53,.06) 0%,rgba(201,165,53,.02) 100%);border:1px solid rgba(201,165,53,.1);padding:64px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.op-cta-t{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#fff;letter-spacing:-1px;line-height:1.1}
+.op-cta-s{font-size:12px;color:rgba(255,255,255,.3);margin-top:10px;line-height:1.7;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.op-pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.op-pill{font-size:10px;color:var(--gold2);background:rgba(201,165,53,.08);border:1px solid rgba(201,165,53,.2);padding:5px 14px;font-family:'Inter',sans-serif;letter-spacing:.5px}
+.op-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--dark);border:none;padding:16px 40px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s;flex-shrink:0}
+.op-btn:hover{opacity:.85;transform:translateY(-2px)}
+
+/* MODALS */
+.modal-bg{position:fixed;inset:0;z-index:8000;background:rgba(6,12,20,.9);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal-box{background:#0A1220;border:1px solid rgba(255,255,255,.08);max-width:520px;width:90%;position:relative;animation:pgIn .3s ease}
+.modal-box::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+.modal-hd{padding:40px 44px 0}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:rgba(255,255,255,.3);font-size:22px;cursor:pointer;line-height:1;transition:color .2s}
+.modal-close:hover{color:rgba(255,255,255,.7)}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#fff;letter-spacing:-.5px;margin-bottom:8px}
+.modal-sub{font-size:12px;color:rgba(255,255,255,.3);line-height:1.7;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.modal-body{padding:28px 44px 40px}
+.modal-opts{display:flex;flex-direction:column;gap:10px}
+.modal-opt{background:transparent;border:1px solid rgba(255,255,255,.07);padding:20px 22px;cursor:pointer;display:flex;align-items:center;gap:18px;text-align:left;transition:all .3s;font-family:'Inter',sans-serif}
+.modal-opt:hover{border-color:rgba(201,165,53,.3);background:rgba(201,165,53,.04)}
+.modal-opt-ico{font-size:24px;flex-shrink:0}
+.modal-opt-title{font-size:14px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:4px}
+.modal-opt-desc{font-size:11px;color:rgba(255,255,255,.3);line-height:1.5;letter-spacing:.2px}
+.modal-badge{margin-left:auto;font-size:8px;letter-spacing:2px;color:var(--gold);border:1px solid rgba(201,165,53,.2);padding:4px 10px;flex-shrink:0;text-transform:uppercase}
+
+/* Area Riservata modal */
+.ar-hd{background:linear-gradient(135deg,#0A1628 0%,#0E2040 100%);padding:32px 40px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ar-hd img{height:20px;filter:brightness(0) invert(1) sepia(1) saturate(1.5) hue-rotate(10deg) brightness(.85)}
+.ar-hd-t h2{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#fff;letter-spacing:-.3px}
+.ar-hd-t p{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px;font-family:'Inter',sans-serif}
+.ar-body{padding:32px 40px 40px}
+.ar-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:24px}
+.ar-tab{padding:9px 20px;font-size:11px;font-weight:400;color:rgba(255,255,255,.3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;letter-spacing:1px;font-family:'Inter',sans-serif}
+.ar-tab.act{color:#fff;border-bottom-color:var(--gold)}
+.ar-form{display:flex;flex-direction:column;gap:12px}
+.ar-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:12px 14px;font-size:13px;color:rgba(255,255,255,.8);outline:none;font-family:'Inter',sans-serif;transition:border-color .2s}
+.ar-input:focus{border-color:rgba(201,165,53,.3)}
+.ar-input::placeholder{color:rgba(255,255,255,.2)}
+.ar-btn{width:100%;padding:13px;background:rgba(201,165,53,.1);border:1px solid rgba(201,165,53,.3);color:var(--gold2);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s;margin-top:4px}
+.ar-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+.ar-divider{display:flex;align-items:center;gap:12px;margin:8px 0}
+.ar-divider span{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.ar-divider p{font-size:10px;color:rgba(255,255,255,.2);font-family:'Inter',sans-serif;white-space:nowrap}
+.ar-forgot{font-size:10px;color:rgba(255,255,255,.25);text-align:center;margin-top:10px;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.5px}
+/* History */
+.ar-fh{display:flex;flex-direction:column;gap:8px}
+.ar-fh-i{border:1px solid rgba(255,255,255,.06);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:background .3s}
+.ar-fh-i:hover{background:rgba(255,255,255,.03)}
+.ar-fh-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.ar-fh-route{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#fff;letter-spacing:-.3px}
+.ar-fh-date{font-size:9px;color:rgba(255,255,255,.25);letter-spacing:1px;margin-top:2px;font-family:'Inter',sans-serif;text-transform:uppercase}
+.ar-fh-status{margin-left:auto;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;font-family:'Inter',sans-serif}
+.ar-fh-status.done{background:rgba(46,158,96,.08);color:#2E9E60;border:1px solid rgba(46,158,96,.18)}
+.ar-fh-status.bkd{background:rgba(74,123,196,.08);color:#6BAED6;border:1px solid rgba(74,123,196,.18)}
+
+/* FOOTER */
+footer{background:#040A12;padding:64px;border-top:1px solid rgba(255,255,255,.04)}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.ft-logo img{height:20px;filter:brightness(0) invert(1) sepia(1) saturate(1.5) hue-rotate(10deg) brightness(.85);margin-bottom:16px}
+.ft-desc{font-size:11px;color:rgba(255,255,255,.2);line-height:1.8;max-width:220px;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.ft-tag{font-size:9px;letter-spacing:2.5px;color:rgba(201,165,53,.5);text-transform:uppercase;margin-top:14px;display:block;font-family:'Inter',sans-serif}
+.ft-col h4{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:16px;font-weight:400;font-family:'Inter',sans-serif}
+.ft-col a{display:block;font-size:11px;color:rgba(255,255,255,.2);text-decoration:none;margin-bottom:9px;cursor:pointer;transition:color .2s;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.ft-col a:hover{color:rgba(255,255,255,.55)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.04);padding-top:24px;display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.15);font-family:'Inter',sans-serif;letter-spacing:.3px}
+
+/* UTIL */
+.rel{position:relative}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"><div id="cur-d"></div><div id="cur-r"></div></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div id="loader-logo"><img src="LOGO_SRC" alt="Auralis SkyShare"></div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div id="loader-pct">0%</div>
+  <div id="loader-sub">Preparing your terminal</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="showPage('home')"><img src="LOGO_SRC" alt="Auralis SkyShare"></div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nl-home" class="act">Home</a></li>
+    <li><a onclick="showPage('about')" id="nl-about">Chi Siamo</a></li>
+    <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Empty Leg</a></li>
+    <li><a onclick="showPage('prenota')" id="nl-prenota">Prenota Ora</a></li>
+    <li><a onclick="showPage('contatti')" id="nl-contatti">Contatti</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-op" onclick="openModal('op-modal')">Sono un Operatore</button>
+    <button class="nav-ar" onclick="openModal('ar-modal')">Area Riservata</button>
+  </div>
+</nav>
+
+<!-- OPERATOR MODAL -->
+<div class="modal-bg" id="op-modal" onclick="if(event.target===this)closeModal('op-modal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('op-modal')">×</button>
+    <div class="modal-hd">
+      <h2 class="modal-title">Area Operatori</h2>
+      <p class="modal-sub">Sezione riservata ai partner di Auralis SkyShare. Seleziona il programma di tuo interesse.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-opts">
+        <button class="modal-opt" onclick="closeModal('op-modal');showPage('partner')">
+          <span class="modal-opt-ico">🤝</span>
+          <div><div class="modal-opt-title">Partner Program</div><div class="modal-opt-desc">Monetizza i tuoi voli empty-leg attraverso la piattaforma Auralis SkyShare. Revenue incrementale, zero costi fissi.</div></div>
+          <span class="modal-badge">Operatori</span>
+        </button>
+        <button class="modal-opt" onclick="closeModal('op-modal');showPage('pilot')">
+          <span class="modal-opt-ico">🚀</span>
+          <div><div class="modal-opt-title">Pilot Program</div><div class="modal-opt-desc">Accesso esclusivo pre-lancio per operatori selezionati. Zero commissioni iniziali, massima visibilità.</div></div>
+          <span class="modal-badge">Esclusivo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AREA RISERVATA MODAL -->
+<div class="modal-bg" id="ar-modal" onclick="if(event.target===this)closeModal('ar-modal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('ar-modal')">×</button>
+    <div class="ar-hd">
+      <img src="LOGO_SRC" alt="Auralis">
+      <div class="ar-hd-t"><h2>Area Riservata</h2><p>Il tuo portale voli privato</p></div>
+    </div>
+    <div class="ar-body">
+      <div class="ar-tabs">
+        <button class="ar-tab act" onclick="switchArTab('login',this)">Accedi</button>
+        <button class="ar-tab" onclick="switchArTab('register',this)">Registrati</button>
+        <button class="ar-tab" onclick="switchArTab('history',this)">I Miei Voli</button>
+      </div>
+      <div id="ar-login">
+        <div class="ar-form">
+          <input type="email" class="ar-input" placeholder="Email">
+          <input type="password" class="ar-input" placeholder="Password">
+          <button class="ar-btn">Accedi all'Area Riservata</button>
+        </div>
+        <div class="ar-divider"><span></span><p>oppure registrati per la prima volta</p><span></span></div>
+        <button class="ar-btn" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)">Crea Account</button>
+        <p class="ar-forgot">Password dimenticata?</p>
+      </div>
+      <div id="ar-register" style="display:none">
+        <div class="ar-form">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input type="text" class="ar-input" placeholder="Nome">
+            <input type="text" class="ar-input" placeholder="Cognome">
+          </div>
+          <input type="email" class="ar-input" placeholder="Email">
+          <input type="tel" class="ar-input" placeholder="Telefono">
+          <input type="password" class="ar-input" placeholder="Password">
+          <button class="ar-btn">Crea Account</button>
+        </div>
+        <p style="font-size:10px;color:rgba(255,255,255,.18);text-align:center;margin-top:12px;font-family:'Inter',sans-serif;line-height:1.6">Registrandoti accetti i Termini di Servizio e la Privacy Policy.</p>
+      </div>
+      <div id="ar-history" style="display:none">
+        <p style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:16px;font-family:'Inter',sans-serif;line-height:1.7">Accedi per visualizzare lo storico completo dei tuoi voli, documenti e ricevute.</p>
+        <div class="ar-fh">
+          <div class="ar-fh-i"><div class="ar-fh-dot"></div><div><div class="ar-fh-route">MXP → LTN</div><div class="ar-fh-date">14 Marzo 2025 · Gulfstream G550</div></div><div class="ar-fh-status done">Completato</div></div>
+          <div class="ar-fh-i"><div class="ar-fh-dot"></div><div><div class="ar-fh-route">FCO → CDG</div><div class="ar-fh-date">02 Febbraio 2025 · Phenom 300E</div></div><div class="ar-fh-status done">Completato</div></div>
+          <div class="ar-fh-i"><div class="ar-fh-dot" style="background:#6BAED6"></div><div><div class="ar-fh-route">VCE → GVA</div><div class="ar-fh-date">18 Giugno 2025 · Citation XLS+</div></div><div class="ar-fh-status bkd">Prenotato</div></div>
+        </div>
+        <button class="ar-btn" style="margin-top:20px">Accedi per Sbloccare</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════ -->
+<div class="pg act" id="pg-home">
+
+  <!-- TUNNEL / HANGAR 3D SCENE -->
+  <div class="tunnel-wrap">
+    <canvas id="tunnel-c"></canvas>
+    <div class="hero-text">
+      <span class="hero-eyebrow" id="he1">Auralis SkyShare · Empty Leg Marketplace · 2025</span>
+      <h1 class="hero-h1" id="he2">Il Cielo<br><em>è tuo</em></h1>
+      <p class="hero-h2" id="he3">Opportunità Limitate · Lusso Accessibile</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:rgba(255,255,255,.38);font-style:italic;max-width:500px;line-height:1.7;margin-bottom:32px;opacity:0;transition:all 1.2s ease .45s" id="he4">"Ogni posto non occupato è un'opportunità.<br>Noi abbiamo costruito il ponte."</p>
+      <div class="hero-cta-row" id="he5">
+        <button class="cta-main" onclick="showPage('emptyleg')">Esplora i Voli</button>
+        <button class="cta-sec" onclick="showPage('prenota')">Prenota Ora</button>
+      </div>
+    </div>
+    <div class="scroll-ind" id="scroll-ind">
+      <div class="scroll-line"></div>
+      <span class="scroll-label">Scorri</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="scroll-chapter ch-stats" id="ch-stats">
+    <div class="stats-inner">
+      <span class="stats-eyebrow anim-up">Perché Auralis SkyShare</span>
+      <div class="stats-grid">
+        <div class="sg-i anim-up"><span class="sg-n">40%+</span><span class="sg-l">Voli privati vuoti in EU</span></div>
+        <div class="sg-i anim-up d1"><span class="sg-n">120+</span><span class="sg-l">Aeromobili nella rete</span></div>
+        <div class="sg-i anim-up d2"><span class="sg-n">€0</span><span class="sg-l">Costi fissi per partner</span></div>
+        <div class="sg-i anim-up d3"><span class="sg-n">−75%</span><span class="sg-l">Risparmio vs charter</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COME FUNZIONA -->
+  <div class="scroll-chapter ch-how" id="ch-how">
+    <div class="ch-how-inner">
+      <h2 class="ch-title anim-up">Come <em>Funziona</em></h2>
+      <div class="how-line">
+        <div class="hl-step anim-up"><div class="hl-n">01</div><h3 class="hl-title">L'operatore pubblica</h3><p class="hl-desc">Carica le rotte empty-leg in 10 minuti. Nessun costo fisso, nessun impegno, zero commissioni iniziali.</p><div class="hl-line"></div></div>
+        <div class="hl-step anim-up d1"><div class="hl-n">02</div><h3 class="hl-title">Il passeggero trova</h3><p class="hl-desc">Voli visibili e prenotabili istantaneamente a una frazione del costo charter. Stesso aereo, stesso lusso.</p><div class="hl-line"></div></div>
+        <div class="hl-step anim-up d2"><div class="hl-n">03</div><h3 class="hl-title">Revenue incrementale</h3><p class="hl-desc">L'operatore monetizza slot altrimenti vuoti. Canale aggiuntivo che non interferisce con il pricing core.</p><div class="hl-line"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+<!-- ══ EMPTY LEG ══ -->
+<div class="pg" id="pg-emptyleg">
+  <div class="el-hero-scene">
+    <canvas id="el-canvas"></canvas>
+    <div class="el-hero-text">
+      <h1>Empty <em>Leg</em><br>Marketplace</h1>
+      <p>Opportunità Limitate · In Tempo Reale</p>
+    </div>
+  </div>
+
+  <div class="el-map-section">
+    <div class="map-container anim-up">
+      <svg class="map-svg" viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#C9A535" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+          <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#6BAED6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+          <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#E8C96A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+          <filter id="gf"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <line x1="0" y1="93" x2="900" y2="93" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        <line x1="0" y1="186" x2="900" y2="186" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        <line x1="225" y1="0" x2="225" y2="280" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        <line x1="450" y1="0" x2="450" y2="280" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        <line x1="675" y1="0" x2="675" y2="280" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        <!-- Route MXP→LTN -->
+        <circle cx="210" cy="168" r="10" fill="#C9A535" filter="url(#gf)"/>
+        <circle cx="210" cy="168" r="20" fill="none" stroke="#C9A535" stroke-width="1" opacity=".25"/>
+        <text x="210" y="192" text-anchor="middle" font-size="13" font-weight="600" fill="#C9A535" font-family="Inter,system-ui">MXP</text>
+        <path d="M218 165 Q420 55 672 135" fill="none" stroke="#C9A535" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#a1)" opacity=".7"/>
+        <circle cx="672" cy="138" r="10" fill="#C9A535" filter="url(#gf)"/>
+        <circle cx="672" cy="138" r="20" fill="none" stroke="#C9A535" stroke-width="1" opacity=".25"/>
+        <text x="690" y="122" text-anchor="middle" font-size="13" font-weight="600" fill="#E8C96A" font-family="Inter,system-ui">LTN</text>
+        <g style="offset-path:path('M218 165 Q420 55 672 135');animation:planePath 4s linear infinite;offset-rotate:auto">
+          <ellipse cx="0" cy="0" rx="18" ry="6" fill="rgba(240,248,255,.9)"/>
+          <path d="M5 -1 L14 -7 L17 -5 L10 -1Z" fill="#C9A535"/>
+          <path d="M5 1 L14 7 L17 5 L10 1Z" fill="#A88520"/>
+        </g>
+        <!-- Route FCO→CDG -->
+        <circle cx="310" cy="200" r="10" fill="#6BAED6" filter="url(#gf)"/>
+        <circle cx="310" cy="200" r="20" fill="none" stroke="#6BAED6" stroke-width="1" opacity=".25"/>
+        <text x="310" y="224" text-anchor="middle" font-size="13" font-weight="600" fill="#6BAED6" font-family="Inter,system-ui">FCO</text>
+        <path d="M317 197 Q460 118 590 162" fill="none" stroke="#6BAED6" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#a2)" opacity=".65"/>
+        <circle cx="592" cy="164" r="10" fill="#6BAED6"/>
+        <circle cx="592" cy="164" r="20" fill="none" stroke="#6BAED6" stroke-width="1" opacity=".25"/>
+        <text x="592" y="188" text-anchor="middle" font-size="13" font-weight="600" fill="#6BAED6" font-family="Inter,system-ui">CDG</text>
+        <g style="offset-path:path('M317 197 Q460 118 590 162');animation:planePath 5s linear infinite 1.5s;offset-rotate:auto">
+          <ellipse cx="0" cy="0" rx="15" ry="5" fill="rgba(220,240,255,.9)"/>
+          <path d="M4 -1 L11 -6 L13 -4 L8 -1Z" fill="#6BAED6"/>
+          <path d="M4 1 L11 6 L13 4 L8 1Z" fill="#4A7BC4"/>
+        </g>
+        <!-- Route VCE→GVA -->
+        <circle cx="375" cy="178" r="10" fill="#E8C96A"/>
+        <circle cx="375" cy="178" r="20" fill="none" stroke="#E8C96A" stroke-width="1" opacity=".25"/>
+        <text x="375" y="202" text-anchor="middle" font-size="13" font-weight="600" fill="#E8C96A" font-family="Inter,system-ui">VCE</text>
+        <path d="M382 175 Q490 108 590 132" fill="none" stroke="#E8C96A" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#a3)" opacity=".6"/>
+        <circle cx="592" cy="134" r="10" fill="#E8C96A"/>
+        <circle cx="592" cy="134" r="20" fill="none" stroke="#E8C96A" stroke-width="1" opacity=".25"/>
+        <text x="620" y="140" text-anchor="middle" font-size="13" font-weight="600" fill="#E8C96A" font-family="Inter,system-ui">GVA</text>
+      </svg>
+      <div class="map-legend">Rotte empty-leg disponibili in tempo reale</div>
+    </div>
+  </div>
+
+  <div class="el-cards-wrap">
+    <h3 class="el-cards-head anim-up">Slot Disponibili Ora</h3>
+    <div class="el-cards-grid">
+      <div class="el-c anim-up">
+        <div class="el-route"><span class="el-iata">MXP</span><div class="el-arrow-row"><div class="el-dash"></div><span class="el-plane">✈</span><div class="el-dash"></div></div><span class="el-iata">LTN</span></div>
+        <div class="el-specs">
+          <div class="el-spec"><div class="v">Gulfstream G550</div><div class="k">Aeromobile</div></div>
+          <div class="el-spec"><div class="v">12 pax</div><div class="k">Posti</div></div>
+          <div class="el-spec"><div class="v">2h 15m</div><div class="k">Durata</div></div>
+          <div class="el-spec"><div class="v">18 Giu 2025</div><div class="k">Partenza</div></div>
+        </div>
+        <div class="el-foot">
+          <div><div class="el-price">€6.400</div><div class="el-save">Risparmio 68%</div></div>
+          <div class="el-foot-right"><div class="el-cd">Scade in <span id="cd1">04:32:18</span></div><button class="el-btn" onclick="showPage('prenota')">Prenota Ora</button></div>
+        </div>
+      </div>
+      <div class="el-c anim-up d1">
+        <div class="el-route"><span class="el-iata">FCO</span><div class="el-arrow-row"><div class="el-dash"></div><span class="el-plane">✈</span><div class="el-dash"></div></div><span class="el-iata">CDG</span></div>
+        <div class="el-specs">
+          <div class="el-spec"><div class="v">Phenom 300E</div><div class="k">Aeromobile</div></div>
+          <div class="el-spec"><div class="v">8 pax</div><div class="k">Posti</div></div>
+          <div class="el-spec"><div class="v">2h 05m</div><div class="k">Durata</div></div>
+          <div class="el-spec"><div class="v">20 Giu 2025</div><div class="k">Partenza</div></div>
+        </div>
+        <div class="el-foot">
+          <div><div class="el-price">€3.800</div><div class="el-save">Risparmio 74%</div></div>
+          <div class="el-foot-right"><div class="el-cd">Scade in <span id="cd2">11:08:44</span></div><button class="el-btn" onclick="showPage('prenota')">Prenota Ora</button></div>
+        </div>
+      </div>
+      <div class="el-c anim-up d2">
+        <div class="el-route"><span class="el-iata">VCE</span><div class="el-arrow-row"><div class="el-dash"></div><span class="el-plane">✈</span><div class="el-dash"></div></div><span class="el-iata">GVA</span></div>
+        <div class="el-specs">
+          <div class="el-spec"><div class="v">Citation XLS+</div><div class="k">Aeromobile</div></div>
+          <div class="el-spec"><div class="v">9 pax</div><div class="k">Posti</div></div>
+          <div class="el-spec"><div class="v">1h 20m</div><div class="k">Durata</div></div>
+          <div class="el-spec"><div class="v">22 Giu 2025</div><div class="k">Partenza</div></div>
+        </div>
+        <div class="el-foot">
+          <div><div class="el-price">€2.200</div><div class="el-save">Risparmio 71%</div></div>
+          <div class="el-foot-right"><div class="el-cd">Scade in <span id="cd3">07:55:22</span></div><button class="el-btn" onclick="showPage('prenota')">Prenota Ora</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRENOTA ══ -->
+<div class="pg" id="pg-prenota">
+  <div id="pg-prenota" style="display:contents">
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:100vh;margin-top:66px">
+    <div class="prenota-left">
+      <canvas id="prenota-cabin" style="position:absolute;inset:0;width:100%;height:100%;opacity:.12;pointer-events:none"></canvas>
+      <div style="position:relative;z-index:5">
+        <span class="pren-eyebrow">Il Tuo Volo Privato</span>
+        <h1 class="pren-title">Prenota<br>Ora</h1>
+        <p class="pren-sub">Compila la richiesta. Un flight director dedicato ti risponderà entro 2 ore per confermare disponibilità e finalizzare ogni dettaglio del tuo volo.</p>
+        <div class="f-sec">
+          <div class="f-sec-lbl" data-n="01">Rotta</div>
+          <div class="f-row">
+            <div class="fg"><label>Partenza</label><input type="text" placeholder="es. Milano Linate (LIN)"></div>
+            <div class="fg"><label>Destinazione</label><input type="text" placeholder="es. Londra Luton (LTN)"></div>
+          </div>
+        </div>
+        <div class="f-sec">
+          <div class="f-sec-lbl" data-n="02">Quando</div>
+          <div class="f-row">
+            <div class="fg"><label>Data</label><input type="date"></div>
+            <div class="fg"><label>Ora</label><input type="time"></div>
+          </div>
+        </div>
+        <div class="f-sec">
+          <div class="f-sec-lbl" data-n="03">Aeromobile</div>
+          <div class="f-row">
+            <div class="fg"><label>Categoria</label><select><option>Light Jet — fino 8 pax</option><option selected>Midsize Jet — fino 12 pax</option><option>Heavy Jet — fino 16 pax</option><option>Ultra Long Range</option></select></div>
+            <div class="fg"><label>Passeggeri</label><select><option>1-2</option><option>3-4</option><option selected>5-8</option><option>9-12</option></select></div>
+          </div>
+        </div>
+        <div class="f-sec">
+          <div class="f-sec-lbl" data-n="04">Servizi</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <label style="display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid rgba(255,255,255,.07);cursor:pointer;font-size:11px;color:rgba(255,255,255,.35);font-family:'Inter',sans-serif"><input type="checkbox" style="accent-color:var(--gold)"> Catering Premium</label>
+            <label style="display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid rgba(255,255,255,.07);cursor:pointer;font-size:11px;color:rgba(255,255,255,.35);font-family:'Inter',sans-serif"><input type="checkbox" style="accent-color:var(--gold)"> Chef Michelin</label>
+            <label style="display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid rgba(255,255,255,.07);cursor:pointer;font-size:11px;color:rgba(255,255,255,.35);font-family:'Inter',sans-serif"><input type="checkbox" style="accent-color:var(--gold)"> Terminal Privato</label>
+            <label style="display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid rgba(255,255,255,.07);cursor:pointer;font-size:11px;color:rgba(255,255,255,.35);font-family:'Inter',sans-serif"><input type="checkbox" style="accent-color:var(--gold)"> Concierge Transfer</label>
+          </div>
+        </div>
+        <div class="f-sec">
+          <div class="f-sec-lbl" data-n="05">I Tuoi Dati</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="f-row"><div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div><div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div></div>
+            <div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com"></div>
+            <div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..."></div>
+            <div class="fg"><label>Note & Concierge</label><textarea rows="3" placeholder="Hotel, ristoranti, richieste speciali..." style="resize:vertical"></textarea></div>
+          </div>
+        </div>
+        <button class="sub-btn">Invia Richiesta di Volo →</button>
+        <p class="sub-note">Nessun pagamento richiesto · Risposta garantita entro 2 ore</p>
+      </div>
+    </div>
+    <div class="prenota-right">
+      <span class="pr-info-eye">Perché Auralis SkyShare</span>
+      <h3 class="pr-info-title">La Tua Esperienza<br>in Buone Mani</h3>
+      <ul class="pr-list">
+        <li>Risposta garantita entro 2 ore lavorative</li>
+        <li>Flight director dedicato per ogni richiesta</li>
+        <li>Flotta certificata EASA — massima sicurezza</li>
+        <li>Terminal privato, nessuna coda commerciale</li>
+        <li>Catering personalizzato su ogni volo</li>
+        <li>Transfer VIP incluso nelle quote premium</li>
+        <li>Discrezione e riservatezza assolute</li>
+        <li>Zero commissioni nascoste</li>
+      </ul>
+      <div class="pr-contact">
+        <span class="pr-contact-lbl">Contatto Diretto</span>
+        <a href="mailto:auralis.skyshare@gmail.com">✉ auralis.skyshare@gmail.com</a>
+        <a href="tel:+393518185363">✆ +39 351 818 5363</a>
+        <a>Disponibili 24/7</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ══ CHI SIAMO ══ -->
+<div class="pg" id="pg-about">
+  <div class="about-cinematic">
+    <canvas id="about-canvas"></canvas>
+    <div class="about-hero-text">
+      <span class="abt-eye">La Nostra Storia · 2025</span>
+      <h1 class="abt-h1">Chi<br><em>Siamo</em></h1>
+      <p class="abt-p">Una startup italiana nata per trasformare i voli empty-leg in opportunità esclusive per operatori e passeggeri.</p>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="abt-grid anim-up">
+      <div class="abt-text-block">
+        <p><strong>Auralis SkyShare è una startup italiana fondata nel 2025</strong> con una missione chiara: trasformare i voli empty-leg da opportunità sprecate in esperienze luxury accessibili.</p>
+        <p>Ogni giorno, oltre il 40% dei jet privati europei decolla senza passeggeri per riposizionarsi. Questi voli generano zero ricavi per l'operatore e perdono un'opportunità unica per i viaggiatori.</p>
+        <p><strong>Noi abbiamo costruito il ponte</strong> tra operatori del settore e una clientela altolocata, creando un marketplace digitale che trasforma ogni slot vuoto in valore reale per entrambe le parti.</p>
+        <p>Il modello è interamente performance-based: zero costi fissi per gli operatori, massima trasparenza per i clienti, e un ecosistema che premia l'efficienza.</p>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(201,165,53,.06) 0%,rgba(201,165,53,.02) 100%);border:1px solid rgba(201,165,53,.1);padding:48px 40px">
+        <span style="font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:28px;display:block;font-family:'Inter',sans-serif">Il Modello</span>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="width:24px;height:24px;border:1px solid rgba(201,165,53,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;margin-top:2px;font-family:'Inter',sans-serif">01</div><div><div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.75);margin-bottom:5px;font-family:'Inter',sans-serif">Registro Operatore</div><div style="font-size:11px;color:rgba(255,255,255,.28);line-height:1.7;font-family:'Inter',sans-serif">Profilo e flotta in 10 minuti, nessun costo.</div></div></div>
+          <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="width:24px;height:24px;border:1px solid rgba(201,165,53,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;margin-top:2px;font-family:'Inter',sans-serif">02</div><div><div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.75);margin-bottom:5px;font-family:'Inter',sans-serif">Listing Gratuito</div><div style="font-size:11px;color:rgba(255,255,255,.28);line-height:1.7;font-family:'Inter',sans-serif">Pubblica rotte empty-leg senza commissioni.</div></div></div>
+          <div style="display:flex;gap:16px;padding:18px 0"><div style="width:24px;height:24px;border:1px solid rgba(201,165,53,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;margin-top:2px;font-family:'Inter',sans-serif">03</div><div><div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.75);margin-bottom:5px;font-family:'Inter',sans-serif">Revenue Incrementale</div><div style="font-size:11px;color:rgba(255,255,255,.28);line-height:1.7;font-family:'Inter',sans-serif">Monetizza ogni slot vuoto in tempo reale.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="abt-nums">
+      <div class="abn-i anim-up"><span class="abn-n">2025</span><span class="abn-l">Anno di fondazione</span></div>
+      <div class="abn-i anim-up d1"><span class="abn-n">120+</span><span class="abn-l">Aerei nella rete</span></div>
+      <div class="abn-i anim-up d2"><span class="abn-n">€0</span><span class="abn-l">Costi fissi partner</span></div>
+    </div>
+    <div class="abt-values">
+      <div class="av anim-up"><div class="av-n">01 — Missione</div><h3 class="av-t">Democratizzare il Lusso</h3><p class="av-d">Rendere l'aviazione privata accessibile trasformando i voli vuoti in opportunità straordinarie a prezzi intelligenti.</p><div class="av-line"></div></div>
+      <div class="av anim-up d1"><div class="av-n">02 — Modello</div><h3 class="av-t">Performance-Based</h3><p class="av-d">Zero costi fissi per gli operatori. Solo successo condiviso. Un modello che premia l'efficienza e allinea gli interessi di tutti gli stakeholder.</p><div class="av-line"></div></div>
+      <div class="av anim-up d2"><div class="av-n">03 — Tecnologia</div><h3 class="av-t">Piattaforma Digitale</h3><p class="av-d">Un marketplace intuitivo che rende il caricamento e la prenotazione di voli immediati. Listing in 10 minuti, prenotazione in 3 click.</p><div class="av-line"></div></div>
+      <div class="av anim-up d3"><div class="av-n">04 — Sostenibilità</div><h3 class="av-t">Volare con Responsabilità</h3><p class="av-d">Ogni volo empty-leg prenotato è un volo che non produce emissioni aggiuntive. Massimizziamo l'utilizzo degli aeromobili già in volo.</p><div class="av-line"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTATTI ══ -->
+<div class="pg" id="pg-contatti">
+  <div class="cont-scene">
+    <canvas id="cont-canvas"></canvas>
+    <div class="cont-fly-jet">
+      <svg id="fly-jet-svg" width="260" height="80" viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+        <filter id="jglow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <g filter="url(#jglow)">
+          <ellipse cx="130" cy="40" rx="108" ry="11" fill="rgba(240,248,255,.85)"/>
+          <path d="M142 38 L175 8 L187 11 L165 38Z" fill="#C9A535"/>
+          <path d="M142 42 L175 72 L187 69 L165 42Z" fill="#A88520"/>
+          <path d="M24 38 L10 25 L24 26 L38 38Z" fill="#C9A535"/>
+          <path d="M24 42 L10 55 L24 54 L38 42Z" fill="#A88520"/>
+          <circle cx="200" cy="38" r="5" fill="rgba(138,188,216,.8)"/>
+          <circle cx="188" cy="38" r="5" fill="rgba(138,188,216,.8)"/>
+          <circle cx="176" cy="38" r="5" fill="rgba(138,188,216,.8)"/>
+          <path d="M38 39.5 L220 39.5 L220 40.5 L38 40.5Z" fill="#C9A535" opacity=".45"/>
+        </g>
+      </svg>
+    </div>
+    <div class="cont-hero-text">
+      <span class="abt-eye">Siamo Qui per Te · 24/7</span>
+      <h1 class="abt-h1">Con<em>tatti</em></h1>
+    </div>
+  </div>
+  <div class="cont-body">
+    <div class="cont-left">
+      <h2 class="cont-title">Pronti a<br>Decollare <em>con Te</em></h2>
+      <div class="ci-item"><div class="ci-ico">✉</div><div><span class="ci-lbl">Email</span><div class="ci-val">auralis.skyshare@gmail.com</div><div class="ci-sub">Risposta garantita entro 2 ore lavorative</div></div></div>
+      <div class="ci-item"><div class="ci-ico">✆</div><div><span class="ci-lbl">Telefono</span><div class="ci-val">+39 351 818 5363</div><div class="ci-sub">Operativo 24/7 per urgenze e prenotazioni</div></div></div>
+      <div class="ci-item"><div class="ci-ico">📍</div><div><span class="ci-lbl">Sede Operativa</span><div class="ci-val">Italia · Europa</div><div class="ci-sub">Copertura completa voli internazionali</div></div></div>
+      <div class="ci-item" style="border-bottom:none"><div class="ci-ico">🕐</div><div><span class="ci-lbl">Disponibilità</span><div class="ci-val">24 ore su 24, 7 giorni su 7</div><div class="ci-sub">Nessuna richiesta rimane senza risposta</div></div></div>
+    </div>
+    <div class="cont-right">
+      <h3 class="cont-form-title">Scrivici Ora</h3>
+      <div class="cont-form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><input type="text" class="c-input" placeholder="Nome"><input type="text" class="c-input" placeholder="Cognome"></div>
+        <input type="email" class="c-input" placeholder="Email">
+        <input type="tel" class="c-input" placeholder="Telefono">
+        <select class="c-input" style="color:rgba(255,255,255,.5)"><option>Prenotazione volo</option><option>Informazioni empty-leg</option><option>Diventare partner operatore</option><option>Altro</option></select>
+        <textarea class="c-input" rows="4" placeholder="Il tuo messaggio..."></textarea>
+        <button class="c-btn">Invia Messaggio →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PARTNER (riservato) ══ -->
+<div class="pg" id="pg-partner">
+  <div class="op-hero">
+    <canvas id="part-canvas"></canvas>
+    <div style="position:relative;z-index:10">
+      <div class="op-reserved-badge">🔒 Area Riservata Operatori</div>
+      <h1 class="op-title">Partner<br><em>Program</em></h1>
+      <p class="op-sub">Monetizza i tuoi voli empty-leg attraverso Auralis SkyShare. Revenue incrementale, zero costi fissi.</p>
+    </div>
+  </div>
+  <div class="op-body">
+    <div class="op-grid">
+      <div class="op-card anim-up"><div class="op-card-n">01 — Profittabilità</div><h3 class="op-card-t">Revenue Incrementale</h3><p class="op-card-d">Ogni volo empty-leg genera ricavo netto aggiuntivo da slot che altrimenti volerebbero vuoti. Zero rischio finanziario per l'operatore.</p><div class="op-tags"><span class="op-tag">Zero commissioni iniziali</span><span class="op-tag">Performance-based</span></div><div class="op-card-line"></div></div>
+      <div class="op-card anim-up d1"><div class="op-card-n">02 — Visibilità</div><h3 class="op-card-t">Nuova Domanda</h3><p class="op-card-d">Auralis SkyShare porta il tuo brand a segmenti di clientela precedentemente inaccessibili, senza interferire con il pricing core.</p><div class="op-tags"><span class="op-tag">Brand protetto</span><span class="op-tag">Pricing separato</span></div><div class="op-card-line"></div></div>
+      <div class="op-card anim-up d1"><div class="op-card-n">03 — Semplicità</div><h3 class="op-card-t">Gestione in 3 Click</h3><p class="op-card-d">Un'interfaccia intuitiva che rende il caricamento e la gestione dei voli facile e immediato. Listing in 10 minuti.</p><div class="op-tags"><span class="op-tag">Dashboard semplice</span><span class="op-tag">Listing immediato</span></div><div class="op-card-line"></div></div>
+      <div class="op-card anim-up d2"><div class="op-card-n">04 — Unicità</div><h3 class="op-card-t">Canale Esclusivo</h3><p class="op-card-d">Auralis SkyShare è un ecosistema selettivo dove ogni operatore viene verificato e posizionato in contesto luxury premium.</p><div class="op-tags"><span class="op-tag">Rete esclusiva</span><span class="op-tag">Clienti qualificati</span></div><div class="op-card-line"></div></div>
+    </div>
+    <div class="op-cta-band anim-up">
+      <div><h3 class="op-cta-t">Vuoi entrare prima del lancio?</h3><p class="op-cta-s">Accedi al Pilot Program: listing gratuito, zero commissioni iniziali, massima visibilità sul mercato pre-lancio.</p><div class="op-pill-row"><span class="op-pill">✓ Nessuna Fee</span><span class="op-pill">✓ Zero Commissioni</span><span class="op-pill">✓ Listing Gratuito</span><span class="op-pill">✓ Nessun Vincolo</span></div></div>
+      <button class="op-btn" onclick="showPage('pilot')">Accedi al Pilot Program →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PILOT (riservato) ══ -->
+<div class="pg" id="pg-pilot">
+  <div class="op-hero">
+    <canvas id="pilot-canvas"></canvas>
+    <div style="position:relative;z-index:10">
+      <div class="op-reserved-badge">🚀 Accesso Esclusivo Pre-Lancio</div>
+      <h1 class="op-title">Pilot<br><em>Program</em></h1>
+      <p class="op-sub">Zero commissioni iniziali, zero rischi, massima visibilità. Entra prima del mercato.</p>
+    </div>
+  </div>
+  <div class="op-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);margin-bottom:2px">
+      <div class="op-card anim-up" style="padding:52px 44px">
+        <div class="op-card-n">L'Offerta Esclusiva</div>
+        <h3 class="op-card-t" style="font-size:26px;margin-bottom:16px">Entra Prima<br>del Mercato</h3>
+        <p class="op-card-d" style="margin-bottom:24px">Stiamo invitando un gruppo ristretto di operatori selezionati ad accedere ad Auralis SkyShare prima del lancio ufficiale. Zero commissioni iniziali, zero rischi, massima visibilità.</p>
+        <div class="op-pill-row" style="margin-bottom:28px"><span class="op-pill">✓ Nessuna Fee</span><span class="op-pill">✓ Nessun Impegno</span><span class="op-pill">✓ Listing Gratuito</span><span class="op-pill">✓ Zero Commissioni</span></div>
+        <button class="op-btn" onclick="showPage('contatti')" style="font-size:10px">Richiedi Accesso Anticipato →</button>
+        <div class="op-card-line"></div>
+      </div>
+      <div class="op-card anim-up d1" style="padding:52px 44px">
+        <div class="op-card-n">Come Funziona</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="width:24px;height:24px;border:1px solid rgba(201,165,53,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;margin-top:2px;font-family:'Inter',sans-serif">01</div><div><div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:4px;font-family:'Inter',sans-serif">Registrazione Operatore</div><div style="font-size:11px;color:rgba(255,255,255,.25);line-height:1.7;font-family:'Inter',sans-serif">Profilo e flotta disponibile in 10 minuti, nessun costo.</div></div></div>
+          <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="width:24px;height:24px;border:1px solid rgba(201,165,53,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;margin-top:2px;font-family:'Inter',sans-serif">02</div><div><div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:4px;font-family:'Inter',sans-serif">Listing Gratuito dei Voli</div><div style="font-size:11px;color:rgba(255,255,255,.25);line-height:1.7;font-family:'Inter',sans-serif">Pubblica le rotte empty-leg senza costi né commissioni.</div></div></div>
+          <div style="display:flex;gap:16px;padding:18px 0"><div style="width:24px;height:24px;border:1px solid rgba(201,165,53,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;margin-top:2px;font-family:'Inter',sans-serif">03</div><div><div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:4px;font-family:'Inter',sans-serif">Revenue Incrementale</div><div style="font-size:11px;color:rgba(255,255,255,.25);line-height:1.7;font-family:'Inter',sans-serif">Ricevi prenotazioni e monetizza ogni slot altrimenti vuoto.</div></div></div>
+        </div>
+        <div class="op-card-line"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="main-footer">
+  <div class="ft">
+    <div><div class="ft-logo"><img src="LOGO_SRC" alt="Auralis SkyShare"></div><p class="ft-desc">Startup italiana nata per rivoluzionare l'aviazione privata. Trasformiamo i voli empty-leg in opportunità esclusive.</p><span class="ft-tag">The Smart Way to Fly Private</span></div>
+    <div class="ft-col"><h4>Navigazione</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('about')">Chi Siamo</a><a onclick="showPage('emptyleg')">Empty Leg</a><a onclick="showPage('prenota')">Prenota Ora</a><a onclick="showPage('contatti')">Contatti</a></div>
+    <div class="ft-col"><h4>Operatori</h4><a onclick="openModal('op-modal')">Sono un Operatore</a><a onclick="showPage('partner')">Partner Program</a><a onclick="showPage('pilot')">Pilot Program</a></div>
+    <div class="ft-col"><h4>Contatti</h4><a href="mailto:auralis.skyshare@gmail.com">auralis.skyshare@gmail.com</a><a href="tel:+393518185363">+39 351 818 5363</a><a>Italia · Europa</a><a>Disponibili 24/7</a></div>
+  </div>
+  <div class="ft-bot"><span>© 2025 Auralis SkyShare. Tutti i diritti riservati.</span><div style="display:flex;gap:20px"><a style="cursor:pointer">Privacy Policy</a><a style="cursor:pointer">Termini di Servizio</a></div></div>
+</footer>
+
+<script>
+// ── CURSOR ────────────────────────────────────────────────────────────────────
+const cDot=document.getElementById('cur-d'),cRing=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cDot.style.left=mx+'px';cDot.style.top=my+'px';});
+(function animC(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cRing.style.left=rx+'px';cRing.style.top=ry+'px';requestAnimationFrame(animC);})();
+document.querySelectorAll('a,button,canvas').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cRing.style.transform='translate(-50%,-50%) scale(2)';cRing.style.borderColor='rgba(201,165,53,.8)';cDot.style.transform='translate(-50%,-50%) scale(0)';});
+  el.addEventListener('mouseleave',()=>{cRing.style.transform='translate(-50%,-50%) scale(1)';cRing.style.borderColor='rgba(232,201,122,.5)';cDot.style.transform='translate(-50%,-50%) scale(1)';});
+});
+
+// ── LOADER ────────────────────────────────────────────────────────────────────
+const loader=document.getElementById('loader'),loaderLogo=document.getElementById('loader-logo'),loaderPct=document.getElementById('loader-pct');
+loaderLogo.style.opacity='1';loaderLogo.style.transform='translateY(0)';
+let pct=0;
+const li=setInterval(()=>{pct+=Math.random()*20;if(pct>=100){pct=100;clearInterval(li);setTimeout(()=>{loader.style.opacity='0';loader.style.transition='opacity .8s ease';setTimeout(()=>{loader.style.display='none';initHeroAnims();},800);},400);}loaderPct.textContent=Math.floor(pct)+'%';},100);
+
+// ── PAGE ROUTER ───────────────────────────────────────────────────────────────
+const ALL=['home','about','emptyleg','prenota','contatti','partner','pilot'];
+const NL_MAP={home:'nl-home',about:'nl-about',emptyleg:'nl-emptyleg',prenota:'nl-prenota',contatti:'nl-contatti'};
+let currentPage='home';
+function showPage(id){
+  ALL.forEach(p=>{const el=document.getElementById('pg-'+p);if(el)el.classList.toggle('act',p===id);});
+  Object.entries(NL_MAP).forEach(([p,nid])=>{const el=document.getElementById(nid);if(el)el.classList.toggle('act',p===id);});
+  const footer=document.getElementById('main-footer');
+  if(footer)footer.style.display=(id==='prenota')?'none':'block';
+  currentPage=id;
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{
+    document.querySelectorAll('#pg-'+id+' .anim-up, #pg-'+id+' .anim-fade').forEach(el=>{el.classList.remove('vis');void el.offsetWidth;setTimeout(()=>el.classList.add('vis'),80);});
+    if(id==='contatti')flyContJet();
+    if(id==='home'){drawTunnel();initHeroAnims();}
+    if(id==='emptyleg')drawElScene();
+    if(id==='about')drawAboutScene();
+    if(id==='partner'||id==='pilot')drawOpScene(id);
+  },60);
+}
+
+// ── MODALS ────────────────────────────────────────────────────────────────────
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function switchArTab(tab,btn){
+  ['login','register','history'].forEach(t=>{const el=document.getElementById('ar-'+t);if(el)el.style.display=t===tab?'block':'none';});
+  document.querySelectorAll('.ar-tab').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+}
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('keydown',e=>{if(e.key==='Escape')m.classList.remove('open');}));
+
+// ── HERO ANIMATIONS ───────────────────────────────────────────────────────────
+function initHeroAnims(){
+  ['he1','he2','he3','he4','he5','scroll-ind'].forEach((id,i)=>{
+    const el=document.getElementById(id);if(!el)return;
+    setTimeout(()=>{el.classList.add('show');el.style.opacity='1';el.style.transform='none';},400+i*180);
+  });
+}
+
+// ── CANVAS: TUNNEL (Home hero — Cartier-style hangar corridor) ────────────────
+function drawTunnel(){
+  const c=document.getElementById('tunnel-c');if(!c)return;
+  const ctx=c.getContext('2d');
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  let t=0,scrollPct=0;
+
+  // Camera Z driven by scroll
+  window.addEventListener('scroll',()=>{
+    if(currentPage!=='home')return;
+    scrollPct=window.scrollY/(document.getElementById('pg-home').scrollHeight-window.innerHeight||1);
+  },{passive:true});
+
+  function drawFrame(){
+    if(currentPage!=='home'){return;}
+    requestAnimationFrame(drawFrame);
+    t+=.008;
+    const w=c.width,h=c.height,cx=w/2,cy=h/2;
+
+    // Deep dark background
+    ctx.fillStyle='#060C14';ctx.fillRect(0,0,w,h);
+
+    // Subtle vignette gradient
+    const vig=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.7);
+    vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,'rgba(0,0,0,.75)');
+    ctx.fillStyle=vig;ctx.fillRect(0,0,w,h);
+
+    // Camera zoom from scroll (Cartier-style forward motion)
+    const camZ=scrollPct*3;
+    const fov=1.2+camZ*.3;
+
+    // Draw corridor segments (vanishing point perspective)
+    const vx=cx,vy=cy*.95;
+    const numSegs=14;
+    const baseW=w*.9,baseH=h*.9;
+
+    for(let i=numSegs;i>=0;i--){
+      const prog=(i-camZ*2)/(numSegs);
+      if(prog<0||prog>1)continue;
+      const ease=Math.pow(prog,1.4);
+      const sw=baseW*ease,sh=baseH*ease;
+      const sx=vx-sw/2,sy=vy-sh/2;
+
+      // Warm gold tint deepens toward viewer
+      const glowAmt=1-ease;
+      const warmR=Math.floor(20+glowAmt*40);
+      const warmG=Math.floor(12+glowAmt*24);
+      const warmB=Math.floor(6+glowAmt*8);
+      const alpha=(.05+ease*.25)*(1-Math.abs(Math.sin(t*.5+i*.3))*.1);
+
+      // Floor plane
+      const floorY=vy+sh*.5;
+      const floorFarY=vy+sh*.5*ease*.3;
+      const floorFarX1=vx-sw*.5*ease*.3,floorFarX2=vx+sw*.5*ease*.3;
+      const floorX1=sx,floorX2=sx+sw;
+      if(i>0){
+        ctx.beginPath();
+        ctx.moveTo(floorX1,floorY);ctx.lineTo(floorX2,floorY);
+        ctx.lineTo(floorFarX2,floorFarY);ctx.lineTo(floorFarX1,floorFarY);
+        ctx.closePath();
+        const fg=ctx.createLinearGradient(0,floorFarY,0,floorY);
+        fg.addColorStop(0,`rgba(${warmR},${warmG},${warmB},${alpha*.4})`);
+        fg.addColorStop(1,`rgba(${warmR+10},${warmG+8},${warmB+4},${alpha*.15})`);
+        ctx.fillStyle=fg;ctx.fill();
+      }
+
+      // Ceiling plane
+      const ceilY=vy-sh*.5;
+      const ceilFarY=vy-sh*.5*ease*.3;
+      if(i>0){
+        ctx.beginPath();
+        ctx.moveTo(floorX1,ceilY);ctx.lineTo(floorX2,ceilY);
+        ctx.lineTo(floorFarX2,ceilFarY);ctx.lineTo(floorFarX1,ceilFarY);
+        ctx.closePath();
+        const cg=ctx.createLinearGradient(0,ceilFarY,0,ceilY);
+        cg.addColorStop(0,`rgba(${warmR},${warmG},${warmB},${alpha*.3})`);
+        cg.addColorStop(1,`rgba(${warmR},${warmG},${warmB},${alpha*.08})`);
+        ctx.fillStyle=cg;ctx.fill();
+      }
+
+      // Left wall
+      const lx=sx;
+      if(i>0){
+        ctx.beginPath();
+        ctx.moveTo(lx,ceilY);ctx.lineTo(lx,floorY);
+        ctx.lineTo(floorFarX1,floorFarY);ctx.lineTo(floorFarX1,ceilFarY);
+        ctx.closePath();
+        const lg=ctx.createLinearGradient(floorFarX1,0,lx,0);
+        lg.addColorStop(0,`rgba(${warmR},${warmG},${warmB},${alpha*.5})`);
+        lg.addColorStop(1,`rgba(${warmR+5},${warmG+4},${warmB},${alpha*.1})`);
+        ctx.fillStyle=lg;ctx.fill();
+      }
+
+      // Right wall
+      const rx2=sx+sw;
+      if(i>0){
+        ctx.beginPath();
+        ctx.moveTo(rx2,ceilY);ctx.lineTo(rx2,floorY);
+        ctx.lineTo(floorFarX2,floorFarY);ctx.lineTo(floorFarX2,ceilFarY);
+        ctx.closePath();
+        const rg=ctx.createLinearGradient(rx2,0,floorFarX2,0);
+        rg.addColorStop(0,`rgba(${warmR},${warmG},${warmB},${alpha*.1})`);
+        rg.addColorStop(1,`rgba(${warmR},${warmG},${warmB},${alpha*.5})`);
+        ctx.fillStyle=rg;ctx.fill();
+      }
+
+      // Corridor frame / edge lines
+      ctx.strokeStyle=`rgba(201,165,53,${alpha*.6})`;ctx.lineWidth=.5;
+      ctx.strokeRect(sx,sy,sw,sh);
+
+      // Gold ceiling light strip (Cartier-style warm ambient)
+      if(i<numSegs-1&&ease>.15){
+        const lightW=sw*.08,lightH=sh*.005;
+        const lx2=vx-lightW/2,ly2=sy+sh*.02;
+        const lg2=ctx.createLinearGradient(lx2,0,lx2+lightW,0);
+        lg2.addColorStop(0,'rgba(201,165,53,0)');
+        lg2.addColorStop(.5,`rgba(232,201,122,${alpha*1.2})`);
+        lg2.addColorStop(1,'rgba(201,165,53,0)');
+        ctx.fillStyle=lg2;
+        ctx.fillRect(lx2,ly2,lightW,lightH);
+      }
+    }
+
+    // Central vanishing point glow (the "end of corridor" light)
+    const vpGlow=ctx.createRadialGradient(vx,vy,0,vx,vy,w*.25);
+    vpGlow.addColorStop(0,`rgba(201,165,53,${.08+Math.sin(t*.7)*.02})`);
+    vpGlow.addColorStop(.5,'rgba(180,140,80,.03)');
+    vpGlow.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=vpGlow;ctx.fillRect(0,0,w,h);
+
+    // Floor reflection line
+    const reflGrad=ctx.createLinearGradient(cx-w*.3,cy+h*.45,cx+w*.3,cy+h*.45);
+    reflGrad.addColorStop(0,'rgba(201,165,53,0)');
+    reflGrad.addColorStop(.5,`rgba(201,165,53,${.15+Math.sin(t)*.03})`);
+    reflGrad.addColorStop(1,'rgba(201,165,53,0)');
+    ctx.strokeStyle=reflGrad;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(cx-w*.3,cy+h*.45);ctx.lineTo(cx+w*.3,cy+h*.45);ctx.stroke();
+
+    // Moving particles (dust in corridor)
+    for(let p=0;p<20;p++){
+      const px=cx+Math.sin(t*.5+p*1.7)*w*.1;
+      const py=cy+Math.cos(t*.4+p*2.1)*h*.15;
+      const ps=.5+Math.sin(t+p)*.3;
+      ctx.beginPath();ctx.arc(px,py,ps,0,Math.PI*2);
+      ctx.fillStyle=`rgba(232,201,122,${.1+Math.sin(t*1.2+p)*.06})`;ctx.fill();
+    }
+
+    // Top vignette
+    const topV=ctx.createLinearGradient(0,0,0,h*.15);
+    topV.addColorStop(0,'rgba(6,12,20,.8)');topV.addColorStop(1,'rgba(6,12,20,0)');
+    ctx.fillStyle=topV;ctx.fillRect(0,0,w,h*.15);
+
+    // Bottom vignette
+    const botV=ctx.createLinearGradient(0,h*.75,0,h);
+    botV.addColorStop(0,'rgba(6,12,20,0)');botV.addColorStop(1,'rgba(6,12,20,.9)');
+    ctx.fillStyle=botV;ctx.fillRect(0,h*.75,w,h*.25);
+  }
+  drawFrame();
+}
+
+// ── CANVAS: EMPTY LEG hero ───────────────────────────────────────────────────
+function drawElScene(){
+  const c=document.getElementById('el-canvas');if(!c)return;
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');let t=0;
+  function draw(){
+    if(currentPage!=='emptyleg')return;
+    requestAnimationFrame(draw);t+=.006;
+    const w=c.width,h=c.height,cx=w/2,cy=h/2;
+    ctx.fillStyle='#040A14';ctx.fillRect(0,0,w,h);
+    // Star field
+    for(let i=0;i<200;i++){
+      const sx=((Math.sin(i*2.7+t*.02)*500+cx+i*6.3)%w+w)%w;
+      const sy=((Math.cos(i*1.9+t*.015)*400+cy+i*4.1)%h+h)%h;
+      const sa=.2+Math.sin(t*2+i)*.15;
+      ctx.beginPath();ctx.arc(sx,sy,.8+Math.sin(i)*.4,0,Math.PI*2);
+      ctx.fillStyle=`rgba(232,201,122,${sa})`;ctx.fill();
+    }
+    // Horizon glow
+    const hg=ctx.createLinearGradient(0,h*.55,0,h);
+    hg.addColorStop(0,'rgba(201,165,53,.04)');hg.addColorStop(1,'rgba(10,22,40,.95)');
+    ctx.fillStyle=hg;ctx.fillRect(0,h*.55,w,h*.45);
+    // Animated jet silhouette flying across
+    const jx=((t*180)%(w+300))-150;
+    const jy=h*.32+Math.sin(t*.5)*30;
+    ctx.save();ctx.translate(jx,jy);ctx.scale(1.4,1.4);
+    ctx.fillStyle='rgba(232,201,122,.7)';
+    ctx.beginPath();ctx.ellipse(0,0,60,7,0,0,Math.PI*2);ctx.fill();
+    // Wings
+    ctx.beginPath();ctx.moveTo(10,0);ctx.lineTo(32,-16);ctx.lineTo(38,-14);ctx.lineTo(20,0);ctx.closePath();ctx.fillStyle='rgba(201,165,53,.65)';ctx.fill();
+    ctx.beginPath();ctx.moveTo(10,0);ctx.lineTo(32,16);ctx.lineTo(38,14);ctx.lineTo(20,0);ctx.closePath();ctx.fillStyle='rgba(160,128,32,.65)';ctx.fill();
+    // Contrail
+    const cg=ctx.createLinearGradient(-80,0,0,0);
+    cg.addColorStop(0,'rgba(255,255,255,0)');cg.addColorStop(1,'rgba(255,255,255,.3)');
+    ctx.strokeStyle=cg;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(-80,0);ctx.lineTo(-2,0);ctx.stroke();
+    ctx.restore();
+    // Vignette
+    const vig=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.7);
+    vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,'rgba(4,10,20,.85)');
+    ctx.fillStyle=vig;ctx.fillRect(0,0,w,h);
+    const top=ctx.createLinearGradient(0,0,0,h*.2);
+    top.addColorStop(0,'rgba(4,10,20,.7)');top.addColorStop(1,'rgba(4,10,20,0)');
+    ctx.fillStyle=top;ctx.fillRect(0,0,w,h*.2);
+    const bot=ctx.createLinearGradient(0,h*.7,0,h);
+    bot.addColorStop(0,'rgba(4,10,20,0)');bot.addColorStop(1,'rgba(4,10,20,.95)');
+    ctx.fillStyle=bot;ctx.fillRect(0,h*.7,w,h*.3);
+  }
+  draw();
+}
+
+// ── CANVAS: About (Hangar corridor) ──────────────────────────────────────────
+function drawAboutScene(){
+  const c=document.getElementById('about-canvas');if(!c)return;
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');let t=0;
+  function draw(){
+    if(currentPage!=='about')return;
+    requestAnimationFrame(draw);t+=.005;
+    const w=c.width,h=c.height,cx=w/2,cy=h/2;
+    ctx.fillStyle='#040A14';ctx.fillRect(0,0,w,h);
+    // Simple hangar corridor — lighter than home, with warm amber
+    const vx=cx,vy=cy;
+    for(let i=8;i>=0;i--){
+      const ease=Math.pow(i/8,1.3);
+      const sw=w*.85*ease,sh=h*.85*ease;
+      const sx=vx-sw/2,sy=vy-sh/2;
+      const alpha=(.08+ease*.18)*(1-Math.sin(t*.3+i*.5)*.05);
+      ctx.strokeStyle=`rgba(201,165,53,${alpha})`;ctx.lineWidth=.6;
+      ctx.strokeRect(sx,sy,sw,sh);
+      // Warm glow on ceiling
+      if(ease>.2){
+        const cLght=ctx.createLinearGradient(sx+sw*.35,sy,sx+sw*.65,sy);
+        cLght.addColorStop(0,'rgba(201,165,53,0)');
+        cLght.addColorStop(.5,`rgba(232,201,122,${alpha*1.5})`);
+        cLght.addColorStop(1,'rgba(201,165,53,0)');
+        ctx.fillStyle=cLght;ctx.fillRect(sx+sw*.35,sy,sw*.3,2);
+      }
+    }
+    // Floor reflection
+    const fl=ctx.createLinearGradient(cx-w*.4,cy+h*.4,cx+w*.4,cy+h*.4);
+    fl.addColorStop(0,'rgba(201,165,53,0)');fl.addColorStop(.5,`rgba(201,165,53,${.12+Math.sin(t)*.03})`);fl.addColorStop(1,'rgba(201,165,53,0)');
+    ctx.strokeStyle=fl;ctx.lineWidth=.8;
+    ctx.beginPath();ctx.moveTo(cx-w*.4,cy+h*.4);ctx.lineTo(cx+w*.4,cy+h*.4);ctx.stroke();
+    // Vignette
+    const vig=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.7);
+    vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,'rgba(4,10,20,.9)');
+    ctx.fillStyle=vig;ctx.fillRect(0,0,w,h);
+    const bot=ctx.createLinearGradient(0,h*.6,0,h);
+    bot.addColorStop(0,'rgba(4,10,20,0)');bot.addColorStop(1,'rgba(4,10,20,.97)');
+    ctx.fillStyle=bot;ctx.fillRect(0,h*.6,w,h*.4);
+  }
+  draw();
+}
+
+// ── CANVAS: Contatti (Runway at dusk) ────────────────────────────────────────
+function drawContScene(){
+  const c=document.getElementById('cont-canvas');if(!c)return;
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');let t=0;
+  function draw(){
+    if(currentPage!=='contatti')return;
+    requestAnimationFrame(draw);t+=.006;
+    const w=c.width,h=c.height,cx=w/2;
+    // Night sky gradient
+    const sky=ctx.createLinearGradient(0,0,0,h*.65);
+    sky.addColorStop(0,'#020610');sky.addColorStop(.7,'#060C1A');sky.addColorStop(1,'rgba(20,30,50,.8)');
+    ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
+    // Stars
+    for(let i=0;i<150;i++){
+      const sx=((i*137+50)%w),sy=((i*97+30)%(h*.55));
+      const sa=.1+Math.sin(t*1.5+i)*.12;
+      ctx.beginPath();ctx.arc(sx,sy,.5+Math.sin(i)*.3,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,240,${sa})`;ctx.fill();
+    }
+    // Horizon glow (city / dawn)
+    const hg=ctx.createRadialGradient(cx,h*.62,0,cx,h*.62,w*.5);
+    hg.addColorStop(0,'rgba(201,165,53,.08)');hg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=hg;ctx.fillRect(0,h*.4,w,h*.3);
+    // Ground
+    ctx.fillStyle='#060C14';ctx.fillRect(0,h*.65,w,h*.35);
+    // Runway perspective
+    const rwL=cx-w*.07,rwR=cx+w*.07;
+    const rwFarL=cx-8,rwFarR=cx+8;
+    const rwTop=h*.63,rwBot=h;
+    ctx.beginPath();ctx.moveTo(rwL,rwBot);ctx.lineTo(rwFarL,rwTop);ctx.lineTo(rwFarR,rwTop);ctx.lineTo(rwR,rwBot);ctx.closePath();
+    ctx.fillStyle='rgba(20,32,52,.6)';ctx.fill();
+    // Runway edge lights
+    for(let li=0;li<12;li++){
+      const lp=li/11,lx=rwL+(rwFarL-rwL)*Math.pow(lp,1.5),ly=rwBot+(rwTop-rwBot)*Math.pow(lp,1.5);
+      const la=.2+Math.sin(t*3+li*.5)*.15;
+      ctx.beginPath();ctx.arc(lx,ly,2.5+la*1.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,200,${.5+la})`;ctx.fill();
+      const rg=ctx.createRadialGradient(lx,ly,0,lx,ly,12);
+      rg.addColorStop(0,`rgba(255,255,200,${la*.4})`);rg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=rg;ctx.fillRect(lx-12,ly-12,24,24);
+      // Right side
+      const rlx=rwR+(rwFarR-rwR)*Math.pow(lp,1.5);
+      ctx.beginPath();ctx.arc(rlx,ly,2.5+la*1.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,200,${.5+la})`;ctx.fill();
+    }
+    // Centre dashes
+    for(let di=2;di<10;di++){
+      const dp=di/10,dly=rwBot+(rwTop-rwBot)*Math.pow(dp,1.5);
+      const dly2=rwBot+(rwTop-rwBot)*Math.pow((di+.5)/10,1.5);
+      const da=.3+Math.sin(t*2+di)*.1;
+      ctx.strokeStyle=`rgba(201,165,53,${da})`;ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(cx,dly);ctx.lineTo(cx,dly2);ctx.stroke();
+    }
+    // Vignette
+    const vig=ctx.createRadialGradient(cx,h*.5,0,cx,h*.5,Math.max(w,h)*.7);
+    vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,'rgba(4,10,20,.88)');
+    ctx.fillStyle=vig;ctx.fillRect(0,0,w,h);
+    const bot2=ctx.createLinearGradient(0,h*.72,0,h);
+    bot2.addColorStop(0,'rgba(4,10,20,0)');bot2.addColorStop(1,'rgba(4,10,20,.97)');
+    ctx.fillStyle=bot2;ctx.fillRect(0,h*.72,w,h*.28);
+  }
+  draw();
+}
+
+// ── CANVAS: Operator pages ────────────────────────────────────────────────────
+function drawOpScene(id){
+  const cId=id==='partner'?'part-canvas':'pilot-canvas';
+  const c=document.getElementById(cId);if(!c)return;
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');let t=0;
+  function draw(){
+    if(currentPage!==id)return;
+    requestAnimationFrame(draw);t+=.005;
+    const w=c.width,h=c.height,cx=w/2,cy=h/2;
+    ctx.fillStyle='#040A14';ctx.fillRect(0,0,w,h);
+    // Cockpit-style: rings and instrument glow
+    for(let r=0;r<5;r++){
+      const rad=100+r*80+Math.sin(t*.3+r)*.5;
+      ctx.beginPath();ctx.arc(cx,cy*.9,rad,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(201,165,53,${.03+r*.01})`;ctx.lineWidth=.5;ctx.stroke();
+    }
+    // Horizon line
+    const hl=ctx.createLinearGradient(cx-w*.35,cy*.9,cx+w*.35,cy*.9);
+    hl.addColorStop(0,'rgba(74,123,196,0)');hl.addColorStop(.5,`rgba(74,123,196,${.2+Math.sin(t*.5)*.05})`);hl.addColorStop(1,'rgba(74,123,196,0)');
+    ctx.strokeStyle=hl;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(cx-w*.35,cy*.9);ctx.lineTo(cx+w*.35,cy*.9);ctx.stroke();
+    // Vignette
+    const vig=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.7);
+    vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,'rgba(4,10,20,.9)');
+    ctx.fillStyle=vig;ctx.fillRect(0,0,w,h);
+    const bot=ctx.createLinearGradient(0,h*.6,0,h);
+    bot.addColorStop(0,'rgba(4,10,20,0)');bot.addColorStop(1,'rgba(4,10,20,.97)');
+    ctx.fillStyle=bot;ctx.fillRect(0,h*.6,w,h*.4);
+  }
+  draw();
+}
+
+// ── CONTATTI FLY-OVER JET ─────────────────────────────────────────────────────
+function flyContJet(){
+  drawContScene();
+  const jet=document.getElementById('fly-jet-svg');if(!jet)return;
+  jet.style.left='-280px';jet.style.opacity='0';jet.style.transition='none';
+  setTimeout(()=>{
+    jet.style.transition='left 3s cubic-bezier(.25,.46,.45,.94), opacity .4s ease';
+    jet.style.left='110vw';jet.style.opacity='1';
+  },200);
+}
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────────────────────
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:.08});
+document.querySelectorAll('.anim-up,.anim-fade').forEach(el=>revObs.observe(el));
+
+// ── NAV SCROLL ────────────────────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
+
+// ── COUNTDOWNS ────────────────────────────────────────────────────────────────
+function startTimer(id,h,m,s){
+  let tot=h*3600+m*60+s;
+  setInterval(()=>{
+    tot=Math.max(0,tot-1);
+    const el=document.getElementById(id);
+    if(el)el.textContent=[Math.floor(tot/3600),Math.floor((tot%3600)/60),tot%60].map(n=>String(n).padStart(2,'0')).join(':');
+  },1000);
+}
+startTimer('cd1',4,32,18);startTimer('cd2',11,8,44);startTimer('cd3',7,55,22);
+
+// ── WINDOW RESIZE ────────────────────────────────────────────────────────────
+window.addEventListener('resize',()=>{
+  if(currentPage==='home')drawTunnel();
+  if(currentPage==='emptyleg')drawElScene();
+  if(currentPage==='about')drawAboutScene();
+  if(currentPage==='contatti'){drawContScene();flyContJet();}
+},{passive:true});
+
+// ── KEYBOARD ESC ─────────────────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-bg.open').forEach(m=>m.classList.remove('open'));
+  }
+});
+</script>
+</body>
+</html>'''
