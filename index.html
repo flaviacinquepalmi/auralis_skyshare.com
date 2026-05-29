@@ -624,70 +624,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
       <!-- REALISTIC JET with detailed fuselage, engines, windows -->
       <img id="runway-jet" src="jet.png" alt="Jet privato"
-      style="position:absolute;right:-340px;top:22%;width:380px;z-index:20;
-      filter:drop-shadow(0 16px 40px rgba(10,22,40,.35));
-      transform:rotate(-8deg) scaleX(-1);">
-        <defs>
-          <linearGradient id="fuseGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#F0F4FA"/><stop offset="40%" stop-color="#E2EAF4"/><stop offset="100%" stop-color="#C8D4E4"/></linearGradient>
-          <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#C9A535"/><stop offset="100%" stop-color="#E8C96A"/></linearGradient>
-          <linearGradient id="engGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#8898B0"/><stop offset="100%" stop-color="#5A6A80"/></linearGradient>
-          <filter id="jetShadow"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(10,22,40,.3)"/></filter>
-        </defs>
-        <!-- Main fuselage -->
-        <ellipse cx="170" cy="52" rx="148" ry="17" fill="url(#fuseGrad)"/>
-        <!-- Nose cone - pointed -->
-        <path d="M316 52 Q336 52 334 47 Q328 34 308 41 L316 52Z" fill="#D8E4F4"/>
-        <!-- Tail cone -->
-        <path d="M24 52 Q8 52 6 49 L22 52Z" fill="#C8D4E4"/>
-        <!-- Upper fuselage stripe (gold) -->
-        <path d="M30 47 Q170 42 316 47" stroke="#C9A535" stroke-width="2.5" fill="none" opacity=".6"/>
-        <!-- Cheatline (navy) -->
-        <path d="M30 55 Q170 57 316 55" stroke="#1a3a6e" stroke-width="1" fill="none" opacity=".4"/>
-        <!-- Main wings -->
-        <path d="M188 50 L228 12 L244 16 L218 50Z" fill="url(#wingGrad)" opacity=".95"/>
-        <path d="M188 54 L228 92 L244 88 L218 54Z" fill="#A88520" opacity=".9"/>
-        <!-- Wing leading edge highlight -->
-        <path d="M188 50 L228 12 L234 14" stroke="#F0D060" stroke-width="1" fill="none" opacity=".5"/>
-        <!-- Horizontal stabilisers -->
-        <path d="M44 50 L28 32 L42 33 L58 50Z" fill="#C9A535" opacity=".85"/>
-        <path d="M44 54 L28 72 L42 71 L58 54Z" fill="#A88520" opacity=".85"/>
-        <!-- Vertical tail fin -->
-        <path d="M44 35 L44 52 L60 52 L52 22 Z" fill="#D8E4F4" stroke="#B8C8D8" stroke-width=".5"/>
-        <!-- Engines - left -->
-        <ellipse cx="160" cy="68" rx="28" ry="9" fill="url(#engGrad)"/>
-        <ellipse cx="160" cy="68" rx="28" ry="9" fill="none" stroke="#6A7A8A" stroke-width="1"/>
-        <!-- Engine front ring -->
-        <ellipse cx="186" cy="68" rx="9" ry="9" fill="#4A5A6A"/>
-        <ellipse cx="186" cy="68" rx="6" ry="6" fill="#1a2a3a"/>
-        <!-- Engine exhaust glow -->
-        <ellipse cx="133" cy="68" rx="5" ry="4" fill="rgba(201,165,53,.25)"/>
-        <!-- Engine right -->
-        <ellipse cx="160" cy="36" rx="28" ry="9" fill="url(#engGrad)"/>
-        <ellipse cx="186" cy="36" rx="9" ry="9" fill="#4A5A6A"/>
-        <ellipse cx="186" cy="36" rx="6" ry="6" fill="#1a2a3a"/>
-        <ellipse cx="133" cy="36" rx="5" ry="4" fill="rgba(201,165,53,.25)"/>
-        <!-- Windows row -->
-        <ellipse cx="280" cy="49" rx="7" ry="5" fill="#7BB8D8" opacity=".85" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="265" cy="49" rx="7" ry="5" fill="#7BB8D8" opacity=".85" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="250" cy="49" rx="7" ry="5" fill="#8AC0E0" opacity=".85" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="235" cy="49" rx="7" ry="5" fill="#8AC0E0" opacity=".8" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="220" cy="49" rx="7" ry="5" fill="#8AC0E0" opacity=".8" stroke="#5A9ABB" stroke-width=".5"/>
-        <!-- Cockpit windows -->
-        <ellipse cx="302" cy="47" rx="9" ry="6" fill="#5A9AC0" opacity=".9" stroke="#4A8AB0" stroke-width=".5"/>
-        <ellipse cx="296" cy="47" rx="5" ry="5" fill="#4A8AB0" opacity=".7"/>
-        <!-- Landing gear -->
-        <line x1="148" y1="65" x2="148" y2="82" stroke="#8A9AAA" stroke-width="3" stroke-linecap="round"/>
-        <line x1="168" y1="65" x2="168" y2="82" stroke="#8A9AAA" stroke-width="3" stroke-linecap="round"/>
-        <ellipse cx="148" cy="84" rx="6" ry="4" fill="#5A6A7A"/>
-        <ellipse cx="168" cy="84" rx="6" ry="4" fill="#5A6A7A"/>
-        <line x1="195" y1="62" x2="195" y2="74" stroke="#8A9AAA" stroke-width="2.5" stroke-linecap="round"/>
-        <ellipse cx="195" cy="76" rx="5" ry="3" fill="#5A6A7A"/>
-        <!-- Anti-collision lights -->
-        <circle cx="52" cy="52" r="2.5" fill="#FF4444" opacity=".8" style="animation:runwayLight .8s ease-in-out infinite"/>
-        <circle cx="220" cy="13" r="2" fill="rgba(255,255,255,.9)" style="animation:runwayLight 1s ease-in-out infinite .4s"/>
-        <circle cx="220" cy="91" r="2" fill="rgba(255,255,200,.9)" style="animation:runwayLight 1s ease-in-out infinite .6s"/>
-      </svg>
-    </div>
+      style="position:absolute;right:-340px;top:22%;width:380px;z-index:20; filter:drop-shadow(0 16px 40px rgba(10,22,40,.35)); transform:rotate(-8deg) scaleX(-1);">
 
     <div style="position:absolute;bottom:30%;left:50%;transform:translateX(-50%);width:180px;height:180px;background:radial-gradient(circle,rgba(255,200,100,.18) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
 
