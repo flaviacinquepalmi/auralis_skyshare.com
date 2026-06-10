@@ -892,59 +892,10 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       <text x="620" y="138" text-anchor="middle" font-size="14" font-weight="900" fill="#E8C96A" font-family="system-ui">GVA</text>
     </svg>
     <div class="map-label">Rotte empty-leg disponibili in tempo reale</div>
-  </div>
   <div class="el-cards-section">
-    <div class="el-cards-title">Slot Disponibili Ora</div>
-    <div class="el-cards-grid">
-      <div class="el-card fu">
-        <div class="el-rt"><span class="el-iata">MXP</span><div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div><span class="el-iata">LTN</span></div>
-        <div class="el-meta">
-          <div class="el-m"><div class="v">Gulfstream G550</div><div class="k">Aeromobile</div></div>
-          <div class="el-m"><div class="v">12 pax</div><div class="k">Posti</div></div>
-          <div class="el-m"><div class="v">2h 15m</div><div class="k">Durata</div></div>
-          <div class="el-m"><div class="v">18 Giu 2025</div><div class="k">Partenza</div></div>
-        </div>
-        <div class="el-foot">
-          <div><div class="el-price">€6.400</div><div class="el-save">Risparmio 68%</div></div>
-          <div class="el-right">
-            <div class="el-cd">Scade in <span id="cd1">04:32:18</span></div>
-            <button class="el-btn" onclick="openBookingModal('MXP','LTN','Gulfstream G550','12 pax','2h 15m','18 Giu 2025','€6.400','68%')">Prenota Ora</button>
-          </div>
-        </div>
-      </div>
-      <div class="el-card fu fu1">
-        <div class="el-rt"><span class="el-iata">FCO</span><div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div><span class="el-iata">CDG</span></div>
-        <div class="el-meta">
-          <div class="el-m"><div class="v">Phenom 300E</div><div class="k">Aeromobile</div></div>
-          <div class="el-m"><div class="v">8 pax</div><div class="k">Posti</div></div>
-          <div class="el-m"><div class="v">2h 05m</div><div class="k">Durata</div></div>
-          <div class="el-m"><div class="v">20 Giu 2025</div><div class="k">Partenza</div></div>
-        </div>
-        <div class="el-foot">
-          <div><div class="el-price">€3.800</div><div class="el-save">Risparmio 74%</div></div>
-          <div class="el-right">
-            <div class="el-cd">Scade in <span id="cd2">11:08:44</span></div>
-            <button class="el-btn" onclick="openBookingModal('FCO','CDG','Phenom 300E','8 pax','2h 05m','20 Giu 2025','€3.800','74%')">Prenota Ora</button>
-          </div>
-        </div>
-      </div>
-      <div class="el-card fu fu2">
-        <div class="el-rt"><span class="el-iata">VCE</span><div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div><span class="el-iata">GVA</span></div>
-        <div class="el-meta">
-          <div class="el-m"><div class="v">Citation XLS+</div><div class="k">Aeromobile</div></div>
-          <div class="el-m"><div class="v">9 pax</div><div class="k">Posti</div></div>
-          <div class="el-m"><div class="v">1h 20m</div><div class="k">Durata</div></div>
-          <div class="el-m"><div class="v">22 Giu 2025</div><div class="k">Partenza</div></div>
-        </div>
-        <div class="el-foot">
-          <div><div class="el-price">€2.200</div><div class="el-save">Risparmio 71%</div></div>
-          <div class="el-right">
-            <div class="el-cd">Scade in <span id="cd3">07:55:22</span></div>
-            <button class="el-btn" onclick="openBookingModal('VCE','GVA','Citation XLS+','9 pax','1h 20m','22 Giu 2025','€2.200','71%')">Prenota Ora</button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="el-cards-title">Slot Disponibili Ora</div>
+  <div class="el-cards-grid" id="empty-leg-grid">
+    <p style="color:var(--muted);font-size:13px">Caricamento voli...</p>
   </div>
 </div>
 
