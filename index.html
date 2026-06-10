@@ -1270,6 +1270,7 @@ function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
   document.getElementById('bm-subtitle').textContent=aircraft+' · '+date;
   document.getElementById('booking-modal').classList.add('open');
   initSplit(price, pax);
+  
 }
 function closeBookingModal(){document.getElementById('booking-modal').classList.remove('open');}
   let selectedEmptyLegId = null;
@@ -1308,29 +1309,31 @@ async function confirmBooking(){
       phone
     });
   }
-  const { data: sessionData } = await sb.auth.getSession();
-const token = sessionData.session?.access_token;
 
-const response = await fetch("https://ziyvmpwufihqurgzoesg.supabase.co/functions/v1/edge-function", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    ...(token ? { "Authorization": `Bearer ${token}` } : {})
-  },
-  body: JSON.stringify({
-    empty_leg_id: selectedEmptyLegId,
-    booker: {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      phone
+  const { data: sessionData } = await sb.auth.getSession();
+  const token = sessionData.session?.access_token;
+
+  const response = await fetch("https://ziyvmpwufihqurgzoesg.supabase.co/functions/v1/edge-function", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { "Authorization": `Bearer ${token}` } : {})
     },
-    passengers,
-    booking_type: isSplit ? "split" : "full",
-    services: [],
-    special_requests: ""
-  })
-});
+    body: JSON.stringify({
+      empty_leg_id: selectedEmptyLegId,
+      booker: {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        phone
+      },
+      passengers,
+      booking_type: isSplit ? "split" : "full",
+      services: [],
+      special_requests: ""
+    })
+  });
+
   const result = await response.json();
 
   if (!response.ok) {
