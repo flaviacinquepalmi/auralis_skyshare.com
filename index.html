@@ -1525,7 +1525,7 @@ async function loadEmptyLegs() {
           </div>
           <div class="el-right">
             <div class="el-cd">Scade in <span>${expires}</span></div>
-            <button class="el-btn" onclick="openBookingModal('${leg.from_airport}','${leg.to_airport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
+            <button class="el-btn" onclick="selectedEmptyLegId='${leg.id}'; openBookingModal('${leg.from_airport}','${leg.to_airport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
               Prenota Ora
             </button>
           </div>
