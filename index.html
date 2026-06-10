@@ -375,6 +375,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 .alert-btn-sec:hover{border-color:var(--navy);color:var(--navy)}
 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -423,7 +424,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
         <div class="res-form">
           <input type="email" class="res-input" placeholder="Email">
           <input type="password" class="res-input" placeholder="Password">
-          <button class="res-btn">Accedi all'Area Riservata</button>
+          <button class="res-btn" onclick="loginWithEmail()">Accedi all'Area Riservata</button>
         </div>
         <p class="res-forgot">Password dimenticata?</p>
       </div>
@@ -439,7 +440,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
           <input type="email" class="res-input" placeholder="Email">
           <input type="tel" class="res-input" placeholder="Telefono">
           <input type="password" class="res-input" placeholder="Password">
-          <button class="res-btn">Crea Account</button>
+          <button class="res-btn" onclick="registerWithEmail()">Crea Account</button>
         </div>
         <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.6">Registrandoti accetti i nostri Termini di Servizio e la Privacy Policy.</p>
       </div>
@@ -1106,6 +1107,54 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
+  const SUPABASE_URL = "https://ziyvmpwufihqurgzoesg.supabase.co";
+const SUPABASE_ANON_KEY = "INCOLLA_QUI_LA_TUA_ANON_PUBLIC_KEY";
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function loginWithEmail() {
+  const email = document.querySelector('#res-login input[type="email"]').value;
+  const password = document.querySelector('#res-login input[type="password"]').value;
+
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Login effettuato.");
+  closeReservedModal();
+}
+
+async function registerWithEmail() {
+  const inputs = document.querySelectorAll('#res-register input');
+
+  const firstName = inputs[0].value;
+  const lastName = inputs[1].value;
+  const email = inputs[2].value;
+  const phone = inputs[3].value;
+  const password = inputs[4].value;
+
+  const { error } = await sb.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        phone
+      }
+    }
+  });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Account creato. Ora puoi accedere.");
+}
 
 const ALL_PAGES=['home','about','emptyleg','prenota','contatti','partner','pilot'];
 const NAV_IDS={home:'nl-home',about:'nl-about',emptyleg:'nl-emptyleg',prenota:'nl-prenota',contatti:'nl-contatti'};
