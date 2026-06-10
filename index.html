@@ -1395,5 +1395,88 @@ setTimeout(initRunwayJet,600);
 setTimeout(()=>{document.querySelectorAll('#page-home .fu').forEach(el=>el.classList.add('vis'));},300);
 document.getElementById('main-footer').style.display='block';
 </script>
+
+<script>
+const EMPTY_LEGS_API = "https://ziyvmpwufihqurgzoesg.supabase.co/functions/v1/get-empty-legs";
+
+function formatPrice(v) {
+  return new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0
+  }).format(v);
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString("it-IT", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function formatDuration(min) {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return `${h}h ${String(m).padStart(2, "0")}m`;
+}
+
+async function loadEmptyLegs() {
+  const grid = document.getElementById("empty-leg-grid");
+  if (!grid) return;
+
+  const res = await fetch(EMPTY_LEGS_API);
+  const json = await res.json();
+  const flights = json.data || [];
+
+  if (!flights.length) {
+    grid.innerHTML = `<p style="color:var(--muted);font-size:13px">Nessun volo disponibile.</p>`;
+    return;
+  }
+
+  grid.innerHTML = flights.map((leg) => {
+    const aircraft = `${leg.aircraft?.manufacturer || ""} ${leg.aircraft?.model || ""}`.trim();
+    const pax = leg.available_pax || leg.aircraft?.max_pax || "-";
+    const duration = formatDuration(leg.duration_min || 0);
+    const date = formatDate(leg.departure_at);
+    const price = formatPrice(leg.price_total);
+    const saving = leg.saving_pct ? `${leg.saving_pct}%` : "—";
+    const expires = leg.expires_in_hours ? `${leg.expires_in_hours}h` : "—";
+
+    return `
+      <div class="el-card fu vis">
+        <div class="el-rt">
+          <span class="el-iata">${leg.from_airport}</span>
+          <div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div>
+          <span class="el-iata">${leg.to_airport}</span>
+        </div>
+
+        <div class="el-meta">
+          <div class="el-m"><div class="v">${aircraft}</div><div class="k">Aeromobile</div></div>
+          <div class="el-m"><div class="v">${pax} pax</div><div class="k">Posti</div></div>
+          <div class="el-m"><div class="v">${duration}</div><div class="k">Durata</div></div>
+          <div class="el-m"><div class="v">${date}</div><div class="k">Partenza</div></div>
+        </div>
+
+        <div class="el-foot">
+          <div>
+            <div class="el-price">${price}</div>
+            <div class="el-save">Risparmio ${saving}</div>
+          </div>
+          <div class="el-right">
+            <div class="el-cd">Scade in <span>${expires}</span></div>
+            <button class="el-btn" onclick="openBookingModal('${leg.from_airport}','${leg.to_airport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
+              Prenota Ora
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+document.addEventListener("DOMContentLoaded", loadEmptyLegs);
+</script>
+
 </body>
 </html>
