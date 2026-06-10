@@ -1107,8 +1107,8 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
-  const SUPABASE_URL = "https://ziyvmpwufihqurgzoesg.supabase.co";
-const SUPABASE_ANON_KEY = "INCOLLA_QUI_LA_TUA_ANON_PUBLIC_KEY";
+const SUPABASE_URL = "https://ziyvmpwufihqurgzoesg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_UUYyAwO9OJzTdzx-EgCpuQ_Gi1yCH5r";
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -1308,27 +1308,29 @@ async function confirmBooking(){
       phone
     });
   }
+  const { data: sessionData } = await sb.auth.getSession();
+const token = sessionData.session?.access_token;
 
-  const response = await fetch("https://ziyvmpwufihqurgzoesg.supabase.co/functions/v1/create-booking", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
+const response = await fetch("https://ziyvmpwufihqurgzoesg.supabase.co/functions/v1/edge-function", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    ...(token ? { "Authorization": `Bearer ${token}` } : {})
+  },
+  body: JSON.stringify({
+    empty_leg_id: selectedEmptyLegId,
+    booker: {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      phone
     },
-    body: JSON.stringify({
-      empty_leg_id: selectedEmptyLegId,
-      booker: {
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        phone
-      },
-      passengers,
-      booking_type: isSplit ? "split" : "full",
-      services: [],
-      special_requests: ""
-    })
-  });
-
+    passengers,
+    booking_type: isSplit ? "split" : "full",
+    services: [],
+    special_requests: ""
+  })
+});
   const result = await response.json();
 
   if (!response.ok) {
