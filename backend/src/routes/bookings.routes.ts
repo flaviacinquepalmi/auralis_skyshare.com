@@ -1,3 +1,4 @@
+import Stripe from "stripe";
 import { Router } from "express";
 import { z } from "zod";
 import { PrismaPg } from "@prisma/adapter-pg";
@@ -6,6 +7,7 @@ import { env } from "../config/env";
 
 const adapter = new PrismaPg({ connectionString: env.databaseUrl });
 const prisma = new PrismaClient({ adapter });
+const stripe = new Stripe(env.stripeSecretKey);
 
 export const bookingsRouter = Router();
 
@@ -82,11 +84,38 @@ bookingsRouter.post("/", async (req, res, next) => {
       return newBooking;
     });
 
+    const checkoutSession = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      customer_email: data.bookerEmail,
+      line_items: [
+        {
+          price_data: {
+            currency: emptyLeg.currency.toLowerCase(),
+            product_data: {
+              name: `Volo ${emptyLeg.fromAirport} → ${emptyLeg.toAirport}`,
+              description: `Partenza: ${emptyLeg.departureAt.toISOString()}`,
+            },
+            unit_amount: Math.round(Number(totalAmount) * 100),
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: `${env.frontendUrl}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${env.frontendUrl}/booking-cancelled`,
+      metadata: {
+        bookingId: booking.id,
+      },
+    });
+
+    await prisma.booking.update({
+      where: { id: booking.id },
+      data: { stripeCheckoutSessionId: checkoutSession.id },
+    });
+
     res.status(201).json({
       bookingId: booking.id,
-      status: booking.status,
-      totalAmount: booking.totalAmount,
-      currency: booking.currency,
+      checkoutUrl: checkoutSession.url,
     });
   } catch (err) {
     next(err);

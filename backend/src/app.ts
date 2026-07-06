@@ -10,6 +10,7 @@ import { meRouter } from "./routes/me.routes";
 import { emptyLegsRouter } from "./routes/emptyLegs.routes";
 import { errorMiddleware } from "./middleware/error.middleware";
 import { bookingsRouter } from "./routes/bookings.routes";
+import { stripeWebhookRouter } from "./routes/stripeWebhook.routes";
 
 export const app = express();
 app.set("trust proxy", 1);
@@ -20,6 +21,7 @@ app.use(
     origin: env.frontendUrl,
   })
 );
+app.use("/api/webhooks/stripe", stripeWebhookRouter);
 app.use(express.json());
 app.use(pinoHttp({ logger }));
 
