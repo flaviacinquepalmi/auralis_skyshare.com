@@ -7,7 +7,9 @@ import { env } from "./config/env";
 import { logger } from "./utils/logger";
 import { healthRouter } from "./routes/health.routes";
 import { meRouter } from "./routes/me.routes";
+import { emptyLegsRouter } from "./routes/emptyLegs.routes";
 import { errorMiddleware } from "./middleware/error.middleware";
+import { bookingsRouter } from "./routes/bookings.routes";
 
 export const app = express();
 app.set("trust proxy", 1);
@@ -32,4 +34,7 @@ app.use(publicLimiter);
 app.use("/api/health", healthRouter);
 app.use("/api/me", meRouter);
 
+app.use("/api/empty-legs", emptyLegsRouter);
 app.use(errorMiddleware);
+
+app.use("/api/bookings", bookingsRouter);
