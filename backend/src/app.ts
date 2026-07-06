@@ -6,9 +6,11 @@ import rateLimit from "express-rate-limit";
 import { env } from "./config/env";
 import { logger } from "./utils/logger";
 import { healthRouter } from "./routes/health.routes";
+import { meRouter } from "./routes/me.routes";
 import { errorMiddleware } from "./middleware/error.middleware";
 
 export const app = express();
+app.set("trust proxy", 1);
 
 app.use(helmet());
 app.use(
@@ -28,5 +30,6 @@ const publicLimiter = rateLimit({
 app.use(publicLimiter);
 
 app.use("/api/health", healthRouter);
+app.use("/api/me", meRouter);
 
 app.use(errorMiddleware);
