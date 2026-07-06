@@ -1,0 +1,185 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  CUSTOMER
+  OPERATOR
+  ADMIN
+}
+
+enum OperatorStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum EmptyLegStatus {
+  DRAFT
+  PUBLISHED
+  BOOKED
+  CANCELLED
+  EXPIRED
+}
+
+enum BookingType {
+  FULL
+  SPLIT
+}
+
+enum BookingStatus {
+  PENDING_PAYMENT
+  PAID
+  CONFIRMED
+  CANCELLED
+  EXPIRED
+}
+
+enum ContactRequestStatus {
+  NEW
+  READ
+  CLOSED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  auth0Sub  String   @unique
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  phone     String?
+  role      UserRole @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  operator  Operator?
+  bookings  Booking[]
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model Operator {
+  id           String         @id @default(cuid())
+  userId       String         @unique
+  user         User           @relation(fields: [userId], references: [id])
+  companyName  String
+  vatNumber    String?
+  contactEmail String
+  contactPhone String?
+  status       OperatorStatus @default(PENDING)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  aircraft  Aircraft[]
+  emptyLegs EmptyLeg[]
+
+  @@map("operators")
+}
+
+model Aircraft {
+  id               String   @id @default(cuid())
+  operatorId       String
+  operator         Operator @relation(fields: [operatorId], references: [id])
+  manufacturer     String
+  model            String
+  registrationCode String?
+  maxPax           Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  emptyLegs EmptyLeg[]
+
+  @@map("aircraft")
+}
+
+model EmptyLeg {
+  id            String         @id @default(cuid())
+  operatorId    String
+  operator      Operator       @relation(fields: [operatorId], references: [id])
+  aircraftId    String
+  aircraft      Aircraft       @relation(fields: [aircraftId], references: [id])
+  fromAirport   String
+  toAirport     String
+  departureAt   DateTime
+  arrivalAt     DateTime?
+  durationMin   Int
+  availablePax  Int
+  priceTotal    Decimal        @db.Decimal(10, 2)
+  currency      String         @default("EUR")
+  savingPct     Int?
+  status        EmptyLegStatus @default(DRAFT)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  bookings Booking[]
+
+  @@map("empty_legs")
+}
+
+model Booking {
+  id                      String        @id @default(cuid())
+  emptyLegId              String
+  emptyLeg                EmptyLeg      @relation(fields: [emptyLegId], references: [id])
+  customerUserId          String?
+  customerUser            User?         @relation(fields: [customerUserId], references: [id])
+  bookerFirstName         String
+  bookerLastName          String
+  bookerEmail             String
+  bookerPhone             String?
+  bookingType             BookingType   @default(FULL)
+  status                  BookingStatus @default(PENDING_PAYMENT)
+  totalAmount             Decimal       @db.Decimal(10, 2)
+  currency                String        @default("EUR")
+  stripeCheckoutSessionId String?
+  stripePaymentIntentId   String?
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  passengers Passenger[]
+
+  @@map("bookings")
+}
+
+model Passenger {
+  id        String  @id @default(cuid())
+  bookingId String
+  booking   Booking @relation(fields: [bookingId], references: [id])
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+
+  @@map("passengers")
+}
+
+model ContactRequest {
+  id        String                @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  topic     String
+  message   String
+  status    ContactRequestStatus  @default(NEW)
+  createdAt DateTime              @default(now())
+
+  @@map("contact_requests")
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  actorUserId  String?
+  actorUser    User?    @relation(fields: [actorUserId], references: [id])
+  action       String
+  entityType   String
+  entityId     String?
+  metadata     Json?
+  createdAt    DateTime @default(now())
+
+  @@map("audit_logs")
+}

@@ -27,3 +27,5 @@ npm-debug.log*
 
 # Codespaces / dev containers (se generati)
 .devcontainer/generated/
+
+/generated/prisma
