@@ -1,3 +1,4 @@
+import { sendPaymentConfirmedEmail, sendOperatorBookingNotification } from "../services/email.service";
 import { Router } from "express";
 import express from "express";
 import Stripe from "stripe";
@@ -56,17 +57,35 @@ stripeWebhookRouter.post(
         return res.json({ received: true });
       }
 
-      await prisma.booking.update({
+      const updatedBooking = await prisma.booking.update({
         where: { id: bookingId },
         data: {
           status: "CONFIRMED",
           stripePaymentIntentId: session.payment_intent as string,
         },
+        include: {
+          emptyLeg: {
+            include: { operator: true },
+          },
+        },
       });
 
       logger.info({ bookingId }, "Booking confermato dopo pagamento");
 
-      // Email di conferma: le aggiungeremo nella FASE 8
+      await sendPaymentConfirmedEmail({
+        to: updatedBooking.bookerEmail,
+        bookerFirstName: updatedBooking.bookerFirstName,
+        fromAirport: updatedBooking.emptyLeg.fromAirport,
+        toAirport: updatedBooking.emptyLeg.toAirport,
+      });
+
+      await sendOperatorBookingNotification({
+        to: updatedBooking.emptyLeg.operator.contactEmail,
+        fromAirport: updatedBooking.emptyLeg.fromAirport,
+        toAirport: updatedBooking.emptyLeg.toAirport,
+        bookerFirstName: updatedBooking.bookerFirstName,
+        bookerLastName: updatedBooking.bookerLastName,
+      });
     }
 
     res.json({ received: true });
