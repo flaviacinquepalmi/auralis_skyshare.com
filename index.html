@@ -376,6 +376,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
 </head>
 <body>
 
@@ -1114,6 +1115,31 @@ const SUPABASE_ANON_KEY = "sb_publishable_UUYyAwO9OJzTdzx-EgCpuQ_Gi1yCH5r";
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const AUTH0_DOMAIN = "dev-ivx8addf2ul5rxcz.eu.auth0.com";
+const AUTH0_CLIENT_ID = "QOdnC2STmWvh2k5Qos5LaoTgDcOGzYPF";
+const AUTH0_AUDIENCE = "https://api.auralis-skyshare.com";
+const API_BASE_URL = "https://auralis-skyshare-com.onrender.com";
+
+let auth0Client = null;
+
+async function initAuth0() {
+  auth0Client = await auth0.createAuth0Client({
+    domain: AUTH0_DOMAIN,
+    clientId: AUTH0_CLIENT_ID,
+    authorizationParams: {
+      audience: AUTH0_AUDIENCE,
+      redirect_uri: window.location.origin,
+    },
+  });
+
+  // Gestisce il ritorno da Auth0 dopo il login
+  const query = window.location.search;
+  if (query.includes("code=") && query.includes("state=")) {
+    await auth0Client.handleRedirectCallback();
+    window.history.replaceState({}, document.title, "/");
+  }
+}
+
 async function loginWithEmail() {
   const email = document.querySelector('#res-login input[type="email"]').value;
   const password = document.querySelector('#res-login input[type="password"]').value;
@@ -1591,8 +1617,10 @@ async function loadEmptyLegs() {
   }).join("");
 }
 
-document.addEventListener("DOMContentLoaded", loadEmptyLegs);
-</script>
+document.addEventListener("DOMContentLoaded", async () => {
+  await initAuth0();
+  loadEmptyLegs();
+});</script>
 
 </body>
 </html>
