@@ -1609,6 +1609,13 @@ grid.innerHTML = flights.map((leg) => {
 document.addEventListener("DOMContentLoaded", async () => {
   await initAuth0();
   loadEmptyLegs();
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("booking") === "success") {
+    showSoloAlert();
+    window.history.replaceState({}, document.title, "/");
+  }
+});
 });</script>
 
 </body>
