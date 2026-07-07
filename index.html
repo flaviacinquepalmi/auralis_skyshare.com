@@ -1518,21 +1518,66 @@ async function loadEmptyLegs() {
     return;
   }
 
-  grid.innerHTML = flights.map((leg) => {
+  function formatCountdown(departureAtIso) {
+  const departure = new Date(departureAtIso);
+  const cutoff = new Date(departure.getTime() - 2 * 60 * 60 * 1000); // 2 ore prima
+  const now = new Date();
+  const diffMs = cutoff.getTime() - now.getTime();
+
+  if (diffMs <= 0) {
+    return { text: "Scaduto", expired: true };
+  }
+
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const text = hours > 0
+    ? `${hours}h ${String(minutes).padStart(2, "0")}m`
+    : `${minutes}m ${String(seconds).padStart(2, "0")}s`;
+
+  return { text, expired: false };
+}
+
+function startEmptyLegCountdowns(flights) {
+  if (window._emptyLegCountdownInterval) {
+    clearInterval(window._emptyLegCountdownInterval);
+  }
+  window._emptyLegCountdownInterval = setInterval(() => {
+    flights.forEach((leg) => {
+      const el = document.getElementById(`cd-${leg.id}`);
+      if (!el) return;
+      const { text, expired } = formatCountdown(leg.departureAt);
+      el.textContent = text;
+      if (expired) {
+        const btn = document.getElementById(`btn-${leg.id}`);
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Non più prenotabile";
+          btn.style.opacity = "0.5";
+          btn.style.cursor = "not-allowed";
+        }
+      }
+    });
+  }, 1000);
+}
+
+grid.innerHTML = flights.map((leg) => {
     const aircraft = `${leg.aircraft?.manufacturer || ""} ${leg.aircraft?.model || ""}`.trim();
-    const pax = leg.available_pax || leg.aircraft?.max_pax || "-";
-    const duration = formatDuration(leg.duration_min || 0);
-    const date = formatDate(leg.departure_at);
-    const price = formatPrice(leg.price_total);
-    const saving = leg.saving_pct ? `${leg.saving_pct}%` : "—";
-    const expires = leg.expires_in_hours ? `${leg.expires_in_hours}h` : "—";
+    const pax = leg.availablePax || leg.aircraft?.maxPax || "-";
+    const duration = formatDuration(leg.durationMin || 0);
+    const date = formatDate(leg.departureAt);
+    const price = formatPrice(leg.priceTotal);
+    const saving = leg.savingPct ? `${leg.savingPct}%` : "—";
+    const { text: countdownText } = formatCountdown(leg.departureAt);
 
     return `
       <div class="el-card fu vis">
         <div class="el-rt">
-          <span class="el-iata">${leg.from_airport}</span>
+          <span class="el-iata">${leg.fromAirport}</span>
           <div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div>
-          <span class="el-iata">${leg.to_airport}</span>
+          <span class="el-iata">${leg.toAirport}</span>
         </div>
 
         <div class="el-meta">
@@ -1548,8 +1593,8 @@ async function loadEmptyLegs() {
             <div class="el-save">Risparmio ${saving}</div>
           </div>
           <div class="el-right">
-            <div class="el-cd">Scade in <span>${expires}</span></div>
-            <button class="el-btn" onclick="selectedEmptyLegId='${leg.id}'; openBookingModal('${leg.from_airport}','${leg.to_airport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
+            <div class="el-cd">Scade in <span id="cd-${leg.id}">${countdownText}</span></div>
+            <button class="el-btn" id="btn-${leg.id}" onclick="selectedEmptyLegId='${leg.id}'; openBookingModal('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
               Prenota Ora
             </button>
           </div>
@@ -1557,6 +1602,8 @@ async function loadEmptyLegs() {
       </div>
     `;
   }).join("");
+
+  startEmptyLegCountdowns(flights);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
