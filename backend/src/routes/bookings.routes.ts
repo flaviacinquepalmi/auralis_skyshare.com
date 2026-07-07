@@ -101,7 +101,7 @@ bookingsRouter.post("/", async (req, res, next) => {
           quantity: 1,
         },
       ],
-      success_url: `${env.frontendUrl}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${env.frontendUrl}/?booking=success&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${env.frontendUrl}/booking-cancelled`,
       metadata: {
         bookingId: booking.id,
