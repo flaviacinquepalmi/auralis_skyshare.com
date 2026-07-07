@@ -12,6 +12,10 @@
   --gold:#C9A535;--gold2:#E8C96A;--white:#FFFFFF;--off:#F7F9FC;
   --gray:#EEF2F7;--text:#0A1628;--muted:#607080;
   --bdr:rgba(10,22,40,.1);--bdr-g:rgba(201,165,53,.25);
+  /* --- nuove, per l'hero cinematografico --- */
+  --deep-navy: #0A1628;
+  --secondary-navy: #0E1E38;
+  --scene-progress: 0;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -373,6 +377,425 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 .alert-btn-main:hover{background:var(--gold);color:var(--navy)}
 .alert-btn-sec{padding:12px 18px;background:transparent;color:var(--muted);border:1px solid var(--bdr);font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s}
 .alert-btn-sec:hover{border-color:var(--navy);color:var(--navy)}
+    .scroll-scene {
+      position: relative;
+      height: 330vh;
+      background: var(--deep-navy);
+    }
+
+    .sticky-frame {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      isolation: isolate;
+      background: #030710;
+    }
+
+    .media-layer {
+      position: absolute;
+      inset: -2vh -2vw;
+      width: 104vw;
+      height: 104vh;
+      object-fit: cover;
+      transform-origin: 50% 46%;
+      will-change: transform, opacity, filter;
+      backface-visibility: hidden;
+    }
+
+    .exterior-video {
+      opacity: calc(1 - min(max((var(--scene-progress) - 0.38) / 0.34, 0), 1));
+      transform: scale(calc(1.04 + var(--scene-progress) * 0.36))
+        translateY(calc(var(--scene-progress) * -1.4vh));
+      filter: saturate(0.78) contrast(1.12) brightness(0.65) sepia(0.08)
+        hue-rotate(182deg);
+      z-index: 1;
+    }
+
+    .interior-image {
+      opacity: min(max((var(--scene-progress) - 0.48) / 0.28, 0), 1);
+      transform: scale(calc(1.13 - min(var(--scene-progress), 1) * 0.1));
+      filter: saturate(0.82) contrast(1.1) brightness(0.62) sepia(0.06)
+        hue-rotate(184deg);
+      z-index: 2;
+    }
+
+    .grade {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          circle at 51% 50%,
+          rgba(255, 255, 255, 0.08) 0%,
+          rgba(255, 255, 255, 0.01) 29%,
+          rgba(3, 8, 17, 0.18) 52%,
+          rgba(3, 8, 17, 0.8) 100%
+        ),
+        linear-gradient(
+          90deg,
+          rgba(3, 8, 17, 0.83) 0%,
+          rgba(10, 22, 40, 0.34) 35%,
+          rgba(10, 22, 40, 0.16) 60%,
+          rgba(3, 8, 17, 0.7) 100%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(3, 8, 17, 0.68) 0%,
+          rgba(3, 8, 17, 0.08) 34%,
+          rgba(3, 8, 17, 0.55) 100%
+        );
+      mix-blend-mode: multiply;
+    }
+
+    .nav-line {
+      position: absolute;
+      top: 34px;
+      left: clamp(24px, 4vw, 64px);
+      right: clamp(24px, 4vw, 64px);
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: rgba(247, 249, 252, 0.76);
+      opacity: 0.86;
+    }
+
+    .nav-line::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 32px;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(232, 201, 106, 0.36),
+        rgba(255, 255, 255, 0.22),
+        transparent
+      );
+      opacity: 0.55;
+    }
+
+    .brand-mark {
+      position: absolute;
+      z-index: 7;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      opacity: calc(1 - min(max(var(--scene-progress) / 0.30, 0), 1));
+      transform: scale(calc(1 + min(var(--scene-progress), 0.6) * 0.09));
+      filter: blur(calc(min(max(var(--scene-progress) / 0.32, 0), 1) * 10px));
+      will-change: opacity, transform, filter;
+      pointer-events: none;
+    }
+
+    .brand-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .brand-logo {
+      display: block;
+      width: clamp(760px, 82vw, 1880px);
+      height: auto;
+      max-height: 56vh;
+      object-fit: contain;
+      filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.72));
+      opacity: 0.96;
+    }
+
+    .reveal-copy {
+      position: absolute;
+      left: clamp(28px, 7vw, 112px);
+      bottom: clamp(54px, 9vh, 108px);
+      z-index: 8;
+      max-width: min(760px, 86vw);
+      opacity: min(max((var(--scene-progress) - 0.70) / 0.18, 0), 1);
+      transform: translateY(
+        calc((1 - min(max((var(--scene-progress) - 0.70) / 0.22, 0), 1)) * 28px)
+      );
+      will-change: opacity, transform;
+    }
+
+    .eyebrow {
+      margin: 0 0 22px;
+      color: rgba(232, 201, 106, 0.82);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.34em;
+    }
+
+    .headline {
+      margin: 0;
+      font-family: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      font-size: clamp(48px, 8vw, 126px);
+      line-height: 0.9;
+      font-weight: 700;
+      letter-spacing: -0.075em;
+      color: rgba(247, 249, 252, 0.98);
+      text-wrap: balance;
+    }
+
+    .word-shell {
+      display: inline-grid;
+      position: relative;
+      min-width: 6.1em;
+      color: var(--light-gold);
+      overflow: hidden;
+      vertical-align: baseline;
+      text-shadow: 0 12px 42px rgba(201, 165, 53, 0.2);
+    }
+
+    .word-shell .word {
+      grid-area: 1 / 1;
+      transform: translateY(34%) rotateX(-14deg);
+      opacity: 0;
+      filter: blur(7px);
+      transition:
+        opacity 0.78s ease,
+        transform 0.78s cubic-bezier(0.22, 0.8, 0.18, 1),
+        filter 0.78s ease;
+      white-space: nowrap;
+    }
+
+    .word-shell .word.active {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg);
+      filter: blur(0);
+    }
+
+    .subtitle {
+      margin: 28px 0 0;
+      max-width: 670px;
+      color: rgba(247, 249, 252, 0.78);
+      font-size: clamp(17px, 1.45vw, 22px);
+      line-height: 1.55;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 42px;
+    }
+
+    .cta {
+      appearance: none;
+      border: 1px solid rgba(232, 201, 106, 0.42);
+      border-radius: 999px;
+      padding: 16px 26px;
+      background: rgba(247, 249, 252, 0.08);
+      color: var(--off-white);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      backdrop-filter: blur(20px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 24px 80px rgba(0, 0, 0, 0.32);
+      transition:
+        transform 0.5s ease,
+        border-color 0.5s ease,
+        background 0.5s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      border-color: rgba(232, 201, 106, 0.82);
+      background: rgba(232, 201, 106, 0.11);
+    }
+
+    .cta.secondary {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(10, 22, 40, 0.34);
+    }
+
+    .progress-indicator {
+      position: absolute;
+      right: clamp(24px, 4vw, 64px);
+      bottom: 44px;
+      z-index: 9;
+      width: 1px;
+      height: 96px;
+      background: rgba(255, 255, 255, 0.18);
+      opacity: calc(1 - min(max((var(--scene-progress) - 0.78) / 0.2, 0), 1));
+    }
+
+    .progress-indicator::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: calc(100% * min(max(var(--scene-progress), 0.08), 1));
+      background: linear-gradient(var(--light-gold), rgba(107, 174, 214, 0.64));
+      box-shadow: 0 0 22px rgba(232, 201, 106, 0.32);
+    }
+
+    .editorial {
+      position: relative;
+      min-height: 115vh;
+      display: grid;
+      align-items: center;
+      padding: clamp(96px, 12vw, 180px) clamp(28px, 8vw, 128px);
+      background:
+        linear-gradient(
+          180deg,
+          rgba(10, 22, 40, 0.88),
+          rgba(4, 9, 18, 0.98) 52%,
+          #030710 100%
+        ),
+        url("assets/hero/hero-interior.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow: hidden;
+    }
+
+    .editorial::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 42%, rgba(74, 123, 196, 0.15), transparent 34%),
+        linear-gradient(90deg, rgba(3, 8, 17, 0.94), rgba(3, 8, 17, 0.58));
+      pointer-events: none;
+    }
+
+    .editorial-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+    }
+
+    .editorial-kicker {
+      margin: 0 0 28px;
+      color: rgba(232, 201, 106, 0.82);
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .editorial h2 {
+      margin: 0;
+      max-width: 980px;
+      color: var(--off-white);
+      font-size: clamp(44px, 6.4vw, 112px);
+      line-height: 0.94;
+      font-weight: 700;
+      letter-spacing: -0.07em;
+    }
+
+    .editorial h2 em {
+      color: var(--light-gold);
+      font-style: normal;
+    }
+
+    .editorial-inner > p:not(.editorial-kicker) {
+      margin: 34px 0 0;
+      max-width: 720px;
+      color: rgba(247, 249, 252, 0.72);
+      font-size: clamp(17px, 1.45vw, 22px);
+      line-height: 1.65;
+      font-weight: 700;
+    }
+
+    .quiet-specs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 72px;
+      max-width: 1040px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(22px);
+    }
+
+    .quiet-spec {
+      padding: 30px;
+      background: rgba(3, 8, 17, 0.46);
+    }
+
+    .quiet-spec strong {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .quiet-spec span {
+      color: rgba(247, 249, 252, 0.65);
+      font-size: 15px;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      .nav-line {
+        font-size: 9px;
+        letter-spacing: 0.18em;
+      }
+
+      .nav-line .right {
+        display: none;
+      }
+
+      .brand-logo {
+        width: clamp(420px, 132vw, 900px);
+        max-height: 48vh;
+      }
+
+      .headline {
+        font-size: clamp(44px, 14vw, 82px);
+      }
+
+      .word-shell {
+        display: block;
+        min-width: 100%;
+        margin-top: 8px;
+      }
+
+      .reveal-copy {
+        left: 24px;
+        right: 24px;
+        bottom: 58px;
+        max-width: none;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .quiet-specs {
+        grid-template-columns: 1fr;
+      }
+
+      .editorial {
+        background-attachment: scroll;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
 
 </style>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
@@ -529,117 +952,59 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
 <!-- ══ HOME ══ -->
 <div class="page active" id="page-home">
-  <section class="hero-wrap" id="hero-section">
-    <div class="hero-dawn"></div>
-    <div class="runway-wrap" id="runway-wrap">
-      <svg id="runway-svg" style="position:absolute;bottom:0;left:0;right:0;width:100%;height:100%" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1440" height="280" fill="rgba(230,240,255,.35)"/>
-        <rect x="0" y="180" width="1440" height="100" fill="rgba(180,200,220,.25)"/>
-        <path d="M520 280 L620 200 L820 200 L920 280Z" fill="rgba(100,120,140,.18)"/>
-        <line x1="720" y1="200" x2="720" y2="210" stroke="rgba(201,165,53,.6)" stroke-width="3" stroke-dasharray="8 6"/>
-        <line x1="720" y1="218" x2="720" y2="228" stroke="rgba(201,165,53,.5)" stroke-width="3" stroke-dasharray="8 6"/>
-        <line x1="720" y1="236" x2="720" y2="246" stroke="rgba(201,165,53,.4)" stroke-width="3" stroke-dasharray="8 6"/>
-        <line x1="720" y1="254" x2="720" y2="264" stroke="rgba(201,165,53,.3)" stroke-width="3" stroke-dasharray="8 6"/>
-        <circle cx="640" cy="204" r="3" fill="rgba(255,255,200,.9)" style="animation:runwayLight 1.2s ease-in-out infinite"/>
-        <circle cx="640" cy="214" r="3" fill="rgba(255,255,200,.8)" style="animation:runwayLight 1.2s ease-in-out infinite .15s"/>
-        <circle cx="640" cy="225" r="3" fill="rgba(255,255,200,.7)" style="animation:runwayLight 1.2s ease-in-out infinite .3s"/>
-        <circle cx="640" cy="237" r="3" fill="rgba(255,255,200,.6)" style="animation:runwayLight 1.2s ease-in-out infinite .45s"/>
-        <circle cx="640" cy="250" r="3" fill="rgba(255,255,200,.5)" style="animation:runwayLight 1.2s ease-in-out infinite .6s"/>
-        <circle cx="630" cy="264" r="3" fill="rgba(255,255,200,.4)" style="animation:runwayLight 1.2s ease-in-out infinite .75s"/>
-        <circle cx="800" cy="204" r="3" fill="rgba(255,255,200,.9)" style="animation:runwayLight 1.2s ease-in-out infinite .1s"/>
-        <circle cx="800" cy="214" r="3" fill="rgba(255,255,200,.8)" style="animation:runwayLight 1.2s ease-in-out infinite .25s"/>
-        <circle cx="800" cy="225" r="3" fill="rgba(255,255,200,.7)" style="animation:runwayLight 1.2s ease-in-out infinite .4s"/>
-        <circle cx="800" cy="237" r="3" fill="rgba(255,255,200,.6)" style="animation:runwayLight 1.2s ease-in-out infinite .55s"/>
-        <circle cx="800" cy="250" r="3" fill="rgba(255,255,200,.5)" style="animation:runwayLight 1.2s ease-in-out infinite .7s"/>
-        <circle cx="810" cy="264" r="3" fill="rgba(255,255,200,.4)" style="animation:runwayLight 1.2s ease-in-out infinite .85s"/>
-        <rect x="605" y="197" width="230" height="4" rx="2" fill="rgba(255,200,100,.25)"/>
-        <ellipse cx="720" cy="175" rx="350" ry="35" fill="rgba(255,200,100,.12)"/>
-        <path d="M0 185 Q80 155 160 172 Q220 150 280 168 Q350 140 430 165 Q500 148 560 170 Q620 152 680 168 Q740 145 800 165 Q860 148 920 168 Q980 152 1040 170 Q1110 140 1190 165 Q1260 148 1320 170 Q1380 152 1440 170 L1440 185Z" fill="rgba(120,150,180,.2)"/>
-        <ellipse cx="200" cy="80" rx="130" ry="38" fill="rgba(255,255,255,.55)" style="animation:cloudDrift 12s ease-in-out infinite"/>
-        <ellipse cx="550" cy="55" rx="160" ry="42" fill="rgba(255,255,255,.5)" style="animation:cloudDrift 10s ease-in-out infinite 1s"/>
-        <ellipse cx="950" cy="70" rx="140" ry="36" fill="rgba(255,255,255,.45)" style="animation:cloudDrift 14s ease-in-out infinite 2s"/>
-        <ellipse cx="1280" cy="85" rx="120" ry="34" fill="rgba(255,255,255,.4)" style="animation:cloudDrift 11s ease-in-out infinite 0.5s"/>
-      </svg>
+  <section class="scroll-scene" id="skyshare-scene" aria-label="Auralis SkyShare cinematic reveal">
+  <div class="sticky-frame">
+    <video class="media-layer exterior-video" autoplay muted loop playsinline preload="auto" aria-label="Auralis private jet exterior video">
+      <source src="assets/hero/hero-exterior.mp4" type="video/mp4">
+    </video>
+    <img class="media-layer interior-image" src="assets/hero/hero-interior.jpg" alt="Interno jet privato Auralis SkyShare">
+    <div class="grade"></div>
 
-      <!-- REALISTIC JET with detailed fuselage, engines, windows -->
-      <svg id="runway-jet" style="position:absolute;right:-300px;top:28%;width:320px;z-index:20;filter:drop-shadow(0 12px 36px rgba(10,22,40,.3)) drop-shadow(0 4px 8px rgba(201,165,53,.15))" viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="fuseGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#F0F4FA"/><stop offset="40%" stop-color="#E2EAF4"/><stop offset="100%" stop-color="#C8D4E4"/></linearGradient>
-          <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#C9A535"/><stop offset="100%" stop-color="#E8C96A"/></linearGradient>
-          <linearGradient id="engGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#8898B0"/><stop offset="100%" stop-color="#5A6A80"/></linearGradient>
-          <filter id="jetShadow"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(10,22,40,.3)"/></filter>
-        </defs>
-        <!-- Main fuselage -->
-        <ellipse cx="170" cy="52" rx="148" ry="17" fill="url(#fuseGrad)"/>
-        <!-- Nose cone - pointed -->
-        <path d="M316 52 Q336 52 334 47 Q328 34 308 41 L316 52Z" fill="#D8E4F4"/>
-        <!-- Tail cone -->
-        <path d="M24 52 Q8 52 6 49 L22 52Z" fill="#C8D4E4"/>
-        <!-- Upper fuselage stripe (gold) -->
-        <path d="M30 47 Q170 42 316 47" stroke="#C9A535" stroke-width="2.5" fill="none" opacity=".6"/>
-        <!-- Cheatline (navy) -->
-        <path d="M30 55 Q170 57 316 55" stroke="#1a3a6e" stroke-width="1" fill="none" opacity=".4"/>
-        <!-- Main wings -->
-        <path d="M188 50 L228 12 L244 16 L218 50Z" fill="url(#wingGrad)" opacity=".95"/>
-        <path d="M188 54 L228 92 L244 88 L218 54Z" fill="#A88520" opacity=".9"/>
-        <!-- Wing leading edge highlight -->
-        <path d="M188 50 L228 12 L234 14" stroke="#F0D060" stroke-width="1" fill="none" opacity=".5"/>
-        <!-- Horizontal stabilisers -->
-        <path d="M44 50 L28 32 L42 33 L58 50Z" fill="#C9A535" opacity=".85"/>
-        <path d="M44 54 L28 72 L42 71 L58 54Z" fill="#A88520" opacity=".85"/>
-        <!-- Vertical tail fin -->
-        <path d="M44 35 L44 52 L60 52 L52 22 Z" fill="#D8E4F4" stroke="#B8C8D8" stroke-width=".5"/>
-        <!-- Engines - left -->
-        <ellipse cx="160" cy="68" rx="28" ry="9" fill="url(#engGrad)"/>
-        <ellipse cx="160" cy="68" rx="28" ry="9" fill="none" stroke="#6A7A8A" stroke-width="1"/>
-        <!-- Engine front ring -->
-        <ellipse cx="186" cy="68" rx="9" ry="9" fill="#4A5A6A"/>
-        <ellipse cx="186" cy="68" rx="6" ry="6" fill="#1a2a3a"/>
-        <!-- Engine exhaust glow -->
-        <ellipse cx="133" cy="68" rx="5" ry="4" fill="rgba(201,165,53,.25)"/>
-        <!-- Engine right -->
-        <ellipse cx="160" cy="36" rx="28" ry="9" fill="url(#engGrad)"/>
-        <ellipse cx="186" cy="36" rx="9" ry="9" fill="#4A5A6A"/>
-        <ellipse cx="186" cy="36" rx="6" ry="6" fill="#1a2a3a"/>
-        <ellipse cx="133" cy="36" rx="5" ry="4" fill="rgba(201,165,53,.25)"/>
-        <!-- Windows row -->
-        <ellipse cx="280" cy="49" rx="7" ry="5" fill="#7BB8D8" opacity=".85" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="265" cy="49" rx="7" ry="5" fill="#7BB8D8" opacity=".85" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="250" cy="49" rx="7" ry="5" fill="#8AC0E0" opacity=".85" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="235" cy="49" rx="7" ry="5" fill="#8AC0E0" opacity=".8" stroke="#5A9ABB" stroke-width=".5"/>
-        <ellipse cx="220" cy="49" rx="7" ry="5" fill="#8AC0E0" opacity=".8" stroke="#5A9ABB" stroke-width=".5"/>
-        <!-- Cockpit windows -->
-        <ellipse cx="302" cy="47" rx="9" ry="6" fill="#5A9AC0" opacity=".9" stroke="#4A8AB0" stroke-width=".5"/>
-        <ellipse cx="296" cy="47" rx="5" ry="5" fill="#4A8AB0" opacity=".7"/>
-        <!-- Landing gear -->
-        <line x1="148" y1="65" x2="148" y2="82" stroke="#8A9AAA" stroke-width="3" stroke-linecap="round"/>
-        <line x1="168" y1="65" x2="168" y2="82" stroke="#8A9AAA" stroke-width="3" stroke-linecap="round"/>
-        <ellipse cx="148" cy="84" rx="6" ry="4" fill="#5A6A7A"/>
-        <ellipse cx="168" cy="84" rx="6" ry="4" fill="#5A6A7A"/>
-        <line x1="195" y1="62" x2="195" y2="74" stroke="#8A9AAA" stroke-width="2.5" stroke-linecap="round"/>
-        <ellipse cx="195" cy="76" rx="5" ry="3" fill="#5A6A7A"/>
-        <!-- Anti-collision lights -->
-        <circle cx="52" cy="52" r="2.5" fill="#FF4444" opacity=".8" style="animation:runwayLight .8s ease-in-out infinite"/>
-        <circle cx="220" cy="13" r="2" fill="rgba(255,255,255,.9)" style="animation:runwayLight 1s ease-in-out infinite .4s"/>
-        <circle cx="220" cy="91" r="2" fill="rgba(255,255,200,.9)" style="animation:runwayLight 1s ease-in-out infinite .6s"/>
-      </svg>
+    <div class="nav-line" aria-hidden="true">
+      <span>Auralis SkyShare</span>
+      <span class="right">Private Aviation Access</span>
     </div>
 
-    <div style="position:absolute;bottom:30%;left:50%;transform:translateX(-50%);width:180px;height:180px;background:radial-gradient(circle,rgba(255,200,100,.18) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
-
-    <div class="hero-content">
-      <div class="hero-badge">Auralis SkyShare · Empty Leg Marketplace · 2025</div>
-      <p class="hero-eyebrow">Opportunità Limitate</p>
-      <h1 class="hero-h1">Auralis</h1>
-      <h2 class="hero-h1-gold">SkyShare</h2>
-      <p class="hero-quote">Quando i jet si riposizionano senza passeggeri, tu sali a bordo a una frazione del costo.<br><strong>Stesso aereo. Stesso lusso. Zero compromessi.</strong></p>
-      <p class="hero-attr">"Ogni posto non occupato è un'opportunità. Noi abbiamo costruito il ponte." — Auralis SkyShare · Founder · 2025</p>
-      <div class="hero-ctas">
-        <button class="btn-p" onclick="showPage('emptyleg')">Esplora i Voli</button>
-        <button class="btn-o" onclick="showPage('prenota')">Prenota Ora</button>
+    <div class="brand-mark" aria-hidden="true">
+      <div class="brand-lockup">
+        <img class="brand-logo" src="assets/hero/hero-logo.png" alt="Auralis SkyShare">
       </div>
     </div>
-  </section>
+
+    <div class="reveal-copy">
+      <p class="eyebrow">Auralis SkyShare</p>
+      <h2 class="headline">Il cielo diventa <span class="word-shell" aria-live="polite">
+        <span class="word active">esperienza.</span>
+        <span class="word">tuo</span>
+        <span class="word">libertà.</span>
+        <span class="word">casa.</span>
+        <span class="word">orizzonte.</span>
+        <span class="word">vicino.</span>
+      </span></h2>
+      <p class="subtitle">Un nuovo inizio per l'aviazione privata. Per chi vola, e per chi rende possibile il viaggio.</p>
+      <div class="cta-row" aria-label="Azioni principali">
+        <a class="cta" href="#explore">Esplora i voli</a>
+        <a class="cta secondary" href="#partner">Diventa partner</a>
+      </div>
+    </div>
+
+    <div class="progress-indicator" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="editorial" id="explore" style="background-image:linear-gradient(180deg, rgba(10,22,40,.88), rgba(4,9,18,.98) 52%, #030710 100%), url('assets/hero/hero-interior.jpg')">
+  <div class="editorial-inner">
+    <p class="editorial-kicker">Discretion by design</p>
+    <h2>Una piattaforma pensata per chi pretende <em>tempo, riservatezza e controllo.</em></h2>
+    <p>Auralis SkyShare orchestra disponibilità, accesso e partner selezionati con un linguaggio operativo sobrio: meno attrito, più precisione, piena centralità dell'esperienza a bordo.</p>
+
+    <div class="quiet-specs" id="partner" aria-label="Valori Auralis SkyShare">
+      <div class="quiet-spec"><strong>Privacy</strong><span>Accesso riservato, comunicazioni essenziali, presenza discreta.</span></div>
+      <div class="quiet-spec"><strong>Control</strong><span>Rotte, tempi e preferenze gestiti con standard premium.</span></div>
+      <div class="quiet-spec"><strong>Comfort</strong><span>Cabina, silenzio e servizio pensati come un'estensione privata.</span></div>
+    </div>
+  </div>
+</section>
 
   <div class="stats-bar">
     <div class="st-i"><div class="st-n">40%+</div><div class="st-l">Voli privati vuoti in EU</div></div>
@@ -1978,6 +2343,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.history.replaceState({}, document.title, "/");
   }
 });
+</script>
+<script>
+  (function () {
+    const scene = document.getElementById('skyshare-scene');
+    if (!scene) return; // sicurezza, come fa già il tuo initRunwayJet()
+    const root = document.documentElement;
+    const words = Array.from(document.querySelectorAll('.word-shell .word'));
+    const sequence = ['esperienza.', 'tuo', 'libertà.', 'casa.', 'orizzonte.', 'vicino.'];
+    let active = 0;
+    let raf = null;
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function updateScroll() {
+      const rect = scene.getBoundingClientRect();
+      const distance = scene.offsetHeight - window.innerHeight;
+      const progress = clamp(-rect.top / distance, 0, 1);
+      root.style.setProperty('--scene-progress', progress.toFixed(4));
+      raf = null;
+    }
+
+    function requestUpdate() {
+      if (!raf) raf = requestAnimationFrame(updateScroll);
+    }
+
+    function rotateWord() {
+      active = (active + 1) % sequence.length;
+      words.forEach((node, index) => node.classList.toggle('active', index === active));
+    }
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    updateScroll();
+    setInterval(rotateWord, 2100);
+  })();
 </script>
 
 </body>
