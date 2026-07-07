@@ -12,6 +12,7 @@ import { errorMiddleware } from "./middleware/error.middleware";
 import { bookingsRouter } from "./routes/bookings.routes";
 import { stripeWebhookRouter } from "./routes/stripeWebhook.routes";
 import { myBookingsRouter } from "./routes/myBookings.routes";
+import { operatorRouter } from "./routes/operator.routes";
 
 export const app = express();
 app.set("trust proxy", 1);
@@ -41,5 +42,7 @@ app.use("/api/empty-legs", emptyLegsRouter);
 
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/my/bookings", myBookingsRouter);
+
+app.use("/api/operator", operatorRouter);
 
 app.use(errorMiddleware);
