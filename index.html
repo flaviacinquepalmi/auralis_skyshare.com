@@ -286,102 +286,6 @@ nav{   position:fixed;   top:0;   left:0;   right:0;   z-index:9000;   backgroun
 .offer-pill{background:rgba(201,165,53,.12);border:1px solid rgba(201,165,53,.25);color:var(--gold2);font-size:10px;letter-spacing:1px;padding:5px 14px;font-weight:600;border-radius:2px}
 .pilot-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;padding:16px 36px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:900;cursor:pointer;transition:all .25s;white-space:nowrap;border-radius:3px;flex-shrink:0}
 .pilot-btn:hover{opacity:.9;transform:translateY(-2px)}
-<!-- ══ OPERATOR DASHBOARD ══ -->
-<div class="page" id="page-operator-dashboard">
-  <div style="max-width:1100px;margin:0 auto;padding:140px 40px 80px">
-    <h1 style="font-size:32px;font-weight:900;color:var(--navy);margin-bottom:32px">Dashboard Operatore</h1>
-
-    <!-- PROFILO -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Profilo Azienda</h2>
-      <div id="operator-status-badge" style="margin-bottom:16px"></div>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Nome Azienda</label><input type="text" id="op-companyName" placeholder="Demo Air Charter"></div>
-        <div class="fg"><label>Partita IVA</label><input type="text" id="op-vatNumber" placeholder="Opzionale"></div>
-      </div>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Email di contatto</label><input type="email" id="op-contactEmail" placeholder="ops@azienda.com"></div>
-        <div class="fg"><label>Telefono</label><input type="tel" id="op-contactPhone" placeholder="Opzionale"></div>
-      </div>
-      <button class="res-btn" style="max-width:240px" onclick="saveOperatorProfile()">Salva Profilo</button>
-    </div>
-
-    <!-- AEROMOBILI -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">I Tuoi Aeromobili</h2>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Costruttore</label><input type="text" id="ac-manufacturer" placeholder="Cessna"></div>
-        <div class="fg"><label>Modello</label><input type="text" id="ac-model" placeholder="Citation CJ2+"></div>
-      </div>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Codice di registrazione</label><input type="text" id="ac-registrationCode" placeholder="Opzionale"></div>
-        <div class="fg"><label>Posti massimi</label><input type="number" id="ac-maxPax" placeholder="6"></div>
-      </div>
-      <button class="res-btn" style="max-width:240px;margin-bottom:20px" onclick="createAircraft()">Aggiungi Aeromobile</button>
-      <div id="operator-aircraft-list"></div>
-    </div>
-
-    <!-- NUOVO VOLO -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Pubblica Nuovo Volo Empty-Leg</h2>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Aeromobile</label><select id="el-aircraftId"></select></div>
-        <div class="fg"><label>Prezzo Totale (€)</label><input type="number" id="el-priceTotal" placeholder="8500"></div>
-      </div>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Da (codice IATA)</label><input type="text" id="el-fromAirport" placeholder="LIN" maxlength="3"></div>
-        <div class="fg"><label>A (codice IATA)</label><input type="text" id="el-toAirport" placeholder="OLB" maxlength="3"></div>
-      </div>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Data e ora partenza</label><input type="datetime-local" id="el-departureAt"></div>
-        <div class="fg"><label>Durata (minuti)</label><input type="number" id="el-durationMin" placeholder="75"></div>
-      </div>
-      <div class="form-row" style="margin-bottom:12px">
-        <div class="fg"><label>Posti disponibili</label><input type="number" id="el-availablePax" placeholder="6"></div>
-        <div class="fg"><label>Risparmio % (opzionale)</label><input type="number" id="el-savingPct" placeholder="35"></div>
-      </div>
-      <button class="res-btn" style="max-width:240px;margin-bottom:20px" onclick="createEmptyLeg()">Pubblica Volo</button>
-      <div id="operator-emptylegs-list"></div>
-    </div>
-
-    <!-- BOOKING RICEVUTI -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Prenotazioni sui Tuoi Voli</h2>
-      <div id="operator-bookings-list"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ ADMIN DASHBOARD ══ -->
-<div class="page" id="page-admin-dashboard">
-  <div style="max-width:1100px;margin:0 auto;padding:140px 40px 80px">
-    <h1 style="font-size:32px;font-weight:900;color:var(--navy);margin-bottom:32px">Dashboard Admin</h1>
-
-    <!-- OPERATORI IN ATTESA -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Operatori</h2>
-      <div id="admin-operators-list"></div>
-    </div>
-
-    <!-- UTENTI -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Utenti</h2>
-      <div id="admin-users-list"></div>
-    </div>
-
-    <!-- BOOKING -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Tutte le Prenotazioni</h2>
-      <div id="admin-bookings-list"></div>
-    </div>
-
-    <!-- CONTACT REQUESTS -->
-    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px">
-      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Richieste di Contatto</h2>
-      <div id="admin-contact-list"></div>
-    </div>
-  </div>
-</div>
 
 /* FOOTER */
 footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(255,255,255,.06)}
@@ -1129,6 +1033,102 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     </div>
   </div>
 </div>
+<!-- ══ OPERATOR DASHBOARD ══ -->
+<div class="page" id="page-operator-dashboard">
+  <div style="max-width:1100px;margin:0 auto;padding:140px 40px 80px">
+    <h1 style="font-size:32px;font-weight:900;color:var(--navy);margin-bottom:32px">Dashboard Operatore</h1>
+
+    <!-- PROFILO -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Profilo Azienda</h2>
+      <div id="operator-status-badge" style="margin-bottom:16px"></div>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Nome Azienda</label><input type="text" id="op-companyName" placeholder="Demo Air Charter"></div>
+        <div class="fg"><label>Partita IVA</label><input type="text" id="op-vatNumber" placeholder="Opzionale"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Email di contatto</label><input type="email" id="op-contactEmail" placeholder="ops@azienda.com"></div>
+        <div class="fg"><label>Telefono</label><input type="tel" id="op-contactPhone" placeholder="Opzionale"></div>
+      </div>
+      <button class="res-btn" style="max-width:240px" onclick="saveOperatorProfile()">Salva Profilo</button>
+    </div>
+
+    <!-- AEROMOBILI -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">I Tuoi Aeromobili</h2>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Costruttore</label><input type="text" id="ac-manufacturer" placeholder="Cessna"></div>
+        <div class="fg"><label>Modello</label><input type="text" id="ac-model" placeholder="Citation CJ2+"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Codice di registrazione</label><input type="text" id="ac-registrationCode" placeholder="Opzionale"></div>
+        <div class="fg"><label>Posti massimi</label><input type="number" id="ac-maxPax" placeholder="6"></div>
+      </div>
+      <button class="res-btn" style="max-width:240px;margin-bottom:20px" onclick="createAircraft()">Aggiungi Aeromobile</button>
+      <div id="operator-aircraft-list"></div>
+    </div>
+
+    <!-- NUOVO VOLO -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Pubblica Nuovo Volo Empty-Leg</h2>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Aeromobile</label><select id="el-aircraftId"></select></div>
+        <div class="fg"><label>Prezzo Totale (€)</label><input type="number" id="el-priceTotal" placeholder="8500"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Da (codice IATA)</label><input type="text" id="el-fromAirport" placeholder="LIN" maxlength="3"></div>
+        <div class="fg"><label>A (codice IATA)</label><input type="text" id="el-toAirport" placeholder="OLB" maxlength="3"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Data e ora partenza</label><input type="datetime-local" id="el-departureAt"></div>
+        <div class="fg"><label>Durata (minuti)</label><input type="number" id="el-durationMin" placeholder="75"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Posti disponibili</label><input type="number" id="el-availablePax" placeholder="6"></div>
+        <div class="fg"><label>Risparmio % (opzionale)</label><input type="number" id="el-savingPct" placeholder="35"></div>
+      </div>
+      <button class="res-btn" style="max-width:240px;margin-bottom:20px" onclick="createEmptyLeg()">Pubblica Volo</button>
+      <div id="operator-emptylegs-list"></div>
+    </div>
+
+    <!-- BOOKING RICEVUTI -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Prenotazioni sui Tuoi Voli</h2>
+      <div id="operator-bookings-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN DASHBOARD ══ -->
+<div class="page" id="page-admin-dashboard">
+  <div style="max-width:1100px;margin:0 auto;padding:140px 40px 80px">
+    <h1 style="font-size:32px;font-weight:900;color:var(--navy);margin-bottom:32px">Dashboard Admin</h1>
+
+    <!-- OPERATORI IN ATTESA -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Operatori</h2>
+      <div id="admin-operators-list"></div>
+    </div>
+
+    <!-- UTENTI -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Utenti</h2>
+      <div id="admin-users-list"></div>
+    </div>
+
+    <!-- BOOKING -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Tutte le Prenotazioni</h2>
+      <div id="admin-bookings-list"></div>
+    </div>
+
+    <!-- CONTACT REQUESTS -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Richieste di Contatto</h2>
+      <div id="admin-contact-list"></div>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer id="main-footer">
@@ -1222,7 +1222,16 @@ function updateNavForRole() {
 }
 
 let auth0Client = null;
+async function loginWithAuth0() {
+  if (!auth0Client) return;
+  await auth0Client.loginWithRedirect();
+}
 
+async function logoutWithAuth0() {
+  if (!auth0Client) return;
+  auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
+}
+  
 async function initAuth0() {
   auth0Client = await auth0.createAuth0Client({
     domain: AUTH0_DOMAIN,
