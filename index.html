@@ -352,6 +352,37 @@ nav{   position:fixed;   top:0;   left:0;   right:0;   z-index:9000;   backgroun
   </div>
 </div>
 
+<!-- ══ ADMIN DASHBOARD ══ -->
+<div class="page" id="page-admin-dashboard">
+  <div style="max-width:1100px;margin:0 auto;padding:140px 40px 80px">
+    <h1 style="font-size:32px;font-weight:900;color:var(--navy);margin-bottom:32px">Dashboard Admin</h1>
+
+    <!-- OPERATORI IN ATTESA -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Operatori</h2>
+      <div id="admin-operators-list"></div>
+    </div>
+
+    <!-- UTENTI -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Utenti</h2>
+      <div id="admin-users-list"></div>
+    </div>
+
+    <!-- BOOKING -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px;margin-bottom:32px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Tutte le Prenotazioni</h2>
+      <div id="admin-bookings-list"></div>
+    </div>
+
+    <!-- CONTACT REQUESTS -->
+    <div style="background:var(--off);border:1px solid var(--bdr);padding:28px;border-radius:6px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Richieste di Contatto</h2>
+      <div id="admin-contact-list"></div>
+    </div>
+  </div>
+</div>
+
 /* FOOTER */
 footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(255,255,255,.06)}
 .foot-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
@@ -1226,6 +1257,8 @@ function showPage(id){
     if(id==='contatti')flyContJet();
     if(id==='home'){initRunwayJet();initHowJet();}
     if(id==='prenota'){const b=document.getElementById('prefilled-banner');if(b)b.classList.remove('show');}
+    if(id==='operator-dashboard') loadOperatorDashboard();
+    if(id==='admin-dashboard') loadAdminDashboard();
   },80);
 }
 
@@ -1240,6 +1273,256 @@ function switchResTab(tab,btn){
   btn.classList.add('active');
 }
 function simulateGoogleLogin(){alert('Integrazione Google OAuth in corso. Prossimamente disponibile.');}
+
+// ===== OPERATOR DASHBOARD =====
+
+let operatorAircraftCache = [];
+
+function operatorStatusBadge(status) {
+  const colors = {
+    PENDING: { bg: "rgba(201,165,53,.1)", color: "#C9A535", label: "In attesa di approvazione" },
+    APPROVED: { bg: "rgba(46,158,96,.1)", color: "#2E9E60", label: "Approvato" },
+    REJECTED: { bg: "rgba(220,53,69,.1)", color: "#DC3545", label: "Rifiutato" },
+  };
+  const s = colors[status] || colors.PENDING;
+  return `<span style="background:${s.bg};color:${s.color};font-size:11px;font-weight:700;padding:4px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px">${s.label}</span>`;
+}
+
+async function loadOperatorDashboard() {
+  try {
+    const profile = await apiFetch("/api/operator/profile");
+    document.getElementById("op-companyName").value = profile.companyName || "";
+    document.getElementById("op-vatNumber").value = profile.vatNumber || "";
+    document.getElementById("op-contactEmail").value = profile.contactEmail || "";
+    document.getElementById("op-contactPhone").value = profile.contactPhone || "";
+    document.getElementById("operator-status-badge").innerHTML = operatorStatusBadge(profile.status);
+
+    if (profile.status === "APPROVED") {
+      await loadOperatorAircraft();
+      await loadOperatorEmptyLegs();
+      await loadOperatorBookings();
+    }
+  } catch (err) {
+    document.getElementById("operator-status-badge").innerHTML =
+      `<span style="color:var(--muted);font-size:13px">Nessun profilo ancora creato. Compila e salva per iniziare.</span>`;
+  }
+}
+
+async function saveOperatorProfile() {
+  const companyName = document.getElementById("op-companyName").value;
+  const vatNumber = document.getElementById("op-vatNumber").value;
+  const contactEmail = document.getElementById("op-contactEmail").value;
+  const contactPhone = document.getElementById("op-contactPhone").value;
+
+  if (!companyName || !contactEmail) {
+    alert("Nome azienda ed email di contatto sono obbligatori.");
+    return;
+  }
+
+  try {
+    await apiFetch("/api/operator/profile", {
+      method: "POST",
+      body: JSON.stringify({ companyName, vatNumber, contactEmail, contactPhone }),
+    });
+    alert("Profilo salvato correttamente.");
+    await loadOperatorDashboard();
+  } catch (err) {
+    alert(err.message || "Errore durante il salvataggio del profilo.");
+  }
+}
+
+async function loadOperatorAircraft() {
+  const result = await apiFetch("/api/operator/aircraft");
+  operatorAircraftCache = result.data || [];
+
+  const list = document.getElementById("operator-aircraft-list");
+  list.innerHTML = operatorAircraftCache.length
+    ? operatorAircraftCache.map(a => `
+        <div style="background:#fff;border:1px solid var(--bdr);padding:12px 16px;border-radius:4px;margin-bottom:8px;font-size:13px">
+          <strong>${a.manufacturer} ${a.model}</strong> — ${a.maxPax} posti ${a.registrationCode ? `— ${a.registrationCode}` : ""}
+        </div>`).join("")
+    : `<p style="font-size:13px;color:var(--muted)">Nessun aeromobile ancora aggiunto.</p>`;
+
+  const select = document.getElementById("el-aircraftId");
+  select.innerHTML = operatorAircraftCache.map(a =>
+    `<option value="${a.id}">${a.manufacturer} ${a.model}</option>`).join("");
+}
+
+async function createAircraft() {
+  const manufacturer = document.getElementById("ac-manufacturer").value;
+  const model = document.getElementById("ac-model").value;
+  const registrationCode = document.getElementById("ac-registrationCode").value;
+  const maxPax = document.getElementById("ac-maxPax").value;
+
+  if (!manufacturer || !model || !maxPax) {
+    alert("Costruttore, modello e posti massimi sono obbligatori.");
+    return;
+  }
+
+  try {
+    await apiFetch("/api/operator/aircraft", {
+      method: "POST",
+      body: JSON.stringify({ manufacturer, model, registrationCode, maxPax: Number(maxPax) }),
+    });
+    document.getElementById("ac-manufacturer").value = "";
+    document.getElementById("ac-model").value = "";
+    document.getElementById("ac-registrationCode").value = "";
+    document.getElementById("ac-maxPax").value = "";
+    await loadOperatorAircraft();
+  } catch (err) {
+    alert(err.message || "Errore durante la creazione dell'aeromobile.");
+  }
+}
+
+async function loadOperatorEmptyLegs() {
+  const result = await apiFetch("/api/operator/empty-legs");
+  const legs = result.data || [];
+
+  const list = document.getElementById("operator-emptylegs-list");
+  list.innerHTML = legs.length
+    ? legs.map(l => `
+        <div style="background:#fff;border:1px solid var(--bdr);padding:12px 16px;border-radius:4px;margin-bottom:8px;font-size:13px;display:flex;justify-content:space-between;align-items:center">
+          <span><strong>${l.fromAirport} → ${l.toAirport}</strong> — ${formatDate(l.departureAt)} — ${formatPrice(l.priceTotal)}</span>
+          <span style="font-size:11px;color:var(--muted);text-transform:uppercase">${l.status}</span>
+        </div>`).join("")
+    : `<p style="font-size:13px;color:var(--muted)">Nessun volo ancora pubblicato.</p>`;
+}
+
+async function createEmptyLeg() {
+  const aircraftId = document.getElementById("el-aircraftId").value;
+  const fromAirport = document.getElementById("el-fromAirport").value.toUpperCase();
+  const toAirport = document.getElementById("el-toAirport").value.toUpperCase();
+  const departureAtLocal = document.getElementById("el-departureAt").value;
+  const durationMin = document.getElementById("el-durationMin").value;
+  const availablePax = document.getElementById("el-availablePax").value;
+  const priceTotal = document.getElementById("el-priceTotal").value;
+  const savingPct = document.getElementById("el-savingPct").value;
+
+  if (!aircraftId || !fromAirport || !toAirport || !departureAtLocal || !durationMin || !availablePax || !priceTotal) {
+    alert("Compila tutti i campi obbligatori.");
+    return;
+  }
+
+  try {
+    await apiFetch("/api/operator/empty-legs", {
+      method: "POST",
+      body: JSON.stringify({
+        aircraftId,
+        fromAirport,
+        toAirport,
+        departureAt: new Date(departureAtLocal).toISOString(),
+        durationMin: Number(durationMin),
+        availablePax: Number(availablePax),
+        priceTotal: Number(priceTotal),
+        savingPct: savingPct ? Number(savingPct) : undefined,
+      }),
+    });
+    alert("Volo pubblicato correttamente.");
+    ["el-fromAirport","el-toAirport","el-departureAt","el-durationMin","el-availablePax","el-priceTotal","el-savingPct"]
+      .forEach(id => document.getElementById(id).value = "");
+    await loadOperatorEmptyLegs();
+  } catch (err) {
+    alert(err.message || "Errore durante la pubblicazione del volo.");
+  }
+}
+
+async function loadOperatorBookings() {
+  const result = await apiFetch("/api/operator/bookings");
+  const bookings = result.data || [];
+
+  const list = document.getElementById("operator-bookings-list");
+  list.innerHTML = bookings.length
+    ? bookings.map(b => `
+        <div style="background:#fff;border:1px solid var(--bdr);padding:12px 16px;border-radius:4px;margin-bottom:8px;font-size:13px;display:flex;justify-content:space-between;align-items:center">
+          <span><strong>${b.bookerFirstName} ${b.bookerLastName}</strong> — ${b.emptyLeg?.fromAirport} → ${b.emptyLeg?.toAirport}</span>
+          <span style="font-size:11px;color:var(--muted);text-transform:uppercase">${b.status}</span>
+        </div>`).join("")
+    : `<p style="font-size:13px;color:var(--muted)">Nessuna prenotazione ricevuta.</p>`;
+}
+
+// ===== ADMIN DASHBOARD =====
+
+async function loadAdminDashboard() {
+  await loadAdminOperators();
+  await loadAdminUsers();
+  await loadAdminBookings();
+  await loadAdminContactRequests();
+}
+
+async function loadAdminOperators() {
+  const result = await apiFetch("/api/admin/operators");
+  const operators = result.data || [];
+
+  const list = document.getElementById("admin-operators-list");
+  list.innerHTML = operators.length
+    ? operators.map(o => `
+        <div style="background:#fff;border:1px solid var(--bdr);padding:12px 16px;border-radius:4px;margin-bottom:8px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <span><strong>${o.companyName}</strong> — ${o.user?.email || ""} — <span style="text-transform:uppercase;color:var(--muted)">${o.status}</span></span>
+          <div style="display:flex;gap:8px;flex-shrink:0">
+            <button class="el-btn" style="background:#2E9E60" onclick="approveOperator('${o.id}')">Approva</button>
+            <button class="el-btn" style="background:#DC3545" onclick="rejectOperator('${o.id}')">Rifiuta</button>
+          </div>
+        </div>`).join("")
+    : `<p style="font-size:13px;color:var(--muted)">Nessun operatore registrato.</p>`;
+}
+
+async function approveOperator(id) {
+  try {
+    await apiFetch(`/api/admin/operators/${id}/approve`, { method: "PUT" });
+    await loadAdminOperators();
+  } catch (err) {
+    alert(err.message || "Errore durante l'approvazione.");
+  }
+}
+
+async function rejectOperator(id) {
+  try {
+    await apiFetch(`/api/admin/operators/${id}/reject`, { method: "PUT" });
+    await loadAdminOperators();
+  } catch (err) {
+    alert(err.message || "Errore durante il rifiuto.");
+  }
+}
+
+async function loadAdminUsers() {
+  const result = await apiFetch("/api/admin/users");
+  const users = result.data || [];
+
+  const list = document.getElementById("admin-users-list");
+  list.innerHTML = users.length
+    ? users.map(u => `
+        <div style="background:#fff;border:1px solid var(--bdr);padding:12px 16px;border-radius:4px;margin-bottom:8px;font-size:13px">
+          ${u.email} — <span style="text-transform:uppercase;color:var(--muted)">${u.role}</span>
+        </div>`).join("")
+    : `<p style="font-size:13px;color:var(--muted)">Nessun utente registrato.</p>`;
+}
+
+async function loadAdminBookings() {
+  const result = await apiFetch("/api/admin/bookings");
+  const bookings = result.data || [];
+
+  const list = document.getElementById("admin-bookings-list");
+  list.innerHTML = bookings.length
+    ? bookings.map(b => `
+        <div style="background:#fff;border:1px solid var(--bdr);padding:12px 16px;border-radius:4px;margin-bottom:8px;font-size:13px">
+          ${b.bookerFirstName} ${b.bookerLastName} — ${b.emptyLeg?.fromAirport} → ${b.emptyLeg?.toAirport} — <span style="text-transform:uppercase;color:var(--muted)">${b.status}</span>
+        </div>`).join("")
+    : `<p style="font-size:13px;color:var(--muted)">Nessuna prenotazione.</p>`;
+}
+
+async function loadAdminContactRequests() {
+  const result = await apiFetch("/api/admin/contact-requests");
+  const requests = result.data || [];
+
+  const list = document.getElementById("admin-contact-list");
+  list.innerHTML = requests.length
+    ? requests.map(r => `
+        <div style="background:#fff;border:1px solid var(--bdr);padding:12px 16px;border-radius:4px;margin-bottom:8px;font-size:13px">
+          <strong>${r.name}</strong> (${r.email}) — ${r.topic} — <span style="text-transform:uppercase;color:var(--muted)">${r.status}</span>
+          <div style="margin-top:4px;color:var(--muted)">${r.message}</div>
+        </div>`).join("")
+    : `<p style="font-size:13px;color:var(--muted)">Nessuna richiesta di contatto.</p>`;
+}
 
 // SPLIT BOOKING STATE
 let _bmTotal = 0;
