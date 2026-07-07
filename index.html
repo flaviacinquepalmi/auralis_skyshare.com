@@ -1082,6 +1082,49 @@ async function apiFetch(path, options = {}) {
   return response.json();
 }
 
+let currentUser = null;
+
+async function loadCurrentUser() {
+  if (!auth0Client) return;
+  const isAuthenticated = await auth0Client.isAuthenticated();
+  if (!isAuthenticated) {
+    currentUser = null;
+    updateNavForRole();
+    return;
+  }
+  try {
+    const result = await apiFetch("/api/me");
+    currentUser = result.user;
+  } catch (err) {
+    console.warn("Impossibile caricare l'utente:", err);
+    currentUser = null;
+  }
+  updateNavForRole();
+}
+
+function updateNavForRole() {
+  const navRight = document.querySelector(".nav-right");
+  if (!navRight) return;
+
+  let dashBtn = document.getElementById("btn-dashboard");
+  if (!currentUser || (currentUser.role !== "OPERATOR" && currentUser.role !== "ADMIN")) {
+    if (dashBtn) dashBtn.remove();
+    return;
+  }
+
+  const label = currentUser.role === "ADMIN" ? "Dashboard Admin" : "Dashboard Operatore";
+  const target = currentUser.role === "ADMIN" ? "admin-dashboard" : "operator-dashboard";
+
+  if (!dashBtn) {
+    dashBtn = document.createElement("button");
+    dashBtn.id = "btn-dashboard";
+    dashBtn.className = "btn-operator";
+    navRight.insertBefore(dashBtn, navRight.firstChild);
+  }
+  dashBtn.textContent = label;
+  dashBtn.onclick = () => showPage(target);
+}
+
 let auth0Client = null;
 
 async function initAuth0() {
@@ -1100,9 +1143,11 @@ async function initAuth0() {
     await auth0Client.handleRedirectCallback();
     window.history.replaceState({}, document.title, "/");
   }
+
+  await loadCurrentUser();
 }
 
-const ALL_PAGES=['home','about','emptyleg','prenota','contatti','partner','pilot'];
+const ALL_PAGES=['home','about','emptyleg','prenota','contatti','partner','pilot','operator-dashboard','admin-dashboard'];
 const NAV_IDS={home:'nl-home',about:'nl-about',emptyleg:'nl-emptyleg',prenota:'nl-prenota',contatti:'nl-contatti'};
 
 function showPage(id){
