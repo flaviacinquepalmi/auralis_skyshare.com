@@ -1602,7 +1602,7 @@ function showPage(id){
   setTimeout(()=>{
     document.querySelectorAll('#page-'+id+' .fu').forEach(el=>{el.classList.remove('vis');void el.offsetWidth;setTimeout(()=>el.classList.add('vis'),60);});
     if(id==='contatti')flyContJet();
-    if(id==='home'){initRunwayJet();initHowJet();}
+    if(id==='home'){initHowJet();}
     if(id==='prenota'){const b=document.getElementById('prefilled-banner');if(b)b.classList.remove('show');}
     if(id==='operator-dashboard') loadOperatorDashboard();
     if(id==='admin-dashboard') loadAdminDashboard();
@@ -2178,7 +2178,6 @@ document.addEventListener('keydown',e=>{
 });
 
 // INIT
-setTimeout(initRunwayJet,600);
 setTimeout(()=>{document.querySelectorAll('#page-home .fu').forEach(el=>el.classList.add('vis'));},300);
 document.getElementById('main-footer').style.display='block';
 </script>
