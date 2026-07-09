@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Auralis SkyShare — Private Aviation</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <style>
 :root{
   --navy:#0A1628;--navy2:#0E1E38;--blue:#4A7BC4;--blue2:#6BAED6;
@@ -30,7 +29,7 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;gap:16px}
 .nav-logo{cursor:pointer;flex-shrink:0;display:flex;align-items:center}
-.nav-logo img{width:190px;height:auto;max-height:80px;object-fit:contain;display:block}
+.nav-logo img{width:260px;height:auto;max-height:84px;object-fit:contain;display:block}
 .nav-links{display:flex;gap:4px;list-style:none;flex:1;justify-content:center}
 .nav-links a{font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:7px 12px;cursor:pointer;transition:color .2s;font-weight:500;border-radius:4px}
 .nav-links a:hover,.nav-links a.active-link{color:var(--navy);background:rgba(10,22,40,.04)}
@@ -1575,8 +1574,6 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 </footer>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
 const AUTH0_DOMAIN = "dev-ivx8addf2ul5rxcz.eu.auth0.com";
 const AUTH0_CLIENT_ID = "QOdnC2STmWvh2k5Qos5LaoTgDcOGzYPF";
 const AUTH0_AUDIENCE = "https://api.auralis-skyshare.com";
@@ -2259,11 +2256,6 @@ function startTimer(id,h,m,s){
   },1000);
 }
 startTimer('cd1',4,32,18);startTimer('cd2',11,8,44);startTimer('cd3',7,55,22);
-
-// GSAP on how-steps
-document.querySelectorAll('.how-step').forEach((el,i)=>{
-  gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'},y:40,opacity:0,duration:.7,delay:i*.12,ease:'power2.out'});
-});
 
 // Nav shadow
 window.addEventListener('scroll',()=>{document.getElementById('mainnav').style.boxShadow=window.scrollY>40?'0 2px 20px rgba(10,22,40,.08)':'none';},{passive:true});
