@@ -30,7 +30,7 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;gap:16px}
 .nav-logo{cursor:pointer;flex-shrink:0;display:flex;align-items:center}
-.nav-logo img{height:64px;width:auto;object-fit:contain;display:block}
+.nav-logo img{width:190px;height:auto;max-height:80px;object-fit:contain;display:block}
 .nav-links{display:flex;gap:4px;list-style:none;flex:1;justify-content:center}
 .nav-links a{font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:7px 12px;cursor:pointer;transition:color .2s;font-weight:500;border-radius:4px}
 .nav-links a:hover,.nav-links a.active-link{color:var(--navy);background:rgba(10,22,40,.04)}
@@ -791,7 +791,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 @media (max-width:900px){
   /* NAV compatta + menu a tendina */
   nav{height:64px;padding:0 14px}
-  .nav-logo img{height:40px}
+  .nav-logo img{width:120px;max-height:52px}
   .nav-right{display:none}
   .nav-burger{display:block}
   .nav-links{position:fixed;top:64px;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);flex-direction:column;gap:0;padding:8px 0 16px;border-bottom:1px solid var(--bdr);box-shadow:0 20px 50px rgba(10,22,40,.15);display:none;z-index:8999}
