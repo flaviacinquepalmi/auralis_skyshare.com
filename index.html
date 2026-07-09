@@ -1459,7 +1459,8 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     </div>
     <div class="partner-body">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
-        <div class="fu"><span class="sec-eye">L'Offerta Esclusiva</span><h2 class="sec-title" style="font-size:36px;margin-bottom:16px">Entra Prima<br>del Mercato</h2><p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:24px">Stiamo invitando un gruppo ristretto di operatori selezionati ad accedere ad Auralis SkyShare prima del lancio ufficiale. <strong style="color:var(--navy)">Zero commissioni iniziali, zero rischi, massima visibilità.</strong></p><div class="pill-row" style="margin-bottom:28px"><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Nessuna Fee</span><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Nessun Impegno</span><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Listing Gratuito</span><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Zero Commissioni</span></div><button class="btn-p" onclick="showPage('contatti')">Richiedi Accesso Anticipato →</button></div>
+        <div class="fu"><span class="sec-eye">L'Offerta Esclusiva</span><h2 class="sec-title" style="font-size:36px;margin-bottom:16px">Entra Prima<br>del Mercato</h2><p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:24px">Stiamo invitando un gruppo ristretto di operatori selezionati ad accedere ad Auralis SkyShare prima del lancio ufficiale. <strong style="color:var(--navy)">Zero commissioni iniziali, zero rischi, massima visibilità.</strong></p><div class="pill-row" style="margin-bottom:28px"><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Nessuna Fee</span><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Nessun Impegno</span><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Listing Gratuito</span><span class="offer-pill" style="background:rgba(201,165,53,.1);border-color:var(--bdr-g);color:var(--gold)">✓ Zero Commissioni</span></div><button class="btn-p" onclick="becomeOperator()">Registrati come Operatore →</button>
+</div>
         <div class="fu fu1" style="background:var(--off);border:1px solid var(--bdr);padding:40px"><span class="sec-eye" style="margin-bottom:20px">Come Funziona</span><div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--bdr);align-items:flex-start"><div style="width:26px;height:26px;border:1px solid var(--bdr-g);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;border-radius:50%;margin-top:2px">01</div><div><div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Registrazione Operatore</div><div style="font-size:12px;color:var(--muted);line-height:1.6">Profilo e flotta disponibile in 10 minuti.</div></div></div><div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--bdr);align-items:flex-start"><div style="width:26px;height:26px;border:1px solid var(--bdr-g);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;border-radius:50%;margin-top:2px">02</div><div><div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Listing Gratuito dei Voli</div><div style="font-size:12px;color:var(--muted);line-height:1.6">Pubblica le rotte empty-leg senza costi né commissioni.</div></div></div><div style="display:flex;gap:16px;padding:18px 0;align-items:flex-start"><div style="width:26px;height:26px;border:1px solid var(--bdr-g);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);flex-shrink:0;border-radius:50%;margin-top:2px">03</div><div><div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Revenue Incrementale</div><div style="font-size:12px;color:var(--muted);line-height:1.6">Ricevi prenotazioni e monetizza ogni slot vuoto.</div></div></div></div></div>
       </div>
     </div>
@@ -1637,8 +1638,20 @@ function updateNavForRole() {
   if (!navRight) return;
 
   let dashBtn = document.getElementById("btn-dashboard");
-  if (!currentUser || (currentUser.role !== "OPERATOR" && currentUser.role !== "ADMIN")) {
+  if (!currentUser) {
     if (dashBtn) dashBtn.remove();
+    return;
+  }
+
+  if (currentUser.role === "CUSTOMER") {
+    if (!dashBtn) {
+      dashBtn = document.createElement("button");
+      dashBtn.id = "btn-dashboard";
+      dashBtn.className = "btn-operator";
+      navRight.insertBefore(dashBtn, navRight.firstChild);
+    }
+    dashBtn.textContent = "Diventa Operatore";
+    dashBtn.onclick = () => showPage("operator-dashboard");
     return;
   }
 
@@ -1664,6 +1677,16 @@ async function loginWithAuth0() {
 async function logoutWithAuth0() {
   if (!auth0Client) return;
   auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
+}
+
+async function becomeOperator() {
+  if (!auth0Client) return;
+  const isAuthenticated = await auth0Client.isAuthenticated();
+  if (!isAuthenticated) {
+    await auth0Client.loginWithRedirect();
+    return;
+  }
+  showPage("operator-dashboard");
 }
   
 async function initAuth0() {
