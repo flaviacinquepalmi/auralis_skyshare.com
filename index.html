@@ -778,6 +778,91 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
+/* ═══════════ MOBILE ═══════════ */
+.nav-burger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-shrink:0}
+.nav-burger span{display:block;width:24px;height:2px;background:var(--navy);margin:5px 0;border-radius:2px}
+.mobile-only{display:none}
+
+@media (max-width:900px){
+  /* NAV compatta + menu a tendina */
+  nav{height:72px;padding:0 16px}
+  .nav-logo img{height:72px}
+  .nav-right{display:none}
+  .nav-burger{display:block}
+  .nav-links{position:fixed;top:72px;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);flex-direction:column;gap:0;padding:8px 0 16px;border-bottom:1px solid var(--bdr);box-shadow:0 20px 50px rgba(10,22,40,.15);display:none;z-index:8999}
+  nav.mobile-open .nav-links{display:flex}
+  .nav-links a{display:block;padding:14px 24px;font-size:13px}
+  .mobile-only{display:block;padding:10px 24px 0}
+  .mobile-only button{width:100%}
+}
+
+@media (max-width:768px){
+  /* Compensazione nav più bassa */
+  .about-hero,.el-hero,.prenota-wrap,.contatti-wrap,.partner-wrap{margin-top:72px}
+
+  /* STATS */
+  .stats-bar{grid-template-columns:1fr 1fr;padding:20px 16px;row-gap:20px}
+  .st-i{border-right:none;padding:0 8px}
+  .st-n{font-size:24px}
+
+  /* COME FUNZIONA */
+  .how-section{padding:0 20px 64px}
+  .how-header{padding-top:48px}
+  .how-steps{grid-template-columns:1fr}
+  .how-video-banner{height:200px}
+
+  /* INTERIOR STRIP */
+  .interior-strip{height:200px}
+  .interior-strip-text{left:24px}
+  .interior-strip-text h3{font-size:22px}
+
+  /* CHI SIAMO */
+  .about-hero-content,.el-hero-content{padding:0 24px}
+  .about-body{padding:48px 20px}
+  .about-grid{grid-template-columns:1fr;gap:32px}
+  .about-values{grid-template-columns:1fr}
+  .story-nums{grid-template-columns:1fr}
+
+  /* EMPTY LEG */
+  .el-intro{padding:48px 20px}
+  .el-info-strip{grid-template-columns:1fr}
+  .map-wrap{margin:0 20px;padding:20px 12px}
+  .el-cards-section{padding:40px 20px 64px}
+  .el-cards-grid{grid-template-columns:1fr}
+
+  /* PRENOTA — una colonna, niente foto sticky */
+  .prenota-wrap{grid-template-columns:1fr}
+  .prenota-form-col{padding:40px 20px;max-height:none;overflow-y:visible}
+  .prenota-visual-col{display:none}
+  .form-row{grid-template-columns:1fr}
+
+  /* CONTATTI */
+  .cont-hero{padding:0 24px 40px}
+  .cont-body{grid-template-columns:1fr;padding:0 20px 64px}
+  .cont-right{padding:40px 0 0}
+
+  /* PARTNER / PILOT */
+  .partner-hero>div{padding:0 24px !important}
+  .partner-body{padding:48px 20px}
+  .partner-grid{grid-template-columns:1fr}
+  .pilot-cta{grid-template-columns:1fr;padding:40px 24px}
+  #page-pilot .partner-body>div{grid-template-columns:1fr !important;gap:32px}
+
+  /* DASHBOARD (padding inline → serve !important) */
+  #page-operator-dashboard>div,#page-admin-dashboard>div{padding:100px 20px 60px !important}
+
+  /* MODALI E FORM */
+  .modal-box{padding:36px 24px}
+  .booking-modal-body{padding:20px}
+  .booking-modal-head{padding:20px}
+  .pax-body{grid-template-columns:1fr}
+  .split-row{grid-template-columns:1fr;gap:16px}
+
+  /* FOOTER */
+  footer{padding:48px 20px 24px}
+  .foot-top{grid-template-columns:1fr;gap:32px}
+  .foot-bottom{flex-direction:column;gap:10px;text-align:center}
+}
 
 </style>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
@@ -925,11 +1010,16 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Empty Leg</a></li>
     <li><a onclick="showPage('prenota')" id="nl-prenota">Prenota Ora</a></li>
     <li><a onclick="showPage('contatti')" id="nl-contatti">Contatti</a></li>
+    <li class="mobile-only"><button class="btn-operator" onclick="closeMobileMenu();openOperatorModal()">Sono un Operatore</button></li>
+    <li class="mobile-only"><button class="btn-reserved" onclick="closeMobileMenu();openReservedModal()">Area Riservata</button></li>
   </ul>
   <div class="nav-right">
     <button class="btn-operator" onclick="openOperatorModal()">Sono un Operatore</button>
     <button class="btn-reserved" onclick="openReservedModal()">Area Riservata</button>
   </div>
+  <button class="nav-burger" id="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- ══ HOME ══ -->
@@ -1594,6 +1684,7 @@ const ALL_PAGES=['home','about','emptyleg','prenota','contatti','partner','pilot
 const NAV_IDS={home:'nl-home',about:'nl-about',emptyleg:'nl-emptyleg',prenota:'nl-prenota',contatti:'nl-contatti'};
 
 function showPage(id){
+  closeMobileMenu();
   ALL_PAGES.forEach(p=>{const el=document.getElementById('page-'+p);if(el)el.classList.toggle('active',p===id);});
   Object.entries(NAV_IDS).forEach(([p,nid])=>{const el=document.getElementById(nid);if(el)el.classList.toggle('active-link',p===id);});
   const footer=document.getElementById('main-footer');
@@ -1611,6 +1702,8 @@ function showPage(id){
 
 // Modals
 function openOperatorModal(){document.getElementById('operator-modal').classList.add('open');}
+function toggleMobileMenu(){document.getElementById('mainnav').classList.toggle('mobile-open');}
+function closeMobileMenu(){document.getElementById('mainnav').classList.remove('mobile-open');}
 function closeOperatorModal(){document.getElementById('operator-modal').classList.remove('open');}
 function openReservedModal(){document.getElementById('reserved-modal').classList.add('open');}
 function closeReservedModal(){document.getElementById('reserved-modal').classList.remove('open');}
