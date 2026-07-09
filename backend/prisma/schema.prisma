@@ -107,6 +107,8 @@ model EmptyLeg {
   aircraft      Aircraft       @relation(fields: [aircraftId], references: [id])
   fromAirport   String
   toAirport     String
+  fromCity      String?
+  toCity        String?
   departureAt   DateTime
   arrivalAt     DateTime?
   durationMin   Int
