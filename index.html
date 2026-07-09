@@ -1512,6 +1512,10 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
         <div class="fg"><label>A (codice IATA)</label><input type="text" id="el-toAirport" placeholder="OLB" maxlength="3"></div>
       </div>
       <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Città di partenza</label><input type="text" id="el-fromCity" placeholder="Milano Linate"></div>
+        <div class="fg"><label>Città di arrivo</label><input type="text" id="el-toCity" placeholder="Olbia"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:12px">
         <div class="fg"><label>Data e ora partenza</label><input type="datetime-local" id="el-departureAt"></div>
         <div class="fg"><label>Durata (minuti)</label><input type="number" id="el-durationMin" placeholder="75"></div>
       </div>
@@ -1834,6 +1838,8 @@ async function createEmptyLeg() {
   const aircraftId = document.getElementById("el-aircraftId").value;
   const fromAirport = document.getElementById("el-fromAirport").value.toUpperCase();
   const toAirport = document.getElementById("el-toAirport").value.toUpperCase();
+  const fromCity = document.getElementById("el-fromCity").value.trim();
+  const toCity = document.getElementById("el-toCity").value.trim();
   const departureAtLocal = document.getElementById("el-departureAt").value;
   const durationMin = document.getElementById("el-durationMin").value;
   const availablePax = document.getElementById("el-availablePax").value;
@@ -1852,6 +1858,8 @@ async function createEmptyLeg() {
         aircraftId,
         fromAirport,
         toAirport,
+        fromCity: fromCity || undefined,
+        toCity: toCity || undefined,
         departureAt: new Date(departureAtLocal).toISOString(),
         durationMin: Number(durationMin),
         availablePax: Number(availablePax),
@@ -2364,9 +2372,15 @@ grid.innerHTML = flights.map((leg) => {
     return `
       <div class="el-card fu vis">
         <div class="el-rt">
-          <span class="el-iata">${leg.fromAirport}</span>
+          <div>
+            <span class="el-iata">${leg.fromAirport}</span>
+            <div class="el-city">${leg.fromCity || ""}</div>
+          </div>
           <div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div>
-          <span class="el-iata">${leg.toAirport}</span>
+          <div>
+            <span class="el-iata">${leg.toAirport}</span>
+            <div class="el-city">${leg.toCity || ""}</div>
+          </div>
         </div>
 
         <div class="el-meta">
