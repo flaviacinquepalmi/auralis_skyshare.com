@@ -61,11 +61,11 @@ async function main() {
 
   const now = new Date();
   const routes = [
-    { from: "LIN", to: "OLB", days: 3, dur: 75, pax: 6, price: 8500, saving: 35, aircraftId: aircraft1.id },
-    { from: "FCO", to: "NCE", days: 5, dur: 60, pax: 4, price: 6200, saving: 28, aircraftId: aircraft1.id },
-    { from: "MXP", to: "IBZ", days: 7, dur: 95, pax: 8, price: 11000, saving: 40, aircraftId: aircraft2.id },
-    { from: "VCE", to: "GVA", days: 10, dur: 55, pax: 6, price: 5800, saving: 22, aircraftId: aircraft1.id },
-    { from: "NAP", to: "CTA", days: 14, dur: 45, pax: 8, price: 4200, saving: 30, aircraftId: aircraft2.id },
+    { from: "LIN", to: "OLB", fromCity: "Milano Linate", toCity: "Olbia", days: 3, dur: 75, pax: 6, price: 8500, saving: 35, aircraftId: aircraft1.id },
+    { from: "FCO", to: "NCE", fromCity: "Roma Fiumicino", toCity: "Nizza", days: 5, dur: 60, pax: 4, price: 6200, saving: 28, aircraftId: aircraft1.id },
+    { from: "MXP", to: "IBZ", fromCity: "Milano Malpensa", toCity: "Ibiza", days: 7, dur: 95, pax: 8, price: 11000, saving: 40, aircraftId: aircraft2.id },
+    { from: "VCE", to: "GVA", fromCity: "Venezia", toCity: "Ginevra", days: 10, dur: 55, pax: 6, price: 5800, saving: 22, aircraftId: aircraft1.id },
+    { from: "NAP", to: "CTA", fromCity: "Napoli", toCity: "Catania", days: 14, dur: 45, pax: 8, price: 4200, saving: 30, aircraftId: aircraft2.id },
   ];
 
   for (const r of routes) {
@@ -76,6 +76,8 @@ async function main() {
         aircraftId: r.aircraftId,
         fromAirport: r.from,
         toAirport: r.to,
+        fromCity: r.fromCity,
+        toCity: r.toCity,
         departureAt,
         durationMin: r.dur,
         availablePax: r.pax,
