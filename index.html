@@ -2396,6 +2396,79 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     <div class="st-i"><div class="st-n">-75%</div><div class="st-l">Risparmio vs charter</div></div>
   </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".count-up");
+
+  if (!counters.length) return;
+
+  const duration = 1800;
+
+  function easeOutCubic(progress) {
+    return 1 - Math.pow(1 - progress, 3);
+  }
+
+  function animateCounter(element) {
+    if (element.dataset.animated === "true") return;
+
+    element.dataset.animated = "true";
+
+    const target = Number(element.dataset.target || 0);
+    const prefix = element.dataset.prefix || "";
+    const suffix = element.dataset.suffix || "";
+
+    const startTime = performance.now();
+
+    function updateCounter(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+
+      const currentValue = Math.round(
+        easedProgress * target
+      );
+
+      element.textContent =
+        `${prefix}${currentValue}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        element.textContent =
+          `${prefix}${target}${suffix}`;
+      }
+    }
+
+    requestAnimationFrame(updateCounter);
+  }
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.45
+    }
+  );
+
+  counters.forEach(counter => {
+    observer.observe(counter);
+  });
+});
+</script>
+
+.count-up {
+  display: inline-block;
+  min-width: 4ch;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
   <!-- ══ CONFIGURATORE VOLO ══ -->
 <section class="cfg-section fu" id="flight-configurator">
   <div class="cfg-inner">
