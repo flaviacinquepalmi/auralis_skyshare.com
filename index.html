@@ -3173,6 +3173,17 @@ if (configuratorSection) {
   observer.observe(configuratorSection);
 }
 
+window.addEventListener("load", () => {
+  window.setTimeout(() => {
+    if (
+      !configuratorInitialized &&
+      !configuratorLoading
+    ) {
+      initConfigurator();
+    }
+  }, 800);
+});
+
 function cfgCityLabel(code) {
   const leg = cfgFlights.find(l => l.fromAirport === code && l.fromCity) || cfgFlights.find(l => l.toAirport === code && l.toCity);
   if (leg) return leg.fromAirport === code ? (leg.fromCity || code) : (leg.toCity || code);
