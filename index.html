@@ -941,6 +941,74 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   .cfg-card{padding:16px 20px;min-width:120px}
 }
 
+/* LOADING STATE DEL CONFIGURATORE */
+
+.cfg-loading {
+  width: min(620px, 100%);
+  margin: 0 auto;
+  animation: cfgIn 0.35s ease both;
+}
+
+.cfg-loading-title {
+  width: 210px;
+  height: 24px;
+  margin: 0 auto 28px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.cfg-loading-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(145px, 1fr));
+  gap: 14px;
+}
+
+.cfg-loading-card {
+  height: 96px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.045);
+  overflow: hidden;
+  position: relative;
+}
+
+.cfg-loading-title::after,
+.cfg-loading-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: cfgShimmer 1.4s infinite;
+}
+
+@keyframes cfgShimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.cfg-loading-copy {
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 650px) {
+  .cfg-loading-cards {
+    grid-template-columns: 1fr;
+  }
+}
+  
 /* ═══════════ AURALIS MAGNIFICATION DOCK ═══════════ */
 
 .auralis-dock {
@@ -2606,6 +2674,27 @@ function updateConfigDock(step) {
   });
 }
 
+function renderConfiguratorLoading() {
+  const stage = document.getElementById("cfg-stage");
+  if (!stage) return;
+
+  stage.innerHTML = `
+    <div class="cfg-loading" aria-live="polite" aria-busy="true">
+      <div class="cfg-loading-title"></div>
+
+      <div class="cfg-loading-cards">
+        <div class="cfg-loading-card"></div>
+        <div class="cfg-loading-card"></div>
+        <div class="cfg-loading-card"></div>
+      </div>
+
+      <div class="cfg-loading-copy">
+        Verifica delle tratte disponibili
+      </div>
+    </div>
+  `;
+}
+
 function canOpenConfigStep(targetStep) {
   if (targetStep === 1) return true;
 
@@ -2656,6 +2745,48 @@ configDock?.addEventListener("click", event => {
   updateConfigDock(targetStep);
   cfgRender();
 });
+
+const CFG_CACHE_KEY = "auralis_empty_legs";
+const CFG_CACHE_TIME_KEY = "auralis_empty_legs_timestamp";
+const CFG_CACHE_DURATION = 5 * 60 * 1000; // 5 minuti
+
+function getCachedFlights() {
+  try {
+    const raw = localStorage.getItem(CFG_CACHE_KEY);
+    const timestamp = Number(
+      localStorage.getItem(CFG_CACHE_TIME_KEY)
+    );
+
+    if (!raw || !timestamp) return null;
+
+    const isExpired =
+      Date.now() - timestamp > CFG_CACHE_DURATION;
+
+    if (isExpired) return null;
+
+    const parsed = JSON.parse(raw);
+
+    return Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function cacheFlights(flights) {
+  try {
+    localStorage.setItem(
+      CFG_CACHE_KEY,
+      JSON.stringify(flights)
+    );
+
+    localStorage.setItem(
+      CFG_CACHE_TIME_KEY,
+      String(Date.now())
+    );
+  } catch (error) {
+    console.warn("Cache configuratore non disponibile:", error);
+  }
+}
 
 // ===== MAPPA ROTTE DINAMICA =====
 
@@ -2936,6 +3067,110 @@ async function initConfigurator() {
   } catch { cfgFlights = []; }
   cfgState = { step: 1, from: null, to: null, pax: 1 };
   cfgRender();
+}
+
+function renderConfiguratorFallback(error) {
+  const stage = document.getElementById("cfg-stage");
+  if (!stage) return;
+
+  const timedOut =
+    error?.name === "AbortError";
+
+  stage.innerHTML = `
+    <div class="cfg-empty">
+      <strong>
+        ${
+          timedOut
+            ? "Le tratte stanno impiegando più del previsto."
+            : "Le tratte non sono momentaneamente disponibili."
+        }
+      </strong>
+
+      <span>
+        Puoi comunque richiedere un volo personalizzato.
+      </span>
+
+      <div style="
+        display:flex;
+        justify-content:center;
+        gap:12px;
+        flex-wrap:wrap;
+        margin-top:24px;
+      ">
+        <button
+          class="cfg-confirm"
+          style="margin-top:0"
+          onclick="initConfigurator({ forceRefresh: true })"
+          type="button"
+        >
+          Riprova
+        </button>
+
+        <button
+          class="cfg-confirm"
+          style="
+            margin-top:0;
+            background:transparent;
+            color:#E8C96A;
+            border:1px solid rgba(232,201,106,.45);
+          "
+          onclick="showPage('prenota')"
+          type="button"
+        >
+          Richiedi un volo
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+.cfg-empty {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 34px 28px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.65);
+  font-size: 14px;
+  line-height: 1.6;
+  animation: cfgIn .4s ease both;
+}
+
+.cfg-empty strong {
+  display: block;
+  color: #fff;
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+
+.cfg-empty span {
+  display: block;
+}
+
+const configuratorSection =
+  document.querySelector(".cfg-section");
+
+if (configuratorSection) {
+  const observer = new IntersectionObserver(
+    entries => {
+      const entry = entries[0];
+
+      if (
+        entry.isIntersecting &&
+        !configuratorInitialized &&
+        !configuratorLoading
+      ) {
+        initConfigurator();
+      }
+    },
+    {
+      rootMargin: "250px 0px",
+      threshold: 0.01
+    }
+  );
+
+  observer.observe(configuratorSection);
 }
 
 function cfgCityLabel(code) {
