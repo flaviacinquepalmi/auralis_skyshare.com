@@ -940,7 +940,226 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   .cfg-dot label{display:none}
   .cfg-card{padding:16px 20px;min-width:120px}
 }
-  
+
+/* ═══════════ AURALIS MAGNIFICATION DOCK ═══════════ */
+
+.auralis-dock {
+  --dock-base-size: 52px;
+  --dock-magnification: 76px;
+
+  position: relative;
+  z-index: 20;
+
+  width: fit-content;
+  min-height: 70px;
+  margin: 42px auto 0;
+  padding: 9px 14px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+
+  border: 1px solid rgba(232, 201, 106, 0.22);
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.11),
+      rgba(255, 255, 255, 0.04)
+    ),
+    rgba(10, 22, 40, 0.72);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 24px 60px rgba(0, 0, 0, 0.3);
+
+  transition:
+    min-height 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease;
+}
+
+.auralis-dock:hover {
+  min-height: 96px;
+  border-color: rgba(232, 201, 106, 0.42);
+}
+
+.auralis-dock-item {
+  position: relative;
+
+  width: var(--dock-base-size);
+  height: var(--dock-base-size);
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.025)
+    ),
+    #0e1e38;
+
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 22px rgba(0, 0, 0, 0.22);
+
+  transform-origin: center bottom;
+
+  transition:
+    width 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 250ms ease,
+    border-color 250ms ease,
+    background 250ms ease;
+}
+
+.auralis-dock-item:hover,
+.auralis-dock-item:focus-visible {
+  width: var(--dock-magnification);
+  height: var(--dock-magnification);
+  transform: translateY(-8px);
+  color: #0a1628;
+  border-color: #e8c96a;
+
+  background: linear-gradient(
+    135deg,
+    #c9a535,
+    #e8c96a
+  );
+
+  outline: none;
+}
+
+.auralis-dock-item.active {
+  color: #0a1628;
+  border-color: #e8c96a;
+
+  background: linear-gradient(
+    135deg,
+    #c9a535,
+    #e8c96a
+  );
+
+  box-shadow:
+    0 0 0 4px rgba(201, 165, 53, 0.08),
+    0 10px 32px rgba(201, 165, 53, 0.24);
+}
+
+.auralis-dock-item.completed:not(.active) {
+  color: #e8c96a;
+  border-color: rgba(232, 201, 106, 0.48);
+}
+
+.dock-icon {
+  font-size: 21px;
+  line-height: 1;
+  font-weight: 800;
+  pointer-events: none;
+
+  transition:
+    font-size 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.auralis-dock-item:hover .dock-icon,
+.auralis-dock-item:focus-visible .dock-icon {
+  font-size: 27px;
+  transform: translateY(-1px);
+}
+
+.dock-tooltip {
+  position: absolute;
+  left: 50%;
+  top: -39px;
+
+  width: max-content;
+  max-width: 160px;
+  padding: 7px 11px;
+
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  pointer-events: none;
+
+  border: 1px solid rgba(232, 201, 106, 0.25);
+  border-radius: 6px;
+
+  background: rgba(10, 22, 40, 0.96);
+  color: #f7f9fc;
+
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+
+  transition:
+    opacity 200ms ease,
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.auralis-dock-item:hover .dock-tooltip,
+.auralis-dock-item:focus-visible .dock-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Gli elementi vicini si ingrandiscono leggermente */
+.auralis-dock-item:has(+ .auralis-dock-item:hover),
+.auralis-dock-item:hover + .auralis-dock-item {
+  width: 61px;
+  height: 61px;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .auralis-dock {
+    --dock-base-size: 46px;
+    --dock-magnification: 60px;
+
+    gap: 7px;
+    margin-top: 30px;
+    padding: 8px 11px;
+  }
+
+  .dock-tooltip {
+    display: none;
+  }
+
+  .auralis-dock-item:has(+ .auralis-dock-item:hover),
+  .auralis-dock-item:hover + .auralis-dock-item {
+    width: var(--dock-base-size);
+    height: var(--dock-base-size);
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auralis-dock,
+  .auralis-dock-item,
+  .dock-icon,
+  .dock-tooltip {
+    transition-duration: 0.01ms !important;
+  }
+}
+
 </style>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
 </head>
@@ -1137,17 +1356,28 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     <span class="sec-eye" style="color:var(--gold2)">Su Misura</span>
     <h2 class="cfg-heading">Componi il tuo volo</h2>
 
-    <div class="cfg-progress" aria-hidden="true">
-      <div class="cfg-track"><div class="cfg-fill" id="cfg-fill"></div></div>
-      <div class="cfg-dots">
-        <div class="cfg-dot active" data-step="1"><span>1</span><label>Partenza</label></div>
-        <div class="cfg-dot" data-step="2"><span>2</span><label>Destinazione</label></div>
-        <div class="cfg-dot" data-step="3"><span>3</span><label>Passeggeri</label></div>
-        <div class="cfg-dot" data-step="4"><span>✈</span><label>Il tuo volo</label></div>
-      </div>
-    </div>
-
     <div class="cfg-stage" id="cfg-stage"></div>
+    <nav class="auralis-dock" id="auralis-config-dock" aria-label="Navigazione configuratore">
+  <button class="auralis-dock-item active" data-step="1" type="button">
+    <span class="dock-tooltip">Partenza</span>
+    <span class="dock-icon">⌖</span>
+  </button>
+
+  <button class="auralis-dock-item" data-step="2" type="button">
+    <span class="dock-tooltip">Destinazione</span>
+    <span class="dock-icon">✈</span>
+  </button>
+
+  <button class="auralis-dock-item" data-step="3" type="button">
+    <span class="dock-tooltip">Passeggeri</span>
+    <span class="dock-icon">♙</span>
+  </button>
+
+  <button class="auralis-dock-item" data-step="4" type="button">
+    <span class="dock-tooltip">Il tuo volo</span>
+    <span class="dock-icon">✓</span>
+  </button>
+</nav>
     <button class="cfg-back" id="cfg-back" onclick="cfgBack()" style="display:none">← Indietro</button>
   </div>
 </section>
@@ -2358,6 +2588,75 @@ function formatDuration(min) {
   return `${h}h ${String(m).padStart(2, "0")}m`;
 }
 
+const configDock = document.getElementById("auralis-config-dock");
+
+function updateConfigDock(step) {
+  if (!configDock) return;
+
+  configDock.querySelectorAll(".auralis-dock-item").forEach(item => {
+    const itemStep = Number(item.dataset.step);
+
+    item.classList.toggle("active", itemStep === step);
+    item.classList.toggle("completed", itemStep < step);
+
+    item.setAttribute(
+      "aria-current",
+      itemStep === step ? "step" : "false"
+    );
+  });
+}
+
+function canOpenConfigStep(targetStep) {
+  if (targetStep === 1) return true;
+
+  if (targetStep === 2) {
+    return Boolean(cfgState.from);
+  }
+
+  if (targetStep === 3) {
+    return Boolean(cfgState.from && cfgState.to);
+  }
+
+  if (targetStep === 4) {
+    return Boolean(
+      cfgState.from &&
+      cfgState.to &&
+      Number(cfgState.pax) > 0
+    );
+  }
+
+  return false;
+}
+
+configDock?.addEventListener("click", event => {
+  const button = event.target.closest(".auralis-dock-item");
+  if (!button) return;
+
+  const targetStep = Number(button.dataset.step);
+
+  if (!canOpenConfigStep(targetStep)) {
+    button.animate(
+      [
+        { transform: "translateX(0)" },
+        { transform: "translateX(-5px)" },
+        { transform: "translateX(5px)" },
+        { transform: "translateX(-3px)" },
+        { transform: "translateX(0)" }
+      ],
+      {
+        duration: 320,
+        easing: "ease-out"
+      }
+    );
+
+    return;
+  }
+
+  cfgState.step = targetStep;
+  updateConfigDock(targetStep);
+  cfgRender();
+});
+
 // ===== MAPPA ROTTE DINAMICA =====
 
 // Coordinate stilizzate (x,y su viewBox 900x280) — Europa schematica:
@@ -2657,6 +2956,8 @@ function cfgSetProgress() {
 }
 
 function cfgRender() {
+  updateConfigDock(cfgState.step);
+  
   const stage = document.getElementById("cfg-stage");
   if (!stage) return;
   cfgSetProgress();
