@@ -4939,11 +4939,26 @@ function closeBookingModal(){document.getElementById('booking-modal').classList.
   let selectedEmptyLegId = null;
   let selectedLegProb = null;
 
-async function confirmBooking(){
-  const firstName = document.querySelector('#passengers-wrap input[placeholder="Nome"]')?.value;
-  const lastName = document.querySelector('#passengers-wrap input[placeholder="Cognome"]')?.value;
-  const email = document.querySelector('#passengers-wrap input[type="email"]')?.value;
-  const phone = document.querySelector('#passengers-wrap input[type="tel"]')?.value;
+async function confirmBooking() {
+  const firstName =
+    document.querySelector(
+      '#passengers-wrap input[placeholder="Nome"]'
+    )?.value.trim();
+
+  const lastName =
+    document.querySelector(
+      '#passengers-wrap input[placeholder="Cognome"]'
+    )?.value.trim();
+
+  const email =
+    document.querySelector(
+      '#passengers-wrap input[type="email"]'
+    )?.value.trim();
+
+  const phone =
+    document.querySelector(
+      '#passengers-wrap input[type="tel"]'
+    )?.value.trim();
 
   if (!selectedEmptyLegId) {
     alert("Errore: nessun volo selezionato.");
@@ -4955,15 +4970,40 @@ async function confirmBooking(){
     return;
   }
 
-  const isSplit = document.getElementById('split-toggle-cb')?.checked;
-  const totalPax = isSplit ? Number(document.getElementById('split-slider')?.value || 2) : 1;
+  /*
+   * L'utente deve essere autenticato affinché la prenotazione
+   * venga collegata alla dashboard cliente.
+   */
+  if (
+    !auth0Client ||
+    !(await auth0Client.isAuthenticated())
+  ) {
+    alert(
+      "Accedi all’Area Riservata prima di completare l’acquisto. " +
+      "In questo modo il biglietto verrà collegato al tuo account."
+    );
 
-  const passengers = [{
-    firstName: firstName,
-    lastName: lastName,
-    email,
-    phone
-  }];
+    await loginWithAuth0();
+    return;
+  }
+
+  const isSplit =
+    document.getElementById("split-toggle-cb")?.checked;
+
+  const totalPax = isSplit
+    ? Number(
+        document.getElementById("split-slider")?.value || 2
+      )
+    : 1;
+
+  const passengers = [
+    {
+      firstName,
+      lastName,
+      email,
+      phone
+    }
+  ];
 
   for (let i = 2; i <= totalPax; i++) {
     passengers.push({
@@ -4977,7 +5017,13 @@ async function confirmBooking(){
   try {
     const result = await apiFetch("/api/bookings", {
       method: "POST",
-      auth: false,
+
+      /*
+       * Prima era false: questo impediva di collegare
+       * la prenotazione all'utente Auth0.
+       */
+      auth: true,
+
       body: JSON.stringify({
         emptyLegId: selectedEmptyLegId,
         bookerFirstName: firstName,
@@ -4989,15 +5035,26 @@ async function confirmBooking(){
       })
     });
 
-    document.getElementById('booking-modal').classList.remove('open');
+    const checkoutUrl =
+      result?.checkoutUrl ||
+      result?.url;
 
-    if (result.checkoutUrl) {
-      window.location.href = result.checkoutUrl;
-    } else {
-      alert("Prenotazione creata correttamente.");
+    if (!checkoutUrl) {
+      throw new Error(
+        "Il server non ha restituito il link Stripe Checkout."
+      );
     }
-  } catch (err) {
-    alert(err.message || "Errore durante la prenotazione.");
+
+    closeBookingModal();
+
+    window.location.assign(checkoutUrl);
+  } catch (error) {
+    console.error("Errore prenotazione:", error);
+
+    alert(
+      error.message ||
+      "Non è stato possibile avviare il pagamento."
+    );
   }
 }
 
@@ -5140,8 +5197,6 @@ document.addEventListener('keydown',e=>{
 });
 
 // INIT
-fetch(API_BASE_URL + "/api/health").catch(() => {}); // sveglia il backend Render appena il sito si apre
-initConfigurator();
 setTimeout(()=>{document.querySelectorAll('#page-home .fu').forEach(el=>el.classList.add('vis'));},300);
 document.getElementById('main-footer').style.display='block';
 </script>
@@ -5261,7 +5316,7 @@ configDock?.addEventListener("click", event => {
 
 const CFG_CACHE_KEY = "auralis_empty_legs";
 const CFG_CACHE_TIME_KEY = "auralis_empty_legs_timestamp";
-const CFG_CACHE_DURATION = 5 * 60 * 1000; // 5 minuti
+const CFG_CACHE_DURATION = 15 * 60 * 1000; // 5 minuti
 
 function getCachedFlights() {
   try {
@@ -5299,6 +5354,57 @@ function cacheFlights(flights) {
   } catch (error) {
     console.warn("Cache configuratore non disponibile:", error);
   }
+}
+
+let emptyLegsRequest = null;
+
+async function getEmptyLegsShared({
+  forceRefresh = false
+} = {}) {
+  if (!forceRefresh) {
+    const cachedFlights =
+      getCachedFlights();
+
+    if (cachedFlights) {
+      return cachedFlights;
+    }
+  }
+
+  /*
+   * Se una richiesta è già in corso,
+   * viene riutilizzata invece di crearne un'altra.
+   */
+  if (
+    emptyLegsRequest &&
+    !forceRefresh
+  ) {
+    return emptyLegsRequest;
+  }
+
+  emptyLegsRequest = apiFetch(
+    "/api/empty-legs",
+    {
+      auth: false
+    }
+  )
+    .then(json => {
+      const flights = Array.isArray(json)
+        ? json
+        : Array.isArray(json?.data)
+          ? json.data
+          : Array.isArray(json?.flights)
+            ? json.flights
+            : [];
+
+      cacheFlights(flights);
+
+      return flights;
+    })
+    .finally(() => {
+      emptyLegsRequest = null;
+    });
+
+  return emptyLegsRequest;
 }
 
 // ===== MAPPA ROTTE DINAMICA =====
@@ -5384,13 +5490,43 @@ async function loadEmptyLegs() {
   const grid = document.getElementById("empty-leg-grid");
   if (!grid) return;
 
-  let flights = getCachedFlights();
-  if (!flights) {
-    grid.innerHTML = `<p style="color:var(--muted);font-size:13px">Ricerca voli disponibili in corso\u2026 il primo caricamento pu\u00f2 richiedere fino a un minuto.</p>`;
-    const json = await apiFetch("/api/empty-legs", { auth: false });
-    flights = json.data || [];
-    cacheFlights(flights);
+  let flights;
+
+try {
+  const cachedFlights =
+    getCachedFlights();
+
+  if (!cachedFlights) {
+    grid.innerHTML = `
+      <p style="
+        color:var(--muted);
+        font-size:13px
+      ">
+        Ricerca dei voli disponibili…
+      </p>
+    `;
   }
+
+  flights =
+    await getEmptyLegsShared();
+} catch (error) {
+  console.error(
+    "Errore caricamento Empty Leg:",
+    error
+  );
+
+  grid.innerHTML = `
+    <p style="
+      color:var(--muted);
+      font-size:13px
+    ">
+      Non è stato possibile caricare
+      i voli disponibili.
+    </p>
+  `;
+
+  return;
+}
 
   if (!flights.length) {
     grid.innerHTML = `<p style="color:var(--muted);font-size:13px">Nessun volo disponibile.</p>`;
@@ -5498,17 +5634,77 @@ grid.innerHTML = flights.map((leg) => {
   renderRoutesMap(flights);
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await initAuth0();
-  loadEmptyLegs();
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
+    await initAuth0();
 
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("booking") === "success") {
-    showSoloAlert();
-    window.history.replaceState({}, document.title, "/");
+    /*
+     * Carica gli Empty Leg in background.
+     */
+    loadEmptyLegs().catch(error => {
+      console.error(
+        "Errore caricamento Empty Leg:",
+        error
+      );
+    });
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const bookingStatus =
+      params.get("booking");
+
+    if (bookingStatus === "success") {
+      showSoloAlert();
+
+      /*
+       * initAuth0() ha già caricato currentUser.
+       */
+      if (currentUser) {
+        showPage("customer-dashboard");
+
+        /*
+         * Primo aggiornamento immediato.
+         */
+        window.setTimeout(() => {
+          loadCustomerDashboard();
+        }, 1200);
+
+        /*
+         * Secondo aggiornamento:
+         * permette al webhook Stripe di completarsi.
+         */
+        window.setTimeout(() => {
+          loadCustomerDashboard();
+        }, 4500);
+      }
+
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname
+      );
+
+      return;
+    }
+
+    if (bookingStatus === "cancelled") {
+      alert(
+        "Pagamento annullato. " +
+        "La prenotazione non è stata confermata."
+      );
+
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname
+      );
+    }
   }
-});
-
+);
 // ===== FAQ CHATBOX =====
 const FAQ_TREE = {
   root: { opts: ["cos-e", "prenotare", "pagamento", "operatore", "contatti"] },
@@ -5580,31 +5776,89 @@ let configuratorInitialized = false;
 let configuratorLoading = false;
 let cfgState = { step: 1, from: null, to: null, pax: 1 };
 
-async function initConfigurator(options = {}) {
-  const stage = document.getElementById("cfg-stage");
-  if (!stage) return;
-  configuratorLoading = true;
+async function initConfigurator(
+  options = {}
+) {
+  const stage =
+    document.getElementById("cfg-stage");
 
-  const cached = options.forceRefresh ? null : getCachedFlights();
-  if (cached) {
-    cfgFlights = cached;
-  } else {
-    renderConfiguratorLoading();
-    try {
-      const json = await apiFetch("/api/empty-legs", { auth: false });
-      cfgFlights = json.data || [];
-      cacheFlights(cfgFlights);
-    } catch (error) {
-      configuratorLoading = false;
-      renderConfiguratorFallback(error);
-      return;
-    }
+  if (!stage) return;
+
+  /*
+   * Evita due inizializzazioni contemporanee.
+   */
+  if (
+    configuratorLoading &&
+    !options.forceRefresh
+  ) {
+    return;
   }
 
-  configuratorLoading = false;
-  configuratorInitialized = true;
-  cfgState = { step: 1, from: null, to: null, pax: 1 };
-  cfgRender();
+  /*
+   * Se è già pronto, mostra i dati
+   * senza richiamare nuovamente il server.
+   */
+  if (
+    configuratorInitialized &&
+    !options.forceRefresh
+  ) {
+    cfgRender();
+    return;
+  }
+
+  configuratorLoading = true;
+
+  const cachedFlights =
+    options.forceRefresh
+      ? null
+      : getCachedFlights();
+
+  if (cachedFlights) {
+    cfgFlights = cachedFlights;
+
+    configuratorLoading = false;
+    configuratorInitialized = true;
+
+    cfgState = {
+      step: 1,
+      from: null,
+      to: null,
+      pax: 1
+    };
+
+    cfgRender();
+    return;
+  }
+
+  renderConfiguratorLoading();
+
+  try {
+    cfgFlights =
+      await getEmptyLegsShared({
+        forceRefresh:
+          Boolean(options.forceRefresh)
+      });
+
+    configuratorInitialized = true;
+
+    cfgState = {
+      step: 1,
+      from: null,
+      to: null,
+      pax: 1
+    };
+
+    cfgRender();
+  } catch (error) {
+    console.error(
+      "Errore configuratore:",
+      error
+    );
+
+    renderConfiguratorFallback(error);
+  } finally {
+    configuratorLoading = false;
+  }
 }
 
 function renderConfiguratorFallback(error) {
@@ -5687,17 +5941,6 @@ if (configuratorSection) {
 
   observer.observe(configuratorSection);
 }
-
-window.addEventListener("load", () => {
-  window.setTimeout(() => {
-    if (
-      !configuratorInitialized &&
-      !configuratorLoading
-    ) {
-      initConfigurator();
-    }
-  }, 800);
-});
 
 function cfgCityLabel(code) {
   const leg = cfgFlights.find(l => l.fromAirport === code && l.fromCity) || cfgFlights.find(l => l.toAirport === code && l.toCity);
