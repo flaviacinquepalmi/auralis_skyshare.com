@@ -115,7 +115,8 @@ model EmptyLeg {
   availablePax  Int
   priceTotal    Decimal        @db.Decimal(10, 2)
   currency      String         @default("EUR")
-  savingPct     Int?
+  SavingPct     Int?
+  confirmationProbability Int?
   status        EmptyLegStatus @default(DRAFT)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt

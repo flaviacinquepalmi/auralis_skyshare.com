@@ -179,6 +179,7 @@ const emptyLegSchema = z.object({
   priceTotal: z.coerce.number().positive(),
   currency: z.string().default("EUR"),
   savingPct: z.coerce.number().int().optional(),
+  confirmationProbability: z.coerce.number().int().min(10).max(90).optional(),
 });
 
 operatorRouter.post("/empty-legs", requireRole("OPERATOR"), async (req, res, next) => {
@@ -218,6 +219,7 @@ operatorRouter.post("/empty-legs", requireRole("OPERATOR"), async (req, res, nex
         priceTotal: data.priceTotal,
         currency: data.currency,
         savingPct: data.savingPct,
+        confirmationProbability: data.confirmationProbability,
         status: "PUBLISHED",
       },
     });
