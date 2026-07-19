@@ -1772,10 +1772,9 @@ async function loadOperatorDashboard() {
       await loadOperatorBookings();
     }
   } catch (err) {
-    document.getElementById("operator-status-badge").innerHTML =
-      `<span style="color:var(--muted);font-size:13px">Nessun profilo ancora creato. Compila e salva per iniziare.</span>`;
-  }
-}
+      document.getElementById("operator-status-badge").innerHTML =
+        `<span style="color:var(--muted);font-size:13px">Benvenuto! Compila il profilo azienda e salvalo per richiedere l'accesso come operatore. La richiesta sarà revisionata dal nostro team.</span>`;  }
+    }
 
 async function saveOperatorProfile() {
   const companyName = document.getElementById("op-companyName").value;
