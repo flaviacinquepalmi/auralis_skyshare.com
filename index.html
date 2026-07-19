@@ -5916,32 +5916,6 @@ function renderConfiguratorFallback(error) {
   `;
 }
 
-
-const configuratorSection =
-  document.querySelector(".cfg-section");
-
-if (configuratorSection) {
-  const observer = new IntersectionObserver(
-    entries => {
-      const entry = entries[0];
-
-      if (
-        entry.isIntersecting &&
-        !configuratorInitialized &&
-        !configuratorLoading
-      ) {
-        initConfigurator();
-      }
-    },
-    {
-      rootMargin: "250px 0px",
-      threshold: 0.01
-    }
-  );
-
-  observer.observe(configuratorSection);
-}
-
 function cfgCityLabel(code) {
   const leg = cfgFlights.find(l => l.fromAirport === code && l.fromCity) || cfgFlights.find(l => l.toAirport === code && l.toCity);
   if (leg) return leg.fromAirport === code ? (leg.fromCity || code) : (leg.toCity || code);
@@ -6071,6 +6045,71 @@ function cfgCustom() {
     updateScroll();
     setInterval(rotateWord, 2100);
   })();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const configuratorSection =
+    document.getElementById("flight-configurator");
+
+  if (!configuratorSection) {
+    console.error(
+      "Configuratore non trovato: manca #flight-configurator"
+    );
+    return;
+  }
+
+  function startConfigurator() {
+    if (
+      configuratorInitialized ||
+      configuratorLoading
+    ) {
+      return;
+    }
+
+    initConfigurator().catch(error => {
+      console.error(
+        "Errore inizializzazione configuratore:",
+        error
+      );
+
+      renderConfiguratorFallback(error);
+    });
+  }
+
+  /*
+   * Avvia il configuratore poco prima che
+   * l'utente raggiunga la sezione.
+   */
+  const configuratorObserver =
+    new IntersectionObserver(
+      entries => {
+        const entry = entries[0];
+
+        if (!entry.isIntersecting) return;
+
+        startConfigurator();
+        configuratorObserver.disconnect();
+      },
+      {
+        rootMargin: "350px 0px",
+        threshold: 0.01
+      }
+    );
+
+  configuratorObserver.observe(
+    configuratorSection
+  );
+
+  /*
+   * Fallback: assicura comunque l'avvio,
+   * anche se l'IntersectionObserver non parte.
+   */
+  window.setTimeout(
+    startConfigurator,
+    500
+  );
+});
 </script>
 
 </body>
