@@ -1201,11 +1201,9 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     </div>
   </div>
   <div class="map-wrap fu">
-    <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+    <svg id="routes-map" viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
       <defs>
         <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#C9A535" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#6BAED6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#E8C96A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
         <filter id="glow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
       </defs>
       <line x1="0" y1="93" x2="900" y2="93" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
@@ -1213,40 +1211,10 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       <line x1="225" y1="0" x2="225" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
       <line x1="450" y1="0" x2="450" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
       <line x1="675" y1="0" x2="675" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <circle cx="210" cy="165" r="10" fill="#C9A535" filter="url(#glow2)"/>
-      <circle cx="210" cy="165" r="18" fill="none" stroke="#C9A535" stroke-width="1" opacity=".3"/>
-      <text x="210" y="188" text-anchor="middle" font-size="14" font-weight="900" fill="#C9A535" font-family="system-ui">MXP</text>
-      <path d="M218 162 Q420 55 670 132" fill="none" stroke="#C9A535" stroke-width="1.8" stroke-dasharray="7 4" marker-end="url(#arr1)" opacity=".8"/>
-      <circle cx="670" cy="135" r="10" fill="#C9A535" filter="url(#glow2)"/>
-      <circle cx="670" cy="135" r="18" fill="none" stroke="#C9A535" stroke-width="1" opacity=".3"/>
-      <text x="680" y="118" text-anchor="middle" font-size="14" font-weight="900" fill="#E8C96A" font-family="system-ui">LTN</text>
-      <g style="offset-path:path('M218 162 Q420 55 670 132');animation:planePath 4s linear infinite;offset-rotate:auto">
-        <ellipse cx="0" cy="0" rx="18" ry="6" fill="rgba(240,248,255,.95)"/>
-        <path d="M5 -1 L14 -7 L17 -6 L10 -1Z" fill="#C9A535"/>
-        <path d="M5 1 L14 7 L17 6 L10 1Z" fill="#A88520"/>
-      </g>
-      <circle cx="310" cy="198" r="10" fill="#6BAED6" filter="url(#glow2)"/>
-      <circle cx="310" cy="198" r="18" fill="none" stroke="#6BAED6" stroke-width="1" opacity=".3"/>
-      <text x="310" y="222" text-anchor="middle" font-size="14" font-weight="900" fill="#6BAED6" font-family="system-ui">FCO</text>
-      <path d="M317 195 Q460 120 588 160" fill="none" stroke="#6BAED6" stroke-width="1.8" stroke-dasharray="7 4" marker-end="url(#arr2)" opacity=".75"/>
-      <circle cx="590" cy="160" r="10" fill="#6BAED6"/>
-      <circle cx="590" cy="160" r="18" fill="none" stroke="#6BAED6" stroke-width="1" opacity=".3"/>
-      <text x="590" y="183" text-anchor="middle" font-size="14" font-weight="900" fill="#6BAED6" font-family="system-ui">CDG</text>
-      <g style="offset-path:path('M317 195 Q460 120 588 160');animation:planePath 5s linear infinite 1.5s;offset-rotate:auto">
-        <ellipse cx="0" cy="0" rx="16" ry="5" fill="rgba(220,240,255,.95)"/>
-        <path d="M4 -1 L12 -6 L14 -5 L9 -1Z" fill="#6BAED6"/>
-        <path d="M4 1 L12 6 L14 5 L9 1Z" fill="#4A7BC4"/>
-      </g>
-      <circle cx="370" cy="175" r="10" fill="#E8C96A"/>
-      <circle cx="370" cy="175" r="18" fill="none" stroke="#E8C96A" stroke-width="1" opacity=".3"/>
-      <text x="370" y="199" text-anchor="middle" font-size="14" font-weight="900" fill="#E8C96A" font-family="system-ui">VCE</text>
-      <path d="M377 172 Q490 108 588 130" fill="none" stroke="#E8C96A" stroke-width="1.8" stroke-dasharray="7 4" marker-end="url(#arr3)" opacity=".7"/>
-      <circle cx="590" cy="132" r="10" fill="#E8C96A"/>
-      <circle cx="590" cy="132" r="18" fill="none" stroke="#E8C96A" stroke-width="1" opacity=".3"/>
-      <text x="620" y="138" text-anchor="middle" font-size="14" font-weight="900" fill="#E8C96A" font-family="system-ui">GVA</text>
+      <g id="routes-layer"></g>
     </svg>
     <div class="map-label">Rotte empty-leg disponibili in tempo reale</div>
-    </div>
+  </div>
   <div class="el-cards-section">
   <div class="el-cards-title">Slot Disponibili Ora</div>
   <div class="el-cards-grid" id="empty-leg-grid">
