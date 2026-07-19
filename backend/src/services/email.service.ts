@@ -109,3 +109,21 @@ export async function sendOperatorRejectedEmail(params: { to: string; companyNam
     html: `<h2>Richiesta non approvata</h2><p>${params.companyName} non è stato approvato in questo momento.</p>`,
   });
 }
+
+export async function sendAdminNewOperatorNotification(params: {
+  companyName: string;
+  contactEmail: string;
+  userEmail: string;
+}) {
+  await safeSend({
+    to: env.adminEmail,
+    subject: `Nuova richiesta operatore: ${params.companyName}`,
+    html: `
+      <h2>Nuova candidatura operatore</h2>
+      <p><strong>${params.companyName}</strong> ha richiesto l'accesso come operatore su Auralis SkyShare.</p>
+      <p>Email di contatto: ${params.contactEmail}</p>
+      <p>Account utente: ${params.userEmail}</p>
+      <p>Vai alla Dashboard Admin per approvare o rifiutare la richiesta.</p>
+    `,
+  });
+}

@@ -6,6 +6,7 @@ import { env } from "../config/env";
 import { requireAuth } from "../middleware/auth.middleware";
 import { syncAuth0User } from "../middleware/syncUser.middleware";
 import { requireRole } from "../middleware/requireRole.middleware";
+import { sendAdminNewOperatorNotification } from "../services/email.service";
 
 const adapter = new PrismaPg({ connectionString: env.databaseUrl });
 const prisma = new PrismaClient({ adapter });
@@ -47,6 +48,12 @@ operatorRouter.post("/profile", async (req, res, next) => {
       await prisma.user.update({
         where: { id: req.dbUser!.id },
         data: { role: "OPERATOR" },
+      });
+
+      await sendAdminNewOperatorNotification({
+        companyName: parsed.data.companyName,
+        contactEmail: parsed.data.contactEmail,
+        userEmail: req.dbUser!.email,
       });
     }
 
