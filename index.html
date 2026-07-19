@@ -178,6 +178,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255
 .el-card:hover{border-color:var(--bdr-g);box-shadow:0 8px 32px rgba(10,22,40,.07);transform:translateY(-4px)}
 .el-rt{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .el-iata{font-size:28px;font-weight:900;color:var(--navy);letter-spacing:-1px}
+.el-city{font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
+.el-prob{font-size:10px;color:#B8860B;background:rgba(201,165,53,.1);border:1px solid var(--bdr-g);padding:3px 8px;letter-spacing:.5px;display:inline-block;margin-bottom:12px;border-radius:2px;text-transform:uppercase;font-weight:600}
+.el-prob-ok{color:#2E9E60;background:rgba(46,158,96,.08);border-color:rgba(46,158,96,.2)}
 .el-arr{flex:1;display:flex;align-items:center;gap:6px}
 .el-line{flex:1;height:1px;background:linear-gradient(to right,rgba(10,22,40,.15),var(--gold),rgba(10,22,40,.15))}
 .el-ico{color:var(--gold);font-size:14px}
@@ -782,6 +785,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
         scroll-behavior: auto;
       }
     }
+  
 /* ═══════════ MOBILE ═══════════ */
 .nav-burger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-shrink:0}
 .nav-burger span{display:block;width:24px;height:2px;background:var(--navy);margin:5px 0;border-radius:2px}
@@ -789,7 +793,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
 @media (max-width:900px){
   /* NAV compatta + menu a tendina */
-  nav{height:64px;padding:0 14px}
+  nav{height:64px;padding:0; gap:16px}
   .nav-logo img{width:120px;max-height:52px}
   .nav-right{display:none}
   .nav-burger{display:block}
@@ -1473,6 +1477,10 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
         <div class="fg"><label>Posti disponibili</label><input type="number" id="el-availablePax" placeholder="6"></div>
         <div class="fg"><label>Risparmio % (opzionale)</label><input type="number" id="el-savingPct" placeholder="35"></div>
       </div>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg"><label>Probabilità di conferma % (vuoto = volo confermato)</label><input type="number" id="el-confirmationProbability" placeholder="Lascia vuoto se confermato" min="10" max="90"></div>
+        <div class="fg"></div>
+      </div>
       <button class="res-btn" style="max-width:240px;margin-bottom:20px" onclick="createEmptyLeg()">Pubblica Volo</button>
       <div id="operator-emptylegs-list"></div>
     </div>
@@ -1820,6 +1828,7 @@ async function createEmptyLeg() {
   const availablePax = document.getElementById("el-availablePax").value;
   const priceTotal = document.getElementById("el-priceTotal").value;
   const savingPct = document.getElementById("el-savingPct").value;
+  const confirmationProbability = document.getElementById("el-confirmationProbability").value;
 
   if (!aircraftId || !fromAirport || !toAirport || !departureAtLocal || !durationMin || !availablePax || !priceTotal) {
     alert("Compila tutti i campi obbligatori.");
@@ -1840,10 +1849,11 @@ async function createEmptyLeg() {
         availablePax: Number(availablePax),
         priceTotal: Number(priceTotal),
         savingPct: savingPct ? Number(savingPct) : undefined,
+        confirmationProbability: confirmationProbability ? Number(confirmationProbability) : undefined,
       }),
     });
     alert("Volo pubblicato correttamente.");
-    ["el-fromAirport","el-toAirport","el-departureAt","el-durationMin","el-availablePax","el-priceTotal","el-savingPct"]
+    ["el-fromAirport","el-toAirport","el-departureAt","el-durationMin","el-availablePax","el-priceTotal","el-savingPct","el-confirmationProbability"]
       .forEach(id => document.getElementById(id).value = "");
     await loadOperatorEmptyLegs();
   } catch (err) {
@@ -2032,12 +2042,22 @@ function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
   document.getElementById('bm-save').textContent=_normalizeSave(save);
   document.getElementById('bm-title').textContent=from+' → '+to;
   document.getElementById('bm-subtitle').textContent=aircraft+' · '+date;
+  const probNote = document.getElementById('bm-prob-note');
+  if (probNote) probNote.remove();
+  if (selectedLegProb) {
+    const note = document.createElement('div');
+    note.id = 'bm-prob-note';
+    note.style.cssText = 'background:rgba(201,165,53,.08);border:1px solid rgba(201,165,53,.25);padding:10px 14px;border-radius:4px;font-size:12px;color:#8a6d1a;margin-bottom:20px';
+    note.textContent = '⚠ Volo non ancora confermato — probabilità di conferma stimata: ' + selectedLegProb + '%. In caso di mancata conferma riceverai il rimborso completo.';
+    document.querySelector('#booking-modal .booking-modal-body').insertBefore(note, document.querySelector('#booking-modal .bm-details'));
+  }
   document.getElementById('booking-modal').classList.add('open');
   initSplit(price, pax);
   
 }
 function closeBookingModal(){document.getElementById('booking-modal').classList.remove('open');}
   let selectedEmptyLegId = null;
+  let selectedLegProb = null;
 
 async function confirmBooking(){
   const firstName = document.querySelector('#passengers-wrap input[placeholder="Nome"]')?.value;
@@ -2332,6 +2352,9 @@ grid.innerHTML = flights.map((leg) => {
     const price = formatPrice(leg.priceTotal);
     const saving = leg.savingPct ? `${leg.savingPct}%` : "—";
     const { text: countdownText } = formatCountdown(leg.departureAt);
+    const probBadge = leg.confirmationProbability
+      ? `<div class="el-prob">Conferma stimata: ${leg.confirmationProbability}%</div>`
+      : `<div class="el-prob el-prob-ok">✓ Volo Confermato</div>`;
 
     return `
       <div class="el-card fu vis">
@@ -2340,12 +2363,15 @@ grid.innerHTML = flights.map((leg) => {
             <span class="el-iata">${leg.fromAirport}</span>
             <div class="el-city">${leg.fromCity || ""}</div>
           </div>
+          
           <div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div>
           <div>
             <span class="el-iata">${leg.toAirport}</span>
             <div class="el-city">${leg.toCity || ""}</div>
           </div>
         </div>
+
+        ${probBadge}
 
         <div class="el-meta">
           <div class="el-m"><div class="v">${aircraft}</div><div class="k">Aeromobile</div></div>
@@ -2361,7 +2387,7 @@ grid.innerHTML = flights.map((leg) => {
           </div>
           <div class="el-right">
             <div class="el-cd">Scade in <span id="cd-${leg.id}">${countdownText}</span></div>
-            <button class="el-btn" id="btn-${leg.id}" onclick="selectedEmptyLegId='${leg.id}'; openBookingModal('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
+            <button class="el-btn" id="btn-${leg.id}" onclick="selectedEmptyLegId='${leg.id}'; selectedLegProb=${leg.confirmationProbability || 'null'}; openBookingModal(...)"('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
               Prenota Ora
             </button>
           </div>
