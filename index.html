@@ -894,6 +894,52 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   #faq-fab{bottom:16px;right:16px;width:52px;height:52px}
   #faq-chat{bottom:80px;right:16px;height:440px}
 }
+
+/* ══ CONFIGURATORE ══ */
+.cfg-section{background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);padding:88px 40px 96px;position:relative;overflow:hidden}
+.cfg-inner{max-width:900px;margin:0 auto;text-align:center}
+.cfg-heading{font-size:clamp(28px,4vw,44px);font-weight:900;color:#fff;letter-spacing:-1px;margin:14px 0 48px}
+.cfg-progress{position:relative;max-width:560px;margin:0 auto 56px}
+.cfg-track{position:absolute;top:17px;left:40px;right:40px;height:2px;background:rgba(255,255,255,.12)}
+.cfg-fill{height:100%;width:0%;background:linear-gradient(to right,var(--gold),var(--gold2));transition:width .7s cubic-bezier(.4,0,.2,1);box-shadow:0 0 12px rgba(201,165,53,.5)}
+.cfg-dots{display:flex;justify-content:space-between;position:relative}
+.cfg-dot{display:flex;flex-direction:column;align-items:center;gap:8px;width:80px}
+.cfg-dot span{width:36px;height:36px;border-radius:50%;background:var(--navy2);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;transition:all .5s}
+.cfg-dot label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);transition:color .5s}
+.cfg-dot.active span{background:linear-gradient(135deg,var(--gold),var(--gold2));border-color:var(--gold2);color:var(--navy);transform:scale(1.15);box-shadow:0 0 20px rgba(201,165,53,.4)}
+.cfg-dot.active label{color:var(--gold2)}
+.cfg-dot.done span{background:transparent;border-color:var(--gold);color:var(--gold)}
+.cfg-dot.done label{color:rgba(255,255,255,.55)}
+.cfg-stage{min-height:220px}
+.cfg-q{font-size:20px;font-weight:700;color:#fff;margin-bottom:28px;opacity:0;animation:cfgIn .5s forwards}
+.cfg-cards{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.cfg-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);padding:22px 30px;border-radius:8px;cursor:pointer;transition:all .3s;opacity:0;animation:cfgIn .5s forwards;min-width:150px}
+.cfg-card:hover{border-color:var(--gold);background:rgba(201,165,53,.08);transform:translateY(-4px)}
+.cfg-card .cc-code{font-size:22px;font-weight:900;color:var(--gold2);letter-spacing:1px}
+.cfg-card .cc-city{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px}
+.cfg-pax{display:flex;align-items:center;justify-content:center;gap:32px;opacity:0;animation:cfgIn .5s forwards}
+.cfg-pax button{width:52px;height:52px;border-radius:50%;background:transparent;border:1.5px solid var(--gold);color:var(--gold2);font-size:24px;cursor:pointer;transition:all .2s}
+.cfg-pax button:hover{background:rgba(201,165,53,.12)}
+.cfg-pax button:disabled{opacity:.25;cursor:default}
+.cfg-pax .cp-n{font-size:52px;font-weight:900;color:#fff;min-width:80px}
+.cfg-confirm{margin-top:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;padding:16px 44px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .3s;opacity:0;animation:cfgIn .5s .15s forwards}
+.cfg-confirm:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(201,165,53,.35)}
+.cfg-result{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.cfg-flight{background:#fff;border-radius:10px;padding:24px;text-align:left;width:300px;opacity:0;animation:cfgIn .5s forwards;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.cfg-flight .cf-route{font-size:19px;font-weight:900;color:var(--navy)}
+.cfg-flight .cf-meta{font-size:12px;color:var(--muted);margin:8px 0 14px;line-height:1.7}
+.cfg-flight .cf-price{font-size:24px;font-weight:900;color:var(--navy)}
+.cfg-flight .cf-save{font-size:11px;color:#2E9E60;font-weight:700;margin-bottom:14px}
+.cfg-empty{color:rgba(255,255,255,.75);font-size:15px;line-height:1.8;max-width:460px;margin:0 auto;opacity:0;animation:cfgIn .5s forwards}
+.cfg-back{margin-top:32px;background:none;border:none;color:rgba(255,255,255,.45);font-size:12px;letter-spacing:1px;cursor:pointer;transition:color .2s}
+.cfg-back:hover{color:var(--gold2)}
+@keyframes cfgIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:768px){
+  .cfg-section{padding:56px 20px 64px}
+  .cfg-dot{width:60px}
+  .cfg-dot label{display:none}
+  .cfg-card{padding:16px 20px;min-width:120px}
+}
   
 </style>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
@@ -1084,6 +1130,27 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     <div class="st-i"><div class="st-n">€0</div><div class="st-l">Costi fissi per partner</div></div>
     <div class="st-i"><div class="st-n">-75%</div><div class="st-l">Risparmio vs charter</div></div>
   </div>
+
+  <!-- ══ CONFIGURATORE VOLO ══ -->
+<section class="cfg-section fu" id="flight-configurator">
+  <div class="cfg-inner">
+    <span class="sec-eye" style="color:var(--gold2)">Su Misura</span>
+    <h2 class="cfg-heading">Componi il tuo volo</h2>
+
+    <div class="cfg-progress" aria-hidden="true">
+      <div class="cfg-track"><div class="cfg-fill" id="cfg-fill"></div></div>
+      <div class="cfg-dots">
+        <div class="cfg-dot active" data-step="1"><span>1</span><label>Partenza</label></div>
+        <div class="cfg-dot" data-step="2"><span>2</span><label>Destinazione</label></div>
+        <div class="cfg-dot" data-step="3"><span>3</span><label>Passeggeri</label></div>
+        <div class="cfg-dot" data-step="4"><span>✈</span><label>Il tuo volo</label></div>
+      </div>
+    </div>
+
+    <div class="cfg-stage" id="cfg-stage"></div>
+    <button class="cfg-back" id="cfg-back" onclick="cfgBack()" style="display:none">← Indietro</button>
+  </div>
+</section>
 
   <!-- COME FUNZIONA con video/foto reale del jet -->
   <section class="how-section" id="come-funziona">
@@ -1688,7 +1755,7 @@ function showPage(id){
   setTimeout(()=>{
     document.querySelectorAll('#page-'+id+' .fu').forEach(el=>{el.classList.remove('vis');void el.offsetWidth;setTimeout(()=>el.classList.add('vis'),60);});
     if(id==='contatti')flyContJet();
-    if(id==='home'){initHowJet();}
+    if(id==='home'){initHowJet();initConfigurator();}
     if(id==='prenota'){const b=document.getElementById('prefilled-banner');if(b)b.classList.remove('show');}
     if(id==='operator-dashboard') loadOperatorDashboard();
     if(id==='admin-dashboard') loadAdminDashboard();
@@ -2263,6 +2330,7 @@ document.addEventListener('keydown',e=>{
 });
 
 // INIT
+initConfigurator();
 setTimeout(()=>{document.querySelectorAll('#page-home .fu').forEach(el=>el.classList.add('vis'));},300);
 document.getElementById('main-footer').style.display='block';
 </script>
@@ -2556,6 +2624,109 @@ function fcPick(id) {
   body.scrollTop = body.scrollHeight;
   document.getElementById("fc-opts").innerHTML = "";
   fcBotSay(FAQ_TREE[id].a, () => fcShowOpts(id));
+}
+
+// ===== CONFIGURATORE VOLO =====
+let cfgFlights = [];
+let cfgState = { step: 1, from: null, to: null, pax: 1 };
+
+async function initConfigurator() {
+  try {
+    const json = await apiFetch("/api/empty-legs", { auth: false });
+    cfgFlights = json.data || [];
+  } catch { cfgFlights = []; }
+  cfgState = { step: 1, from: null, to: null, pax: 1 };
+  cfgRender();
+}
+
+function cfgCityLabel(code) {
+  const leg = cfgFlights.find(l => l.fromAirport === code && l.fromCity) || cfgFlights.find(l => l.toAirport === code && l.toCity);
+  if (leg) return leg.fromAirport === code ? (leg.fromCity || code) : (leg.toCity || code);
+  return code;
+}
+
+function cfgSetProgress() {
+  const pct = [0, 0, 33.3, 66.6, 100][cfgState.step] || 0;
+  document.getElementById("cfg-fill").style.width = pct + "%";
+  document.querySelectorAll(".cfg-dot").forEach(d => {
+    const n = Number(d.dataset.step);
+    d.classList.toggle("active", n === cfgState.step);
+    d.classList.toggle("done", n < cfgState.step);
+  });
+  document.getElementById("cfg-back").style.display = cfgState.step > 1 ? "inline-block" : "none";
+}
+
+function cfgRender() {
+  const stage = document.getElementById("cfg-stage");
+  if (!stage) return;
+  cfgSetProgress();
+
+  if (cfgState.step === 1) {
+    const origins = [...new Set(cfgFlights.map(l => l.fromAirport))];
+    stage.innerHTML = `<div class="cfg-q">Da dove parti?</div>
+      <div class="cfg-cards">` + (origins.length
+        ? origins.map((c, i) => `<div class="cfg-card" style="animation-delay:${i * 0.08}s" onclick="cfgPickFrom('${c}')"><div class="cc-code">${c}</div><div class="cc-city">${cfgCityLabel(c)}</div></div>`).join("")
+        : `<div class="cfg-empty" style="animation-delay:.1s">Nessun volo disponibile in questo momento — <span style="color:var(--gold2);cursor:pointer;text-decoration:underline" onclick="showPage('prenota')">richiedi un volo su misura</span>.</div>`) + `</div>`;
+  }
+
+  if (cfgState.step === 2) {
+    const dests = [...new Set(cfgFlights.filter(l => l.fromAirport === cfgState.from).map(l => l.toAirport))];
+    stage.innerHTML = `<div class="cfg-q">Da ${cfgCityLabel(cfgState.from)} — dove vuoi arrivare?</div>
+      <div class="cfg-cards">` +
+      dests.map((c, i) => `<div class="cfg-card" style="animation-delay:${i * 0.08}s" onclick="cfgPickTo('${c}')"><div class="cc-code">${c}</div><div class="cc-city">${cfgCityLabel(c)}</div></div>`).join("") +
+      `<div class="cfg-card" style="animation-delay:${dests.length * 0.08}s;border-style:dashed" onclick="cfgCustom()"><div class="cc-code">✦</div><div class="cc-city">Un'altra destinazione</div></div>` +
+      `</div>`;
+  }
+
+  if (cfgState.step === 3) {
+    stage.innerHTML = `<div class="cfg-q">Quanti siete a bordo?</div>
+      <div class="cfg-pax">
+        <button onclick="cfgPax(-1)" ${cfgState.pax <= 1 ? "disabled" : ""}>−</button>
+        <div class="cp-n">${cfgState.pax}</div>
+        <button onclick="cfgPax(1)" ${cfgState.pax >= 12 ? "disabled" : ""}>+</button>
+      </div>
+      <button class="cfg-confirm" onclick="cfgReveal()">Trova il mio volo →</button>`;
+  }
+
+  if (cfgState.step === 4) {
+    const matches = cfgFlights.filter(l =>
+      l.fromAirport === cfgState.from && l.toAirport === cfgState.to && l.availablePax >= cfgState.pax
+    );
+    if (matches.length) {
+      stage.innerHTML = `<div class="cfg-q">Il tuo volo ti aspetta ✨</div><div class="cfg-result">` +
+        matches.map((leg, i) => {
+          const aircraft = `${leg.aircraft?.manufacturer || ""} ${leg.aircraft?.model || ""}`.trim();
+          const badge = leg.confirmationProbability
+            ? `<span style="color:#B8860B">Conferma stimata ${leg.confirmationProbability}%</span>`
+            : `<span style="color:#2E9E60">✓ Confermato</span>`;
+          return `<div class="cfg-flight" style="animation-delay:${i * 0.12}s">
+            <div class="cf-route">${leg.fromAirport} → ${leg.toAirport}</div>
+            <div class="cf-meta">${aircraft} · ${formatDuration(leg.durationMin || 0)}<br>${formatDate(leg.departureAt)} · ${badge}</div>
+            <div class="cf-price">${formatPrice(leg.priceTotal)}</div>
+            <div class="cf-save">${leg.savingPct ? "Risparmio " + leg.savingPct + "%" : ""}</div>
+            <button class="el-btn" style="width:100%" onclick="selectedEmptyLegId='${leg.id}'; selectedLegProb=${leg.confirmationProbability || 'null'}; openBookingModal('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${leg.availablePax} pax','${formatDuration(leg.durationMin || 0)}','${formatDate(leg.departureAt)}','${formatPrice(leg.priceTotal)}','${leg.savingPct || 0}%')">Prenota Ora</button>
+          </div>`;
+        }).join("") + `</div>`;
+    } else {
+      cfgCustom();
+      return;
+    }
+  }
+}
+
+function cfgPickFrom(c) { cfgState.from = c; cfgState.step = 2; cfgRender(); }
+function cfgPickTo(c) { cfgState.to = c; cfgState.step = 3; cfgRender(); }
+function cfgPax(d) { cfgState.pax = Math.max(1, Math.min(12, cfgState.pax + d)); cfgRender(); }
+function cfgReveal() { cfgState.step = 4; cfgRender(); }
+function cfgBack() { cfgState.step = Math.max(1, cfgState.step - 1); cfgRender(); }
+
+function cfgCustom() {
+  cfgState.step = 4;
+  cfgSetProgress();
+  const stage = document.getElementById("cfg-stage");
+  stage.innerHTML = `<div class="cfg-q">Nessun volo su questa rotta oggi</div>
+    <div class="cfg-empty" style="animation-delay:.1s">Creiamo il tuo volo su misura: raccontaci dove vuoi andare e un flight director ti risponde entro 2 ore.</div>
+    <button class="cfg-confirm" onclick="prenotaVolo('${cfgCityLabel(cfgState.from) || ""}','${cfgState.to ? cfgCityLabel(cfgState.to) : ""}','Volo su misura','')">Richiedi il tuo volo →</button>`;
 }
 
 </script>
