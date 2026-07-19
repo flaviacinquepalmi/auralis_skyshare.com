@@ -5395,9 +5395,11 @@ async function getEmptyLegsShared({
             ? json.flights
             : [];
 
-      cacheFlights(flights);
+      if (flights.length > 0) {
+  cacheFlights(flights);
+}
 
-      return flights;
+return flights;
     })
     .finally(() => {
       emptyLegsRequest = null;
@@ -5812,7 +5814,10 @@ async function initConfigurator(
       ? null
       : getCachedFlights();
 
-  if (cachedFlights) {
+  if (
+  Array.isArray(cachedFlights) &&
+  cachedFlights.length > 0
+) {
     cfgFlights = cachedFlights;
 
     configuratorLoading = false;
@@ -5922,22 +5927,90 @@ function cfgCityLabel(code) {
 }
 
 function cfgSetProgress() {
-  const pct = [0, 0, 33.3, 66.6, 100][cfgState.step] || 0;
-  document.getElementById("cfg-fill").style.width = pct + "%";
-  document.querySelectorAll(".cfg-dot").forEach(d => {
-    const n = Number(d.dataset.step);
-    d.classList.toggle("active", n === cfgState.step);
-    d.classList.toggle("done", n < cfgState.step);
-  });
-  document.getElementById("cfg-back").style.display = cfgState.step > 1 ? "inline-block" : "none";
+  /*
+   * Il vecchio progress indicator con
+   * #cfg-fill e .cfg-dot è stato eliminato.
+   * Ora usiamo esclusivamente il dock.
+   */
+  updateConfigDock(cfgState.step);
+
+  const backButton =
+    document.getElementById("cfg-back");
+
+  if (backButton) {
+    backButton.style.display =
+      cfgState.step > 1
+        ? "inline-block"
+        : "none";
+  }
 }
 
 function cfgRender() {
-  updateConfigDock(cfgState.step);
-  
-  const stage = document.getElementById("cfg-stage");
+  const stage =
+    document.getElementById("cfg-stage");
+
   if (!stage) return;
+
   cfgSetProgress();
+
+  if (cfgState.step === 1) {
+    const origins = [
+      ...new Set(
+        cfgFlights
+          .map(leg => leg.fromAirport)
+          .filter(Boolean)
+      )
+    ];
+
+    stage.innerHTML = `
+      <div class="cfg-q">
+        Da dove parti?
+      </div>
+
+      <div class="cfg-cards">
+        ${
+          origins.length
+            ? origins
+                .map(
+                  (code, index) => `
+                    <div
+                      class="cfg-card"
+                      style="
+                        animation-delay:
+                        ${index * 0.08}s
+                      "
+                      onclick="
+                        cfgPickFrom('${code}')
+                      "
+                    >
+                      <div class="cc-code">
+                        ${code}
+                      </div>
+
+                      <div class="cc-city">
+                        ${cfgCityLabel(code)}
+                      </div>
+                    </div>
+                  `
+                )
+                .join("")
+            : `
+              <div class="cfg-empty">
+                Nessun volo disponibile
+                in questo momento.
+              </div>
+            `
+        }
+      </div>
+    `;
+
+    return;
+  }
+
+  /*
+   * Lascia invariato da qui in poi
+   * il resto della tua funzione cfgRender().
+   */
 
   if (cfgState.step === 1) {
     const origins = [...new Set(cfgFlights.map(l => l.fromAirport))];
