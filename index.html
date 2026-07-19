@@ -873,27 +873,6 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 </head>
 <body>
 
-<!-- OPERATOR MODAL -->
-<div class="modal-overlay" id="operator-modal" onclick="if(event.target===this)closeOperatorModal()">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeOperatorModal()">×</button>
-    <h2 class="modal-title">Area Operatori</h2>
-    <p class="modal-sub">Questa sezione è riservata ai partner di Auralis SkyShare. Seleziona il programma di tuo interesse.</p>
-    <div class="modal-options">
-      <button class="modal-opt" onclick="closeOperatorModal();showPage('partner')">
-        <span class="modal-opt-icon">🤝</span>
-        <div><div class="modal-opt-title">Partner Program</div><div class="modal-opt-desc">Per operatori che vogliono monetizzare i loro voli empty-leg attraverso Auralis SkyShare.</div></div>
-        <span class="modal-badge">Operatori</span>
-      </button>
-      <button class="modal-opt" onclick="closeOperatorModal();showPage('pilot')">
-        <span class="modal-opt-icon">🚀</span>
-        <div><div class="modal-opt-title">Pilot Program</div><div class="modal-opt-desc">Accesso esclusivo pre-lancio per un gruppo ristretto di operatori selezionati. Zero commissioni iniziali.</div></div>
-        <span class="modal-badge">Esclusivo</span>
-      </button>
-    </div>
-  </div>
-</div>
-
 <!-- AREA RISERVATA MODAL -->
 <div class="modal-overlay" id="reserved-modal" onclick="if(event.target===this)closeReservedModal()">
   <div class="reserved-box">
@@ -1014,11 +993,11 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Empty Leg</a></li>
     <li><a onclick="showPage('prenota')" id="nl-prenota">Prenota Ora</a></li>
     <li><a onclick="showPage('contatti')" id="nl-contatti">Contatti</a></li>
-    <li class="mobile-only"><button class="btn-operator" onclick="closeMobileMenu();openOperatorModal()">Sono un Operatore</button></li>
+    <li class="mobile-only"><button class="btn-operator" onclick="closeMobileMenu();showPage('partner')">Sono un Operatore</button></li>
     <li class="mobile-only"><button class="btn-reserved" onclick="closeMobileMenu();openReservedModal()">Area Riservata</button></li>
   </ul>
   <div class="nav-right">
-    <button class="btn-operator" onclick="openOperatorModal()">Sono un Operatore</button>
+    <button class="btn-operator" onclick="showPage('partner')">Sono un Operatore</button>
     <button class="btn-reserved" onclick="openReservedModal()">Area Riservata</button>
   </div>
   <button class="nav-burger" id="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
@@ -1700,10 +1679,8 @@ function showPage(id){
 }
 
 // Modals
-function openOperatorModal(){document.getElementById('operator-modal').classList.add('open');}
 function toggleMobileMenu(){document.getElementById('mainnav').classList.toggle('mobile-open');}
 function closeMobileMenu(){document.getElementById('mainnav').classList.remove('mobile-open');}
-function closeOperatorModal(){document.getElementById('operator-modal').classList.remove('open');}
 function openReservedModal(){document.getElementById('reserved-modal').classList.add('open');}
 function closeReservedModal(){document.getElementById('reserved-modal').classList.remove('open');}
 function switchResTab(tab,btn){
