@@ -92,7 +92,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255
 .fu1{transition-delay:.1s}.fu2{transition-delay:.2s}.fu3{transition-delay:.3s}
 
 /* STATS */
-.stats-bar{background:var(--navy);padding:28px 56px;display:grid;grid-template-columns:repeat(4,1fr)}
+.stats-bar{background:var(--navy);padding:28px 56px;display:grid;grid-template-columns:repeat(3,1fr)}
 .st-i{text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,.09)}
 .st-i:last-child{border-right:none}
 .st-n{font-size:30px;font-weight:900;color:var(--gold2);letter-spacing:-1px}
@@ -119,8 +119,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255
 .how-step:hover{border-color:var(--bdr-g);background:#fff;transform:translateY(-6px);box-shadow:0 20px 60px rgba(10,22,40,.07)}
 .how-step::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--gold),var(--gold2));transform:scaleX(0);transition:transform .4s;transform-origin:left}
 .how-step:hover::after{transform:scaleX(1)}
-.step-n{font-size:52px;font-weight:900;color:rgba(10,22,40,.05);letter-spacing:-2px;margin-bottom:16px;line-height:1}
-.step-ico{font-size:26px;margin-bottom:14px}
+.step-ico-svg{width:44px;height:44px;margin-bottom:24px}
+.step-ico-svg svg{width:100%;height:100%}
 .step-t{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:-.3px}
 .step-d{font-size:13px;color:var(--muted);line-height:1.75}
 
@@ -151,7 +151,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255
 .av-n{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:10px}
 .av-t{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px}
 .av-d{font-size:13px;color:var(--muted);line-height:1.7}
-.story-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:80px}
+.story-nums{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:80px}
 .sn-i{background:var(--navy);padding:40px 32px;text-align:center}
 .sn-n{font-size:38px;font-weight:900;color:var(--gold2);letter-spacing:-1.5px}
 .sn-l{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:6px}
@@ -811,6 +811,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   /* STATS */
   .stats-bar{grid-template-columns:1fr 1fr;padding:20px 16px;row-gap:20px}
   .st-i{border-right:none;padding:0 8px}
+  .st-i:last-child{grid-column:1/-1}
   .st-n{font-size:24px}
 
   /* COME FUNZIONA */
@@ -1058,7 +1059,6 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
   <div class="stats-bar">
     <div class="st-i"><div class="st-n">40%+</div><div class="st-l">Voli privati vuoti in EU</div></div>
-    <div class="st-i"><div class="st-n">120+</div><div class="st-l">Aeromobili disponibili</div></div>
     <div class="st-i"><div class="st-n">€0</div><div class="st-l">Costi fissi per partner</div></div>
     <div class="st-i"><div class="st-n">-75%</div><div class="st-l">Risparmio vs charter</div></div>
   </div>
@@ -1066,7 +1066,6 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   <!-- COME FUNZIONA con video/foto reale del jet -->
   <section class="how-section" id="come-funziona">
     <div class="how-header fu">
-      <span class="sec-eye">Il Processo · Come Funziona</span>
       <h2 class="sec-title">Semplice per Tutti,<br>Potente per il Business</h2>
       <p class="sec-sub">Una piattaforma digitale che connette operatori e passeggeri in modo istantaneo e trasparente, senza costi fissi.</p>
     </div>
@@ -1105,10 +1104,9 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     </div>
 
     <div class="how-steps">
-      <div class="how-step fu"><div class="step-n">01</div><div class="step-ico">📋</div><h3 class="step-t">L'operatore pubblica</h3><p class="step-d">L'operatore condivide i voli empty-leg disponibili sulla piattaforma in pochi minuti. Nessun costo fisso, nessun impegno.</p></div>
-      <div class="how-step fu fu1"><div class="step-n">02</div><div class="step-ico">🔍</div><h3 class="step-t">Il passeggero trova</h3><p class="step-d">I voli diventano visibili e prenotabili istantaneamente, con prezzo ridotto fino al 75% rispetto al charter standard.</p></div>
-      <div class="how-step fu fu2"><div class="step-n">03</div><div class="step-ico">💰</div><h3 class="step-t">Revenue incrementale</h3><p class="step-d">L'operatore monetizza capacità altrimenti invenduta, senza alterare il pricing principale o il posizionamento del brand.</p></div>
-    </div>
+      <div class="how-step fu"><div class="step-ico-svg"><svg viewBox="0 0 48 48" fill="none" stroke="#C9A535" stroke-width="1.5"><path d="M10 38V14a2 2 0 012-2h18l8 8v18a2 2 0 01-2 2H12a2 2 0 01-2-2z"/><path d="M30 12v8h8M17 26h14M17 32h10"/></svg></div><h3 class="step-t">L'operatore pubblica</h3><p class="step-d">L'operatore condivide i voli empty-leg disponibili sulla piattaforma in pochi minuti. Nessun costo fisso, nessun impegno.</p></div>
+      <div class="how-step fu fu1"><div class="step-ico-svg"><svg viewBox="0 0 48 48" fill="none" stroke="#C9A535" stroke-width="1.5"><circle cx="21" cy="21" r="11"/><path d="M29 29l9 9M21 15v6l4 3"/></svg></div><h3 class="step-t">Il passeggero trova</h3><p class="step-d">I voli diventano visibili e prenotabili istantaneamente, con prezzo ridotto fino al 75% rispetto al charter standard.</p></div>
+      <div class="how-step fu fu2"><div class="step-ico-svg"><svg viewBox="0 0 48 48" fill="none" stroke="#C9A535" stroke-width="1.5"><path d="M8 34l10-10 7 6 12-14"/><path d="M30 16h7v7"/></svg></div><h3 class="step-t">Revenue incrementale</h3><p class="step-d">L'operatore monetizza capacità altrimenti invenduta, senza alterare il pricing principale o il posizionamento del brand.</p></div>
   </section>
 
   <!-- INTERIOR PHOTO STRIP -->
@@ -1157,7 +1155,6 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     </div>
     <div class="story-nums fu">
       <div class="sn-i"><div class="sn-n">2026</div><div class="sn-l">Anno di fondazione</div></div>
-      <div class="sn-i"><div class="sn-n">120+</div><div class="sn-l">Aerei nella rete</div></div>
       <div class="sn-i"><div class="sn-n">€0</div><div class="sn-l">Costi fissi partner</div></div>
     </div>
     <div class="about-values fu">
@@ -1495,7 +1492,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 <!-- FOOTER -->
 <footer id="main-footer">
   <div class="foot-top">
-    <div><div class="foot-logo"><img src="auralis-logo.png" alt="Auralis SkyShare" onclick="showPage('home')" style="height:96px;width:auto;object-fit:contain;cursor:pointer;display:block;margin-bottom:16px"><p class="foot-desc">Startup italiana nata per rivoluzionare l'aviazione privata. Trasformiamo i voli empty-leg in opportunità esclusive.</p><span class="foot-tag">The Smart Way to Fly Private</span></div>
+    <div><div class="foot-logo"><img src="auralis-logo.png" alt="Auralis SkyShare" onclick="showPage('home')" style="height:96px;width:auto;object-fit:contain;cursor:pointer;display:block;margin-bottom:16px"><p class="foot-desc">Startup italiana nata per rivoluzionare l'aviazione privata. Trasformiamo i voli empty-leg in opportunità esclusive.</p><span class="foot-tag">The Smart Way to Fly Private</span></div></div>
     <div class="foot-col"><h4>Navigazione</h4><a onclick="showPage('about')">Chi Siamo</a><a onclick="showPage('emptyleg')">Empty Leg</a><a onclick="showPage('prenota')">Prenota Ora</a></div>
     <div class="foot-col"><h4>Operatori</h4><a onclick="showPage('partner')">Partner Program</a><a onclick="showPage('pilot')">Pilot Program</a></div>
     <div class="foot-col"><h4>Contatti</h4><a href="mailto:auralis.skyshare@gmail.com">auralis.skyshare@gmail.com</a><a href="tel:+393935798985">+39 393 579 8985</a></div>
