@@ -5621,7 +5621,7 @@ grid.innerHTML = flights.map((leg) => {
           </div>
           <div class="el-right">
             <div class="el-cd">Scade in <span id="cd-${leg.id}">${countdownText}</span></div>
-            <button class="el-btn" id="btn-${leg.id}" onclick="selectedEmptyLegId='${leg.id}'; selectedLegProb=${leg.confirmationProbability || 'null'}; openBookingModal(...)"('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
+            <button class="el-btn" id="btn-${leg.id}" onclick="selectedEmptyLegId='${leg.id}'; selectedLegProb=${leg.confirmationProbability || "null"}; openBookingModal('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${pax} pax','${duration}','${date}','${price}','${saving}')">
               Prenota Ora
             </button>
           </div>
