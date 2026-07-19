@@ -1650,7 +1650,13 @@ async function initAuth0() {
 
   // Gestisce il ritorno da Auth0 dopo il login
   const query = window.location.search;
-  if (query.includes("code=") && query.includes("state=")) {
+  const params = new URLSearchParams(query);
+
+  if (params.get("error")) {
+    console.error("Errore Auth0:", params.get("error"), params.get("error_description"));
+    alert("Accesso non riuscito: " + (params.get("error_description") || params.get("error")) + "\n\nRiprova o contattaci se il problema persiste.");
+    window.history.replaceState({}, document.title, "/");
+  } else if (query.includes("code=") && query.includes("state=")) {
     await auth0Client.handleRedirectCallback();
     window.history.replaceState({}, document.title, "/");
   }
