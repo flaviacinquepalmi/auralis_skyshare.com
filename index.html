@@ -2301,6 +2301,21 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   </div>
 </div>
 
+<!-- PRE-LOGIN MODAL -->
+<div class="modal-overlay" id="prelogin-modal" onclick="if(event.target===this)preloginSkip()">
+  <div style="background:#fff;max-width:440px;width:90%;border-radius:8px;overflow:hidden;box-shadow:0 24px 80px rgba(10,22,40,.25);animation:pgIn .3s ease">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));padding:28px 32px;text-align:center">
+      <div style="font-size:34px;margin-bottom:10px">✈️</div>
+      <h3 style="color:#fff;font-size:19px;font-weight:900;letter-spacing:-.3px">Viaggia con tutto sotto controllo</h3>
+    </div>
+    <div style="padding:28px 32px;text-align:center">
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:22px">Con un account gratuito trovi ogni prenotazione nella tua <strong style="color:var(--navy)">Area Riservata</strong>: biglietti, stato del pagamento e storico voli, sempre a portata di mano.</p>
+      <button class="btn-reserved" style="width:100%;padding:14px" onclick="preloginLogin()">Accedi o Registrati</button>
+      <button onclick="preloginSkip()" style="background:none;border:none;color:var(--muted);font-size:12px;margin-top:14px;cursor:pointer;text-decoration:underline">Continua senza account →</button>
+    </div>
+  </div>
+</div>
+
 <!-- BOOKING MODAL (from empty leg card) -->
 <div class="modal-overlay" id="booking-modal" onclick="if(event.target===this)closeBookingModal()">
   <div class="booking-modal-box">
@@ -4329,10 +4344,10 @@ function renderCustomerWallet(bookings) {
 
   wallet.classList.remove("has-active");
 
-  selectWalletBooking(eligibleBookings[0].id);
+  selectWalletBooking(eligibleBookings[0].id, false);
 }
 
-function selectWalletBooking(bookingId) {
+function selectWalletBooking(bookingId, markActive = true){
   const booking = customerBookings.find(
     item => String(item.id) === String(bookingId)
   );
@@ -4345,15 +4360,16 @@ function selectWalletBooking(bookingId) {
     "customer-flight-wallet"
   );
 
-  wallet.classList.add("has-active");
+  wallet.classList.toggle("has-active", markActive);
 
   document
     .querySelectorAll(".auralis-flight-pass")
     .forEach(card => {
       card.classList.toggle(
         "active",
-        String(card.dataset.bookingId) ===
-          String(bookingId)
+        markActive &&
+          String(card.dataset.bookingId) ===
+            String(bookingId)
       );
     });
 
@@ -4963,7 +4979,26 @@ function initSplit(priceStr, paxStr){
 }
 
 // BOOKING MODAL — pre-filled from empty leg card
+
+let pendingBookingArgs = null;
+let skipLoginPrompt = false;
+
+function preloginSkip() {
+  skipLoginPrompt = true;
+  document.getElementById('prelogin-modal').classList.remove('open');
+  if (pendingBookingArgs) openBookingModal(...pendingBookingArgs);
+}
+
+function preloginLogin() {
+  loginWithAuth0();
+}
+  
 function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
+  if (!currentUser && !skipLoginPrompt) {
+    pendingBookingArgs = [from, to, aircraft, pax, dur, date, price, save];
+    document.getElementById('prelogin-modal').classList.add('open');
+    return;
+  }
   _bmRoute = from + ' → ' + to;
   document.getElementById('bm-from').textContent=from;
   document.getElementById('bm-to').textContent=to;
@@ -4988,6 +5023,7 @@ function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
   initSplit(price, pax);
   
 }
+
 function closeBookingModal(){document.getElementById('booking-modal').classList.remove('open');}
   let selectedEmptyLegId = null;
   let selectedLegProb = null;
