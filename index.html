@@ -233,8 +233,254 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .el-inf{background:var(--off);border:1px solid var(--bdr);padding:28px 24px;text-align:center}
 .el-inf-n{font-size:28px;font-weight:900;color:var(--gold);letter-spacing:-1px}
 .el-inf-l{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:5px}
-.map-wrap{background:linear-gradient(135deg,#0A1628 0%,#0E2040 100%);padding:40px 48px;margin:0 56px;position:relative;overflow:hidden;min-height:300px}
-.map-label{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;position:absolute;bottom:16px;left:24px;display:flex;align-items:center;gap:8px}
+.map-wrap {
+  position: relative;
+  height: min(520px, 54vw);
+  min-height: 390px;
+  margin: 0 56px;
+  padding: 0;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: #030914;
+  border: 1px solid rgba(107, 174, 214, 0.16);
+  border-radius: 4px;
+
+  box-shadow:
+    0 28px 80px rgba(10, 22, 40, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.route-map-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  filter:
+    saturate(0.82)
+    contrast(1.15)
+    brightness(0.7);
+
+  transform: scale(1.025);
+}
+
+.route-map-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3, 9, 20, 0.28),
+      rgba(3, 9, 20, 0.12) 45%,
+      rgba(3, 9, 20, 0.56)
+    ),
+    rgba(8, 22, 40, 0.2);
+
+  pointer-events: none;
+}
+
+.route-map-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 35%,
+      rgba(2, 8, 18, 0.24) 68%,
+      rgba(2, 8, 18, 0.74) 100%
+    );
+
+  pointer-events: none;
+}
+
+#routes-map {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+  pointer-events: none;
+}
+
+.route-base {
+  fill: none;
+  stroke-width: 1.2;
+  opacity: 0.3;
+}
+
+.route-trail {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+
+  path-length: 100;
+  stroke-dasharray: 22 78;
+  stroke-dashoffset: 0;
+
+  filter: url(#route-glow);
+
+  animation:
+    routeTrail var(--route-duration, 4s)
+    linear
+    infinite;
+
+  animation-delay:
+    var(--route-delay, 0s);
+}
+
+.route-spark {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+
+  path-length: 100;
+  stroke-dasharray: 1 99;
+  stroke-dashoffset: 0;
+
+  filter: url(#route-glow);
+
+  animation:
+    routeTrail var(--route-duration, 4s)
+    linear
+    infinite;
+
+  animation-delay:
+    var(--route-delay, 0s);
+}
+
+.airport-halo {
+  opacity: 0.25;
+  transform-box: fill-box;
+  transform-origin: center;
+
+  animation: airportPulse 2.6s ease-in-out infinite;
+}
+
+.airport-dot {
+  filter: url(#airport-glow);
+}
+
+.airport-label {
+  font-family:
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+
+  paint-order: stroke;
+  stroke: rgba(3, 9, 20, 0.92);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+@keyframes routeTrail {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes airportPulse {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 0.55;
+    transform: scale(1.18);
+  }
+}
+
+.map-label {
+  position: absolute;
+  left: 24px;
+  bottom: 18px;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: rgba(255, 255, 255, 0.57);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.map-label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+  background: var(--gold2);
+
+  box-shadow:
+    0 0 14px rgba(232, 201, 106, 0.8);
+}
+
+.map-live-status {
+  position: absolute;
+  right: 22px;
+  top: 20px;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 7px 11px;
+
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(4, 12, 25, 0.56);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+
+  backdrop-filter: blur(12px);
+
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.map-live-status span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+  background: #5fd594;
+
+  box-shadow:
+    0 0 12px rgba(95, 213, 148, 0.9);
+
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  50% {
+    opacity: 0.35;
+  }
+}.map-label{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;position:absolute;bottom:16px;left:24px;display:flex;align-items:center;gap:8px}
 .map-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
 .el-cards-section{padding:56px 56px 100px;max-width:1100px;margin:0 auto}
 .el-cards-title{font-size:18px;font-weight:800;color:var(--navy);letter-spacing:-.5px;margin-bottom:28px;display:flex;align-items:center;gap:12px}
@@ -918,8 +1164,32 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   /* EMPTY LEG */
   .el-intro{padding:48px 20px}
   .el-info-strip{grid-template-columns:1fr}
-  .map-wrap{margin:0 20px;padding:20px 12px}
-  .el-cards-section{padding:40px 20px 64px}
+@media (max-width: 768px) {
+  .map-wrap {
+    height: 300px;
+    min-height: 300px;
+    margin: 0 20px;
+    padding: 0;
+  }
+
+  .map-label {
+    left: 15px;
+    bottom: 13px;
+    max-width: 65%;
+
+    font-size: 7px;
+    letter-spacing: 0.13em;
+  }
+
+  .map-live-status {
+    top: 12px;
+    right: 12px;
+  }
+
+  .airport-label {
+    font-size: 13px;
+  }
+}  .el-cards-section{padding:40px 20px 64px}
   .el-cards-grid{grid-template-columns:1fr}
 
   /* PRENOTA — una colonna, niente foto sticky */
@@ -2747,20 +3017,72 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
   <div class="map-wrap fu">
-    <svg id="routes-map" viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
-      <defs>
-        <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#C9A535" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <filter id="glow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      </defs>
-      <line x1="0" y1="93" x2="900" y2="93" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="0" y1="186" x2="900" y2="186" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="225" y1="0" x2="225" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="450" y1="0" x2="450" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="675" y1="0" x2="675" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <g id="routes-layer"></g>
-    </svg>
-    <div class="map-label">Rotte empty-leg disponibili in tempo reale</div>
+  <img
+    class="route-map-photo"
+    src="assets/europe-night.png"
+    alt="Europa vista di notte"
+  >
+
+  <div class="route-map-shade"></div>
+  <div class="route-map-vignette"></div>
+
+  <svg
+    id="routes-map"
+    viewBox="0 0 900 504"
+    preserveAspectRatio="xMidYMid slice"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="Rotte Empty Leg disponibili"
+  >
+    <defs>
+      <filter
+        id="route-glow"
+        x="-80%"
+        y="-80%"
+        width="260%"
+        height="260%"
+      >
+        <feGaussianBlur
+          stdDeviation="5"
+          result="blur"
+        />
+
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+
+      <filter
+        id="airport-glow"
+        x="-100%"
+        y="-100%"
+        width="300%"
+        height="300%"
+      >
+        <feGaussianBlur
+          stdDeviation="6"
+          result="blur"
+        />
+
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    <g id="routes-layer"></g>
+  </svg>
+
+  <div class="map-label">
+    Rotte Empty Leg disponibili in tempo reale
   </div>
+
+  <div class="map-live-status">
+    <span></span>
+    Live inventory
+  </div>
+</div>
   <div class="el-cards-section">
   <div class="el-cards-title">Slot Disponibili Ora</div>
   <div class="el-cards-grid" id="empty-leg-grid">
@@ -5498,42 +5820,321 @@ return flights;
 
 // Coordinate stilizzate (x,y su viewBox 900x280) — Europa schematica:
 // x cresce verso est, y cresce verso sud. Aggiungi qui i nuovi aeroporti.
-const AIRPORT_COORDS = {
-  LTN: { x: 150, y: 50 },   // Londra
-  CDG: { x: 300, y: 72 },   // Parigi
-  GVA: { x: 400, y: 100 },  // Ginevra
-  MXP: { x: 480, y: 105 },  // Milano Malpensa
-  LIN: { x: 565, y: 122 },  // Milano Linate
-  VCE: { x: 680, y: 95 },   // Venezia
-  TRN: { x: 425, y: 142 },  // Torino
-  NCE: { x: 375, y: 172 },  // Nizza
-  FCO: { x: 620, y: 172 },  // Roma
-  NAP: { x: 720, y: 192 },  // Napoli
-  OLB: { x: 500, y: 218 },  // Olbia
-  IBZ: { x: 200, y: 232 },  // Ibiza
-  PMO: { x: 675, y: 252 },  // Palermo
-  CTA: { x: 785, y: 248 },  // Catania
+const AIRPORT_GEO = {
+  LTN: { lat: 51.8747, lon: -0.3683 },
+  CDG: { lat: 49.0097, lon: 2.5479 },
+  GVA: { lat: 46.2381, lon: 6.1090 },
+
+  MXP: { lat: 45.6306, lon: 8.7281 },
+  LIN: { lat: 45.4451, lon: 9.2767 },
+  BGY: { lat: 45.6739, lon: 9.7042 },
+
+  TRN: { lat: 45.2008, lon: 7.6496 },
+  VCE: { lat: 45.5053, lon: 12.3519 },
+
+  NCE: { lat: 43.6584, lon: 7.2159 },
+
+  FCO: { lat: 41.8003, lon: 12.2389 },
+  CIA: { lat: 41.7994, lon: 12.5949 },
+
+  NAP: { lat: 40.8860, lon: 14.2908 },
+  BRI: { lat: 41.1389, lon: 16.7606 },
+
+  OLB: { lat: 40.8987, lon: 9.5176 },
+
+  PMO: { lat: 38.1759, lon: 13.0910 },
+  CTA: { lat: 37.4668, lon: 15.0664 },
+
+  IBZ: { lat: 38.8729, lon: 1.3731 }
 };
 
-const ROUTE_COLORS = ["#C9A535", "#6BAED6", "#E8C96A", "#4A7BC4", "#2E9E60"];
+/*
+ * Area geografica rappresentata dalla foto.
+ * Puoi regolare questi quattro valori per
+ * far coincidere meglio i punti con l'immagine.
+ */
+const ROUTE_MAP_BOUNDS = {
+  minLon: -12,
+  maxLon: 30,
+  minLat: 34,
+  maxLat: 61
+};
+
+const ROUTE_MAP_SIZE = {
+  width: 900,
+  height: 504
+};
+
+function projectAirport(code) {
+  const airport = AIRPORT_GEO[code];
+
+  if (!airport) {
+    console.warn(
+      `Coordinate mancanti per aeroporto: ${code}`
+    );
+
+    return null;
+  }
+
+  const x =
+    (
+      (
+        airport.lon -
+        ROUTE_MAP_BOUNDS.minLon
+      ) /
+      (
+        ROUTE_MAP_BOUNDS.maxLon -
+        ROUTE_MAP_BOUNDS.minLon
+      )
+    ) * ROUTE_MAP_SIZE.width;
+
+  const y =
+    (
+      (
+        ROUTE_MAP_BOUNDS.maxLat -
+        airport.lat
+      ) /
+      (
+        ROUTE_MAP_BOUNDS.maxLat -
+        ROUTE_MAP_BOUNDS.minLat
+      )
+    ) * ROUTE_MAP_SIZE.height;
+
+  return {
+    x,
+    y
+  };
+}
 
 function renderRoutesMap(flights) {
-  const layer = document.getElementById("routes-layer");
+  const layer =
+    document.getElementById("routes-layer");
+
   if (!layer) return;
 
-  const seen = new Set();
+  const seenRoutes = new Set();
   const routes = [];
-  const sorted = [...flights].sort((a, b) => new Date(a.departureAt) - new Date(b.departureAt));
-  for (const leg of sorted) {
-    const key = leg.fromAirport + ">" + leg.toAirport;
-    if (seen.has(key)) continue;
-    const from = AIRPORT_COORDS[leg.fromAirport];
-    const to = AIRPORT_COORDS[leg.toAirport];
-    if (!from || !to) continue;
-    seen.add(key);
-    routes.push({ from, to, fromCode: leg.fromAirport, toCode: leg.toAirport });
-    if (routes.length >= 5) break;
+
+  const sortedFlights = [...flights]
+    .filter(leg => {
+      return (
+        leg?.fromAirport &&
+        leg?.toAirport
+      );
+    })
+    .sort((a, b) => {
+      return (
+        new Date(a.departureAt) -
+        new Date(b.departureAt)
+      );
+    });
+
+  for (const leg of sortedFlights) {
+    const fromCode =
+      String(leg.fromAirport).toUpperCase();
+
+    const toCode =
+      String(leg.toAirport).toUpperCase();
+
+    const routeKey =
+      `${fromCode}>${toCode}`;
+
+    if (seenRoutes.has(routeKey)) {
+      continue;
+    }
+
+    const from =
+      projectAirport(fromCode);
+
+    const to =
+      projectAirport(toCode);
+
+    /*
+     * Se non conosciamo le coordinate di uno
+     * degli aeroporti, non disegniamo quella rotta.
+     */
+    if (!from || !to) {
+      continue;
+    }
+
+    seenRoutes.add(routeKey);
+
+    routes.push({
+      from,
+      to,
+      fromCode,
+      toCode,
+
+      /*
+       * Blu per voli confermati,
+       * oro per conferma ancora stimata.
+       */
+      color:
+        leg.confirmationProbability
+          ? "#E8C96A"
+          : "#6BAED6"
+    });
+
+    /*
+     * Evita di affollare eccessivamente la mappa.
+     */
+    if (routes.length >= 7) {
+      break;
+    }
   }
+
+  const drawnAirports = new Map();
+  let svg = "";
+
+  routes.forEach((route, index) => {
+    const dx =
+      route.to.x - route.from.x;
+
+    const dy =
+      route.to.y - route.from.y;
+
+    const distance =
+      Math.hypot(dx, dy);
+
+    const middleX =
+      (route.from.x + route.to.x) / 2;
+
+    const middleY =
+      (route.from.y + route.to.y) / 2;
+
+    /*
+     * Curva morbida verso nord.
+     */
+    const curveLift =
+      Math.min(
+        82,
+        Math.max(30, distance * 0.18)
+      );
+
+    const controlX =
+      middleX;
+
+    const controlY =
+      Math.max(
+        22,
+        middleY - curveLift
+      );
+
+    const path = [
+      `M ${route.from.x.toFixed(1)}`,
+      route.from.y.toFixed(1),
+
+      `Q ${controlX.toFixed(1)}`,
+      controlY.toFixed(1),
+
+      route.to.x.toFixed(1),
+      route.to.y.toFixed(1)
+    ].join(" ");
+
+    const duration =
+      3.4 + index * 0.35;
+
+    const delay =
+      -(index * 0.7);
+
+    svg += `
+      <path
+        class="route-base"
+        d="${path}"
+        stroke="${route.color}"
+      ></path>
+
+      <path
+        class="route-trail"
+        d="${path}"
+        pathLength="100"
+        stroke="${route.color}"
+        style="
+          --route-duration:${duration}s;
+          --route-delay:${delay}s;
+        "
+      ></path>
+
+      <path
+        class="route-spark"
+        d="${path}"
+        pathLength="100"
+        stroke="#FFFFFF"
+        style="
+          --route-duration:${duration}s;
+          --route-delay:${delay}s;
+        "
+      ></path>
+    `;
+
+    drawnAirports.set(
+      route.fromCode,
+      {
+        ...route.from,
+        color: route.color
+      }
+    );
+
+    drawnAirports.set(
+      route.toCode,
+      {
+        ...route.to,
+        color: route.color
+      }
+    );
+  });
+
+  drawnAirports.forEach(
+    (airport, code) => {
+      const placeLabelAbove =
+        airport.y > 440;
+
+      const labelY =
+        placeLabelAbove
+          ? airport.y - 18
+          : airport.y + 27;
+
+      svg += `
+        <circle
+          class="airport-halo"
+          cx="${airport.x}"
+          cy="${airport.y}"
+          r="18"
+          fill="none"
+          stroke="${airport.color}"
+          stroke-width="1.3"
+        ></circle>
+
+        <circle
+          class="airport-dot"
+          cx="${airport.x}"
+          cy="${airport.y}"
+          r="5.5"
+          fill="${airport.color}"
+        ></circle>
+
+        <circle
+          cx="${airport.x}"
+          cy="${airport.y}"
+          r="2.2"
+          fill="#FFFFFF"
+        ></circle>
+
+        <text
+          class="airport-label"
+          x="${airport.x}"
+          y="${labelY}"
+          text-anchor="middle"
+          fill="${airport.color}"
+        >
+          ${code}
+        </text>
+      `;
+    }
+  );
+
+  layer.innerHTML = svg;
+}
 
   let svg = "";
   const drawnAirports = new Set();
