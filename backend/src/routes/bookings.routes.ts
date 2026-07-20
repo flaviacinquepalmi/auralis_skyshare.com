@@ -1,3 +1,4 @@
+import { optionalAuth, optionalSyncUser } from "../middleware/optionalAuth.middleware";
 import Stripe from "stripe";
 import { Router } from "express";
 import { z } from "zod";
@@ -27,8 +28,7 @@ const createBookingSchema = z.object({
   bookingType: z.enum(["FULL", "SPLIT"]),
   passengers: z.array(passengerSchema).min(1),
 });
-
-bookingsRouter.post("/", async (req, res, next) => {
+bookingsRouter.post("/", optionalAuth, optionalSyncUser, async (req, res, next) => {
   try {
     const parsed = createBookingSchema.safeParse(req.body);
     if (!parsed.success) {
@@ -60,6 +60,7 @@ bookingsRouter.post("/", async (req, res, next) => {
       const newBooking = await tx.booking.create({
         data: {
           emptyLegId: emptyLeg.id,
+          customerUserId: req.dbUser?.id,
           bookerFirstName: data.bookerFirstName,
           bookerLastName: data.bookerLastName,
           bookerEmail: data.bookerEmail,
