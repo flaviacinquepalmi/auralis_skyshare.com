@@ -119,6 +119,30 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .st-n{font-size:30px;font-weight:900;color:var(--gold2);letter-spacing:-1px}
 .st-l{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:5px}
 
+.count-up {
+  display: inline-block;
+  min-width: 4ch;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transform-origin: center;
+}
+
+.st-i:has(.count-up) {
+  cursor: default;
+}
+
+.st-i:has(.count-up) .count-up {
+  transition:
+    transform 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.st-i:has(.count-up):hover .count-up {
+  transform: scale(1.08);
+  text-shadow:
+    0 0 22px rgba(232, 201, 106, 0.35);
+}
+
 /* COME FUNZIONA */
 .how-section{padding:0 56px 96px;background:#fff}
 .how-header{text-align:center;margin-bottom:48px;padding-top:72px}
@@ -2429,67 +2453,97 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const counters = document.querySelectorAll(".count-up");
-
-  if (!counters.length) return;
-
-  const duration = 1800;
+  const duration = 1200;
+  const activeAnimations = new WeakMap();
 
   function easeOutCubic(progress) {
     return 1 - Math.pow(1 - progress, 3);
   }
 
-  function animateCounter(element) {
-    if (element.dataset.animated === "true") return;
+  function animateHoverCounter(element) {
+    const previousFrame =
+      activeAnimations.get(element);
 
-    element.dataset.animated = "true";
+    if (previousFrame) {
+      cancelAnimationFrame(previousFrame);
+    }
 
-    const target = Number(element.dataset.target || 0);
-    const prefix = element.dataset.prefix || "";
-    const suffix = element.dataset.suffix || "";
+    const target =
+      Number(element.dataset.target || 0);
 
-    const startTime = performance.now();
+    const prefix =
+      element.dataset.prefix || "";
 
-    function updateCounter(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeOutCubic(progress);
+    const suffix =
+      element.dataset.suffix || "";
 
-      const currentValue = Math.round(
-        easedProgress * target
-      );
+    const startTime =
+      performance.now();
+
+    element.textContent =
+      `${prefix}0${suffix}`;
+
+    function update(currentTime) {
+      const elapsed =
+        currentTime - startTime;
+
+      const progress =
+        Math.min(elapsed / duration, 1);
+
+      const eased =
+        easeOutCubic(progress);
+
+      const currentValue =
+        Math.round(target * eased);
 
       element.textContent =
         `${prefix}${currentValue}${suffix}`;
 
       if (progress < 1) {
-        requestAnimationFrame(updateCounter);
+        const frame =
+          requestAnimationFrame(update);
+
+        activeAnimations.set(
+          element,
+          frame
+        );
       } else {
         element.textContent =
           `${prefix}${target}${suffix}`;
+
+        activeAnimations.delete(
+          element
+        );
       }
     }
 
-    requestAnimationFrame(updateCounter);
+    const frame =
+      requestAnimationFrame(update);
+
+    activeAnimations.set(
+      element,
+      frame
+    );
   }
 
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
+  document
+    .querySelectorAll(".st-i")
+    .forEach(stat => {
+      const counter =
+        stat.querySelector(".count-up");
 
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
-      });
-    },
-    {
-      threshold: 0.45
-    }
-  );
+      if (!counter) return;
 
-  counters.forEach(counter => {
-    observer.observe(counter);
-  });
+      stat.addEventListener(
+        "mouseenter",
+        () => animateHoverCounter(counter)
+      );
+
+      stat.addEventListener(
+        "focusin",
+        () => animateHoverCounter(counter)
+      );
+    });
 });
 </script>
 
