@@ -65,6 +65,11 @@ export type EmptyLeg = Prisma.EmptyLegModel
  */
 export type Booking = Prisma.BookingModel
 /**
+ * Model BookingPayment
+ * 
+ */
+export type BookingPayment = Prisma.BookingPaymentModel
+/**
  * Model Passenger
  * 
  */

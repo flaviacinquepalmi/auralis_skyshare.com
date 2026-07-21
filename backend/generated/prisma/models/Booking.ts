@@ -48,6 +48,7 @@ export type BookingMinAggregateOutputType = {
   currency: string | null
   stripeCheckoutSessionId: string | null
   stripePaymentIntentId: string | null
+  splitExpiresAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +67,7 @@ export type BookingMaxAggregateOutputType = {
   currency: string | null
   stripeCheckoutSessionId: string | null
   stripePaymentIntentId: string | null
+  splitExpiresAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -84,6 +86,7 @@ export type BookingCountAggregateOutputType = {
   currency: number
   stripeCheckoutSessionId: number
   stripePaymentIntentId: number
+  splitExpiresAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -112,6 +115,7 @@ export type BookingMinAggregateInputType = {
   currency?: true
   stripeCheckoutSessionId?: true
   stripePaymentIntentId?: true
+  splitExpiresAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -130,6 +134,7 @@ export type BookingMaxAggregateInputType = {
   currency?: true
   stripeCheckoutSessionId?: true
   stripePaymentIntentId?: true
+  splitExpiresAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -148,6 +153,7 @@ export type BookingCountAggregateInputType = {
   currency?: true
   stripeCheckoutSessionId?: true
   stripePaymentIntentId?: true
+  splitExpiresAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -253,6 +259,7 @@ export type BookingGroupByOutputType = {
   currency: string
   stripeCheckoutSessionId: string | null
   stripePaymentIntentId: string | null
+  splitExpiresAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: BookingCountAggregateOutputType | null
@@ -294,11 +301,13 @@ export type BookingWhereInput = {
   currency?: Prisma.StringFilter<"Booking"> | string
   stripeCheckoutSessionId?: Prisma.StringNullableFilter<"Booking"> | string | null
   stripePaymentIntentId?: Prisma.StringNullableFilter<"Booking"> | string | null
+  splitExpiresAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   emptyLeg?: Prisma.XOR<Prisma.EmptyLegScalarRelationFilter, Prisma.EmptyLegWhereInput>
   customerUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   passengers?: Prisma.PassengerListRelationFilter
+  payments?: Prisma.BookingPaymentListRelationFilter
 }
 
 export type BookingOrderByWithRelationInput = {
@@ -315,11 +324,13 @@ export type BookingOrderByWithRelationInput = {
   currency?: Prisma.SortOrder
   stripeCheckoutSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  splitExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   emptyLeg?: Prisma.EmptyLegOrderByWithRelationInput
   customerUser?: Prisma.UserOrderByWithRelationInput
   passengers?: Prisma.PassengerOrderByRelationAggregateInput
+  payments?: Prisma.BookingPaymentOrderByRelationAggregateInput
 }
 
 export type BookingWhereUniqueInput = Prisma.AtLeast<{
@@ -339,11 +350,13 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   currency?: Prisma.StringFilter<"Booking"> | string
   stripeCheckoutSessionId?: Prisma.StringNullableFilter<"Booking"> | string | null
   stripePaymentIntentId?: Prisma.StringNullableFilter<"Booking"> | string | null
+  splitExpiresAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   emptyLeg?: Prisma.XOR<Prisma.EmptyLegScalarRelationFilter, Prisma.EmptyLegWhereInput>
   customerUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   passengers?: Prisma.PassengerListRelationFilter
+  payments?: Prisma.BookingPaymentListRelationFilter
 }, "id">
 
 export type BookingOrderByWithAggregationInput = {
@@ -360,6 +373,7 @@ export type BookingOrderByWithAggregationInput = {
   currency?: Prisma.SortOrder
   stripeCheckoutSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  splitExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.BookingCountOrderByAggregateInput
@@ -386,6 +400,7 @@ export type BookingScalarWhereWithAggregatesInput = {
   currency?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   stripeCheckoutSessionId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
   stripePaymentIntentId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  splitExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Booking"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
 }
@@ -402,11 +417,13 @@ export type BookingCreateInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   emptyLeg: Prisma.EmptyLegCreateNestedOneWithoutBookingsInput
   customerUser?: Prisma.UserCreateNestedOneWithoutBookingsInput
   passengers?: Prisma.PassengerCreateNestedManyWithoutBookingInput
+  payments?: Prisma.BookingPaymentCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateInput = {
@@ -423,9 +440,11 @@ export type BookingUncheckedCreateInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   passengers?: Prisma.PassengerUncheckedCreateNestedManyWithoutBookingInput
+  payments?: Prisma.BookingPaymentUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUpdateInput = {
@@ -440,11 +459,13 @@ export type BookingUpdateInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emptyLeg?: Prisma.EmptyLegUpdateOneRequiredWithoutBookingsNestedInput
   customerUser?: Prisma.UserUpdateOneWithoutBookingsNestedInput
   passengers?: Prisma.PassengerUpdateManyWithoutBookingNestedInput
+  payments?: Prisma.BookingPaymentUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateInput = {
@@ -461,9 +482,11 @@ export type BookingUncheckedUpdateInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passengers?: Prisma.PassengerUncheckedUpdateManyWithoutBookingNestedInput
+  payments?: Prisma.BookingPaymentUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingCreateManyInput = {
@@ -480,6 +503,7 @@ export type BookingCreateManyInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -496,6 +520,7 @@ export type BookingUpdateManyMutationInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -514,6 +539,7 @@ export type BookingUncheckedUpdateManyInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -542,6 +568,7 @@ export type BookingCountOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   stripeCheckoutSessionId?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrder
+  splitExpiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -564,6 +591,7 @@ export type BookingMaxOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   stripeCheckoutSessionId?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrder
+  splitExpiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -582,6 +610,7 @@ export type BookingMinOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   stripeCheckoutSessionId?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrder
+  splitExpiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -687,6 +716,20 @@ export type EnumBookingStatusFieldUpdateOperationsInput = {
   set?: $Enums.BookingStatus
 }
 
+export type BookingCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutPaymentsInput, Prisma.BookingUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.BookingWhereUniqueInput
+}
+
+export type BookingUpdateOneRequiredWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutPaymentsInput, Prisma.BookingUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.BookingUpsertWithoutPaymentsInput
+  connect?: Prisma.BookingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BookingUpdateToOneWithWhereWithoutPaymentsInput, Prisma.BookingUpdateWithoutPaymentsInput>, Prisma.BookingUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type BookingCreateNestedOneWithoutPassengersInput = {
   create?: Prisma.XOR<Prisma.BookingCreateWithoutPassengersInput, Prisma.BookingUncheckedCreateWithoutPassengersInput>
   connectOrCreate?: Prisma.BookingCreateOrConnectWithoutPassengersInput
@@ -713,10 +756,12 @@ export type BookingCreateWithoutCustomerUserInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   emptyLeg: Prisma.EmptyLegCreateNestedOneWithoutBookingsInput
   passengers?: Prisma.PassengerCreateNestedManyWithoutBookingInput
+  payments?: Prisma.BookingPaymentCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutCustomerUserInput = {
@@ -732,9 +777,11 @@ export type BookingUncheckedCreateWithoutCustomerUserInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   passengers?: Prisma.PassengerUncheckedCreateNestedManyWithoutBookingInput
+  payments?: Prisma.BookingPaymentUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutCustomerUserInput = {
@@ -780,6 +827,7 @@ export type BookingScalarWhereInput = {
   currency?: Prisma.StringFilter<"Booking"> | string
   stripeCheckoutSessionId?: Prisma.StringNullableFilter<"Booking"> | string | null
   stripePaymentIntentId?: Prisma.StringNullableFilter<"Booking"> | string | null
+  splitExpiresAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
 }
@@ -796,10 +844,12 @@ export type BookingCreateWithoutEmptyLegInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customerUser?: Prisma.UserCreateNestedOneWithoutBookingsInput
   passengers?: Prisma.PassengerCreateNestedManyWithoutBookingInput
+  payments?: Prisma.BookingPaymentCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutEmptyLegInput = {
@@ -815,9 +865,11 @@ export type BookingUncheckedCreateWithoutEmptyLegInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   passengers?: Prisma.PassengerUncheckedCreateNestedManyWithoutBookingInput
+  payments?: Prisma.BookingPaymentUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutEmptyLegInput = {
@@ -846,6 +898,102 @@ export type BookingUpdateManyWithWhereWithoutEmptyLegInput = {
   data: Prisma.XOR<Prisma.BookingUpdateManyMutationInput, Prisma.BookingUncheckedUpdateManyWithoutEmptyLegInput>
 }
 
+export type BookingCreateWithoutPaymentsInput = {
+  id?: string
+  bookerFirstName: string
+  bookerLastName: string
+  bookerEmail: string
+  bookerPhone?: string | null
+  bookingType?: $Enums.BookingType
+  status?: $Enums.BookingStatus
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  stripeCheckoutSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  emptyLeg: Prisma.EmptyLegCreateNestedOneWithoutBookingsInput
+  customerUser?: Prisma.UserCreateNestedOneWithoutBookingsInput
+  passengers?: Prisma.PassengerCreateNestedManyWithoutBookingInput
+}
+
+export type BookingUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  emptyLegId: string
+  customerUserId?: string | null
+  bookerFirstName: string
+  bookerLastName: string
+  bookerEmail: string
+  bookerPhone?: string | null
+  bookingType?: $Enums.BookingType
+  status?: $Enums.BookingStatus
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  stripeCheckoutSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  passengers?: Prisma.PassengerUncheckedCreateNestedManyWithoutBookingInput
+}
+
+export type BookingCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.BookingWhereUniqueInput
+  create: Prisma.XOR<Prisma.BookingCreateWithoutPaymentsInput, Prisma.BookingUncheckedCreateWithoutPaymentsInput>
+}
+
+export type BookingUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.BookingUpdateWithoutPaymentsInput, Prisma.BookingUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.BookingCreateWithoutPaymentsInput, Prisma.BookingUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.BookingWhereInput
+}
+
+export type BookingUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.BookingWhereInput
+  data: Prisma.XOR<Prisma.BookingUpdateWithoutPaymentsInput, Prisma.BookingUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type BookingUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bookerFirstName?: Prisma.StringFieldUpdateOperationsInput | string
+  bookerLastName?: Prisma.StringFieldUpdateOperationsInput | string
+  bookerEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  bookerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookingType?: Prisma.EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
+  status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emptyLeg?: Prisma.EmptyLegUpdateOneRequiredWithoutBookingsNestedInput
+  customerUser?: Prisma.UserUpdateOneWithoutBookingsNestedInput
+  passengers?: Prisma.PassengerUpdateManyWithoutBookingNestedInput
+}
+
+export type BookingUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  emptyLegId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookerFirstName?: Prisma.StringFieldUpdateOperationsInput | string
+  bookerLastName?: Prisma.StringFieldUpdateOperationsInput | string
+  bookerEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  bookerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookingType?: Prisma.EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
+  status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  passengers?: Prisma.PassengerUncheckedUpdateManyWithoutBookingNestedInput
+}
+
 export type BookingCreateWithoutPassengersInput = {
   id?: string
   bookerFirstName: string
@@ -858,10 +1006,12 @@ export type BookingCreateWithoutPassengersInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   emptyLeg: Prisma.EmptyLegCreateNestedOneWithoutBookingsInput
   customerUser?: Prisma.UserCreateNestedOneWithoutBookingsInput
+  payments?: Prisma.BookingPaymentCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutPassengersInput = {
@@ -878,8 +1028,10 @@ export type BookingUncheckedCreateWithoutPassengersInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  payments?: Prisma.BookingPaymentUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutPassengersInput = {
@@ -910,10 +1062,12 @@ export type BookingUpdateWithoutPassengersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emptyLeg?: Prisma.EmptyLegUpdateOneRequiredWithoutBookingsNestedInput
   customerUser?: Prisma.UserUpdateOneWithoutBookingsNestedInput
+  payments?: Prisma.BookingPaymentUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutPassengersInput = {
@@ -930,8 +1084,10 @@ export type BookingUncheckedUpdateWithoutPassengersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.BookingPaymentUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingCreateManyCustomerUserInput = {
@@ -947,6 +1103,7 @@ export type BookingCreateManyCustomerUserInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -963,10 +1120,12 @@ export type BookingUpdateWithoutCustomerUserInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emptyLeg?: Prisma.EmptyLegUpdateOneRequiredWithoutBookingsNestedInput
   passengers?: Prisma.PassengerUpdateManyWithoutBookingNestedInput
+  payments?: Prisma.BookingPaymentUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutCustomerUserInput = {
@@ -982,9 +1141,11 @@ export type BookingUncheckedUpdateWithoutCustomerUserInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passengers?: Prisma.PassengerUncheckedUpdateManyWithoutBookingNestedInput
+  payments?: Prisma.BookingPaymentUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutCustomerUserInput = {
@@ -1000,6 +1161,7 @@ export type BookingUncheckedUpdateManyWithoutCustomerUserInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1017,6 +1179,7 @@ export type BookingCreateManyEmptyLegInput = {
   currency?: string
   stripeCheckoutSessionId?: string | null
   stripePaymentIntentId?: string | null
+  splitExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1033,10 +1196,12 @@ export type BookingUpdateWithoutEmptyLegInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerUser?: Prisma.UserUpdateOneWithoutBookingsNestedInput
   passengers?: Prisma.PassengerUpdateManyWithoutBookingNestedInput
+  payments?: Prisma.BookingPaymentUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutEmptyLegInput = {
@@ -1052,9 +1217,11 @@ export type BookingUncheckedUpdateWithoutEmptyLegInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passengers?: Prisma.PassengerUncheckedUpdateManyWithoutBookingNestedInput
+  payments?: Prisma.BookingPaymentUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutEmptyLegInput = {
@@ -1070,6 +1237,7 @@ export type BookingUncheckedUpdateManyWithoutEmptyLegInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  splitExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1081,10 +1249,12 @@ export type BookingUncheckedUpdateManyWithoutEmptyLegInput = {
 
 export type BookingCountOutputType = {
   passengers: number
+  payments: number
 }
 
 export type BookingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   passengers?: boolean | BookingCountOutputTypeCountPassengersArgs
+  payments?: boolean | BookingCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -1104,6 +1274,13 @@ export type BookingCountOutputTypeCountPassengersArgs<ExtArgs extends runtime.Ty
   where?: Prisma.PassengerWhereInput
 }
 
+/**
+ * BookingCountOutputType without action
+ */
+export type BookingCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingPaymentWhereInput
+}
+
 
 export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1119,11 +1296,13 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   currency?: boolean
   stripeCheckoutSessionId?: boolean
   stripePaymentIntentId?: boolean
+  splitExpiresAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   emptyLeg?: boolean | Prisma.EmptyLegDefaultArgs<ExtArgs>
   customerUser?: boolean | Prisma.Booking$customerUserArgs<ExtArgs>
   passengers?: boolean | Prisma.Booking$passengersArgs<ExtArgs>
+  payments?: boolean | Prisma.Booking$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
@@ -1141,6 +1320,7 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currency?: boolean
   stripeCheckoutSessionId?: boolean
   stripePaymentIntentId?: boolean
+  splitExpiresAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   emptyLeg?: boolean | Prisma.EmptyLegDefaultArgs<ExtArgs>
@@ -1161,6 +1341,7 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currency?: boolean
   stripeCheckoutSessionId?: boolean
   stripePaymentIntentId?: boolean
+  splitExpiresAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   emptyLeg?: boolean | Prisma.EmptyLegDefaultArgs<ExtArgs>
@@ -1181,15 +1362,17 @@ export type BookingSelectScalar = {
   currency?: boolean
   stripeCheckoutSessionId?: boolean
   stripePaymentIntentId?: boolean
+  splitExpiresAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "emptyLegId" | "customerUserId" | "bookerFirstName" | "bookerLastName" | "bookerEmail" | "bookerPhone" | "bookingType" | "status" | "totalAmount" | "currency" | "stripeCheckoutSessionId" | "stripePaymentIntentId" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "emptyLegId" | "customerUserId" | "bookerFirstName" | "bookerLastName" | "bookerEmail" | "bookerPhone" | "bookingType" | "status" | "totalAmount" | "currency" | "stripeCheckoutSessionId" | "stripePaymentIntentId" | "splitExpiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emptyLeg?: boolean | Prisma.EmptyLegDefaultArgs<ExtArgs>
   customerUser?: boolean | Prisma.Booking$customerUserArgs<ExtArgs>
   passengers?: boolean | Prisma.Booking$passengersArgs<ExtArgs>
+  payments?: boolean | Prisma.Booking$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1207,6 +1390,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     emptyLeg: Prisma.$EmptyLegPayload<ExtArgs>
     customerUser: Prisma.$UserPayload<ExtArgs> | null
     passengers: Prisma.$PassengerPayload<ExtArgs>[]
+    payments: Prisma.$BookingPaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1222,6 +1406,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     currency: string
     stripeCheckoutSessionId: string | null
     stripePaymentIntentId: string | null
+    splitExpiresAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["booking"]>
@@ -1621,6 +1806,7 @@ export interface Prisma__BookingClient<T, Null = never, ExtArgs extends runtime.
   emptyLeg<T extends Prisma.EmptyLegDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmptyLegDefaultArgs<ExtArgs>>): Prisma.Prisma__EmptyLegClient<runtime.Types.Result.GetResult<Prisma.$EmptyLegPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customerUser<T extends Prisma.Booking$customerUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$customerUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   passengers<T extends Prisma.Booking$passengersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$passengersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassengerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.Booking$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1663,6 +1849,7 @@ export interface BookingFieldRefs {
   readonly currency: Prisma.FieldRef<"Booking", 'String'>
   readonly stripeCheckoutSessionId: Prisma.FieldRef<"Booking", 'String'>
   readonly stripePaymentIntentId: Prisma.FieldRef<"Booking", 'String'>
+  readonly splitExpiresAt: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Booking", 'DateTime'>
 }
@@ -2106,6 +2293,30 @@ export type Booking$passengersArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.PassengerScalarFieldEnum | Prisma.PassengerScalarFieldEnum[]
+}
+
+/**
+ * Booking.payments
+ */
+export type Booking$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookingPayment
+   */
+  select?: Prisma.BookingPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BookingPayment
+   */
+  omit?: Prisma.BookingPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookingPaymentInclude<ExtArgs> | null
+  where?: Prisma.BookingPaymentWhereInput
+  orderBy?: Prisma.BookingPaymentOrderByWithRelationInput | Prisma.BookingPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.BookingPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookingPaymentScalarFieldEnum | Prisma.BookingPaymentScalarFieldEnum[]
 }
 
 /**

@@ -31,6 +31,7 @@ export type EmptyLegAvgAggregateOutputType = {
   availablePax: number | null
   priceTotal: runtime.Decimal | null
   savingPct: number | null
+  confirmationProbability: number | null
 }
 
 export type EmptyLegSumAggregateOutputType = {
@@ -38,6 +39,7 @@ export type EmptyLegSumAggregateOutputType = {
   availablePax: number | null
   priceTotal: runtime.Decimal | null
   savingPct: number | null
+  confirmationProbability: number | null
 }
 
 export type EmptyLegMinAggregateOutputType = {
@@ -46,6 +48,8 @@ export type EmptyLegMinAggregateOutputType = {
   aircraftId: string | null
   fromAirport: string | null
   toAirport: string | null
+  fromCity: string | null
+  toCity: string | null
   departureAt: Date | null
   arrivalAt: Date | null
   durationMin: number | null
@@ -53,6 +57,7 @@ export type EmptyLegMinAggregateOutputType = {
   priceTotal: runtime.Decimal | null
   currency: string | null
   savingPct: number | null
+  confirmationProbability: number | null
   status: $Enums.EmptyLegStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -64,6 +69,8 @@ export type EmptyLegMaxAggregateOutputType = {
   aircraftId: string | null
   fromAirport: string | null
   toAirport: string | null
+  fromCity: string | null
+  toCity: string | null
   departureAt: Date | null
   arrivalAt: Date | null
   durationMin: number | null
@@ -71,6 +78,7 @@ export type EmptyLegMaxAggregateOutputType = {
   priceTotal: runtime.Decimal | null
   currency: string | null
   savingPct: number | null
+  confirmationProbability: number | null
   status: $Enums.EmptyLegStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -82,6 +90,8 @@ export type EmptyLegCountAggregateOutputType = {
   aircraftId: number
   fromAirport: number
   toAirport: number
+  fromCity: number
+  toCity: number
   departureAt: number
   arrivalAt: number
   durationMin: number
@@ -89,6 +99,7 @@ export type EmptyLegCountAggregateOutputType = {
   priceTotal: number
   currency: number
   savingPct: number
+  confirmationProbability: number
   status: number
   createdAt: number
   updatedAt: number
@@ -101,6 +112,7 @@ export type EmptyLegAvgAggregateInputType = {
   availablePax?: true
   priceTotal?: true
   savingPct?: true
+  confirmationProbability?: true
 }
 
 export type EmptyLegSumAggregateInputType = {
@@ -108,6 +120,7 @@ export type EmptyLegSumAggregateInputType = {
   availablePax?: true
   priceTotal?: true
   savingPct?: true
+  confirmationProbability?: true
 }
 
 export type EmptyLegMinAggregateInputType = {
@@ -116,6 +129,8 @@ export type EmptyLegMinAggregateInputType = {
   aircraftId?: true
   fromAirport?: true
   toAirport?: true
+  fromCity?: true
+  toCity?: true
   departureAt?: true
   arrivalAt?: true
   durationMin?: true
@@ -123,6 +138,7 @@ export type EmptyLegMinAggregateInputType = {
   priceTotal?: true
   currency?: true
   savingPct?: true
+  confirmationProbability?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -134,6 +150,8 @@ export type EmptyLegMaxAggregateInputType = {
   aircraftId?: true
   fromAirport?: true
   toAirport?: true
+  fromCity?: true
+  toCity?: true
   departureAt?: true
   arrivalAt?: true
   durationMin?: true
@@ -141,6 +159,7 @@ export type EmptyLegMaxAggregateInputType = {
   priceTotal?: true
   currency?: true
   savingPct?: true
+  confirmationProbability?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -152,6 +171,8 @@ export type EmptyLegCountAggregateInputType = {
   aircraftId?: true
   fromAirport?: true
   toAirport?: true
+  fromCity?: true
+  toCity?: true
   departureAt?: true
   arrivalAt?: true
   durationMin?: true
@@ -159,6 +180,7 @@ export type EmptyLegCountAggregateInputType = {
   priceTotal?: true
   currency?: true
   savingPct?: true
+  confirmationProbability?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -257,6 +279,8 @@ export type EmptyLegGroupByOutputType = {
   aircraftId: string
   fromAirport: string
   toAirport: string
+  fromCity: string | null
+  toCity: string | null
   departureAt: Date
   arrivalAt: Date | null
   durationMin: number
@@ -264,6 +288,7 @@ export type EmptyLegGroupByOutputType = {
   priceTotal: runtime.Decimal
   currency: string
   savingPct: number | null
+  confirmationProbability: number | null
   status: $Enums.EmptyLegStatus
   createdAt: Date
   updatedAt: Date
@@ -298,6 +323,8 @@ export type EmptyLegWhereInput = {
   aircraftId?: Prisma.StringFilter<"EmptyLeg"> | string
   fromAirport?: Prisma.StringFilter<"EmptyLeg"> | string
   toAirport?: Prisma.StringFilter<"EmptyLeg"> | string
+  fromCity?: Prisma.StringNullableFilter<"EmptyLeg"> | string | null
+  toCity?: Prisma.StringNullableFilter<"EmptyLeg"> | string | null
   departureAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
   arrivalAt?: Prisma.DateTimeNullableFilter<"EmptyLeg"> | Date | string | null
   durationMin?: Prisma.IntFilter<"EmptyLeg"> | number
@@ -305,6 +332,7 @@ export type EmptyLegWhereInput = {
   priceTotal?: Prisma.DecimalFilter<"EmptyLeg"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFilter<"EmptyLeg"> | string
   savingPct?: Prisma.IntNullableFilter<"EmptyLeg"> | number | null
+  confirmationProbability?: Prisma.IntNullableFilter<"EmptyLeg"> | number | null
   status?: Prisma.EnumEmptyLegStatusFilter<"EmptyLeg"> | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
@@ -319,6 +347,8 @@ export type EmptyLegOrderByWithRelationInput = {
   aircraftId?: Prisma.SortOrder
   fromAirport?: Prisma.SortOrder
   toAirport?: Prisma.SortOrder
+  fromCity?: Prisma.SortOrderInput | Prisma.SortOrder
+  toCity?: Prisma.SortOrderInput | Prisma.SortOrder
   departureAt?: Prisma.SortOrder
   arrivalAt?: Prisma.SortOrderInput | Prisma.SortOrder
   durationMin?: Prisma.SortOrder
@@ -326,6 +356,7 @@ export type EmptyLegOrderByWithRelationInput = {
   priceTotal?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   savingPct?: Prisma.SortOrderInput | Prisma.SortOrder
+  confirmationProbability?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -343,6 +374,8 @@ export type EmptyLegWhereUniqueInput = Prisma.AtLeast<{
   aircraftId?: Prisma.StringFilter<"EmptyLeg"> | string
   fromAirport?: Prisma.StringFilter<"EmptyLeg"> | string
   toAirport?: Prisma.StringFilter<"EmptyLeg"> | string
+  fromCity?: Prisma.StringNullableFilter<"EmptyLeg"> | string | null
+  toCity?: Prisma.StringNullableFilter<"EmptyLeg"> | string | null
   departureAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
   arrivalAt?: Prisma.DateTimeNullableFilter<"EmptyLeg"> | Date | string | null
   durationMin?: Prisma.IntFilter<"EmptyLeg"> | number
@@ -350,6 +383,7 @@ export type EmptyLegWhereUniqueInput = Prisma.AtLeast<{
   priceTotal?: Prisma.DecimalFilter<"EmptyLeg"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFilter<"EmptyLeg"> | string
   savingPct?: Prisma.IntNullableFilter<"EmptyLeg"> | number | null
+  confirmationProbability?: Prisma.IntNullableFilter<"EmptyLeg"> | number | null
   status?: Prisma.EnumEmptyLegStatusFilter<"EmptyLeg"> | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
@@ -364,6 +398,8 @@ export type EmptyLegOrderByWithAggregationInput = {
   aircraftId?: Prisma.SortOrder
   fromAirport?: Prisma.SortOrder
   toAirport?: Prisma.SortOrder
+  fromCity?: Prisma.SortOrderInput | Prisma.SortOrder
+  toCity?: Prisma.SortOrderInput | Prisma.SortOrder
   departureAt?: Prisma.SortOrder
   arrivalAt?: Prisma.SortOrderInput | Prisma.SortOrder
   durationMin?: Prisma.SortOrder
@@ -371,6 +407,7 @@ export type EmptyLegOrderByWithAggregationInput = {
   priceTotal?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   savingPct?: Prisma.SortOrderInput | Prisma.SortOrder
+  confirmationProbability?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -390,6 +427,8 @@ export type EmptyLegScalarWhereWithAggregatesInput = {
   aircraftId?: Prisma.StringWithAggregatesFilter<"EmptyLeg"> | string
   fromAirport?: Prisma.StringWithAggregatesFilter<"EmptyLeg"> | string
   toAirport?: Prisma.StringWithAggregatesFilter<"EmptyLeg"> | string
+  fromCity?: Prisma.StringNullableWithAggregatesFilter<"EmptyLeg"> | string | null
+  toCity?: Prisma.StringNullableWithAggregatesFilter<"EmptyLeg"> | string | null
   departureAt?: Prisma.DateTimeWithAggregatesFilter<"EmptyLeg"> | Date | string
   arrivalAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EmptyLeg"> | Date | string | null
   durationMin?: Prisma.IntWithAggregatesFilter<"EmptyLeg"> | number
@@ -397,6 +436,7 @@ export type EmptyLegScalarWhereWithAggregatesInput = {
   priceTotal?: Prisma.DecimalWithAggregatesFilter<"EmptyLeg"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringWithAggregatesFilter<"EmptyLeg"> | string
   savingPct?: Prisma.IntNullableWithAggregatesFilter<"EmptyLeg"> | number | null
+  confirmationProbability?: Prisma.IntNullableWithAggregatesFilter<"EmptyLeg"> | number | null
   status?: Prisma.EnumEmptyLegStatusWithAggregatesFilter<"EmptyLeg"> | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EmptyLeg"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EmptyLeg"> | Date | string
@@ -406,6 +446,8 @@ export type EmptyLegCreateInput = {
   id?: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -413,6 +455,7 @@ export type EmptyLegCreateInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -427,6 +470,8 @@ export type EmptyLegUncheckedCreateInput = {
   aircraftId: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -434,6 +479,7 @@ export type EmptyLegUncheckedCreateInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -444,6 +490,8 @@ export type EmptyLegUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -451,6 +499,7 @@ export type EmptyLegUpdateInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -465,6 +514,8 @@ export type EmptyLegUncheckedUpdateInput = {
   aircraftId?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -472,6 +523,7 @@ export type EmptyLegUncheckedUpdateInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -484,6 +536,8 @@ export type EmptyLegCreateManyInput = {
   aircraftId: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -491,6 +545,7 @@ export type EmptyLegCreateManyInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -500,6 +555,8 @@ export type EmptyLegUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -507,6 +564,7 @@ export type EmptyLegUpdateManyMutationInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -518,6 +576,8 @@ export type EmptyLegUncheckedUpdateManyInput = {
   aircraftId?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -525,6 +585,7 @@ export type EmptyLegUncheckedUpdateManyInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -546,6 +607,8 @@ export type EmptyLegCountOrderByAggregateInput = {
   aircraftId?: Prisma.SortOrder
   fromAirport?: Prisma.SortOrder
   toAirport?: Prisma.SortOrder
+  fromCity?: Prisma.SortOrder
+  toCity?: Prisma.SortOrder
   departureAt?: Prisma.SortOrder
   arrivalAt?: Prisma.SortOrder
   durationMin?: Prisma.SortOrder
@@ -553,6 +616,7 @@ export type EmptyLegCountOrderByAggregateInput = {
   priceTotal?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   savingPct?: Prisma.SortOrder
+  confirmationProbability?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -563,6 +627,7 @@ export type EmptyLegAvgOrderByAggregateInput = {
   availablePax?: Prisma.SortOrder
   priceTotal?: Prisma.SortOrder
   savingPct?: Prisma.SortOrder
+  confirmationProbability?: Prisma.SortOrder
 }
 
 export type EmptyLegMaxOrderByAggregateInput = {
@@ -571,6 +636,8 @@ export type EmptyLegMaxOrderByAggregateInput = {
   aircraftId?: Prisma.SortOrder
   fromAirport?: Prisma.SortOrder
   toAirport?: Prisma.SortOrder
+  fromCity?: Prisma.SortOrder
+  toCity?: Prisma.SortOrder
   departureAt?: Prisma.SortOrder
   arrivalAt?: Prisma.SortOrder
   durationMin?: Prisma.SortOrder
@@ -578,6 +645,7 @@ export type EmptyLegMaxOrderByAggregateInput = {
   priceTotal?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   savingPct?: Prisma.SortOrder
+  confirmationProbability?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -589,6 +657,8 @@ export type EmptyLegMinOrderByAggregateInput = {
   aircraftId?: Prisma.SortOrder
   fromAirport?: Prisma.SortOrder
   toAirport?: Prisma.SortOrder
+  fromCity?: Prisma.SortOrder
+  toCity?: Prisma.SortOrder
   departureAt?: Prisma.SortOrder
   arrivalAt?: Prisma.SortOrder
   durationMin?: Prisma.SortOrder
@@ -596,6 +666,7 @@ export type EmptyLegMinOrderByAggregateInput = {
   priceTotal?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   savingPct?: Prisma.SortOrder
+  confirmationProbability?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -606,6 +677,7 @@ export type EmptyLegSumOrderByAggregateInput = {
   availablePax?: Prisma.SortOrder
   priceTotal?: Prisma.SortOrder
   savingPct?: Prisma.SortOrder
+  confirmationProbability?: Prisma.SortOrder
 }
 
 export type EmptyLegScalarRelationFilter = {
@@ -739,6 +811,8 @@ export type EmptyLegCreateWithoutOperatorInput = {
   id?: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -746,6 +820,7 @@ export type EmptyLegCreateWithoutOperatorInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -758,6 +833,8 @@ export type EmptyLegUncheckedCreateWithoutOperatorInput = {
   aircraftId: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -765,6 +842,7 @@ export type EmptyLegUncheckedCreateWithoutOperatorInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -806,6 +884,8 @@ export type EmptyLegScalarWhereInput = {
   aircraftId?: Prisma.StringFilter<"EmptyLeg"> | string
   fromAirport?: Prisma.StringFilter<"EmptyLeg"> | string
   toAirport?: Prisma.StringFilter<"EmptyLeg"> | string
+  fromCity?: Prisma.StringNullableFilter<"EmptyLeg"> | string | null
+  toCity?: Prisma.StringNullableFilter<"EmptyLeg"> | string | null
   departureAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
   arrivalAt?: Prisma.DateTimeNullableFilter<"EmptyLeg"> | Date | string | null
   durationMin?: Prisma.IntFilter<"EmptyLeg"> | number
@@ -813,6 +893,7 @@ export type EmptyLegScalarWhereInput = {
   priceTotal?: Prisma.DecimalFilter<"EmptyLeg"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFilter<"EmptyLeg"> | string
   savingPct?: Prisma.IntNullableFilter<"EmptyLeg"> | number | null
+  confirmationProbability?: Prisma.IntNullableFilter<"EmptyLeg"> | number | null
   status?: Prisma.EnumEmptyLegStatusFilter<"EmptyLeg"> | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmptyLeg"> | Date | string
@@ -822,6 +903,8 @@ export type EmptyLegCreateWithoutAircraftInput = {
   id?: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -829,6 +912,7 @@ export type EmptyLegCreateWithoutAircraftInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -841,6 +925,8 @@ export type EmptyLegUncheckedCreateWithoutAircraftInput = {
   operatorId: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -848,6 +934,7 @@ export type EmptyLegUncheckedCreateWithoutAircraftInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -884,6 +971,8 @@ export type EmptyLegCreateWithoutBookingsInput = {
   id?: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -891,6 +980,7 @@ export type EmptyLegCreateWithoutBookingsInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -904,6 +994,8 @@ export type EmptyLegUncheckedCreateWithoutBookingsInput = {
   aircraftId: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -911,6 +1003,7 @@ export type EmptyLegUncheckedCreateWithoutBookingsInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -936,6 +1029,8 @@ export type EmptyLegUpdateWithoutBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -943,6 +1038,7 @@ export type EmptyLegUpdateWithoutBookingsInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -956,6 +1052,8 @@ export type EmptyLegUncheckedUpdateWithoutBookingsInput = {
   aircraftId?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -963,6 +1061,7 @@ export type EmptyLegUncheckedUpdateWithoutBookingsInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -973,6 +1072,8 @@ export type EmptyLegCreateManyOperatorInput = {
   aircraftId: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -980,6 +1081,7 @@ export type EmptyLegCreateManyOperatorInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -989,6 +1091,8 @@ export type EmptyLegUpdateWithoutOperatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -996,6 +1100,7 @@ export type EmptyLegUpdateWithoutOperatorInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1008,6 +1113,8 @@ export type EmptyLegUncheckedUpdateWithoutOperatorInput = {
   aircraftId?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1015,6 +1122,7 @@ export type EmptyLegUncheckedUpdateWithoutOperatorInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1026,6 +1134,8 @@ export type EmptyLegUncheckedUpdateManyWithoutOperatorInput = {
   aircraftId?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1033,6 +1143,7 @@ export type EmptyLegUncheckedUpdateManyWithoutOperatorInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1043,6 +1154,8 @@ export type EmptyLegCreateManyAircraftInput = {
   operatorId: string
   fromAirport: string
   toAirport: string
+  fromCity?: string | null
+  toCity?: string | null
   departureAt: Date | string
   arrivalAt?: Date | string | null
   durationMin: number
@@ -1050,6 +1163,7 @@ export type EmptyLegCreateManyAircraftInput = {
   priceTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   savingPct?: number | null
+  confirmationProbability?: number | null
   status?: $Enums.EmptyLegStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1059,6 +1173,8 @@ export type EmptyLegUpdateWithoutAircraftInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1066,6 +1182,7 @@ export type EmptyLegUpdateWithoutAircraftInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1078,6 +1195,8 @@ export type EmptyLegUncheckedUpdateWithoutAircraftInput = {
   operatorId?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1085,6 +1204,7 @@ export type EmptyLegUncheckedUpdateWithoutAircraftInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1096,6 +1216,8 @@ export type EmptyLegUncheckedUpdateManyWithoutAircraftInput = {
   operatorId?: Prisma.StringFieldUpdateOperationsInput | string
   fromAirport?: Prisma.StringFieldUpdateOperationsInput | string
   toAirport?: Prisma.StringFieldUpdateOperationsInput | string
+  fromCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departureAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   arrivalAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1103,6 +1225,7 @@ export type EmptyLegUncheckedUpdateManyWithoutAircraftInput = {
   priceTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   savingPct?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  confirmationProbability?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumEmptyLegStatusFieldUpdateOperationsInput | $Enums.EmptyLegStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1145,6 +1268,8 @@ export type EmptyLegSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   aircraftId?: boolean
   fromAirport?: boolean
   toAirport?: boolean
+  fromCity?: boolean
+  toCity?: boolean
   departureAt?: boolean
   arrivalAt?: boolean
   durationMin?: boolean
@@ -1152,6 +1277,7 @@ export type EmptyLegSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   priceTotal?: boolean
   currency?: boolean
   savingPct?: boolean
+  confirmationProbability?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1167,6 +1293,8 @@ export type EmptyLegSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   aircraftId?: boolean
   fromAirport?: boolean
   toAirport?: boolean
+  fromCity?: boolean
+  toCity?: boolean
   departureAt?: boolean
   arrivalAt?: boolean
   durationMin?: boolean
@@ -1174,6 +1302,7 @@ export type EmptyLegSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   priceTotal?: boolean
   currency?: boolean
   savingPct?: boolean
+  confirmationProbability?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1187,6 +1316,8 @@ export type EmptyLegSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   aircraftId?: boolean
   fromAirport?: boolean
   toAirport?: boolean
+  fromCity?: boolean
+  toCity?: boolean
   departureAt?: boolean
   arrivalAt?: boolean
   durationMin?: boolean
@@ -1194,6 +1325,7 @@ export type EmptyLegSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   priceTotal?: boolean
   currency?: boolean
   savingPct?: boolean
+  confirmationProbability?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1207,6 +1339,8 @@ export type EmptyLegSelectScalar = {
   aircraftId?: boolean
   fromAirport?: boolean
   toAirport?: boolean
+  fromCity?: boolean
+  toCity?: boolean
   departureAt?: boolean
   arrivalAt?: boolean
   durationMin?: boolean
@@ -1214,12 +1348,13 @@ export type EmptyLegSelectScalar = {
   priceTotal?: boolean
   currency?: boolean
   savingPct?: boolean
+  confirmationProbability?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EmptyLegOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "operatorId" | "aircraftId" | "fromAirport" | "toAirport" | "departureAt" | "arrivalAt" | "durationMin" | "availablePax" | "priceTotal" | "currency" | "savingPct" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["emptyLeg"]>
+export type EmptyLegOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "operatorId" | "aircraftId" | "fromAirport" | "toAirport" | "fromCity" | "toCity" | "departureAt" | "arrivalAt" | "durationMin" | "availablePax" | "priceTotal" | "currency" | "savingPct" | "confirmationProbability" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["emptyLeg"]>
 export type EmptyLegInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   operator?: boolean | Prisma.OperatorDefaultArgs<ExtArgs>
   aircraft?: boolean | Prisma.AircraftDefaultArgs<ExtArgs>
@@ -1248,6 +1383,8 @@ export type $EmptyLegPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     aircraftId: string
     fromAirport: string
     toAirport: string
+    fromCity: string | null
+    toCity: string | null
     departureAt: Date
     arrivalAt: Date | null
     durationMin: number
@@ -1255,6 +1392,7 @@ export type $EmptyLegPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     priceTotal: runtime.Decimal
     currency: string
     savingPct: number | null
+    confirmationProbability: number | null
     status: $Enums.EmptyLegStatus
     createdAt: Date
     updatedAt: Date
@@ -1689,6 +1827,8 @@ export interface EmptyLegFieldRefs {
   readonly aircraftId: Prisma.FieldRef<"EmptyLeg", 'String'>
   readonly fromAirport: Prisma.FieldRef<"EmptyLeg", 'String'>
   readonly toAirport: Prisma.FieldRef<"EmptyLeg", 'String'>
+  readonly fromCity: Prisma.FieldRef<"EmptyLeg", 'String'>
+  readonly toCity: Prisma.FieldRef<"EmptyLeg", 'String'>
   readonly departureAt: Prisma.FieldRef<"EmptyLeg", 'DateTime'>
   readonly arrivalAt: Prisma.FieldRef<"EmptyLeg", 'DateTime'>
   readonly durationMin: Prisma.FieldRef<"EmptyLeg", 'Int'>
@@ -1696,6 +1836,7 @@ export interface EmptyLegFieldRefs {
   readonly priceTotal: Prisma.FieldRef<"EmptyLeg", 'Decimal'>
   readonly currency: Prisma.FieldRef<"EmptyLeg", 'String'>
   readonly savingPct: Prisma.FieldRef<"EmptyLeg", 'Int'>
+  readonly confirmationProbability: Prisma.FieldRef<"EmptyLeg", 'Int'>
   readonly status: Prisma.FieldRef<"EmptyLeg", 'EmptyLegStatus'>
   readonly createdAt: Prisma.FieldRef<"EmptyLeg", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EmptyLeg", 'DateTime'>

@@ -56,6 +56,7 @@ export const ModelName = {
   Aircraft: 'Aircraft',
   EmptyLeg: 'EmptyLeg',
   Booking: 'Booking',
+  BookingPayment: 'BookingPayment',
   Passenger: 'Passenger',
   ContactRequest: 'ContactRequest',
   AuditLog: 'AuditLog'
@@ -127,6 +128,8 @@ export const EmptyLegScalarFieldEnum = {
   aircraftId: 'aircraftId',
   fromAirport: 'fromAirport',
   toAirport: 'toAirport',
+  fromCity: 'fromCity',
+  toCity: 'toCity',
   departureAt: 'departureAt',
   arrivalAt: 'arrivalAt',
   durationMin: 'durationMin',
@@ -134,6 +137,7 @@ export const EmptyLegScalarFieldEnum = {
   priceTotal: 'priceTotal',
   currency: 'currency',
   savingPct: 'savingPct',
+  confirmationProbability: 'confirmationProbability',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -156,11 +160,30 @@ export const BookingScalarFieldEnum = {
   currency: 'currency',
   stripeCheckoutSessionId: 'stripeCheckoutSessionId',
   stripePaymentIntentId: 'stripePaymentIntentId',
+  splitExpiresAt: 'splitExpiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const BookingPaymentScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  passengerId: 'passengerId',
+  payerEmail: 'payerEmail',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  stripeCheckoutSessionId: 'stripeCheckoutSessionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  refundedAt: 'refundedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BookingPaymentScalarFieldEnum = (typeof BookingPaymentScalarFieldEnum)[keyof typeof BookingPaymentScalarFieldEnum]
 
 
 export const PassengerScalarFieldEnum = {

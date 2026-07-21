@@ -43,6 +43,34 @@ export async function sendBookingCreatedEmail(params: {
   });
 }
 
+export async function sendSplitPaymentShareEmail(params: {
+  to: string;
+  firstName: string;
+  bookerFirstName: string;
+  fromAirport: string;
+  toAirport: string;
+  amount: string;
+  currency: string;
+  checkoutUrl: string;
+  expiresAt: Date;
+}) {
+  const deadline = params.expiresAt.toLocaleString("it-IT", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+  await safeSend({
+    to: params.to,
+    subject: "La tua quota di volo ti aspetta - Auralis SkyShare",
+    html: `
+      <h2>Ciao ${params.firstName},</h2>
+      <p>${params.bookerFirstName} ti ha incluso in una prenotazione condivisa per il volo <strong>${params.fromAirport} → ${params.toAirport}</strong>.</p>
+      <p>La tua quota è di <strong>${params.amount} ${params.currency}</strong>.</p>
+      <p><a href="${params.checkoutUrl}">Paga la tua quota</a></p>
+      <p>Completa il pagamento entro il <strong>${deadline}</strong>: se anche solo una quota non viene pagata in tempo, l'intera prenotazione viene annullata e chi ha già pagato viene rimborsato automaticamente.</p>
+    `,
+  });
+}
+
 export async function sendPaymentConfirmedEmail(params: {
   to: string;
   bookerFirstName: string;

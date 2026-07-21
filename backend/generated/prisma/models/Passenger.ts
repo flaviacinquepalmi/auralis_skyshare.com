@@ -191,6 +191,7 @@ export type PassengerWhereInput = {
   email?: Prisma.StringFilter<"Passenger"> | string
   phone?: Prisma.StringNullableFilter<"Passenger"> | string | null
   booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
+  payment?: Prisma.XOR<Prisma.BookingPaymentNullableScalarRelationFilter, Prisma.BookingPaymentWhereInput> | null
 }
 
 export type PassengerOrderByWithRelationInput = {
@@ -201,6 +202,7 @@ export type PassengerOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   booking?: Prisma.BookingOrderByWithRelationInput
+  payment?: Prisma.BookingPaymentOrderByWithRelationInput
 }
 
 export type PassengerWhereUniqueInput = Prisma.AtLeast<{
@@ -214,6 +216,7 @@ export type PassengerWhereUniqueInput = Prisma.AtLeast<{
   email?: Prisma.StringFilter<"Passenger"> | string
   phone?: Prisma.StringNullableFilter<"Passenger"> | string | null
   booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
+  payment?: Prisma.XOR<Prisma.BookingPaymentNullableScalarRelationFilter, Prisma.BookingPaymentWhereInput> | null
 }, "id">
 
 export type PassengerOrderByWithAggregationInput = {
@@ -247,6 +250,7 @@ export type PassengerCreateInput = {
   email: string
   phone?: string | null
   booking: Prisma.BookingCreateNestedOneWithoutPassengersInput
+  payment?: Prisma.BookingPaymentCreateNestedOneWithoutPassengerInput
 }
 
 export type PassengerUncheckedCreateInput = {
@@ -256,6 +260,7 @@ export type PassengerUncheckedCreateInput = {
   lastName: string
   email: string
   phone?: string | null
+  payment?: Prisma.BookingPaymentUncheckedCreateNestedOneWithoutPassengerInput
 }
 
 export type PassengerUpdateInput = {
@@ -265,6 +270,7 @@ export type PassengerUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   booking?: Prisma.BookingUpdateOneRequiredWithoutPassengersNestedInput
+  payment?: Prisma.BookingPaymentUpdateOneWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateInput = {
@@ -274,6 +280,7 @@ export type PassengerUncheckedUpdateInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payment?: Prisma.BookingPaymentUncheckedUpdateOneWithoutPassengerNestedInput
 }
 
 export type PassengerCreateManyInput = {
@@ -310,6 +317,11 @@ export type PassengerListRelationFilter = {
 
 export type PassengerOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type PassengerNullableScalarRelationFilter = {
+  is?: Prisma.PassengerWhereInput | null
+  isNot?: Prisma.PassengerWhereInput | null
 }
 
 export type PassengerCountOrderByAggregateInput = {
@@ -381,12 +393,29 @@ export type PassengerUncheckedUpdateManyWithoutBookingNestedInput = {
   deleteMany?: Prisma.PassengerScalarWhereInput | Prisma.PassengerScalarWhereInput[]
 }
 
+export type PassengerCreateNestedOneWithoutPaymentInput = {
+  create?: Prisma.XOR<Prisma.PassengerCreateWithoutPaymentInput, Prisma.PassengerUncheckedCreateWithoutPaymentInput>
+  connectOrCreate?: Prisma.PassengerCreateOrConnectWithoutPaymentInput
+  connect?: Prisma.PassengerWhereUniqueInput
+}
+
+export type PassengerUpdateOneWithoutPaymentNestedInput = {
+  create?: Prisma.XOR<Prisma.PassengerCreateWithoutPaymentInput, Prisma.PassengerUncheckedCreateWithoutPaymentInput>
+  connectOrCreate?: Prisma.PassengerCreateOrConnectWithoutPaymentInput
+  upsert?: Prisma.PassengerUpsertWithoutPaymentInput
+  disconnect?: Prisma.PassengerWhereInput | boolean
+  delete?: Prisma.PassengerWhereInput | boolean
+  connect?: Prisma.PassengerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PassengerUpdateToOneWithWhereWithoutPaymentInput, Prisma.PassengerUpdateWithoutPaymentInput>, Prisma.PassengerUncheckedUpdateWithoutPaymentInput>
+}
+
 export type PassengerCreateWithoutBookingInput = {
   id?: string
   firstName: string
   lastName: string
   email: string
   phone?: string | null
+  payment?: Prisma.BookingPaymentCreateNestedOneWithoutPassengerInput
 }
 
 export type PassengerUncheckedCreateWithoutBookingInput = {
@@ -395,6 +424,7 @@ export type PassengerUncheckedCreateWithoutBookingInput = {
   lastName: string
   email: string
   phone?: string | null
+  payment?: Prisma.BookingPaymentUncheckedCreateNestedOneWithoutPassengerInput
 }
 
 export type PassengerCreateOrConnectWithoutBookingInput = {
@@ -435,6 +465,58 @@ export type PassengerScalarWhereInput = {
   phone?: Prisma.StringNullableFilter<"Passenger"> | string | null
 }
 
+export type PassengerCreateWithoutPaymentInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  phone?: string | null
+  booking: Prisma.BookingCreateNestedOneWithoutPassengersInput
+}
+
+export type PassengerUncheckedCreateWithoutPaymentInput = {
+  id?: string
+  bookingId: string
+  firstName: string
+  lastName: string
+  email: string
+  phone?: string | null
+}
+
+export type PassengerCreateOrConnectWithoutPaymentInput = {
+  where: Prisma.PassengerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PassengerCreateWithoutPaymentInput, Prisma.PassengerUncheckedCreateWithoutPaymentInput>
+}
+
+export type PassengerUpsertWithoutPaymentInput = {
+  update: Prisma.XOR<Prisma.PassengerUpdateWithoutPaymentInput, Prisma.PassengerUncheckedUpdateWithoutPaymentInput>
+  create: Prisma.XOR<Prisma.PassengerCreateWithoutPaymentInput, Prisma.PassengerUncheckedCreateWithoutPaymentInput>
+  where?: Prisma.PassengerWhereInput
+}
+
+export type PassengerUpdateToOneWithWhereWithoutPaymentInput = {
+  where?: Prisma.PassengerWhereInput
+  data: Prisma.XOR<Prisma.PassengerUpdateWithoutPaymentInput, Prisma.PassengerUncheckedUpdateWithoutPaymentInput>
+}
+
+export type PassengerUpdateWithoutPaymentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  booking?: Prisma.BookingUpdateOneRequiredWithoutPassengersNestedInput
+}
+
+export type PassengerUncheckedUpdateWithoutPaymentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type PassengerCreateManyBookingInput = {
   id?: string
   firstName: string
@@ -449,6 +531,7 @@ export type PassengerUpdateWithoutBookingInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payment?: Prisma.BookingPaymentUpdateOneWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateWithoutBookingInput = {
@@ -457,6 +540,7 @@ export type PassengerUncheckedUpdateWithoutBookingInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payment?: Prisma.BookingPaymentUncheckedUpdateOneWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateManyWithoutBookingInput = {
@@ -477,6 +561,7 @@ export type PassengerSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   email?: boolean
   phone?: boolean
   booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
+  payment?: boolean | Prisma.Passenger$paymentArgs<ExtArgs>
 }, ExtArgs["result"]["passenger"]>
 
 export type PassengerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -511,6 +596,7 @@ export type PassengerSelectScalar = {
 export type PassengerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "bookingId" | "firstName" | "lastName" | "email" | "phone", ExtArgs["result"]["passenger"]>
 export type PassengerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
+  payment?: boolean | Prisma.Passenger$paymentArgs<ExtArgs>
 }
 export type PassengerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
@@ -523,6 +609,7 @@ export type $PassengerPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "Passenger"
   objects: {
     booking: Prisma.$BookingPayload<ExtArgs>
+    payment: Prisma.$BookingPaymentPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -926,6 +1013,7 @@ readonly fields: PassengerFieldRefs;
 export interface Prisma__PassengerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   booking<T extends Prisma.BookingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BookingDefaultArgs<ExtArgs>>): Prisma.Prisma__BookingClient<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  payment<T extends Prisma.Passenger$paymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passenger$paymentArgs<ExtArgs>>): Prisma.Prisma__BookingPaymentClient<runtime.Types.Result.GetResult<Prisma.$BookingPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1359,6 +1447,25 @@ export type PassengerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many Passengers to delete.
    */
   limit?: number
+}
+
+/**
+ * Passenger.payment
+ */
+export type Passenger$paymentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookingPayment
+   */
+  select?: Prisma.BookingPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BookingPayment
+   */
+  omit?: Prisma.BookingPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookingPaymentInclude<ExtArgs> | null
+  where?: Prisma.BookingPaymentWhereInput
 }
 
 /**

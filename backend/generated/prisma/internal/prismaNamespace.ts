@@ -389,6 +389,7 @@ export const ModelName = {
   Aircraft: 'Aircraft',
   EmptyLeg: 'EmptyLeg',
   Booking: 'Booking',
+  BookingPayment: 'BookingPayment',
   Passenger: 'Passenger',
   ContactRequest: 'ContactRequest',
   AuditLog: 'AuditLog'
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "operator" | "aircraft" | "emptyLeg" | "booking" | "passenger" | "contactRequest" | "auditLog"
+    modelProps: "user" | "operator" | "aircraft" | "emptyLeg" | "booking" | "bookingPayment" | "passenger" | "contactRequest" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -781,6 +782,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    BookingPayment: {
+      payload: Prisma.$BookingPaymentPayload<ExtArgs>
+      fields: Prisma.BookingPaymentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BookingPaymentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BookingPaymentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>
+        }
+        findFirst: {
+          args: Prisma.BookingPaymentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BookingPaymentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>
+        }
+        findMany: {
+          args: Prisma.BookingPaymentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>[]
+        }
+        create: {
+          args: Prisma.BookingPaymentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>
+        }
+        createMany: {
+          args: Prisma.BookingPaymentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BookingPaymentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>[]
+        }
+        delete: {
+          args: Prisma.BookingPaymentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>
+        }
+        update: {
+          args: Prisma.BookingPaymentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>
+        }
+        deleteMany: {
+          args: Prisma.BookingPaymentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BookingPaymentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BookingPaymentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>[]
+        }
+        upsert: {
+          args: Prisma.BookingPaymentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPaymentPayload>
+        }
+        aggregate: {
+          args: Prisma.BookingPaymentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBookingPayment>
+        }
+        groupBy: {
+          args: Prisma.BookingPaymentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BookingPaymentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BookingPaymentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BookingPaymentCountAggregateOutputType> | number
+        }
+      }
+    }
     Passenger: {
       payload: Prisma.$PassengerPayload<ExtArgs>
       fields: Prisma.PassengerFieldRefs
@@ -1092,6 +1167,8 @@ export const EmptyLegScalarFieldEnum = {
   aircraftId: 'aircraftId',
   fromAirport: 'fromAirport',
   toAirport: 'toAirport',
+  fromCity: 'fromCity',
+  toCity: 'toCity',
   departureAt: 'departureAt',
   arrivalAt: 'arrivalAt',
   durationMin: 'durationMin',
@@ -1099,6 +1176,7 @@ export const EmptyLegScalarFieldEnum = {
   priceTotal: 'priceTotal',
   currency: 'currency',
   savingPct: 'savingPct',
+  confirmationProbability: 'confirmationProbability',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1121,11 +1199,30 @@ export const BookingScalarFieldEnum = {
   currency: 'currency',
   stripeCheckoutSessionId: 'stripeCheckoutSessionId',
   stripePaymentIntentId: 'stripePaymentIntentId',
+  splitExpiresAt: 'splitExpiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const BookingPaymentScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  passengerId: 'passengerId',
+  payerEmail: 'payerEmail',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  stripeCheckoutSessionId: 'stripeCheckoutSessionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  refundedAt: 'refundedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BookingPaymentScalarFieldEnum = (typeof BookingPaymentScalarFieldEnum)[keyof typeof BookingPaymentScalarFieldEnum]
 
 
 export const PassengerScalarFieldEnum = {
@@ -1341,6 +1438,20 @@ export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'BookingPaymentStatus'
+ */
+export type EnumBookingPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingPaymentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BookingPaymentStatus[]'
+ */
+export type ListEnumBookingPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingPaymentStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'ContactRequestStatus'
  */
 export type EnumContactRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactRequestStatus'>
@@ -1496,6 +1607,7 @@ export type GlobalOmitConfig = {
   aircraft?: Prisma.AircraftOmit
   emptyLeg?: Prisma.EmptyLegOmit
   booking?: Prisma.BookingOmit
+  bookingPayment?: Prisma.BookingPaymentOmit
   passenger?: Prisma.PassengerOmit
   contactRequest?: Prisma.ContactRequestOmit
   auditLog?: Prisma.AuditLogOmit
