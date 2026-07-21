@@ -41,6 +41,13 @@ enum BookingStatus {
   EXPIRED
 }
 
+enum BookingPaymentStatus {
+  PENDING
+  PAID
+  EXPIRED
+  REFUNDED
+}
+
 enum ContactRequestStatus {
   NEW
   READ
@@ -142,12 +149,38 @@ model Booking {
   currency                String        @default("EUR")
   stripeCheckoutSessionId String?
   stripePaymentIntentId   String?
+  // Split payment: entro questa scadenza tutte le quote devono risultare pagate,
+  // altrimenti la prenotazione viene annullata e chi ha gia' pagato rimborsato.
+  splitExpiresAt          DateTime?
   createdAt               DateTime      @default(now())
   updatedAt               DateTime      @updatedAt
 
   passengers Passenger[]
+  payments   BookingPayment[]
 
   @@map("bookings")
+}
+
+// Una riga per ogni quota di pagamento in una prenotazione SPLIT.
+// Per le prenotazioni FULL non viene creata nessuna riga: si usa
+// direttamente Booking.stripeCheckoutSessionId come oggi.
+model BookingPayment {
+  id                      String               @id @default(cuid())
+  bookingId               String
+  booking                 Booking              @relation(fields: [bookingId], references: [id])
+  passengerId             String?              @unique
+  passenger               Passenger?           @relation(fields: [passengerId], references: [id])
+  payerEmail              String
+  amount                  Decimal              @db.Decimal(10, 2)
+  currency                String               @default("EUR")
+  status                  BookingPaymentStatus @default(PENDING)
+  stripeCheckoutSessionId String?
+  stripePaymentIntentId   String?
+  refundedAt              DateTime?
+  createdAt               DateTime             @default(now())
+  updatedAt               DateTime             @updatedAt
+
+  @@map("booking_payments")
 }
 
 model Passenger {
@@ -158,6 +191,8 @@ model Passenger {
   lastName  String
   email     String
   phone     String?
+
+  payment BookingPayment?
 
   @@map("passengers")
 }
