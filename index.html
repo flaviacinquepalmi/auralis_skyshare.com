@@ -211,7 +211,7 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .el-inf{background:var(--off);border:1px solid var(--bdr);padding:28px 24px;text-align:center}
 .el-inf-n{font-size:28px;font-weight:900;color:var(--gold);letter-spacing:-1px}
 .el-inf-l{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:5px}
-.map-wrap{background:linear-gradient(135deg,#0A1628 0%,#0E2040 100%);padding:40px 48px;margin:0 56px;position:relative;overflow:hidden;min-height:300px}
+.map-wrap{background:linear-gradient(135deg,#0A1628 0%,#0E2040 100%);margin:0 56px;position:relative;overflow:hidden;min-height:300px}
 .map-label{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;position:absolute;bottom:16px;left:24px;display:flex;align-items:center;gap:8px}
 .map-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
 .el-cards-section{padding:56px 56px 100px;max-width:1100px;margin:0 auto}
@@ -2301,6 +2301,21 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   </div>
 </div>
 
+<!-- PRE-LOGIN MODAL -->
+<div class="modal-overlay" id="prelogin-modal" onclick="if(event.target===this)preloginSkip()">
+  <div style="background:#fff;max-width:440px;width:90%;border-radius:8px;overflow:hidden;box-shadow:0 24px 80px rgba(10,22,40,.25);animation:pgIn .3s ease">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));padding:28px 32px;text-align:center">
+      <div style="font-size:34px;margin-bottom:10px">✈️</div>
+      <h3 style="color:#fff;font-size:19px;font-weight:900;letter-spacing:-.3px">Viaggia con tutto sotto controllo</h3>
+    </div>
+    <div style="padding:28px 32px;text-align:center">
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:22px">Con un account gratuito trovi ogni prenotazione nella tua <strong style="color:var(--navy)">Area Riservata</strong>: biglietti, stato del pagamento e storico voli, sempre a portata di mano.</p>
+      <button class="btn-reserved" style="width:100%;padding:14px" onclick="preloginLogin()">Accedi o Registrati</button>
+      <button onclick="preloginSkip()" style="background:none;border:none;color:var(--muted);font-size:12px;margin-top:14px;cursor:pointer;text-decoration:underline">Continua senza account →</button>
+    </div>
+  </div>
+</div>
+
 <!-- BOOKING MODAL (from empty leg card) -->
 <div class="modal-overlay" id="booking-modal" onclick="if(event.target===this)closeBookingModal()">
   <div class="booking-modal-box">
@@ -2715,16 +2730,12 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
   <div class="map-wrap fu">
-    <svg id="routes-map" viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+    <svg id="routes-map" viewBox="0 0 1920 1151" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Mappa notturna dell'Europa con le rotte empty-leg">
       <defs>
-        <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#C9A535" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <filter id="glow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
       </defs>
-      <line x1="0" y1="93" x2="900" y2="93" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="0" y1="186" x2="900" y2="186" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="225" y1="0" x2="225" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="450" y1="0" x2="450" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-      <line x1="675" y1="0" x2="675" y2="280" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+      <image href="assets/europe-night.jpg" x="0" y="0" width="1920" height="1151"/>
+      <rect x="0" y="0" width="1920" height="1151" fill="rgba(7,11,30,.34)"/>
       <g id="routes-layer"></g>
     </svg>
     <div class="map-label">Rotte empty-leg disponibili in tempo reale</div>
@@ -4329,10 +4340,10 @@ function renderCustomerWallet(bookings) {
 
   wallet.classList.remove("has-active");
 
-  selectWalletBooking(eligibleBookings[0].id);
+  selectWalletBooking(eligibleBookings[0].id, false);
 }
 
-function selectWalletBooking(bookingId) {
+function selectWalletBooking(bookingId, markActive = true){
   const booking = customerBookings.find(
     item => String(item.id) === String(bookingId)
   );
@@ -4345,15 +4356,16 @@ function selectWalletBooking(bookingId) {
     "customer-flight-wallet"
   );
 
-  wallet.classList.add("has-active");
+  wallet.classList.toggle("has-active", markActive);
 
   document
     .querySelectorAll(".auralis-flight-pass")
     .forEach(card => {
       card.classList.toggle(
         "active",
-        String(card.dataset.bookingId) ===
-          String(bookingId)
+        markActive &&
+          String(card.dataset.bookingId) ===
+            String(bookingId)
       );
     });
 
@@ -4963,7 +4975,26 @@ function initSplit(priceStr, paxStr){
 }
 
 // BOOKING MODAL — pre-filled from empty leg card
+
+let pendingBookingArgs = null;
+let skipLoginPrompt = false;
+
+function preloginSkip() {
+  skipLoginPrompt = true;
+  document.getElementById('prelogin-modal').classList.remove('open');
+  if (pendingBookingArgs) openBookingModal(...pendingBookingArgs);
+}
+
+function preloginLogin() {
+  loginWithAuth0();
+}
+  
 function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
+  if (!currentUser && !skipLoginPrompt) {
+    pendingBookingArgs = [from, to, aircraft, pax, dur, date, price, save];
+    document.getElementById('prelogin-modal').classList.add('open');
+    return;
+  }
   _bmRoute = from + ' → ' + to;
   document.getElementById('bm-from').textContent=from;
   document.getElementById('bm-to').textContent=to;
@@ -4988,6 +5019,7 @@ function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
   initSplit(price, pax);
   
 }
+
 function closeBookingModal(){document.getElementById('booking-modal').classList.remove('open');}
   let selectedEmptyLegId = null;
   let selectedLegProb = null;
@@ -5466,80 +5498,121 @@ return flights;
 
 // Coordinate stilizzate (x,y su viewBox 900x280) — Europa schematica:
 // x cresce verso est, y cresce verso sud. Aggiungi qui i nuovi aeroporti.
-const AIRPORT_COORDS = {
-  LTN: { x: 150, y: 50 },   // Londra
-  CDG: { x: 300, y: 72 },   // Parigi
-  GVA: { x: 400, y: 100 },  // Ginevra
-  MXP: { x: 480, y: 105 },  // Milano Malpensa
-  LIN: { x: 565, y: 122 },  // Milano Linate
-  VCE: { x: 680, y: 95 },   // Venezia
-  TRN: { x: 425, y: 142 },  // Torino
-  NCE: { x: 375, y: 172 },  // Nizza
-  FCO: { x: 620, y: 172 },  // Roma
-  NAP: { x: 720, y: 192 },  // Napoli
-  OLB: { x: 500, y: 218 },  // Olbia
-  IBZ: { x: 200, y: 232 },  // Ibiza
-  PMO: { x: 675, y: 252 },  // Palermo
-  CTA: { x: 785, y: 248 },  // Catania
+/* ============================================================
+   MAPPA EUROPA — foto satellitare notturna (assets/europe-night.jpg)
+   Posizioni aeroporti in PIXEL sull'immagine 1920x1151,
+   verificate una a una sulle luci reali delle città.
+   ⚠️ Non modificare i numeri esistenti: sono calibrati sulla foto.
+
+   Per AGGIUNGERE un aeroporto:
+   1) cerca le sue coordinate (es. "coordinate aeroporto Firenze")
+   2) nella console del browser esegui:  geoToMap(43.81, 11.20)
+      → restituisce { x, y } approssimati (±30px circa)
+   3) aggiungi la riga qui sotto e rifinisci guardando la mappa.
+   Aeroporti FUORI dal riquadro della foto (Sicilia, Ibiza…):
+   NON vanno in tabella — le rotte che li toccano semplicemente
+   non vengono disegnate sulla mappa (le card restano normali).
+   ============================================================ */
+const AIRPORT_MAP = {
+  LTN: { x: 612,  y: 340  },  // London Luton
+  CDG: { x: 743,  y: 522  },  // Parigi Charles de Gaulle
+  GVA: { x: 862,  y: 711  },  // Ginevra
+  MXP: { x: 975,  y: 752  },  // Milano Malpensa
+  LIN: { x: 1014, y: 772  },  // Milano Linate
+  TRN: { x: 929,  y: 781  },  // Torino
+  VCE: { x: 1149, y: 772  },  // Venezia
+  NCE: { x: 903,  y: 876  },  // Nizza
+  FCO: { x: 1131, y: 1005 },  // Roma Fiumicino
+  NAP: { x: 1235, y: 1052 },  // Napoli
+  OLB: { x: 1002, y: 1054 },  // Olbia
+  // IBZ, PMO, CTA: fuori dal bordo sud della foto
 };
 
-const ROUTE_COLORS = ["#C9A535", "#6BAED6", "#E8C96A", "#4A7BC4", "#2E9E60"];
+// Proiezione conica calibrata sulla foto: serve SOLO a stimare
+// la posizione di nuovi aeroporti. ⚠️ Numeri fissi: non toccare.
+function geoToMap(lat, lon) {
+  const n = 0.342971, lon0 = 18.08878, R = 3578.656, G = 2.961853, x0 = 1414.959, y0 = -6980.478;
+  const la = lat * Math.PI / 180, th = n * (lon - lon0) * Math.PI / 180, rho = R * (G - la);
+  return { x: Math.round(x0 + rho * Math.sin(th)), y: Math.round(y0 + rho * Math.cos(th)) };
+}
+
+const ROUTE_COLORS = ["#E8C96A", "#8FC3EF", "#C9A535", "#6BAED6", "#57C98A"];
 
 function renderRoutesMap(flights) {
   const layer = document.getElementById("routes-layer");
   if (!layer) return;
 
+  // Rotte uniche, max 5, ordinate per partenza imminente (logica invariata)
   const seen = new Set();
   const routes = [];
   const sorted = [...flights].sort((a, b) => new Date(a.departureAt) - new Date(b.departureAt));
   for (const leg of sorted) {
     const key = leg.fromAirport + ">" + leg.toAirport;
     if (seen.has(key)) continue;
-    const from = AIRPORT_COORDS[leg.fromAirport];
-    const to = AIRPORT_COORDS[leg.toAirport];
-    if (!from || !to) continue;
+    const from = AIRPORT_MAP[leg.fromAirport];
+    const to = AIRPORT_MAP[leg.toAirport];
+    if (!from || !to) continue; // aeroporto fuori mappa → rotta non disegnata
     seen.add(key);
     routes.push({ from, to, fromCode: leg.fromAirport, toCode: leg.toAirport });
     if (routes.length >= 5) break;
   }
 
   let svg = "";
-  const drawnAirports = new Set();
+  const paths = [];
 
-  // Prima gli archi e gli aerei (sotto), poi i nodi (sopra)
+  // Prima le rotte (sotto), poi i nodi aeroporto (sopra)
   routes.forEach((r, i) => {
     const color = ROUTE_COLORS[i % ROUTE_COLORS.length];
+    const dist = Math.hypot(r.to.x - r.from.x, r.to.y - r.from.y);
     const mx = (r.from.x + r.to.x) / 2;
-    const my = Math.max(22, Math.min(r.from.y, r.to.y) - 40); // arco che non sfora in alto
-    const path = `M${r.from.x} ${r.from.y} Q${mx} ${my} ${r.to.x} ${r.to.y}`;
-
+    const my = Math.max(40, Math.min(r.from.y, r.to.y) - Math.min(170, dist * 0.28));
+    const d = `M${r.from.x} ${r.from.y} Q${mx} ${my} ${r.to.x} ${r.to.y}`;
+    paths.push(d);
     svg += `
-      <path d="${path}" fill="none" stroke="${color}" stroke-width="1.8" stroke-dasharray="7 4" marker-end="url(#arr1)" opacity=".7"/>
-      <g style="offset-path:path('${path}');animation:planePath ${3.5 + i * 0.8}s linear infinite ${i * 0.6}s;offset-rotate:auto">
-        <ellipse cx="0" cy="0" rx="14" ry="4.5" fill="rgba(240,248,255,.95)"/>
-        <path d="M4 -1 L11 -6 L13 -5 L8 -1Z" fill="${color}"/>
-        <path d="M4 1 L11 6 L13 5 L8 1Z" fill="${color}" opacity=".7"/>
-      </g>`;
+      <path d="${d}" fill="none" stroke="${color}" stroke-width="2" opacity=".22"/>
+      <path class="rm-trail" d="${d}" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" filter="url(#glow2)" opacity=".9"/>
+      <circle class="rm-head" r="7" fill="#FFFFFF" filter="url(#glow2)"/>`;
   });
 
+  const drawnAirports = new Set();
   routes.forEach((r, i) => {
     const color = ROUTE_COLORS[i % ROUTE_COLORS.length];
     [[r.from, r.fromCode], [r.to, r.toCode]].forEach(([pt, code]) => {
-      if (drawnAirports.has(code)) return; // ogni aeroporto disegnato una volta sola
+      if (drawnAirports.has(code)) return; // ogni aeroporto una volta sola
       drawnAirports.add(code);
-      // Etichetta sotto il punto se c'è spazio, sopra se è vicino al bordo basso
-      const labelY = pt.y > 235 ? pt.y - 16 : pt.y + 26;
+      // Etichetta sotto il punto; sopra se vicino al bordo basso
+      const labelY = pt.y > 1080 ? pt.y - 24 : pt.y + 42;
       svg += `
-      <circle cx="${pt.x}" cy="${pt.y}" r="8" fill="${color}" filter="url(#glow2)"/>
-      <circle cx="${pt.x}" cy="${pt.y}" r="15" fill="none" stroke="${color}" stroke-width="1" opacity=".3"/>
-      <text x="${pt.x}" y="${labelY}" text-anchor="middle" font-size="13" font-weight="900" fill="${color}" font-family="system-ui">${code}</text>`;
+      <circle cx="${pt.x}" cy="${pt.y}" r="9" fill="${color}" filter="url(#glow2)"/>
+      <circle cx="${pt.x}" cy="${pt.y}" r="19" fill="none" stroke="${color}" stroke-width="1.5" opacity=".35"/>
+      <text x="${pt.x}" y="${labelY}" text-anchor="middle" font-size="27" font-weight="900" fill="${color}" font-family="system-ui" stroke="rgba(5,8,20,.85)" stroke-width="6" style="paint-order:stroke">${code}</text>`;
     });
   });
 
   layer.innerHTML = svg;
+
+  // Animazione: coda luminosa che percorre la rotta + testa bianca in punta
+  const trails = layer.querySelectorAll(".rm-trail");
+  const heads = layer.querySelectorAll(".rm-head");
+  trails.forEach((trail, i) => {
+    const len = trail.getTotalLength();
+    const tail = Math.min(240, len * 0.45); // lunghezza della coda
+    trail.setAttribute("stroke-dasharray", `${tail} ${len + tail}`);
+    const dur = 4200 + i * 800, delay = i * 650;
+    trail.animate(
+      [{ strokeDashoffset: tail }, { strokeDashoffset: -len }],
+      { duration: dur, delay: delay, iterations: Infinity, easing: "linear" }
+    );
+    const head = heads[i];
+    if (head) {
+      head.style.offsetPath = `path('${paths[i]}')`;
+      head.animate(
+        [{ offsetDistance: "0%" }, { offsetDistance: "100%" }],
+        { duration: dur, delay: delay, iterations: Infinity, easing: "linear" }
+      );
+    }
+  });
 }
-
-
 
 async function loadEmptyLegs() {
   const grid = document.getElementById("empty-leg-grid");
