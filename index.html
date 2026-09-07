@@ -563,24 +563,19 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
     }
 
     .hero-main-cta{
-      padding:14px 30px;
-      border:1px solid rgba(232,201,106,.75);
-      border-radius:999px;
-      background:rgba(10,22,40,.36);
-      color:#F7F9FC;
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      cursor:pointer;
-      backdrop-filter:blur(18px);
-      transition:all .3s ease;
+      position:absolute;
+      left:50%;
+      top:calc(50% + 85px);
+      transform:translateX(-50%);
+      z-index:20;
+      pointer-events:auto;
+    
+      padding:10px 20px;
+      min-width:150px;
     }
     
     .hero-main-cta:hover{
-      background:#E8C96A;
-      color:#0A1628;
-      transform:translateY(-2px);
+      transform:translateX(-50%);
     }
 
     .headline {
@@ -2461,11 +2456,12 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       <div class="brand-lockup">
         <img class="brand-logo" src="auralis-logo.png" alt="Auralis SkyShare">
 
-        <button class="hero-main-cta" onclick="showPage('emptyleg')">
-        Scopri i voli
+        <button
+          class="btn-reserved hero-main-cta"
+          onclick="showPage('emptyleg')"
+        >
+          Scopri i voli
         </button>
-      </div>
-    </div>
 
     <div class="reveal-copy">
       <p class="eyebrow">Auralis SkyShare</p>
