@@ -60,6 +60,20 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .btn-reserved{background:var(--navy);color:#fff;border:none;padding:10px 20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:6px;transition:all .25s;white-space:nowrap}
 .btn-reserved:hover{background:var(--gold);color:var(--navy)}
 
+.btn-reserved.hero-main-cta{
+  background:#81B0E5 !important;
+  color:#0A1628 !important;
+  padding:17px 38px !important;
+  min-width:225px !important;
+  font-size:14px !important;
+}
+
+.btn-reserved.hero-main-cta:hover,
+.btn-reserved.hero-main-cta:active{
+  background:#E8C96A !important;
+  color:#0A1628 !important;
+}
+
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.75);z-index:9500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
 .modal-overlay.open{display:flex}
@@ -2537,7 +2551,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
         <img class="brand-logo" src="auralis-logo.png" alt="Auralis SkyShare">
 
         <button
-          class="hero-main-cta"
+          class="btn-reserved hero-main-cta"
             onclick="showPage('emptyleg')"
           style="background:#81B0E5 !important;color:#0A1628 !important;"
           >
