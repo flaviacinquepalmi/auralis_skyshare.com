@@ -520,7 +520,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       transform: scale(calc(1 + min(var(--scene-progress), 0.6) * 0.09));
       filter: blur(calc(min(max(var(--scene-progress) / 0.32, 0), 1) * 10px));
       will-change: opacity, transform, filter;
-      pointer-events: none;
+      pointer-events: auto;
     }
 
     .brand-lockup {
@@ -560,6 +560,27 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.34em;
+    }
+
+    .hero-main-cta{
+      padding:14px 30px;
+      border:1px solid rgba(232,201,106,.75);
+      border-radius:999px;
+      background:rgba(10,22,40,.36);
+      color:#F7F9FC;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      cursor:pointer;
+      backdrop-filter:blur(18px);
+      transition:all .3s ease;
+    }
+    
+    .hero-main-cta:hover{
+      background:#E8C96A;
+      color:#0A1628;
+      transform:translateY(-2px);
     }
 
     .headline {
@@ -2436,9 +2457,13 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       <span class="right">Private Aviation Access</span>
     </div>
 
-    <div class="brand-mark" aria-hidden="true">
+    <div class="brand-mark">
       <div class="brand-lockup">
         <img class="brand-logo" src="auralis-logo.png" alt="Auralis SkyShare">
+
+        <button class="hero-main-cta" onclick="showPage('emptyleg')">
+        Scopri i voli
+        </button>
       </div>
     </div>
 
