@@ -126,6 +126,27 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .fu.vis{opacity:1;transform:translateY(0)}
 .fu1{transition-delay:.1s}.fu2{transition-delay:.2s}.fu3{transition-delay:.3s}
 
+.clarity-hero{margin-top:88px;min-height:calc(100vh - 88px);display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:48px;padding:0 56px;background:linear-gradient(180deg,#fff 0%,var(--off) 100%)}
+.clarity-title{font-size:clamp(34px,4.6vw,58px);font-weight:900;letter-spacing:-1.5px;color:var(--navy);line-height:1.05;margin-top:14px}
+.ch-accent{background:linear-gradient(90deg,var(--blue),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.clarity-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:520px;margin-top:20px}
+.clarity-hero-card{background:#fff;border:1px solid var(--bdr);border-radius:14px;box-shadow:0 30px 80px rgba(10,22,40,.12);padding:28px;max-width:420px;justify-self:end}
+.chc-badgebar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.chc-badgebar span:first-child{font-size:13px;font-weight:800;color:var(--navy)}
+.chc-status{background:rgba(46,158,96,.1);color:#2E9E60;font-size:9px;letter-spacing:1.5px;padding:4px 10px;border-radius:20px;font-weight:800}
+.chc-route{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.chc-route span{font-size:26px;font-weight:900;color:var(--navy)}
+.chc-line{flex:1;display:flex;align-items:center;gap:6px}
+.chc-line div{flex:1;height:1px;background:linear-gradient(to right,rgba(10,22,40,.15),var(--gold),rgba(10,22,40,.15))}
+.chc-line span{color:var(--gold);font-size:14px}
+.chc-meta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.chc-meta .v{font-size:14px;font-weight:700;color:var(--navy)}
+.chc-meta .k{font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-top:3px}
+.chc-foot{border-top:1px solid var(--bdr);padding-top:16px}
+.chc-price{font-size:26px;font-weight:900;color:var(--gold)}
+.chc-save{font-size:11px;color:#2E9E60;margin-top:4px}
+@media(max-width:900px){.clarity-hero{grid-template-columns:1fr;padding:40px 20px;text-align:left;min-height:auto}.clarity-hero-card{justify-self:start;max-width:100%}}
+  
 /* STATS */
 .stats-bar{background:var(--navy);padding:28px 56px;display:grid;grid-template-columns:repeat(3,1fr)}
 .st-i{text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,.09)}
@@ -2521,6 +2542,39 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 
 <!-- ══ HOME ══ -->
 <div class="page active" id="page-home">
+  <section class="clarity-hero">
+  <div class="clarity-hero-text fu vis">
+    <span class="sec-eye">Voli Privati Empty-Leg</span>
+    <h1 class="clarity-title">Il tuo jet privato,<br><span class="ch-accent">fino al 75% in meno.</span></h1>
+    <p class="clarity-sub">Auralis SkyShare trasforma i voli di riposizionamento dei jet privati — che altrimenti volerebbero vuoti — in esperienze di volo esclusive a una frazione del prezzo. Stesso aereo, stesso equipaggio, stesso servizio.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:30px">
+      <button class="btn-reserved" style="padding:16px 32px;font-size:12px" onclick="showPage('emptyleg')">Scopri i Voli Disponibili →</button>
+      <button class="btn-operator" style="padding:16px 32px;font-size:12px" onclick="showPage('about')">Come Funziona</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:28px;color:var(--muted);font-size:12px">
+      <span style="color:#2E9E60">✓</span> Voli certificati e operativi · stesso standard del charter tradizionale
+    </div>
+  </div>
+  <div class="clarity-hero-card fu vis fu1">
+    <div class="chc-badgebar">
+      <span>Prossimo Volo Disponibile</span>
+      <span class="chc-status">CONFERMATO</span>
+    </div>
+    <div class="chc-route">
+      <span>MXP</span>
+      <div class="chc-line"><div></div><span>✈</span><div></div></div>
+      <span>LTN</span>
+    </div>
+    <div class="chc-meta">
+      <div><div class="v">Gulfstream G550</div><div class="k">Aeromobile</div></div>
+      <div><div class="v">2h 15m</div><div class="k">Durata</div></div>
+    </div>
+    <div class="chc-foot">
+      <div class="chc-price">€6.400</div>
+      <div class="chc-save">Risparmio 68% vs charter</div>
+    </div>
+  </div>
+</section>
   <section class="scroll-scene" id="skyshare-scene" aria-label="Auralis SkyShare cinematic reveal">
   <div class="sticky-frame">
     <video
@@ -3738,7 +3792,7 @@ async function initAuth0() {
 const ALL_PAGES=['home','about','emptyleg','prenota','contatti','partner','pilot','customer-dashboard','operator-dashboard','admin-dashboard'];
 const NAV_IDS={home:'nl-home',about:'nl-about',emptyleg:'nl-emptyleg',prenota:'nl-prenota',contatti:'nl-contatti'};
 
-function showPage(id){
+function renderPage(id){
   closeMobileMenu();
   ALL_PAGES.forEach(p=>{const el=document.getElementById('page-'+p);if(el)el.classList.toggle('active',p===id);});
   Object.entries(NAV_IDS).forEach(([p,nid])=>{const el=document.getElementById(nid);if(el)el.classList.toggle('active-link',p===id);});
@@ -3755,6 +3809,23 @@ function showPage(id){
     if(id==='admin-dashboard') loadAdminDashboard();
   },80);
 }
+
+function showPage(id){
+  if(!ALL_PAGES.includes(id)) id='home';
+  const current=(location.hash||'#home').replace('#','');
+  if(current===id){ renderPage(id); }        // già su quella pagina: solo un refresh visivo
+  else { location.hash=id; }                  // altrimenti cambia l'URL → scatena hashchange
+}
+
+window.addEventListener('hashchange', ()=>{
+  const id=(location.hash||'#home').replace('#','');
+  renderPage(ALL_PAGES.includes(id)?id:'home');
+});
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  const initial=(location.hash||'#home').replace('#','');
+  renderPage(ALL_PAGES.includes(initial)?initial:'home');
+});
 
 // Modals
 function toggleMobileMenu(){document.getElementById('mainnav').classList.toggle('mobile-open');}
