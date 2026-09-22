@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auralis SkyShare — Private Aviation</title>
+<title>Auralis SkyShare | Empty Leg e Jet Privati</title>
+<meta name="description" content="Scopri gli Empty Leg disponibili con Auralis SkyShare: voli di riposizionamento in jet privato e guide per capire come funzionano, prezzi, rotte e prenotazioni.">
+<link rel="canonical" href="https://www.auralisair.it/">
+<meta property="og:title" content="Auralis SkyShare | Empty Leg e Jet Privati">
+<meta property="og:description" content="Empty Leg, jet privati e guide per capire come funzionano prezzi, rotte e prenotazioni.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.auralisair.it/">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <style>
 :root{
@@ -453,7 +459,7 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 .alert-btn-sec:hover{border-color:var(--navy);color:var(--navy)}
     .scroll-scene {
       position: relative;
-      height: 260vh;
+      height: 190vh;
       background: var(--deep-navy);
     }
 
@@ -487,8 +493,8 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
     }
 
     .interior-image {
-      opacity: min(max((var(--scene-progress) - 0.48) / 0.28, 0), 1);
-      transform: scale(calc(1.13 - min(var(--scene-progress), 1) * 0.1));
+      opacity: 1;
+      transform: scale(calc(1.10 - min(var(--scene-progress), 1) * 0.06));
       filter: saturate(0.82) contrast(1.1) brightness(0.62) sepia(0.06)
         hue-rotate(184deg);
       z-index: 2;
@@ -569,10 +575,8 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
       bottom: clamp(54px, 9vh, 108px);
       z-index: 8;
       max-width: min(760px, 86vw);
-      opacity: min(max((var(--scene-progress) - 0.70) / 0.18, 0), 1);
-      transform: translateY(
-        calc((1 - min(max((var(--scene-progress) - 0.70) / 0.22, 0), 1)) * 28px)
-      );
+      opacity: calc(1 - min(max((var(--scene-progress) - 0.64) / 0.24, 0), 1));
+      transform: translateY(calc(var(--scene-progress) * -24px));
       will-change: opacity, transform;
     
       pointer-events:none;
@@ -2368,6 +2372,17 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 .count-up{display:inline-block;min-width:4ch;font-variant-numeric:tabular-nums;white-space:nowrap}
 </style>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Auralis SkyShare",
+  "url": "https://www.auralisair.it/",
+  "logo": "https://www.auralisair.it/auralis-logo.png",
+  "email": "contatti@auralisair.it"
+}
+</script>
 </head>
 <body>
 
@@ -2504,6 +2519,7 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
     <li><a onclick="showPage('home')" id="nl-home" class="active-link">Home</a></li>
     <li><a onclick="showPage('about')" id="nl-about">Chi Siamo</a></li>
     <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Prenota Ora</a></li>
+    <li><a href="blog/" id="nl-blog">Blog</a></li>
     <li><a onclick="showPage('contatti')" id="nl-contatti">Contatti</a></li>
     <li class="mobile-only" id="btn-operator-cta-mobile"><button class="btn-operator" onclick="closeMobileMenu();showPage('partner')">Sono un Operatore</button></li>
     <li class="mobile-only" id="mob-dash-item" style="display:none"><button class="btn-operator" id="btn-dashboard-mobile"></button></li>
@@ -2543,33 +2559,8 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 </section>
   <section class="scroll-scene" id="skyshare-scene" aria-label="Auralis SkyShare cinematic reveal">
   <div class="sticky-frame">
-    <video
-        class="media-layer exterior-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        aria-label="Auralis private jet exterior video"
-      >
-        <source src="assets/hero/hero-exterior.mp4" type="video/mp4">
-      </video>
-    
     <img class="media-layer interior-image" src="assets/hero/hero-interior.jpg" alt="Interno jet privato Auralis SkyShare">
     <div class="grade"></div>
-
-    <div class="brand-mark">
-  <div class="brand-lockup">
-
-    <img
-      class="brand-logo"
-      src="auralis-logo.png"
-      alt="Auralis SkyShare"
-    >
-
-
-  </div>
-</div>
 
 <div class="reveal-copy">
 
@@ -3564,7 +3555,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <footer id="main-footer">
   <div class="foot-top">
     <div><div class="foot-logo"><img src="auralis-logo.png" alt="Auralis SkyShare" onclick="showPage('home')" style="height:52px;width:auto;object-fit:contain;cursor:pointer;display:block;margin-bottom:8px"></div></div>
-    <div class="foot-col"><h4>Navigazione</h4><a onclick="showPage('about')">Chi Siamo</a><a onclick="showPage('emptyleg')">Prenota Ora</a></div>
+    <div class="foot-col"><h4>Navigazione</h4><a onclick="showPage('about')">Chi Siamo</a><a onclick="showPage('emptyleg')">Prenota Ora</a><a href="blog/">Blog</a></div>
     <div class="foot-col"><h4>Operatori</h4><a onclick="showPage('partner')">Partner Program</a><a onclick="showPage('pilot')">Pilot Program</a></div>
     <div class="foot-col"><h4>Contatti</h4><a href="mailto:contatti@auralisair.it">contatti@auralisair.it</a></div>
   </div>
