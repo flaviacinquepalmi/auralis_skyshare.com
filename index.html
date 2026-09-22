@@ -181,23 +181,23 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
   top:0;
   left:0;
   right:0;
-  height:clamp(110px,18vh,220px);
+  height:clamp(44px,6vh,72px);
   z-index:20;
   pointer-events:none;
   background:linear-gradient(180deg,
     #030710 0%,
-    rgba(3,7,16,.94) 20%,
-    rgba(3,7,16,.62) 48%,
-    rgba(3,7,16,.20) 76%,
+    rgba(3,7,16,.70) 32%,
+    rgba(3,7,16,.20) 68%,
     rgba(3,7,16,0) 100%);
 }
-/* L'interno emerge gradualmente nei primi istanti dello scroll */
+/* Transizione breve: l'interno e' gia' leggibile appena termina la hero */
 .scroll-scene .interior-image{
-  opacity:clamp(.14, calc(var(--scene-progress) * 8.6), 1);
+  opacity:clamp(.58, calc(.58 + var(--scene-progress) * 4.5), 1);
 }
 @media(max-width:768px){
-  .scroll-scene::before{height:140px;}
-  .scroll-scene .interior-image{opacity:clamp(.22, calc(var(--scene-progress) * 7.5), 1);}
+  .scroll-scene{height:145vh;}
+  .scroll-scene::before{height:52px;}
+  .scroll-scene .interior-image{opacity:clamp(.64, calc(.64 + var(--scene-progress) * 4.2), 1);}
 }
 
   
@@ -501,7 +501,7 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 .alert-btn-sec:hover{border-color:var(--navy);color:var(--navy)}
     .scroll-scene {
       position: relative;
-      height: 190vh;
+      height: 155vh;
       background: var(--deep-navy);
     }
 
@@ -2412,6 +2412,88 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 .cfg-empty span{display:block}
 
 .count-up{display:inline-block;min-width:4ch;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* MOBILE — cinematic reveal ottimizzato */
+@media(max-width:600px){
+  .sticky-frame{height:100svh;}
+  .reveal-copy{
+    left:22px;
+    right:22px;
+    bottom:72px;
+    max-width:none;
+    transform:translateY(calc(var(--scene-progress) * -12px));
+  }
+  .eyebrow{font-size:9px;letter-spacing:.24em;margin-bottom:12px;}
+  .headline{
+    font-size:clamp(42px,14vw,64px);
+    line-height:.94;
+    letter-spacing:-.055em;
+  }
+  .word-shell{display:block;min-width:0;margin-top:8px;overflow:visible;}
+  .progress-indicator{display:none;}
+}
+
+/* ═══════════════════════════════════════════════
+   NEWSLETTER POPUP
+════════════════════════════════════════════════ */
+.newsletter-overlay{
+  position:fixed;inset:0;z-index:12000;
+  display:none;align-items:center;justify-content:center;
+  padding:24px;background:rgba(3,8,17,.64);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.newsletter-overlay.is-open{display:flex;animation:newsletterFade .28s ease both;}
+@keyframes newsletterFade{from{opacity:0}to{opacity:1}}
+.newsletter-modal{
+  position:relative;width:min(540px,100%);
+  background:#fff;border:1px solid rgba(10,22,40,.10);
+  border-radius:18px;overflow:hidden;
+  box-shadow:0 34px 120px rgba(0,0,0,.28);
+  animation:newsletterRise .38s cubic-bezier(.22,.8,.18,1) both;
+}
+@keyframes newsletterRise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+.newsletter-accent{height:6px;background:linear-gradient(90deg,#81B0E5,#E8C96A);}
+.newsletter-body{padding:34px 36px 30px;}
+.newsletter-close{
+  position:absolute;top:18px;right:18px;width:36px;height:36px;
+  display:grid;place-items:center;border:1px solid rgba(10,22,40,.10);
+  border-radius:50%;background:#fff;color:#607080;font-size:20px;
+  line-height:1;cursor:pointer;transition:.2s ease;
+}
+.newsletter-close:hover{border-color:#0A1628;color:#0A1628;transform:rotate(4deg)}
+.newsletter-kicker{font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:#C9A535;margin-bottom:12px;}
+.newsletter-title{font-size:32px;line-height:1.05;letter-spacing:-1.1px;color:#0A1628;margin:0 44px 12px 0;font-weight:900;}
+.newsletter-text{font-size:14px;line-height:1.7;color:#607080;margin:0 0 22px;}
+.newsletter-form{display:grid;gap:12px;}
+.newsletter-row{display:flex;gap:10px;}
+.newsletter-email{
+  flex:1;min-width:0;padding:14px 15px;border:1px solid rgba(10,22,40,.14);
+  border-radius:8px;font:inherit;font-size:14px;color:#0A1628;outline:none;background:#fff;
+}
+.newsletter-email:focus{border-color:#81B0E5;box-shadow:0 0 0 3px rgba(129,176,229,.14);}
+.newsletter-submit{
+  border:0;border-radius:8px;padding:14px 20px;background:#0A1628;color:#fff;
+  font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;
+  transition:.22s ease;white-space:nowrap;
+}
+.newsletter-submit:hover{background:#E8C96A;color:#0A1628;transform:translateY(-1px)}
+.newsletter-submit:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.newsletter-consent{display:flex;gap:9px;align-items:flex-start;font-size:10px;line-height:1.45;color:#607080;}
+.newsletter-consent input{margin-top:2px;accent-color:#0A1628;}
+.newsletter-note{font-size:10px;color:#8A96A6;line-height:1.45;}
+.newsletter-status{display:none;font-size:12px;line-height:1.5;padding:10px 12px;border-radius:7px;}
+.newsletter-status.ok{display:block;background:rgba(46,158,96,.09);color:#237A49;}
+.newsletter-status.err{display:block;background:rgba(191,66,66,.08);color:#9C3030;}
+.newsletter-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;}
+@media(max-width:600px){
+  .newsletter-overlay{padding:14px;align-items:flex-end;}
+  .newsletter-modal{border-radius:18px 18px 10px 10px;}
+  .newsletter-body{padding:28px 22px 24px;}
+  .newsletter-title{font-size:27px;}
+  .newsletter-row{flex-direction:column;}
+  .newsletter-submit{width:100%;}
+}
+
 </style>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
 
@@ -3603,6 +3685,32 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
   <div class="foot-bottom"><span>© 2026 Auralis SkyShare. Tutti i diritti riservati.</span><div style="display:flex;gap:20px"><a style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none;cursor:pointer">Privacy Policy</a><a style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none;cursor:pointer">Termini di Servizio</a></div></div>
 </footer>
+<!-- ══ NEWSLETTER POPUP ══ -->
+<div class="newsletter-overlay" id="newsletter-overlay" aria-hidden="true">
+  <section class="newsletter-modal" role="dialog" aria-modal="true" aria-labelledby="newsletter-title">
+    <div class="newsletter-accent"></div>
+    <button class="newsletter-close" id="newsletter-close" type="button" aria-label="Chiudi newsletter">×</button>
+    <div class="newsletter-body">
+      <div class="newsletter-kicker">Auralis Updates</div>
+      <h2 class="newsletter-title" id="newsletter-title">Empty Leg, nuove rotte e guide. Direttamente nella tua inbox.</h2>
+      <p class="newsletter-text">Ricevi disponibilità selezionate, nuove tratte e approfondimenti sul volo privato. Solo quando c'è qualcosa di utile.</p>
+      <form class="newsletter-form" id="newsletter-form" novalidate>
+        <div class="newsletter-row">
+          <input class="newsletter-email" id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="La tua email" required>
+          <button class="newsletter-submit" id="newsletter-submit" type="submit">Iscrivimi</button>
+        </div>
+        <label class="newsletter-consent">
+          <input id="newsletter-consent" name="consent" type="checkbox" required>
+          <span>Acconsento a ricevere comunicazioni e aggiornamenti Auralis. Posso revocare il consenso in qualsiasi momento.</span>
+        </label>
+        <input class="newsletter-hp" name="company_website" id="newsletter-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="newsletter-note">Niente spam. Le comunicazioni includeranno sempre un link per annullare l'iscrizione.</div>
+        <div class="newsletter-status" id="newsletter-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</div>
+
 
 <script>
 const AUTH0_DOMAIN = "dev-ivx8addf2ul5rxcz.eu.auth0.com";
@@ -6514,6 +6622,90 @@ document.addEventListener("DOMContentLoaded", () => {
     500
   );
 });
+</script>
+
+
+<script>
+(function(){
+  const overlay = document.getElementById('newsletter-overlay');
+  const closeBtn = document.getElementById('newsletter-close');
+  const form = document.getElementById('newsletter-form');
+  const emailInput = document.getElementById('newsletter-email');
+  const consentInput = document.getElementById('newsletter-consent');
+  const submitBtn = document.getElementById('newsletter-submit');
+  const status = document.getElementById('newsletter-status');
+  const hp = document.getElementById('newsletter-hp');
+  if (!overlay || !form) return;
+
+  function openNewsletter(){
+    if (sessionStorage.getItem('auralisNewsletterShown') === '1') return;
+    sessionStorage.setItem('auralisNewsletterShown','1');
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>emailInput && emailInput.focus(), 180);
+  }
+
+  function closeNewsletter(){
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+
+  closeBtn && closeBtn.addEventListener('click', closeNewsletter);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeNewsletter(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeNewsletter(); });
+
+  window.addEventListener('load', () => setTimeout(openNewsletter, 350), { once:true });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.className = 'newsletter-status';
+    status.textContent = '';
+
+    const email = (emailInput.value || '').trim();
+    if (!email || !emailInput.checkValidity()) {
+      status.className = 'newsletter-status err';
+      status.textContent = 'Inserisci un indirizzo email valido.';
+      emailInput.focus();
+      return;
+    }
+    if (!consentInput.checked) {
+      status.className = 'newsletter-status err';
+      status.textContent = 'Per iscriverti è necessario prestare il consenso alle comunicazioni.';
+      return;
+    }
+    if (hp && hp.value) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Invio…';
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/newsletter/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({
+          email,
+          consent: true,
+          source: 'homepage_popup',
+          consentAt: new Date().toISOString()
+        })
+      });
+      const data = await response.json().catch(()=>({}));
+      if (!response.ok) throw new Error(data.error || 'Iscrizione non riuscita');
+      status.className = 'newsletter-status ok';
+      status.textContent = 'Perfetto. Controlla la tua inbox per completare l’iscrizione.';
+      form.reset();
+      setTimeout(closeNewsletter, 2400);
+    } catch (err) {
+      console.error('Newsletter subscribe error:', err);
+      status.className = 'newsletter-status err';
+      status.textContent = 'Newsletter in configurazione. Riprova tra poco.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Iscrivimi';
+    }
+  });
+})();
 </script>
 
 </body>
