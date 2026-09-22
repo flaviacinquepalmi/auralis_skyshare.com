@@ -906,8 +906,12 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
       }
 
       .word-shell {
-        display: block;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: start;
+        width: 100%;
         min-width: 100%;
+        min-height: 1.05em;
         margin-top: 8px;
       }
 
@@ -2429,7 +2433,7 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
     line-height:.94;
     letter-spacing:-.055em;
   }
-  .word-shell{display:block;min-width:0;margin-top:8px;overflow:visible;}
+  .word-shell{display:grid;grid-template-columns:1fr;justify-items:start;width:100%;min-width:0;min-height:1.05em;margin-top:8px;overflow:visible;}
   .progress-indicator{display:none;}
 }
 
