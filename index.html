@@ -332,9 +332,9 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .el-foot{display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid var(--bdr);padding-top:14px;gap:10px}
 .el-price{font-size:24px;font-weight:900;color:var(--gold)}
 .price-stack{display:flex;flex-direction:column;gap:3px}
-.price-original{font-size:12px;color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px;font-weight:600}
+.price-original{font-size:12px;color:#b33a3a;text-decoration:line-through;text-decoration-thickness:1px;font-weight:600}
 .price-current{font-size:24px;font-weight:900;color:var(--gold)}
-.price-saving{font-size:11px;color:#2E9E60;font-weight:700;margin-top:2px}
+.price-saving{font-size:10px;color:var(--muted);font-weight:500;margin-top:1px}
 .el-save{font-size:9px;color:#2E9E60;background:rgba(46,158,96,.08);border:1px solid rgba(46,158,96,.2);padding:3px 8px;margin-top:4px;letter-spacing:.5px;display:inline-block}
 .el-right{text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
 .el-cd{font-size:11px;color:var(--muted)}
@@ -2539,7 +2539,18 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 .home-journal-card h3{
   font-size:22px;line-height:1.08;letter-spacing:-.7px;color:var(--navy);font-weight:900;margin:12px 0 10px;
 }
-.home-journal-card p{font-size:12px;line-height:1.6;color:var(--muted);}
+.home-journal-card p{font-size:12px;line-height:1.6;color:var(--muted);margin:0;max-width:390px;}
+.home-journal-card .article-kicker{
+  display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:800;color:var(--gold);margin-bottom:15px;
+}
+.home-journal-card .article-arrow{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  font-size:10px;letter-spacing:1.4px;text-transform:uppercase;
+  font-weight:800;color:var(--navy);
+}
+.home-journal-card .article-arrow::after{content:"→";font-size:14px;line-height:1;transition:transform .2s ease;}
+.home-journal-card:hover .article-arrow::after{transform:translateX(4px);}
 .home-journal-card .card-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;}
 .home-journal-card .card-link{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800;color:var(--navy);}
 .home-journal-card .coming{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);font-weight:800;}
@@ -2744,7 +2755,7 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
         <div class="bm-d"><div class="k">Posti</div><div class="v" id="bm-pax">12 pax</div></div>
         <div class="bm-d"><div class="k">Durata</div><div class="v" id="bm-dur">2h 15m</div></div>
         <div class="bm-d"><div class="k">Partenza</div><div class="v" id="bm-date">18 Giu 2026</div></div>
-        <div class="bm-d"><div class="k">Prezzo Auralis</div><div class="v" id="bm-price" style="color:var(--gold);font-size:18px">€6.400</div><div class="price-original" id="bm-original-price" style="display:none"></div></div>
+        <div class="bm-d"><div class="k">Prezzo</div><div class="v" id="bm-price" style="color:var(--gold);font-size:18px">€6.400</div><div class="price-original" id="bm-original-price" style="display:none"></div></div>
         <div class="bm-d"><div class="k">Risparmio</div><div class="v" id="bm-save" style="color:#2E9E60">68%</div></div>
       </div>
       <!-- SPLIT COST -->
@@ -3013,9 +3024,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <div class="home-journal-grid">
         <a class="home-journal-feature" href="blog/cosa-sono-empty-leg/" aria-label="Leggi l'articolo: Cosa sono gli Empty Leg?">
-          <img src="assets/hero/hero-interior.jpg" alt="Interno di un jet privato Auralis" loading="lazy">
+          <img src="assets/jet_door_opening.jpg" alt="Ingresso a bordo di un jet privato Auralis" loading="lazy">
           <div class="home-journal-feature-content">
+            <div class="home-article-meta">Essenziali · Guida Auralis</div>
             <h3>Cosa sono gli Empty Leg?</h3>
+            <p>Il modo più intelligente di volare privati: scopri come funzionano, quando compaiono e perché possono rendere il tuo prossimo viaggio più fluido.</p>
             <span class="read-more">Leggi l'articolo →</span>
           </div>
         </a>
@@ -3023,16 +3036,20 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="home-journal-side">
           <a class="home-journal-card" href="blog/" aria-label="Leggi l'articolo: Quanto costa un Empty Leg?">
             <div>
+              <span class="article-kicker">Essenziali · Budget</span>
               <h3>Quanto costa un Empty Leg?</h3>
+              <p>Prezzi, variabili e risparmio reale: una guida chiara per capire il valore di ogni tratta senza rinunciare al comfort.</p>
             </div>
-            <div class="card-foot"><span class="card-link">Leggi l'articolo →</span></div>
+            <div class="card-foot"><span class="article-arrow">Leggi l'articolo</span></div>
           </a>
 
           <a class="home-journal-card" href="blog/" aria-label="Leggi l'articolo: Empty Leg vs charter privato">
             <div>
+              <span class="article-kicker">Esperienza · Confronto</span>
               <h3>Empty Leg vs charter privato</h3>
+              <p>Due modi diversi di volare, un’unica domanda: quale soluzione si adatta meglio al tuo tempo, alla tua rotta e al tuo modo di viaggiare?</p>
             </div>
-            <div class="card-foot"><span class="card-link">Leggi l'articolo →</span></div>
+            <div class="card-foot"><span class="article-arrow">Leggi l'articolo</span></div>
           </a>
         </div>
       </div>
@@ -3063,7 +3080,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   <!-- INTERIOR PHOTO STRIP -->
   <div class="interior-strip fu interior-strip-clean">
-    <img src="assets/hero/hero-interior.jpg" alt="Interno di un jet privato">
+    <img src="assets/champagne_jet.jpg" alt="Esperienza a bordo di un jet privato Auralis">
   </div>
 
 </div><!-- /home -->
@@ -4284,6 +4301,17 @@ function escapeHTML(value = "") {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function formatAircraftName(aircraft = {}) {
+  const manufacturer = String(aircraft.manufacturer || "").trim();
+  const model = String(aircraft.model || "").trim();
+  if (!manufacturer) return model;
+  if (!model) return manufacturer;
+  const normalizedManufacturer = manufacturer.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const normalizedModel = model.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  if (normalizedModel === normalizedManufacturer || normalizedModel.startsWith(`${normalizedManufacturer} `)) return model;
+  return `${manufacturer} ${model}`;
 }
 
 function formatMoney(value, currency = "EUR") {
@@ -6297,7 +6325,7 @@ function renderHeroFlightCard(flights) {
     (a, b) => new Date(b.departureAt) - new Date(a.departureAt)
   )[0];
 
-  const aircraft = `${soonest.aircraft?.manufacturer || ''} ${soonest.aircraft?.model || ''}`.trim();
+  const aircraft = formatAircraftName(soonest.aircraft);
   const pax = soonest.availablePax || soonest.aircraft?.maxPax || '-';
   const duration = formatDuration(soonest.durationMin || 0);
   const date = formatDate(soonest.departureAt);
@@ -6323,7 +6351,6 @@ function renderHeroFlightCard(flights) {
     </div>
     <div class="chc-foot">
       <div class="chc-price">${renderPriceStack(soonest.priceTotal, soonest.savingPct, true)}</div>
-      <div class="chc-save">Prezzo Auralis</div>
     </div>
   `;
 
@@ -6440,7 +6467,7 @@ async function loadEmptyLegs() {
   }
 
   grid.innerHTML = flights.map((leg) => {
-    const aircraft = `${leg.aircraft?.manufacturer || ""} ${leg.aircraft?.model || ""}`.trim();
+    const aircraft = formatAircraftName(leg.aircraft);
     const pax = leg.availablePax || leg.aircraft?.maxPax || "-";
     const duration = formatDuration(leg.durationMin || 0);
     const date = formatDate(leg.departureAt);
@@ -6477,7 +6504,6 @@ async function loadEmptyLegs() {
         <div class="el-foot">
           <div>
             <div class="el-price">${renderPriceStack(leg.priceTotal, leg.savingPct)}</div>
-            <div class="el-save">Prezzo Auralis</div>
           </div>
           <div class="el-right">
             <div class="el-cd">Scade in <span id="cd-${leg.id}">${countdownText}</span></div>
@@ -6906,7 +6932,7 @@ function cfgRender() {
     if (matches.length) {
       stage.innerHTML = `<div class="cfg-q">Il tuo volo ti aspetta ✨</div><div class="cfg-result">` +
         matches.map((leg, i) => {
-          const aircraft = `${leg.aircraft?.manufacturer || ""} ${leg.aircraft?.model || ""}`.trim();
+          const aircraft = formatAircraftName(leg.aircraft);
           const badge = leg.confirmationProbability
             ? `<span style="color:#B8860B">Conferma stimata ${leg.confirmationProbability}%</span>`
             : `<span style="color:#2E9E60">✓ Confermato</span>`;
@@ -6914,7 +6940,6 @@ function cfgRender() {
             <div class="cf-route">${leg.fromAirport} → ${leg.toAirport}</div>
             <div class="cf-meta">${aircraft} · ${formatDuration(leg.durationMin || 0)}<br>${formatDate(leg.departureAt)} · ${badge}</div>
             <div class="cf-price">${renderPriceStack(leg.priceTotal, leg.savingPct, true)}</div>
-            <div class="cf-save">Prezzo Auralis</div>
             <button class="el-btn" style="width:100%" onclick="selectedEmptyLegId='${leg.id}'; selectedLegProb=${leg.confirmationProbability || 'null'}; openBookingModal('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${leg.availablePax} pax','${formatDuration(leg.durationMin || 0)}','${formatDate(leg.departureAt)}','${formatPrice(leg.priceTotal)}','${leg.savingPct || 0}%')">Prenota Ora</button>
           </div>`;
         }).join("") + `</div>`;
