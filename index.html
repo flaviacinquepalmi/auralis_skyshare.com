@@ -157,6 +157,12 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .chc-foot{border-top:1px solid var(--bdr);padding-top:16px}
 .chc-price{font-size:26px;font-weight:900;color:var(--gold)}
 .chc-save{font-size:11px;color:#2E9E60;margin-top:4px}
+.chc-original-price{
+  font-size:13px;
+  color:rgba(255,255,255,.45);
+  text-decoration:line-through;
+  margin-bottom:2px;
+}
 @media(max-width:900px){.clarity-hero{grid-template-columns:1fr;padding:44px 20px 54px;text-align:left;min-height:auto}.clarity-hero-card{justify-self:start;max-width:100%;width:100%}.clarity-hero-bg{min-height:100%;}}
 
 /* HERO -> CINEMATIC REVEAL: dissolvenza morbida tra le due schermate */
@@ -331,6 +337,13 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .el-m .k{font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-top:2px}
 .el-foot{display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid var(--bdr);padding-top:14px;gap:10px}
 .el-price{font-size:24px;font-weight:900;color:var(--gold)}
+.el-original-price{
+  font-size:14px;
+  color:var(--muted);
+  text-decoration:line-through;
+  text-decoration-thickness:1px;
+  margin-bottom:2px;
+}
 .el-save{font-size:9px;color:#2E9E60;background:rgba(46,158,96,.08);border:1px solid rgba(46,158,96,.2);padding:3px 8px;margin-top:4px;letter-spacing:.5px;display:inline-block}
 .el-right{text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
 .el-cd{font-size:11px;color:var(--muted)}
@@ -1138,6 +1151,11 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 .cfg-flight .cf-route{font-size:19px;font-weight:900;color:var(--navy)}
 .cfg-flight .cf-meta{font-size:12px;color:var(--muted);margin:8px 0 14px;line-height:1.7}
 .cfg-flight .cf-price{font-size:24px;font-weight:900;color:var(--navy)}
+  .cf-original-price{
+  font-size:13px;
+  color:var(--muted);
+  text-decoration:line-through;
+  margin-bottom:2px;}
 .cfg-flight .cf-save{font-size:11px;color:#2E9E60;font-weight:700;margin-bottom:14px}
 .cfg-empty{color:rgba(255,255,255,.75);font-size:15px;line-height:1.8;max-width:460px;margin:0 auto;opacity:0;animation:cfgIn .5s forwards}
 .cfg-back{margin-top:32px;background:none;border:none;color:rgba(255,255,255,.45);font-size:12px;letter-spacing:1px;cursor:pointer;transition:color .2s}
@@ -3928,8 +3946,13 @@ async function apiFetch(path, options = {}) {
   return response.json();
 }
 
+function customRequestField(id) {
+  const section = document.getElementById("custom-request-section");
+  return section ? section.querySelector(`#${id}`) : null;
+}
+
 function customRequestValue(id) {
-  const element = document.getElementById(id);
+  const element = customRequestField(id);
   return element ? String(element.value || "").trim() : "";
 }
 
@@ -3996,10 +4019,11 @@ async function submitCustomFlightRequest() {
       window.alert("Richiesta inviata correttamente. Un flight director Auralis ti risponderà entro 2 ore.");
     }
 
-    ["pren-first-name", "pren-last-name", "pren-email", "pren-phone"].forEach((id) => {
-      const field = document.getElementById(id);
-      if (field) field.value = "";
-    });
+  ["pren-first-name", "pren-last-name", "pren-email", "pren-phone"].forEach((id) => {
+    const field = customRequestField(id);
+    if (field) field.value = "";
+  });
+    
   } catch (error) {
     console.error("Errore richiesta volo:", error);
     if (status) {
@@ -6157,6 +6181,14 @@ function renderHeroFlightCard(flights) {
   const date = formatDate(soonest.departureAt);
   const price = formatPrice(soonest.priceTotal);
   const saving = soonest.savingPct ? `${soonest.savingPct}%` : '0%';
+  const originalPriceValue = getOriginalCharterPrice(
+      soonest.priceTotal,
+      soonest.savingPct
+    );
+
+const originalPrice = originalPriceValue
+  ? formatPrice(originalPriceValue)
+  : "";
   const statusHTML = soonest.confirmationProbability
     ? `<span class="chc-status" style="background:rgba(201,165,53,.12);color:#B8860B">CONFERMA ${soonest.confirmationProbability}%</span>`
     : `<span class="chc-status">CONFERMATO</span>`;
@@ -6176,6 +6208,10 @@ function renderHeroFlightCard(flights) {
       <div><div class="v">${duration}</div><div class="k">Durata</div></div>
     </div>
     <div class="chc-foot">
+      ${originalPrice
+        ? `<div class="chc-original-price">${originalPrice}</div>`
+        : ""
+      }
       <div class="chc-price">${price}</div>
       <div class="chc-save">Risparmio ${saving} vs charter</div>
     </div>
@@ -6300,6 +6336,13 @@ async function loadEmptyLegs() {
     const date = formatDate(leg.departureAt);
     const price = formatPrice(leg.priceTotal);
     const saving = leg.savingPct ? `${leg.savingPct}%` : "—";
+    const originalPriceValue = getOriginalCharterPrice(
+      leg.priceTotal,
+      leg.savingPct
+    );
+    const originalPrice = originalPriceValue
+    ? formatPrice(originalPriceValue)
+    : "";
     const { text: countdownText } = formatCountdown(leg.departureAt);
     const probBadge = leg.confirmationProbability
       ? `<div class="el-prob">Conferma stimata: ${leg.confirmationProbability}%</div>`
@@ -6330,6 +6373,10 @@ async function loadEmptyLegs() {
 
         <div class="el-foot">
           <div>
+            ${originalPrice
+            ? `<div class="el-original-price">${originalPrice}</div>`
+            : ""
+            }
             <div class="el-price">${price}</div>
             <div class="el-save">Risparmio ${saving}</div>
           </div>
@@ -6764,11 +6811,24 @@ function cfgRender() {
           const badge = leg.confirmationProbability
             ? `<span style="color:#B8860B">Conferma stimata ${leg.confirmationProbability}%</span>`
             : `<span style="color:#2E9E60">✓ Confermato</span>`;
+          const originalPriceValue = getOriginalCharterPrice(
+            leg.priceTotal,
+            leg.savingPct
+          );
+          const originalPrice = originalPriceValue
+            ? formatPrice(originalPriceValue)
+            : "";
           return `<div class="cfg-flight" style="animation-delay:${i * 0.12}s">
             <div class="cf-route">${leg.fromAirport} → ${leg.toAirport}</div>
             <div class="cf-meta">${aircraft} · ${formatDuration(leg.durationMin || 0)}<br>${formatDate(leg.departureAt)} · ${badge}</div>
+            ${originalPrice
+              ? `<div class="cf-original-price">${originalPrice}</div>`
+              : ""
+            }
             <div class="cf-price">${formatPrice(leg.priceTotal)}</div>
-            <div class="cf-save">${leg.savingPct ? "Risparmio " + leg.savingPct + "%" : ""}</div>
+            <div class="cf-save">
+              ${leg.savingPct ? "Risparmio " + leg.savingPct + "%" : ""}
+            </div>
             <button class="el-btn" style="width:100%" onclick="selectedEmptyLegId='${leg.id}'; selectedLegProb=${leg.confirmationProbability || 'null'}; openBookingModal('${leg.fromAirport}','${leg.toAirport}','${aircraft}','${leg.availablePax} pax','${formatDuration(leg.durationMin || 0)}','${formatDate(leg.departureAt)}','${formatPrice(leg.priceTotal)}','${leg.savingPct || 0}%')">Prenota Ora</button>
           </div>`;
         }).join("") + `</div>`;
