@@ -2784,8 +2784,8 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
           <div class="pax-body">
             <div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>
             <div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>
-            <div class="fg"><label>Email</label><input type="email" id="pren-email" placeholder="email@esempio.com" autocomplete="email"></div>
-            <div class="fg"><label>Telefono</label><input type="tel" id="pren-phone" placeholder="+39 ..." autocomplete="tel"></div>
+            <div class="fg"><label>Email</label><input type="email" id="booking-email" placeholder="email@esempio.com" autocomplete="email"></div>
+            <div class="fg"><label>Telefono</label><input type="tel" id="booking-phone" placeholder="+39 ..." autocomplete="tel"></div>
           </div>
         </div>
         <div id="extra-pax"></div>
@@ -3317,6 +3317,15 @@ document.addEventListener("DOMContentLoaded", () => {
         </button>
       </nav>
 
+      <button
+        type="button"
+        class="customer-menu-item"
+        data-customer-tab="requests"
+      >
+        <span class="customer-menu-icon">↗</span>
+        Le mie richieste
+      </button>
+
       <div class="customer-sidebar-footer">
         <span>Assistenza dedicata</span>
         <a href="mailto:contatti@auralisair.it">
@@ -3499,6 +3508,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <div id="customer-recent-flights"></div>
         </section>
+      </section>
+
+      <section class="customer-tab-panel" id="customer-tab-requests">
+        <div class="customer-panel-head customer-page-heading">
+          <div>
+            <span class="customer-panel-eyebrow">Voli su misura</span>
+            <h2>Le mie richieste</h2>
+            <p>
+              Qui trovi le richieste inviate con l’email verificata
+              del tuo account. Una richiesta non è una prenotazione confermata.
+            </p>
+          </div>
+      
+          <button
+            type="button"
+            class="customer-secondary-btn"
+            onclick="loadCustomerRequests()"
+          >
+            Aggiorna
+          </button>
+        </div>
+      
+        <div id="customer-requests-list" aria-live="polite"></div>
       </section>
 
       <!-- I MIEI VOLI + FLIGHT WALLET -->
@@ -4121,6 +4153,7 @@ async function initAuth0() {
     authorizationParams: {
       audience: AUTH0_AUDIENCE,
       redirect_uri: window.location.origin,
+      scope: "openid profile email",
     },
   });
 
@@ -4471,12 +4504,96 @@ document.addEventListener("click", event => {
   }
 });
 
+let customerRequestsLoadId = 0;
+
+function escapeRequestText(value) {
+  const element = document.createElement("span");
+  element.textContent = String(value ?? "—");
+  return element.innerHTML;
+}
+
+function formatRequestDate(value) {
+  if (!value) return "Da definire";
+
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime())
+    ? "Da definire"
+    : date.toLocaleDateString("it-IT", { timeZone: "UTC" });
+}
+
+async function loadCustomerRequests() {
+  const container = document.getElementById("customer-requests-list");
+  if (!container) return;
+
+  const loadId = ++customerRequestsLoadId;
+  container.textContent = "Caricamento richieste…";
+
+  try {
+    const result = await apiFetch("/api/my/flight-requests");
+    if (loadId !== customerRequestsLoadId) return;
+
+    const requests = result.data || [];
+
+    if (!requests.length) {
+      container.innerHTML = `
+        <div class="customer-empty-state">
+          Non risultano richieste per l’email del tuo account.
+          Se ne hai appena inviata una, attendi qualche secondo
+          e premi Aggiorna.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = requests.map(request => `
+      <article class="customer-panel" style="margin-bottom:16px">
+        <div class="customer-panel-head">
+          <h3>
+            ${escapeRequestText(request.from)}
+            →
+            ${escapeRequestText(request.to)}
+          </h3>
+          <span>${escapeRequestText(request.status)}</span>
+        </div>
+
+        <p>
+          Partenza:
+          ${escapeRequestText(formatRequestDate(request.departureDate))}
+          · Passeggeri: ${escapeRequestText(request.passengers)}
+        </p>
+
+        <p>ID richiesta: ${escapeRequestText(request.requestId)}</p>
+
+        <small>
+          Inviata il
+          ${escapeRequestText(formatRequestDate(request.createdAt))}
+        </small>
+      </article>
+    `).join("");
+  } catch (error) {
+    if (loadId !== customerRequestsLoadId) return;
+
+    container.textContent =
+      error.message || "Impossibile caricare le richieste.";
+
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "customer-text-btn";
+    retry.textContent = "Riprova";
+    retry.onclick = loadCustomerRequests;
+
+    container.append(document.createElement("br"), retry);
+  }
+}
+
 async function loadCustomerDashboard() {
   const loading = document.getElementById(
     "customer-dashboard-loading"
   );
 
   if (loading) loading.classList.add("visible");
+    void loadCustomerRequests();
 
   try {
     const [profileResult, bookingsResult] = await Promise.all([
@@ -5433,8 +5550,8 @@ function rebuildExtraPax(total){
       '<div class="pax-body">' +
         '<div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>' +
         '<div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>' +
-        '<div class="fg"><label>Email</label><input type="email" id="pren-email" placeholder="email@esempio.com" autocomplete="email"></div>' +
-        '<div class="fg"><label>Telefono</label><input type="tel" id="pren-phone" placeholder="+39 ..." autocomplete="tel"></div>' +
+        '<div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com" autocomplete="email"></div>' +
+        '<div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..." autocomplete="tel"></div>' +
       '</div>';
     container.appendChild(div);
   }
