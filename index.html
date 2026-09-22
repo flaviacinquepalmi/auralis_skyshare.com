@@ -158,6 +158,48 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .chc-price{font-size:26px;font-weight:900;color:var(--gold)}
 .chc-save{font-size:11px;color:#2E9E60;margin-top:4px}
 @media(max-width:900px){.clarity-hero{grid-template-columns:1fr;padding:44px 20px 54px;text-align:left;min-height:auto}.clarity-hero-card{justify-self:start;max-width:100%;width:100%}.clarity-hero-bg{min-height:100%;}}
+
+/* HERO -> CINEMATIC REVEAL: dissolvenza morbida tra le due schermate */
+.clarity-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    linear-gradient(180deg,
+      rgba(4,10,20,.06) 0%,
+      rgba(4,10,20,.14) 54%,
+      rgba(3,7,16,.55) 78%,
+      #030710 100%);
+  pointer-events:none;
+}
+.clarity-hero{margin-bottom:-1px;}
+.scroll-scene{position:relative;background:#030710;}
+.scroll-scene::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:clamp(110px,18vh,220px);
+  z-index:20;
+  pointer-events:none;
+  background:linear-gradient(180deg,
+    #030710 0%,
+    rgba(3,7,16,.94) 20%,
+    rgba(3,7,16,.62) 48%,
+    rgba(3,7,16,.20) 76%,
+    rgba(3,7,16,0) 100%);
+}
+/* L'interno emerge gradualmente nei primi istanti dello scroll */
+.scroll-scene .interior-image{
+  opacity:clamp(.14, calc(var(--scene-progress) * 8.6), 1);
+}
+@media(max-width:768px){
+  .scroll-scene::before{height:140px;}
+  .scroll-scene .interior-image{opacity:clamp(.22, calc(var(--scene-progress) * 7.5), 1);}
+}
+
   
 /* STATS */
 .stats-bar{background:var(--navy);padding:28px 56px;display:grid;grid-template-columns:repeat(3,1fr)}
