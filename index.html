@@ -249,6 +249,12 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .map-wrap{background:linear-gradient(135deg,#0A1628 0%,#0E2040 100%);margin:0 56px;position:relative;overflow:hidden;min-height:300px}
 .map-label{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;position:absolute;bottom:16px;left:24px;display:flex;align-items:center;gap:8px}
 .map-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.custom-request-section{background:var(--off);border-top:1px solid var(--bdr);padding:72px 56px 96px}
+.crs-inner{max-width:640px;margin:0 auto}
+.crs-title{font-size:clamp(24px,3vw,34px);font-weight:900;letter-spacing:-1px;color:var(--navy);margin:10px 0 12px}
+.crs-sub{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:36px}
+@media(max-width:768px){.custom-request-section{padding:48px 20px 64px}}
+  
 .el-cards-section{padding:56px 56px 100px;max-width:1100px;margin:0 auto}
 .el-cards-title{font-size:18px;font-weight:800;color:var(--navy);letter-spacing:-.5px;margin-bottom:28px;display:flex;align-items:center;gap:12px}
 .el-cards-title::after{content:"";flex:1;height:1px;background:var(--bdr)}
@@ -509,39 +515,6 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
           rgba(3, 8, 17, 0.55) 100%
         );
       mix-blend-mode: multiply;
-    }
-
-    .nav-line {
-      position: absolute;
-      top: 34px;
-      left: clamp(24px, 4vw, 64px);
-      right: clamp(24px, 4vw, 64px);
-      z-index: 9;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      font-size: 10px;
-      color: rgba(247, 249, 252, 0.76);
-      opacity: 0.86;
-    }
-
-    .nav-line::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 32px;
-      height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(232, 201, 106, 0.36),
-        rgba(255, 255, 255, 0.22),
-        transparent
-      );
-      opacity: 0.55;
     }
 
     .brand-mark {
@@ -2524,8 +2497,7 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   <ul class="nav-links">
     <li><a onclick="showPage('home')" id="nl-home" class="active-link">Home</a></li>
     <li><a onclick="showPage('about')" id="nl-about">Chi Siamo</a></li>
-    <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Empty Leg</a></li>
-    <li><a onclick="showPage('prenota')" id="nl-prenota">Prenota Ora</a></li>
+    <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Prenota Ora</a></li>
     <li><a onclick="showPage('contatti')" id="nl-contatti">Contatti</a></li>
     <li class="mobile-only" id="btn-operator-cta-mobile"><button class="btn-operator" onclick="closeMobileMenu();showPage('partner')">Sono un Operatore</button></li>
     <li class="mobile-only" id="mob-dash-item" style="display:none"><button class="btn-operator" id="btn-dashboard-mobile"></button></li>
@@ -2544,15 +2516,12 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 <div class="page active" id="page-home">
   <section class="clarity-hero">
   <div class="clarity-hero-text fu vis">
-    <span class="sec-eye">Voli Privati Empty-Leg</span>
+    <img src="auralis-logo.png" alt="Auralis SkyShare" style="height:34px;margin-bottom:18px;display:block">
     <h1 class="clarity-title">Il tuo jet privato,<br><span class="ch-accent">fino al 75% in meno.</span></h1>
     <p class="clarity-sub">Auralis SkyShare trasforma i voli di riposizionamento dei jet privati — che altrimenti volerebbero vuoti — in esperienze di volo esclusive a una frazione del prezzo. Stesso aereo, stesso equipaggio, stesso servizio.</p>
     <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:30px">
       <button class="btn-reserved" style="padding:16px 32px;font-size:12px" onclick="showPage('emptyleg')">Scopri i Voli Disponibili →</button>
       <button class="btn-operator" style="padding:16px 32px;font-size:12px" onclick="showPage('about')">Come Funziona</button>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;margin-top:28px;color:var(--muted);font-size:12px">
-      <span style="color:#2E9E60">✓</span> Voli certificati e operativi · stesso standard del charter tradizionale
     </div>
   </div>
   <div class="clarity-hero-card fu vis fu1">
@@ -2826,7 +2795,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <div class="el-hero">
     <div class="el-hero-content fu">
       <span class="pg-eye">Voli Disponibili Ora</span>
-      <h1 class="pg-title">Empty Leg Marketplace</h1>
+      <h1 class="pg-title">Prenota il Tuo Volo</h1>
     </div>
   </div>
   <div class="el-intro">
@@ -2849,80 +2818,89 @@ document.addEventListener("DOMContentLoaded", () => {
     </svg>
     <div class="map-label">Rotte empty-leg disponibili in tempo reale</div>
   </div>
-  <div class="el-cards-section">
+   <div class="el-cards-section">
   <div class="el-cards-title">Slot Disponibili Ora</div>
   <div class="el-cards-grid" id="empty-leg-grid">
     <p style="color:var(--muted);font-size:13px">Caricamento voli...</p>
   </div>
 </div>
-</div>
 
-<!-- ══ PRENOTA ORA ══ -->
-<div class="page" id="page-prenota">
-  <div class="prenota-wrap">
-    <div class="prenota-form-col">
-      <div class="prefilled-banner" id="prefilled-banner">
-        <span class="pb-icon">✈</span>
-        <div><span id="prefilled-text">Volo pre-selezionato</span><small>Puoi modificare i dettagli qui sotto</small></div>
-      </div>
-      <p class="sec-eye" style="margin-bottom:8px">Il Tuo Volo Privato</p>
-      <h1 class="p-form-title">Prenota Ora</h1>
-      <p class="p-form-sub">Compila la richiesta. Un flight director dedicato ti risponderà entro 2 ore per confermare disponibilità e finalizzare ogni dettaglio.</p>
-      <div class="form-sec">
-        <div class="form-sec-label" data-n="01">Rotta</div>
-        <div class="form-row">
-          <div class="fg"><label>Partenza</label><input type="text" id="pren-from" placeholder="es. Milano Linate (LIN)"></div>
-          <div class="fg"><label>Destinazione</label><input type="text" id="pren-to" placeholder="es. Londra Luton (LTN)"></div>
-        </div>
-      </div>
-      <div class="form-sec">
-        <div class="form-sec-label" data-n="02">Quando</div>
-        <div class="form-row">
-          <div class="fg"><label>Data di Partenza</label><input type="date" id="pren-date"></div>
-          <div class="fg"><label>Ora Preferita</label><input type="time"></div>
-        </div>
-      </div>
-      <div class="form-sec">
-        <div class="form-sec-label" data-n="03">Aeromobile</div>
-        <div class="form-row">
-          <div class="fg"><label>Categoria Jet</label><select id="pren-cat"><option>Light Jet — fino 8 pax</option><option selected>Midsize Jet — fino 12 pax</option><option>Heavy Jet — fino 16 pax</option><option>Ultra Long Range</option></select></div>
-          <div class="fg"><label>Passeggeri</label><select><option>1-2 passeggeri</option><option>3-4 passeggeri</option><option selected>5-8 passeggeri</option><option>9-12 passeggeri</option></select></div>
-        </div>
-      </div>
-      <div class="form-sec">
-        <div class="form-sec-label" data-n="04">Servizi a Bordo</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Catering Premium</label>
-          <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Chef Michelin</label>
-          <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Terminal Privato</label>
-          <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Concierge Transfer</label>
-        </div>
-      </div>
-      <div class="form-sec">
-        <div class="form-sec-label" data-n="05">I Tuoi Dati</div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="form-row"><div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div><div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div></div>
-          <div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com"></div>
-          <div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..."></div>
-        </div>
-      </div>
-      <!-- PAYMENT -->
-      <div class="form-sec">
-        <div class="form-sec-label" data-n="06">Note & Concierge</div>
-        <div class="fg"><label>Richieste Speciali</label><textarea style="resize:vertical" rows="3" placeholder="Hotel, ristoranti, transfer, richieste particolari..."></textarea></div>
-      </div>
-      <button class="submit-big">Invia Richiesta di Volo →</button>
-        <p class="submit-note">Richiesta senza impegno · Un flight director ti risponde entro 2 ore</p>
+<!-- Non hai trovato il volo che cercavi? -->
+<section class="custom-request-section" id="custom-request-section">
+  <div class="crs-inner">
+    <div class="prefilled-banner" id="prefilled-banner">
+      <span class="pb-icon">✈</span>
+      <div><span id="prefilled-text">Volo pre-selezionato</span><small>Puoi modificare i dettagli qui sotto</small></div>
     </div>
-    <!-- RIGHT: real interior photo sticky -->
-    <div class="prenota-visual-col" id="prenota-visual">
-      <img src="jetinterior.jpg" alt="Interni lusso jet privato">
-      <div class="prenota-visual-overlay">
-        <div style="font-size:9px;letter-spacing:2.5px;color:rgba(201,165,53,.7);text-transform:uppercase;margin-bottom:6px">Interni Premium</div>
-        <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px">Gulfstream G650<br><span style="font-weight:400;color:rgba(255,255,255,.6);font-size:12px">Cabina Full Flat · 18 pax</span></div>
+    <span class="sec-eye">Su Misura</span>
+    <h2 class="crs-title">Non hai trovato il volo che cercavi?</h2>
+    <p class="crs-sub">Richiedi un volo su misura: compila la richiesta e un flight director dedicato ti risponderà entro 2 ore per confermare disponibilità e finalizzare ogni dettaglio.</p>
+    <div class="form-sec">
+      <div class="form-sec-label" data-n="01">Rotta</div>
+      <div class="form-row">
+        <div class="fg"><label>Partenza</label><input type="text" id="pren-from" placeholder="es. Milano Linate (LIN)"></div>
+        <div class="fg"><label>Destinazione</label><input type="text" id="pren-to" placeholder="es. Londra Luton (LTN)"></div>
       </div>
+    </div>
+    <div class="form-sec">
+      <div class="form-sec-label" data-n="02">Quando</div>
+      <div class="form-row">
+        <div class="fg"><label>Data di Partenza</label><input type="date" id="pren-date"></div>
+        <div class="fg"><label>Ora Preferita</label><input type="time"></div>
+      </div>
+    </div>
+    <div class="form-sec">
+      <div class="form-sec-label" data-n="03">Aeromobile</div>
+      <div class="form-row">
+        <div class="fg"><label>Categoria Jet</label><select id="pren-cat"><option>Light Jet — fino 8 pax</option><option selected>Midsize Jet — fino 12 pax</option><option>Heavy Jet — fino 16 pax</option><option>Ultra Long Range</option></select></div>
+        <div class="fg"><label>Passeggeri</label><select><option>1-2 passeggeri</option><option>3-4 passeggeri</option><option selected>5-8 passeggeri</option><option>9-12 passeggeri</option></select></div>
+      </div>
+    </div>
+    <div class="form-sec">
+      <div class="form-sec-label" data-n="04">Servizi a Bordo</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Catering Premium</label>
+        <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Chef Michelin</label>
+        <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Terminal Privato</label>
+        <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--bdr);cursor:pointer;font-size:12px;color:var(--muted);border-radius:3px"><input type="checkbox" style="accent-color:var(--gold)"> Concierge Transfer</label>
+      </div>
+    </div>
+    <div class="form-sec">
+      <div class="form-sec-label" data-n="05">I Tuoi Dati</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="form-row"><div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div><div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com"></div>
+        <div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..."></div>
+      </div>
+    </div>
+    <div class="form-sec">
+      <div class="form-sec-label" data-n="06">Note & Concierge</div>
+      <div class="fg"><label>Richieste Speciali</label><textarea style="resize:vertical" rows="3" placeholder="Hotel, ristoranti, transfer, richieste particolari..."></textarea></div>
+    </div>
+    <button class="submit-big">Invia Richiesta di Volo →</button>
+    <p class="submit-note">Richiesta senza impegno · Un flight director ti risponde entro 2 ore</p>
+  </div>
+</section>
+</div>
+    
+<!-- PAYMENT -->
+  <div class="form-sec">
+    <div class="form-sec-label" data-n="06">Note & Concierge</div>
+    <div class="fg"><label>Richieste Speciali</label><textarea style="resize:vertical" rows="3" placeholder="Hotel, ristoranti, transfer, richieste particolari..."></textarea></div>
+  </div>
+  <button class="submit-big">Invia Richiesta di Volo →</button>
+    <p class="submit-note">Richiesta senza impegno · Un flight director ti risponde entro 2 ore</p>
+  </div>
+    
+<!-- RIGHT: real interior photo sticky -->
+  <div class="prenota-visual-col" id="prenota-visual">
+    <img src="jetinterior.jpg" alt="Interni lusso jet privato">
+    <div class="prenota-visual-overlay">
+      <div style="font-size:9px;letter-spacing:2.5px;color:rgba(201,165,53,.7);text-transform:uppercase;margin-bottom:6px">Interni Premium</div>
+      <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px">Gulfstream G650<br><span style="font-weight:400;color:rgba(255,255,255,.6);font-size:12px">Cabina Full Flat · 18 pax</span></div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- ══ CONTATTI ══ -->
@@ -3621,7 +3599,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <footer id="main-footer">
   <div class="foot-top">
     <div><div class="foot-logo"><img src="auralis-logo.png" alt="Auralis SkyShare" onclick="showPage('home')" style="height:96px;width:auto;object-fit:contain;cursor:pointer;display:block;margin-bottom:16px"></div></div>
-    <div class="foot-col"><h4>Navigazione</h4><a onclick="showPage('about')">Chi Siamo</a><a onclick="showPage('emptyleg')">Empty Leg</a><a onclick="showPage('prenota')">Prenota Ora</a></div>
+    <div class="foot-col"><h4>Navigazione</h4><a onclick="showPage('about')">Chi Siamo</a><a onclick="showPage('emptyleg')">Prenota Ora</a></div>
     <div class="foot-col"><h4>Operatori</h4><a onclick="showPage('partner')">Partner Program</a><a onclick="showPage('pilot')">Pilot Program</a></div>
     <div class="foot-col"><h4>Contatti</h4><a href="mailto:contatti@auralisair.it">contatti@auralisair.it</a></div>
   </div>
@@ -3784,26 +3762,61 @@ async function initAuth0() {
   await loadCurrentUser();
 }
 
-const ALL_PAGES=['home','about','emptyleg','prenota','contatti','partner','pilot','customer-dashboard','operator-dashboard','admin-dashboard'];
-const NAV_IDS={home:'nl-home',about:'nl-about',emptyleg:'nl-emptyleg',prenota:'nl-prenota',contatti:'nl-contatti'};
+const ALL_PAGES=['home','about','emptyleg','contatti','partner','pilot','customer-dashboard','operator-dashboard','admin-dashboard'];
+const NAV_IDS={home:'nl-home',about:'nl-about',emptyleg:'nl-emptyleg',contatti:'nl-contatti'};
+
+let pendingScrollToCustomRequest = false;
 
 function renderPage(id){
   closeMobileMenu();
   ALL_PAGES.forEach(p=>{const el=document.getElementById('page-'+p);if(el)el.classList.toggle('active',p===id);});
   Object.entries(NAV_IDS).forEach(([p,nid])=>{const el=document.getElementById(nid);if(el)el.classList.toggle('active-link',p===id);});
   const footer=document.getElementById('main-footer');
-  if(footer)footer.style.display=(id==='prenota')?'none':'block';
+  if(footer)footer.style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(()=>{
     document.querySelectorAll('#page-'+id+' .fu').forEach(el=>{el.classList.remove('vis');void el.offsetWidth;setTimeout(()=>el.classList.add('vis'),60);});
     if(id==='contatti')flyContJet();
     if(id==='home'){initHowJet();initConfigurator();}
-    if(id==='prenota'){const b=document.getElementById('prefilled-banner');if(b)b.classList.remove('show');}
+    if(id==='emptyleg'){
+      const shouldScroll = pendingScrollToCustomRequest;
+      pendingScrollToCustomRequest = false;
+      if(!shouldScroll){
+        const b=document.getElementById('prefilled-banner');
+        if(b) b.classList.remove('show');
+      } else {
+        setTimeout(()=>{
+          const target=document.getElementById('custom-request-section');
+          if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+        }, 250);
+      }
+    }
     if (id === "customer-dashboard") { if (!currentUser) { loginWithAuth0(); } else { loadCustomerDashboard(); } }
     if(id==='operator-dashboard') loadOperatorDashboard();
     if(id==='admin-dashboard') loadAdminDashboard();
   },80);
 }
+
+function showPage(id){
+  if(id==='prenota'){
+    id='emptyleg';
+    pendingScrollToCustomRequest=true;
+  }
+  if(!ALL_PAGES.includes(id)) id='home';
+  const current=(location.hash||'#home').replace('#','');
+  if(current===id){ renderPage(id); }
+  else { location.hash=id; }
+}
+
+window.addEventListener('hashchange', ()=>{
+  const id=(location.hash||'#home').replace('#','');
+  renderPage(ALL_PAGES.includes(id)?id:'home');
+});
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  const initial=(location.hash||'#home').replace('#','');
+  renderPage(ALL_PAGES.includes(initial)?initial:'home');
+});
 
 function showPage(id){
   if(!ALL_PAGES.includes(id)) id='home';
@@ -5777,6 +5790,54 @@ try {
     error
   );
 
+  function renderHeroFlightCard(flights) {
+  const card = document.getElementById('clarity-hero-card');
+  if (!card || !flights.length) return;
+
+  const soonest = [...flights].sort(
+    (a, b) => new Date(a.departureAt) - new Date(b.departureAt)
+  )[0];
+
+  const aircraft = `${soonest.aircraft?.manufacturer || ''} ${soonest.aircraft?.model || ''}`.trim();
+  const pax = soonest.availablePax || soonest.aircraft?.maxPax || '-';
+  const duration = formatDuration(soonest.durationMin || 0);
+  const date = formatDate(soonest.departureAt);
+  const price = formatPrice(soonest.priceTotal);
+  const saving = soonest.savingPct ? `${soonest.savingPct}%` : '0%';
+  const statusHTML = soonest.confirmationProbability
+    ? `<span class="chc-status" style="background:rgba(201,165,53,.12);color:#B8860B">CONFERMA ${soonest.confirmationProbability}%</span>`
+    : `<span class="chc-status">CONFERMATO</span>`;
+
+  card.innerHTML = `
+    <div class="chc-badgebar">
+      <span>Prossimo Volo Disponibile</span>
+      ${statusHTML}
+    </div>
+    <div class="chc-route">
+      <span>${soonest.fromAirport}</span>
+      <div class="chc-line"><div></div><span>✈</span><div></div></div>
+      <span>${soonest.toAirport}</span>
+    </div>
+    <div class="chc-meta">
+      <div><div class="v">${aircraft}</div><div class="k">Aeromobile</div></div>
+      <div><div class="v">${duration}</div><div class="k">Durata</div></div>
+    </div>
+    <div class="chc-foot">
+      <div class="chc-price">${price}</div>
+      <div class="chc-save">Risparmio ${saving} vs charter</div>
+    </div>
+  `;
+
+  card.style.cursor = 'pointer';
+  card.onclick = () => {
+    selectedEmptyLegId = soonest.id;
+    selectedLegProb = soonest.confirmationProbability || null;
+    openBookingModal(soonest.fromAirport, soonest.toAirport, aircraft, `${pax} pax`, duration, date, price, saving);
+  };
+}
+
+<div class="clarity-hero-card fu vis fu1" id="clarity-hero-card">
+
   grid.innerHTML = `
     <p style="
       color:var(--muted);
@@ -5905,6 +5966,7 @@ grid.innerHTML = flights.map((leg) => {
 
   startEmptyLegCountdowns(flights);
   renderRoutesMap(flights);
+  renderHeroFlightCard(flights);
 }
 
 document.addEventListener(
