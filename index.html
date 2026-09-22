@@ -259,13 +259,9 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .step-d{font-size:13px;color:var(--muted);line-height:1.75}
 
 /* INTERIOR PHOTO STRIP */
-.interior-strip{width:100%;overflow:hidden;position:relative;height:360px;margin:0 0 0}
-.interior-strip img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center 55%;
-}.interior-strip-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,22,40,.5) 0%,transparent 40%,transparent 60%,rgba(10,22,40,.5) 100%)}
+.interior-strip{width:100%;overflow:hidden;position:relative;height:280px;margin:0 0 0}
+.interior-strip img{width:100%;height:100%;object-fit:cover;object-position:center 58%}
+.interior-strip-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,22,40,.5) 0%,transparent 40%,transparent 60%,rgba(10,22,40,.5) 100%)}
 .interior-strip-text{position:absolute;left:56px;top:50%;transform:translateY(-50%);color:#fff}
 .interior-strip-text span{font-size:9px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;display:block;margin-bottom:8px}
 .interior-strip-text h3{font-size:28px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1.1}
@@ -2766,8 +2762,8 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
           <div class="pax-body">
             <div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>
             <div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>
-            <div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com"></div>
-            <div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..."></div>
+            <div class="fg"><label>Email</label><input type="email" id="pren-email" placeholder="email@esempio.com" autocomplete="email"></div>
+            <div class="fg"><label>Telefono</label><input type="tel" id="pren-phone" placeholder="+39 ..." autocomplete="tel"></div>
           </div>
         </div>
         <div id="extra-pax"></div>
@@ -2991,7 +2987,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <div class="home-journal-grid">
         <a class="home-journal-feature" href="blog/cosa-sono-empty-leg/" aria-label="Leggi l'articolo: Cosa sono gli Empty Leg?">
-          <img src="assets/jet_door_opening.jpg" alt="Interno di un jet privato Auralis" loading="lazy">
+          <img src="assets/hero/hero-interior.jpg" alt="Interno di un jet privato Auralis" loading="lazy">
           <div class="home-journal-feature-content">
             <h3>Cosa sono gli Empty Leg?</h3>
             <span class="read-more">Leggi l'articolo →</span>
@@ -3039,9 +3035,9 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </section>
 
-  <!-- FINAL PHOTO STRIP -->
+  <!-- INTERIOR PHOTO STRIP -->
   <div class="interior-strip fu interior-strip-clean">
-    <img src="/assets/champagne_jet.jpg" alt="Cabina di un jet privato">
+    <img src="assets/hero/hero-interior.jpg" alt="Interno di un jet privato">
   </div>
 
 </div><!-- /home -->
@@ -3128,14 +3124,14 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="form-sec-label" data-n="02">Quando</div>
       <div class="form-row">
         <div class="fg"><label>Data di Partenza</label><input type="date" id="pren-date"></div>
-        <div class="fg"><label>Ora Preferita</label><input type="time"></div>
+        <div class="fg"><label>Ora Preferita</label><input type="time" id="pren-time"></div>
       </div>
     </div>
     <div class="form-sec">
       <div class="form-sec-label" data-n="03">Aeromobile</div>
       <div class="form-row">
         <div class="fg"><label>Categoria Jet</label><select id="pren-cat"><option>Light Jet — fino 8 pax</option><option selected>Midsize Jet — fino 12 pax</option><option>Heavy Jet — fino 16 pax</option><option>Ultra Long Range</option></select></div>
-        <div class="fg"><label>Passeggeri</label><select><option>1-2 passeggeri</option><option>3-4 passeggeri</option><option selected>5-8 passeggeri</option><option>9-12 passeggeri</option></select></div>
+        <div class="fg"><label>Passeggeri</label><select id="pren-pax"><option value="1">1 passeggero</option><option value="2">2 passeggeri</option><option value="3">3 passeggeri</option><option value="4" selected>4 passeggeri</option><option value="5">5 passeggeri</option><option value="6">6 passeggeri</option><option value="7">7 passeggeri</option><option value="8">8 passeggeri</option><option value="9">9 passeggeri</option><option value="10">10 passeggeri</option><option value="11">11 passeggeri</option><option value="12">12 passeggeri</option></select></div>
       </div>
     </div>
     <div class="form-sec">
@@ -3150,12 +3146,18 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="form-sec">
       <div class="form-sec-label" data-n="05">I Tuoi Dati</div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="form-row"><div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div><div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div></div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com"></div>
-        <div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..."></div>
+        <div class="form-row"><div class="fg"><label>Nome</label><input type="text" id="pren-first-name" placeholder="Nome" autocomplete="given-name"></div><div class="fg"><label>Cognome</label><input type="text" id="pren-last-name" placeholder="Cognome" autocomplete="family-name"></div></div>
+        <div class="fg"><label>Email</label><input type="email" id="pren-email" placeholder="email@esempio.com" autocomplete="email"></div>
+        <div class="fg"><label>Telefono</label><input type="tel" id="pren-phone" placeholder="+39 ..." autocomplete="tel"></div>
       </div>
     </div>
-    <button class="submit-big">Invia Richiesta di Volo →</button>
+    <button class="submit-big" id="custom-request-submit" type="button">Invia Richiesta di Volo →</button>
+    <div id="custom-request-status" role="status" aria-live="polite" style="margin-top:12px;font-size:12px;min-height:18px"></div>
+    <div id="custom-request-success" role="status" aria-live="polite" style="display:none;margin-top:18px;padding:20px 22px;border:1px solid rgba(31,107,69,.22);background:#f4faf6;border-radius:14px;color:#0b1b31;box-shadow:0 12px 34px rgba(10,22,40,.08)">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#1f6b45;margin-bottom:7px">Richiesta ricevuta</div>
+      <div style="font-size:18px;font-weight:850;line-height:1.25;margin-bottom:6px">Grazie. La tua richiesta di volo è stata inviata correttamente.</div>
+      <div style="font-size:13px;line-height:1.6;color:var(--muted)">Un flight director Auralis ti risponderà entro 2 ore. <span id="custom-request-id" style="font-weight:700;color:var(--navy)"></span></div>
+    </div>
     <p class="submit-note">Richiesta senza impegno · Un flight director ti risponderà entro 2 ore</p>
   </div>
 </section>
@@ -3925,6 +3927,99 @@ async function apiFetch(path, options = {}) {
 
   return response.json();
 }
+
+function customRequestValue(id) {
+  const element = document.getElementById(id);
+  return element ? String(element.value || "").trim() : "";
+}
+
+async function submitCustomFlightRequest() {
+  const submitButton = document.getElementById("custom-request-submit");
+  const status = document.getElementById("custom-request-status");
+
+  const payload = {
+    firstName: customRequestValue("pren-first-name"),
+    lastName: customRequestValue("pren-last-name"),
+    email: customRequestValue("pren-email"),
+    phone: customRequestValue("pren-phone") || undefined,
+    from: customRequestValue("pren-from"),
+    to: customRequestValue("pren-to"),
+    departureDate: customRequestValue("pren-date"),
+    preferredTime: customRequestValue("pren-time") || undefined,
+    passengers: Number(customRequestValue("pren-pax") || 0),
+    aircraftCategory: customRequestValue("pren-cat") || undefined,
+    requestType: "Richiesta volo su misura",
+    leadSource: "Website",
+  };
+
+  if (!payload.firstName || !payload.lastName || !payload.email || !payload.from || !payload.to || !payload.departureDate || !payload.passengers) {
+    if (status) {
+      status.textContent = "Completa nome, cognome, email, rotta, data e passeggeri.";
+      status.style.color = "#9d2f2f";
+    }
+    return;
+  }
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Invio in corso…";
+  }
+  const previousSuccessBox = document.getElementById("custom-request-success");
+  if (previousSuccessBox) previousSuccessBox.style.display = "none";
+  if (status) {
+    status.textContent = "Stiamo inviando la tua richiesta…";
+    status.style.color = "var(--muted)";
+  }
+
+  try {
+    const result = await apiFetch("/api/flight-requests", {
+      method: "POST",
+      auth: false,
+      body: JSON.stringify(payload),
+    });
+
+    if (status) {
+      status.textContent = "";
+    }
+
+    const successBox = document.getElementById("custom-request-success");
+    const requestIdLabel = document.getElementById("custom-request-id");
+    if (requestIdLabel) {
+      requestIdLabel.textContent = result?.requestId ? `ID richiesta: ${result.requestId}` : "";
+    }
+    if (successBox) {
+      successBox.style.display = "block";
+      window.setTimeout(() => {
+        successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 80);
+    } else {
+      window.alert("Richiesta inviata correttamente. Un flight director Auralis ti risponderà entro 2 ore.");
+    }
+
+    ["pren-first-name", "pren-last-name", "pren-email", "pren-phone"].forEach((id) => {
+      const field = document.getElementById(id);
+      if (field) field.value = "";
+    });
+  } catch (error) {
+    console.error("Errore richiesta volo:", error);
+    if (status) {
+      status.textContent = error?.message || "Invio non riuscito. Riprova tra poco.";
+      status.style.color = "#9d2f2f";
+    }
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "Invia Richiesta di Volo →";
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const submitButton = document.getElementById("custom-request-submit");
+  if (submitButton) {
+    submitButton.addEventListener("click", submitCustomFlightRequest);
+  }
+});
 
 let currentUser = null;
 
@@ -5340,8 +5435,8 @@ function rebuildExtraPax(total){
       '<div class="pax-body">' +
         '<div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>' +
         '<div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>' +
-        '<div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com"></div>' +
-        '<div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..."></div>' +
+        '<div class="fg"><label>Email</label><input type="email" id="pren-email" placeholder="email@esempio.com" autocomplete="email"></div>' +
+        '<div class="fg"><label>Telefono</label><input type="tel" id="pren-phone" placeholder="+39 ..." autocomplete="tel"></div>' +
       '</div>';
     container.appendChild(div);
   }
