@@ -126,11 +126,17 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .fu.vis{opacity:1;transform:translateY(0)}
 .fu1{transition-delay:.1s}.fu2{transition-delay:.2s}.fu3{transition-delay:.3s}
 
-.clarity-hero{margin-top:88px;min-height:calc(100vh - 88px);display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:48px;padding:0 56px;background:linear-gradient(180deg,#fff 0%,var(--off) 100%)}
-.clarity-title{font-size:clamp(34px,4.6vw,58px);font-weight:900;letter-spacing:-1.5px;color:var(--navy);line-height:1.05;margin-top:14px}
-.ch-accent{background:linear-gradient(90deg,var(--blue),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
-.clarity-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:520px;margin-top:20px}
-.clarity-hero-card{background:#fff;border:1px solid var(--bdr);border-radius:14px;box-shadow:0 30px 80px rgba(10,22,40,.12);padding:28px;max-width:420px;justify-self:end}
+.clarity-hero{margin-top:88px;min-height:calc(100vh - 88px);display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:48px;padding:64px 56px 72px;position:relative;overflow:hidden;background:#07111f;isolation:isolate}
+.clarity-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;filter:saturate(.82) contrast(1.08) brightness(.72)}
+.clarity-hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(4,10,20,.78) 0%,rgba(7,17,31,.58) 46%,rgba(7,17,31,.28) 72%,rgba(7,17,31,.42) 100%)}
+.clarity-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,10,20,.08) 0%,rgba(4,10,20,.18) 62%,rgba(4,10,20,.46) 100%);pointer-events:none}
+.clarity-hero-text{position:relative;z-index:2}
+.clarity-title{font-size:clamp(34px,4.6vw,58px);font-weight:900;letter-spacing:-1.5px;color:#fff;line-height:1.05;margin-top:14px;text-shadow:0 8px 28px rgba(0,0,0,.28)}
+.ch-accent{background:linear-gradient(90deg,#9CC7F1,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.clarity-sub{font-size:15px;color:rgba(255,255,255,.82);line-height:1.8;max-width:560px;margin-top:20px;text-shadow:0 4px 18px rgba(0,0,0,.18)}
+.clarity-hero-text .btn-operator{border-color:rgba(255,255,255,.8);color:#fff;background:rgba(7,17,31,.20);backdrop-filter:blur(8px)}
+.clarity-hero-text .btn-operator:hover{background:#fff;color:var(--navy)}
+.clarity-hero-card{position:relative;z-index:2;background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.7);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.24);padding:28px;max-width:420px;justify-self:end;backdrop-filter:blur(8px);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}.clarity-hero-card:hover,.clarity-hero-card:focus{transform:translateY(-4px);box-shadow:0 34px 90px rgba(0,0,0,.30);border-color:var(--gold2);outline:none}
 .chc-badgebar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
 .chc-badgebar span:first-child{font-size:13px;font-weight:800;color:var(--navy)}
 .chc-status{background:rgba(46,158,96,.1);color:#2E9E60;font-size:9px;letter-spacing:1.5px;padding:4px 10px;border-radius:20px;font-weight:800}
@@ -145,7 +151,7 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .chc-foot{border-top:1px solid var(--bdr);padding-top:16px}
 .chc-price{font-size:26px;font-weight:900;color:var(--gold)}
 .chc-save{font-size:11px;color:#2E9E60;margin-top:4px}
-@media(max-width:900px){.clarity-hero{grid-template-columns:1fr;padding:40px 20px;text-align:left;min-height:auto}.clarity-hero-card{justify-self:start;max-width:100%}}
+@media(max-width:900px){.clarity-hero{grid-template-columns:1fr;padding:44px 20px 54px;text-align:left;min-height:auto}.clarity-hero-card{justify-self:start;max-width:100%;width:100%}.clarity-hero-bg{min-height:100%;}}
   
 /* STATS */
 .stats-bar{background:var(--navy);padding:28px 56px;display:grid;grid-template-columns:repeat(3,1fr)}
@@ -249,8 +255,8 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .map-wrap{background:linear-gradient(135deg,#0A1628 0%,#0E2040 100%);margin:0 56px;position:relative;overflow:hidden;min-height:300px}
 .map-label{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;position:absolute;bottom:16px;left:24px;display:flex;align-items:center;gap:8px}
 .map-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
-.custom-request-section{background:var(--off);border-top:1px solid var(--bdr);padding:72px 56px 96px}
-.crs-inner{max-width:640px;margin:0 auto}
+.custom-request-section{background:var(--off);border-top:1px solid var(--bdr);padding:64px 56px 76px}
+.crs-inner{width:100%;max-width:1180px;margin:0 auto}
 .crs-title{font-size:clamp(24px,3vw,34px);font-weight:900;letter-spacing:-1px;color:var(--navy);margin:10px 0 12px}
 .crs-sub{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:36px}
 @media(max-width:768px){.custom-request-section{padding:48px 20px 64px}}
@@ -360,15 +366,15 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .pilot-btn:hover{opacity:.9;transform:translateY(-2px)}
 
 /* FOOTER */
-footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(255,255,255,.06)}
-.foot-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
+footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(255,255,255,.06)}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:20px;align-items:start}
 .foot-logo img{height:22px;filter:brightness(0) invert(1);margin-bottom:14px}
 .foot-desc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.8;max-width:240px}
 .foot-tag{font-size:9px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-top:14px;display:block}
 .foot-col h4{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:16px;font-weight:700}
 .foot-col a{display:block;font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;margin-bottom:9px;cursor:pointer;transition:color .2s}
 .foot-col a:hover{color:var(--gold2)}
-.foot-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.22);align-items:center}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:14px;display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.28);align-items:center}
 
 /* BOOKING MODAL (pre-filled from empty leg) */
 .booking-modal-box{background:#fff;max-width:640px;width:95%;position:relative;animation:pgIn .3s ease;border-radius:6px;max-height:90vh;overflow-y:auto}
@@ -973,8 +979,8 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
   .split-row{grid-template-columns:1fr;gap:16px}
 
   /* FOOTER */
-  footer{padding:48px 20px 24px}
-  .foot-top{grid-template-columns:1fr;gap:32px}
+  footer{padding:28px 20px 18px}
+  .foot-top{grid-template-columns:1fr 1fr;gap:22px;margin-bottom:18px}
   .foot-bottom{flex-direction:column;gap:10px;text-align:center}
 }
 
@@ -2515,6 +2521,9 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
 <!-- ══ HOME ══ -->
 <div class="page active" id="page-home">
   <section class="clarity-hero">
+  <video class="clarity-hero-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="assets/hero/hero-exterior.mp4" type="video/mp4">
+  </video>
   <div class="clarity-hero-text fu vis">
     <img src="auralis-logo.png" alt="Auralis SkyShare" style="height:34px;margin-bottom:18px;display:block">
     <h1 class="clarity-title">Il tuo jet privato,<br><span class="ch-accent">fino al 75% in meno.</span></h1>
@@ -2524,24 +2533,12 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       <button class="btn-operator" style="padding:16px 32px;font-size:12px" onclick="showPage('about')">Come Funziona</button>
     </div>
   </div>
-  <div class="clarity-hero-card fu vis fu1">
+  <div class="clarity-hero-card fu vis fu1" id="clarity-hero-card" role="button" tabindex="0" aria-label="Apri il prossimo volo disponibile">
     <div class="chc-badgebar">
       <span>Prossimo Volo Disponibile</span>
-      <span class="chc-status">CONFERMATO</span>
+      <span class="chc-status" style="background:rgba(74,123,196,.10);color:var(--blue)">LIVE</span>
     </div>
-    <div class="chc-route">
-      <span>MXP</span>
-      <div class="chc-line"><div></div><span>✈</span><div></div></div>
-      <span>LTN</span>
-    </div>
-    <div class="chc-meta">
-      <div><div class="v">Gulfstream G550</div><div class="k">Aeromobile</div></div>
-      <div><div class="v">2h 15m</div><div class="k">Durata</div></div>
-    </div>
-    <div class="chc-foot">
-      <div class="chc-price">€6.400</div>
-      <div class="chc-save">Risparmio 68% vs charter</div>
-    </div>
+    <div style="padding:34px 0 28px;text-align:center;color:var(--muted);font-size:13px">Caricamento ultimo volo disponibile...</div>
   </div>
 </section>
   <section class="scroll-scene" id="skyshare-scene" aria-label="Auralis SkyShare cinematic reveal">
@@ -2570,13 +2567,6 @@ footer{background:var(--navy2);padding:64px 56px 32px;border-top:1px solid rgba(
       alt="Auralis SkyShare"
     >
 
-    <button
-      class="btn-reserved hero-main-cta"
-      onclick="showPage('emptyleg')"
-      style="background:#81B0E5 !important;color:#0A1628 !important;"
-    >
-      Scopri i voli
-    </button>
 
   </div>
 </div>
@@ -2704,7 +2694,6 @@ document.addEventListener("DOMContentLoaded", () => {
   <!-- ══ CONFIGURATORE VOLO ══ -->
 <section class="cfg-section fu" id="flight-configurator">
   <div class="cfg-inner">
-    <span class="sec-eye" style="color:var(--gold2)">Su Misura</span>
     <h2 class="cfg-heading">Componi il tuo volo</h2>
 
     <div class="cfg-stats">
@@ -2832,9 +2821,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <span class="pb-icon">✈</span>
       <div><span id="prefilled-text">Volo pre-selezionato</span><small>Puoi modificare i dettagli qui sotto</small></div>
     </div>
-    <span class="sec-eye">Su Misura</span>
     <h2 class="crs-title">Non hai trovato il volo che cercavi?</h2>
-    <p class="crs-sub">Richiedi un volo su misura: compila la richiesta e un flight director dedicato ti risponderà entro 2 ore per confermare disponibilità e finalizzare ogni dettaglio.</p>
+    <p class="crs-sub">Compila la richiesta e un flight director dedicato ti risponderà entro 2 ore per confermare disponibilità e finalizzare ogni dettaglio.</p>
     <div class="form-sec">
       <div class="form-sec-label" data-n="01">Rotta</div>
       <div class="form-row">
@@ -2873,35 +2861,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 ..."></div>
       </div>
     </div>
-    <div class="form-sec">
-      <div class="form-sec-label" data-n="06">Note & Concierge</div>
-      <div class="fg"><label>Richieste Speciali</label><textarea style="resize:vertical" rows="3" placeholder="Hotel, ristoranti, transfer, richieste particolari..."></textarea></div>
-    </div>
     <button class="submit-big">Invia Richiesta di Volo →</button>
     <p class="submit-note">Richiesta senza impegno · Un flight director ti risponde entro 2 ore</p>
   </div>
 </section>
 </div>
     
-<!-- PAYMENT -->
-  <div class="form-sec">
-    <div class="form-sec-label" data-n="06">Note & Concierge</div>
-    <div class="fg"><label>Richieste Speciali</label><textarea style="resize:vertical" rows="3" placeholder="Hotel, ristoranti, transfer, richieste particolari..."></textarea></div>
-  </div>
-  <button class="submit-big">Invia Richiesta di Volo →</button>
-    <p class="submit-note">Richiesta senza impegno · Un flight director ti risponde entro 2 ore</p>
-  </div>
-    
-<!-- RIGHT: real interior photo sticky -->
-  <div class="prenota-visual-col" id="prenota-visual">
-    <img src="jetinterior.jpg" alt="Interni lusso jet privato">
-    <div class="prenota-visual-overlay">
-      <div style="font-size:9px;letter-spacing:2.5px;color:rgba(201,165,53,.7);text-transform:uppercase;margin-bottom:6px">Interni Premium</div>
-      <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px">Gulfstream G650<br><span style="font-weight:400;color:rgba(255,255,255,.6);font-size:12px">Cabina Full Flat · 18 pax</span></div>
-    </div>
-  </div>
-</div>
-</div>
 
 <!-- ══ CONTATTI ══ -->
 <div class="page" id="page-contatti">
@@ -3598,7 +3563,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <!-- FOOTER -->
 <footer id="main-footer">
   <div class="foot-top">
-    <div><div class="foot-logo"><img src="auralis-logo.png" alt="Auralis SkyShare" onclick="showPage('home')" style="height:96px;width:auto;object-fit:contain;cursor:pointer;display:block;margin-bottom:16px"></div></div>
+    <div><div class="foot-logo"><img src="auralis-logo.png" alt="Auralis SkyShare" onclick="showPage('home')" style="height:52px;width:auto;object-fit:contain;cursor:pointer;display:block;margin-bottom:8px"></div></div>
     <div class="foot-col"><h4>Navigazione</h4><a onclick="showPage('about')">Chi Siamo</a><a onclick="showPage('emptyleg')">Prenota Ora</a></div>
     <div class="foot-col"><h4>Operatori</h4><a onclick="showPage('partner')">Partner Program</a><a onclick="showPage('pilot')">Pilot Program</a></div>
     <div class="foot-col"><h4>Contatti</h4><a href="mailto:contatti@auralisair.it">contatti@auralisair.it</a></div>
@@ -3806,23 +3771,6 @@ function showPage(id){
   const current=(location.hash||'#home').replace('#','');
   if(current===id){ renderPage(id); }
   else { location.hash=id; }
-}
-
-window.addEventListener('hashchange', ()=>{
-  const id=(location.hash||'#home').replace('#','');
-  renderPage(ALL_PAGES.includes(id)?id:'home');
-});
-
-document.addEventListener('DOMContentLoaded', ()=>{
-  const initial=(location.hash||'#home').replace('#','');
-  renderPage(ALL_PAGES.includes(initial)?initial:'home');
-});
-
-function showPage(id){
-  if(!ALL_PAGES.includes(id)) id='home';
-  const current=(location.hash||'#home').replace('#','');
-  if(current===id){ renderPage(id); }        // già su quella pagina: solo un refresh visivo
-  else { location.hash=id; }                  // altrimenti cambia l'URL → scatena hashchange
 }
 
 window.addEventListener('hashchange', ()=>{
@@ -5761,41 +5709,31 @@ function renderRoutesMap(flights) {
   });
 }
 
-async function loadEmptyLegs() {
-  const grid = document.getElementById("empty-leg-grid");
-  if (!grid) return;
+function renderHeroFlightCard(flights) {
+  const card = document.getElementById('clarity-hero-card');
+  if (!card) return;
 
-  let flights;
-
-try {
-  const cachedFlights =
-    getCachedFlights();
-
-  if (!cachedFlights) {
-    grid.innerHTML = `
-      <p style="
-        color:var(--muted);
-        font-size:13px
-      ">
-        Ricerca dei voli disponibili…
-      </p>
+  if (!Array.isArray(flights) || !flights.length) {
+    card.innerHTML = `
+      <div class="chc-badgebar"><span>Prossimo Volo Disponibile</span></div>
+      <div style="padding:30px 0;text-align:center;color:var(--muted);font-size:13px">Nessun volo disponibile in questo momento.</div>
     `;
+    card.style.cursor = 'default';
+    card.onclick = null;
+    card.onkeydown = null;
+    return;
   }
 
-  flights =
-    await getEmptyLegsShared();
-} catch (error) {
-  console.error(
-    "Errore caricamento Empty Leg:",
-    error
-  );
+  const now = Date.now();
+  const availableFlights = flights
+    .filter(f => {
+      const departure = new Date(f.departureAt).getTime();
+      return Number.isFinite(departure) && departure > now;
+    })
+    .sort((a, b) => new Date(a.departureAt) - new Date(b.departureAt));
 
-  function renderHeroFlightCard(flights) {
-  const card = document.getElementById('clarity-hero-card');
-  if (!card || !flights.length) return;
-
-  const soonest = [...flights].sort(
-    (a, b) => new Date(a.departureAt) - new Date(b.departureAt)
+  const soonest = availableFlights[0] || [...flights].sort(
+    (a, b) => new Date(b.departureAt) - new Date(a.departureAt)
   )[0];
 
   const aircraft = `${soonest.aircraft?.manufacturer || ''} ${soonest.aircraft?.model || ''}`.trim();
@@ -5829,39 +5767,33 @@ try {
   `;
 
   card.style.cursor = 'pointer';
-  card.onclick = () => {
+  const openHeroFlight = () => {
     selectedEmptyLegId = soonest.id;
     selectedLegProb = soonest.confirmationProbability || null;
-    openBookingModal(soonest.fromAirport, soonest.toAirport, aircraft, `${pax} pax`, duration, date, price, saving);
+    openBookingModal(
+      soonest.fromAirport,
+      soonest.toAirport,
+      aircraft,
+      `${pax} pax`,
+      duration,
+      date,
+      price,
+      saving
+    );
+  };
+
+  card.onclick = openHeroFlight;
+  card.onkeydown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openHeroFlight();
+    }
   };
 }
 
-<div class="clarity-hero-card fu vis fu1" id="clarity-hero-card">
-
-  grid.innerHTML = `
-    <p style="
-      color:var(--muted);
-      font-size:13px
-    ">
-      Non è stato possibile caricare
-      i voli disponibili.
-    </p>
-  `;
-
-  return;
-}
-
-  if (!flights.length) {
-    grid.innerHTML = `<p style="color:var(--muted);font-size:13px">Nessun volo disponibile.</p>`;
-    return;
-  }
-
-  function formatCountdown(departureAtIso) {
+function formatCountdown(departureAtIso) {
   const departure = new Date(departureAtIso);
-  const cutoff = new Date(
-    departure.getTime() - 2 * 60 * 60 * 1000
-  );
-
+  const cutoff = new Date(departure.getTime() - 2 * 60 * 60 * 1000);
   const now = new Date();
   const diffMs = cutoff.getTime() - now.getTime();
 
@@ -5870,16 +5802,14 @@ try {
   }
 
   const totalSeconds = Math.floor(diffMs / 1000);
-
   const days = Math.floor(totalSeconds / 86400);
   const hours = Math.floor((totalSeconds % 86400) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
   let text;
-
   if (days > 0) {
-    text = `${days} ${days === 1 ? "giorno" : "d"} ${hours}h`;
+    text = `${days} ${days === 1 ? "giorno" : "giorni"} ${hours}h`;
   } else if (hours > 0) {
     text = `${hours}h ${String(minutes).padStart(2, "0")}m`;
   } else {
@@ -5893,12 +5823,15 @@ function startEmptyLegCountdowns(flights) {
   if (window._emptyLegCountdownInterval) {
     clearInterval(window._emptyLegCountdownInterval);
   }
+
   window._emptyLegCountdownInterval = setInterval(() => {
     flights.forEach((leg) => {
       const el = document.getElementById(`cd-${leg.id}`);
       if (!el) return;
+
       const { text, expired } = formatCountdown(leg.departureAt);
       el.textContent = text;
+
       if (expired) {
         const btn = document.getElementById(`btn-${leg.id}`);
         if (btn) {
@@ -5912,7 +5845,40 @@ function startEmptyLegCountdowns(flights) {
   }, 1000);
 }
 
-grid.innerHTML = flights.map((leg) => {
+async function loadEmptyLegs() {
+  const grid = document.getElementById("empty-leg-grid");
+  if (!grid) return;
+
+  let flights;
+
+  try {
+    const cachedFlights = getCachedFlights();
+
+    if (!cachedFlights) {
+      grid.innerHTML = `
+        <p style="color:var(--muted);font-size:13px">
+          Ricerca dei voli disponibili…
+        </p>
+      `;
+    }
+
+    flights = await getEmptyLegsShared();
+  } catch (error) {
+    console.error("Errore caricamento Empty Leg:", error);
+    grid.innerHTML = `
+      <p style="color:var(--muted);font-size:13px">
+        Non è stato possibile caricare i voli disponibili.
+      </p>
+    `;
+    return;
+  }
+
+  if (!Array.isArray(flights) || !flights.length) {
+    grid.innerHTML = `<p style="color:var(--muted);font-size:13px">Nessun volo disponibile.</p>`;
+    return;
+  }
+
+  grid.innerHTML = flights.map((leg) => {
     const aircraft = `${leg.aircraft?.manufacturer || ""} ${leg.aircraft?.model || ""}`.trim();
     const pax = leg.availablePax || leg.aircraft?.maxPax || "-";
     const duration = formatDuration(leg.durationMin || 0);
@@ -5931,7 +5897,6 @@ grid.innerHTML = flights.map((leg) => {
             <span class="el-iata">${leg.fromAirport}</span>
             <div class="el-city">${leg.fromCity || ""}</div>
           </div>
-          
           <div class="el-arr"><div class="el-line"></div><span class="el-ico">✈</span><div class="el-line"></div></div>
           <div>
             <span class="el-iata">${leg.toAirport}</span>
@@ -6351,7 +6316,7 @@ function cfgRender() {
     stage.innerHTML = `<div class="cfg-q">Da dove parti?</div>
       <div class="cfg-cards">` + (origins.length
         ? origins.map((c, i) => `<div class="cfg-card" style="animation-delay:${i * 0.08}s" onclick="cfgPickFrom('${c}')"><div class="cc-code">${c}</div><div class="cc-city">${cfgCityLabel(c)}</div></div>`).join("")
-        : `<div class="cfg-empty" style="animation-delay:.1s">Nessun volo disponibile in questo momento — <span style="color:var(--gold2);cursor:pointer;text-decoration:underline" onclick="showPage('prenota')">richiedi un volo su misura</span>.</div>`) + `</div>`;
+        : `<div class="cfg-empty" style="animation-delay:.1s">Nessun volo disponibile in questo momento — <span style="color:var(--gold2);cursor:pointer;text-decoration:underline" onclick="showPage('prenota')">richiedi un volo</span>.</div>`) + `</div>`;
   }
 
   if (cfgState.step === 2) {
@@ -6410,8 +6375,8 @@ function cfgCustom() {
   cfgSetProgress();
   const stage = document.getElementById("cfg-stage");
   stage.innerHTML = `<div class="cfg-q">Nessun volo su questa rotta oggi</div>
-    <div class="cfg-empty" style="animation-delay:.1s">Creiamo il tuo volo su misura: raccontaci dove vuoi andare e un flight director ti risponde entro 2 ore.</div>
-    <button class="cfg-confirm" onclick="prenotaVolo('${cfgCityLabel(cfgState.from) || ""}','${cfgState.to ? cfgCityLabel(cfgState.to) : ""}','Volo su misura','')">Richiedi il tuo volo →</button>`;
+    <div class="cfg-empty" style="animation-delay:.1s">Creiamo il tuo volo: raccontaci dove vuoi andare e un flight director ti risponde entro 2 ore.</div>
+    <button class="cfg-confirm" onclick="prenotaVolo('${cfgCityLabel(cfgState.from) || ""}','${cfgState.to ? cfgCityLabel(cfgState.to) : ""}','Volo personalizzato','')">Richiedi il tuo volo →</button>`;
 }
 
 </script>
