@@ -2437,6 +2437,138 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
   .progress-indicator{display:none;}
 }
 
+
+/* ═══════════════════════════════════════════════
+   HOME — BLOG PREVIEW / EDITORIAL JOURNAL
+════════════════════════════════════════════════ */
+.home-journal{
+  background:#fff;
+  padding:88px 56px 92px;
+  border-top:1px solid var(--bdr);
+}
+.home-journal-inner{max-width:1180px;margin:0 auto;}
+.home-journal-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:28px;
+  margin-bottom:38px;
+}
+.home-journal-kicker{
+  display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  font-weight:800;color:var(--gold);margin-bottom:10px;
+}
+.home-journal-title{
+  font-size:clamp(30px,4vw,48px);line-height:1.02;letter-spacing:-1.7px;
+  color:var(--navy);font-weight:900;max-width:650px;
+}
+.home-journal-all{
+  flex:0 0 auto;color:var(--navy);text-decoration:none;font-size:11px;
+  text-transform:uppercase;letter-spacing:1.7px;font-weight:800;
+  padding-bottom:7px;border-bottom:1px solid var(--gold);transition:.2s ease;
+}
+.home-journal-all:hover{color:var(--gold);}
+.home-journal-grid{
+  display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.85fr);
+  gap:18px;align-items:stretch;
+}
+.home-journal-feature{
+  position:relative;min-height:430px;border-radius:16px;overflow:hidden;
+  background:#0A1628;color:#fff;text-decoration:none;
+  border:1px solid rgba(10,22,40,.08);
+  box-shadow:0 22px 70px rgba(10,22,40,.10);
+}
+.home-journal-feature img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.home-journal-feature::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,12,22,.10) 18%,rgba(5,12,22,.88) 100%);
+}
+.home-journal-feature-content{
+  position:absolute;z-index:2;left:34px;right:34px;bottom:32px;
+}
+.home-article-meta{
+  font-size:9px;letter-spacing:2.2px;text-transform:uppercase;font-weight:800;
+  color:var(--gold2);margin-bottom:12px;
+}
+.home-journal-feature h3{
+  font-size:clamp(28px,3vw,42px);line-height:1.02;letter-spacing:-1.3px;
+  margin:0 0 12px;font-weight:900;color:#fff;max-width:650px;
+}
+.home-journal-feature p{font-size:13px;line-height:1.65;color:rgba(255,255,255,.72);max-width:620px;}
+.home-journal-feature .read-more{
+  display:inline-block;margin-top:18px;font-size:10px;letter-spacing:1.6px;
+  text-transform:uppercase;font-weight:800;color:#fff;border-bottom:1px solid var(--gold2);padding-bottom:5px;
+}
+.home-journal-side{display:grid;grid-template-rows:1fr 1fr;gap:18px;}
+.home-journal-card{
+  background:var(--off);border:1px solid var(--bdr);border-radius:14px;
+  padding:28px 28px 26px;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:206px;text-decoration:none;transition:.25s ease;
+}
+.home-journal-card:hover{transform:translateY(-3px);border-color:var(--bdr-g);background:#fff;box-shadow:0 14px 45px rgba(10,22,40,.07);}
+.home-journal-card .index{
+  font-size:32px;line-height:1;font-weight:900;color:rgba(10,22,40,.10);letter-spacing:-1px;
+}
+.home-journal-card h3{
+  font-size:22px;line-height:1.08;letter-spacing:-.7px;color:var(--navy);font-weight:900;margin:12px 0 10px;
+}
+.home-journal-card p{font-size:12px;line-height:1.6;color:var(--muted);}
+.home-journal-card .card-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;}
+.home-journal-card .card-link{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800;color:var(--navy);}
+.home-journal-card .coming{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);font-weight:800;}
+
+/* HOME — inline newsletter */
+.home-newsletter{
+  background:linear-gradient(135deg,#0A1628 0%,#0F2340 100%);
+  padding:64px 56px 68px;color:#fff;
+}
+.home-newsletter-inner{
+  max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.15fr;
+  gap:64px;align-items:center;
+}
+.home-newsletter-kicker{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);font-weight:800;margin-bottom:10px;}
+.home-newsletter h2{font-size:clamp(28px,3.2vw,42px);line-height:1.04;letter-spacing:-1.3px;font-weight:900;color:#fff;margin:0;}
+.home-newsletter-copy{font-size:13px;line-height:1.7;color:rgba(255,255,255,.58);margin-top:14px;max-width:520px;}
+.home-newsletter-form{display:grid;gap:11px;}
+.home-newsletter-row{display:flex;gap:10px;}
+.home-newsletter-email{
+  flex:1;min-width:0;background:#fff;border:1px solid rgba(255,255,255,.16);
+  border-radius:8px;padding:14px 15px;font:inherit;font-size:14px;color:var(--navy);outline:none;
+}
+.home-newsletter-email:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(232,201,106,.12);}
+.home-newsletter-submit{
+  border:0;border-radius:8px;padding:14px 22px;background:var(--gold2);color:var(--navy);
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:900;cursor:pointer;transition:.2s ease;white-space:nowrap;
+}
+.home-newsletter-submit:hover{background:#fff;transform:translateY(-1px);}
+.home-newsletter-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.home-newsletter-consent{display:flex;gap:9px;align-items:flex-start;font-size:10px;line-height:1.5;color:rgba(255,255,255,.48);}
+.home-newsletter-consent input{margin-top:2px;accent-color:var(--gold2);}
+.home-newsletter-status{display:none;font-size:11px;line-height:1.5;padding:9px 11px;border-radius:7px;}
+.home-newsletter-status.ok{display:block;background:rgba(61,190,119,.12);color:#AEEBC7;}
+.home-newsletter-status.err{display:block;background:rgba(235,96,96,.12);color:#FFC0C0;}
+.home-newsletter-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;}
+
+@media(max-width:900px){
+  .home-journal{padding:68px 28px 72px;}
+  .home-journal-grid{grid-template-columns:1fr;}
+  .home-journal-side{grid-template-columns:1fr 1fr;grid-template-rows:none;}
+  .home-newsletter{padding:56px 28px 60px;}
+  .home-newsletter-inner{grid-template-columns:1fr;gap:30px;}
+}
+@media(max-width:600px){
+  .home-journal{padding:54px 20px 58px;}
+  .home-journal-head{align-items:flex-start;flex-direction:column;margin-bottom:28px;}
+  .home-journal-title{font-size:34px;}
+  .home-journal-feature{min-height:390px;border-radius:13px;}
+  .home-journal-feature-content{left:22px;right:22px;bottom:24px;}
+  .home-journal-feature h3{font-size:31px;}
+  .home-journal-side{grid-template-columns:1fr;}
+  .home-journal-card{min-height:190px;padding:24px;}
+  .home-newsletter{padding:48px 20px 52px;}
+  .home-newsletter-row{flex-direction:column;}
+  .home-newsletter-submit{width:100%;}
+}
+
 /* ═══════════════════════════════════════════════
    NEWSLETTER POPUP
 ════════════════════════════════════════════════ */
@@ -2856,6 +2988,77 @@ document.addEventListener("DOMContentLoaded", () => {
     <button class="cfg-back" id="cfg-back" onclick="cfgBack()" style="display:none">← Indietro</button>
   </div>
 </section>
+
+  <!-- ══ HOME EDITORIAL / BLOG PREVIEW ══ -->
+  <section class="home-journal fu" aria-labelledby="home-journal-title">
+    <div class="home-journal-inner">
+      <div class="home-journal-head">
+        <div>
+          <span class="home-journal-kicker">Auralis Journal</span>
+          <h2 class="home-journal-title" id="home-journal-title">Capire il volo privato, prima di prenotarlo.</h2>
+        </div>
+        <a class="home-journal-all" href="blog/">Vai al Blog →</a>
+      </div>
+
+      <div class="home-journal-grid">
+        <a class="home-journal-feature" href="blog/cosa-sono-empty-leg/" aria-label="Leggi: Cosa sono gli Empty Leg?">
+          <img src="assets/hero/hero-interior.jpg" alt="Interno di un jet privato Auralis" loading="lazy">
+          <div class="home-journal-feature-content">
+            <div class="home-article-meta">01 · Empty Leg · 03 min read</div>
+            <h3>Cosa sono gli Empty Leg?</h3>
+            <p>Perché alcuni jet privati devono riposizionarsi senza passeggeri, come nasce un Empty Leg e quali differenze ci sono rispetto a un charter tradizionale.</p>
+            <span class="read-more">Leggi l'articolo →</span>
+          </div>
+        </a>
+
+        <div class="home-journal-side">
+          <a class="home-journal-card" href="blog/" aria-label="Scopri nel Blog: Quanto costa un Empty Leg?">
+            <div>
+              <div class="index">02</div>
+              <div class="home-article-meta">Prezzi · 03 min read</div>
+              <h3>Quanto costa un Empty Leg?</h3>
+              <p>Le variabili che incidono sul prezzo e perché non esiste una tariffa unica valida per tutte le rotte.</p>
+            </div>
+            <div class="card-foot"><span class="card-link">Scopri nel Blog →</span><span class="coming">In arrivo</span></div>
+          </a>
+
+          <a class="home-journal-card" href="blog/" aria-label="Scopri nel Blog: Empty Leg vs charter privato">
+            <div>
+              <div class="index">03</div>
+              <div class="home-article-meta">Confronto · 04 min read</div>
+              <h3>Empty Leg vs charter privato</h3>
+              <p>Flessibilità, prezzo, disponibilità e cancellazioni: le differenze da conoscere prima di scegliere.</p>
+            </div>
+            <div class="card-foot"><span class="card-link">Scopri nel Blog →</span><span class="coming">In arrivo</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HOME NEWSLETTER ══ -->
+  <section class="home-newsletter fu" aria-labelledby="home-newsletter-title">
+    <div class="home-newsletter-inner">
+      <div>
+        <div class="home-newsletter-kicker">Auralis Updates</div>
+        <h2 id="home-newsletter-title">Nuove rotte, Empty Leg e guide. Senza rumore.</h2>
+        <p class="home-newsletter-copy">Ricevi solo gli aggiornamenti che contano: nuove disponibilità, rotte selezionate e approfondimenti sul volo privato.</p>
+      </div>
+
+      <form class="home-newsletter-form" id="home-newsletter-form" novalidate>
+        <div class="home-newsletter-row">
+          <input class="home-newsletter-email" id="home-newsletter-email" name="email" type="email" autocomplete="email" placeholder="La tua email" required>
+          <button class="home-newsletter-submit" id="home-newsletter-submit" type="submit">Iscriviti</button>
+        </div>
+        <label class="home-newsletter-consent">
+          <input id="home-newsletter-consent" name="consent" type="checkbox" required>
+          <span>Acconsento a ricevere comunicazioni e aggiornamenti Auralis. Posso annullare l'iscrizione in qualsiasi momento.</span>
+        </label>
+        <input class="home-newsletter-hp" name="company_website" id="home-newsletter-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="home-newsletter-status" id="home-newsletter-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
 
   <!-- INTERIOR PHOTO STRIP -->
   <div class="interior-strip fu">
@@ -6628,6 +6831,68 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
+<script>
+(function(){
+  const form = document.getElementById('home-newsletter-form');
+  if (!form) return;
+
+  const emailInput = document.getElementById('home-newsletter-email');
+  const consentInput = document.getElementById('home-newsletter-consent');
+  const submitBtn = document.getElementById('home-newsletter-submit');
+  const status = document.getElementById('home-newsletter-status');
+  const hp = document.getElementById('home-newsletter-hp');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.className = 'home-newsletter-status';
+    status.textContent = '';
+
+    const email = (emailInput.value || '').trim();
+    if (!email || !emailInput.checkValidity()) {
+      status.className = 'home-newsletter-status err';
+      status.textContent = 'Inserisci un indirizzo email valido.';
+      emailInput.focus();
+      return;
+    }
+    if (!consentInput.checked) {
+      status.className = 'home-newsletter-status err';
+      status.textContent = 'Per iscriverti è necessario prestare il consenso alle comunicazioni.';
+      return;
+    }
+    if (hp && hp.value) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Invio…';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/newsletter/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({
+          email,
+          consent: true,
+          source: 'homepage_inline',
+          consentAt: new Date().toISOString()
+        })
+      });
+      const data = await response.json().catch(()=>({}));
+      if (!response.ok) throw new Error(data.error || 'Iscrizione non riuscita');
+
+      status.className = 'home-newsletter-status ok';
+      status.textContent = 'Perfetto. Controlla la tua inbox per completare l’iscrizione.';
+      form.reset();
+    } catch (err) {
+      console.error('Homepage newsletter subscribe error:', err);
+      status.className = 'home-newsletter-status err';
+      status.textContent = 'Newsletter in configurazione. Riprova tra poco.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Iscriviti';
+    }
+  });
+})();
+</script>
 
 <script>
 (function(){
