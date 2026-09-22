@@ -259,9 +259,13 @@ body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#fff;c
 .step-d{font-size:13px;color:var(--muted);line-height:1.75}
 
 /* INTERIOR PHOTO STRIP */
-.interior-strip{width:100%;overflow:hidden;position:relative;height:280px;margin:0 0 0}
-.interior-strip img{width:100%;height:100%;object-fit:cover;object-position:center 58%}
-.interior-strip-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,22,40,.5) 0%,transparent 40%,transparent 60%,rgba(10,22,40,.5) 100%)}
+.interior-strip{width:100%;overflow:hidden;position:relative;height:360px;margin:0 0 0}
+.interior-strip img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 55%;
+}.interior-strip-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,22,40,.5) 0%,transparent 40%,transparent 60%,rgba(10,22,40,.5) 100%)}
 .interior-strip-text{position:absolute;left:56px;top:50%;transform:translateY(-50%);color:#fff}
 .interior-strip-text span{font-size:9px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;display:block;margin-bottom:8px}
 .interior-strip-text h3{font-size:28px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1.1}
@@ -3035,9 +3039,9 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </section>
 
-  <!-- INTERIOR PHOTO STRIP -->
+  <!-- FINAL PHOTO STRIP -->
   <div class="interior-strip fu interior-strip-clean">
-    <img src="assets/hero/hero-interior.jpg" alt="Interno di un jet privato">
+    <img src="/champagne_jet.jpg" alt="Cabina di un jet privato">
   </div>
 
 </div><!-- /home -->
