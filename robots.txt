@@ -7,4 +7,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://www.auralisair.it/sitemap.xml
+Sitemap: https://auralisair.it/sitemap.xml
