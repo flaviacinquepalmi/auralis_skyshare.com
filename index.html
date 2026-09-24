@@ -2771,6 +2771,417 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
   ]
 }
 </script>
+
+<style id="auralis-luxury-visual-draft">
+/* =========================================================
+   AURALIS — LUXURY VISUAL DRAFT V2
+   Intervento più visibile ma selettivo. Nessun layout,
+   contenuto o comportamento applicativo viene modificato.
+   ========================================================= */
+:root{
+  --lux-ease:cubic-bezier(.22,.75,.16,1);
+  --lux-gold:#E8C96A;
+  --lux-gold-soft:rgba(232,201,106,.18);
+  --lux-blue-soft:rgba(129,176,229,.16);
+  --lux-shadow:0 22px 60px rgba(5,13,26,.14);
+  --lux-shadow-deep:0 34px 90px rgba(5,13,26,.22);
+}
+
+/* 1) NAVBAR — vetro più evidente e link "pill" */
+#mainnav{
+  background:linear-gradient(180deg,rgba(255,255,255,.93),rgba(248,250,253,.82)) !important;
+  border-bottom:1px solid rgba(255,255,255,.72) !important;
+  box-shadow:0 14px 45px rgba(6,15,28,.10), inset 0 -1px 0 rgba(10,22,40,.04) !important;
+  backdrop-filter:blur(26px) saturate(160%) !important;
+  -webkit-backdrop-filter:blur(26px) saturate(160%) !important;
+}
+.nav-links a{
+  border:1px solid transparent;
+  transition:all .28s var(--lux-ease) !important;
+}
+.nav-links a:hover,.nav-links a.active-link{
+  background:rgba(255,255,255,.72) !important;
+  border-color:rgba(10,22,40,.07);
+  box-shadow:0 8px 20px rgba(10,22,40,.07), inset 0 1px 0 rgba(255,255,255,.9);
+  transform:translateY(-2px);
+}
+
+/* 2) CTA — profondità, bordo luce e micro-glow */
+.btn-reserved,.el-btn,.submit-big,.customer-primary-btn,.cont-btn,.pilot-btn{
+  border:1px solid rgba(255,255,255,.10) !important;
+  box-shadow:0 13px 30px rgba(7,17,31,.24), inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.12) !important;
+  transition:all .3s var(--lux-ease) !important;
+}
+.btn-reserved:hover,.el-btn:hover,.submit-big:hover,.customer-primary-btn:hover,.cont-btn:hover,.pilot-btn:hover{
+  transform:translateY(-3px) scale(1.015) !important;
+  box-shadow:0 21px 42px rgba(7,17,31,.28), 0 0 0 1px rgba(232,201,106,.18), 0 0 28px rgba(232,201,106,.10) !important;
+}
+.btn-operator,.customer-secondary-btn{
+  background:rgba(255,255,255,.66) !important;
+  border-color:rgba(10,22,40,.16) !important;
+  box-shadow:0 8px 24px rgba(10,22,40,.08), inset 0 1px 0 rgba(255,255,255,.95);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+
+/* 3) HERO CARD — vera superficie premium */
+.clarity-hero-card{
+  background:linear-gradient(150deg,rgba(255,255,255,.97) 0%,rgba(247,249,252,.90) 58%,rgba(235,242,250,.84) 100%) !important;
+  border:1px solid rgba(255,255,255,.92) !important;
+  border-radius:20px !important;
+  box-shadow:0 42px 110px rgba(0,0,0,.32), 0 0 0 1px rgba(129,176,229,.08), inset 0 1px 0 rgba(255,255,255,1) !important;
+  backdrop-filter:blur(22px) saturate(140%) !important;
+  -webkit-backdrop-filter:blur(22px) saturate(140%) !important;
+  overflow:hidden;
+}
+.clarity-hero-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(232,201,106,.85),rgba(129,176,229,.6),transparent);
+  z-index:3;
+}
+.clarity-hero-card::after{
+  content:"";position:absolute;width:260px;height:260px;right:-120px;top:-145px;
+  background:radial-gradient(circle,rgba(232,201,106,.30),rgba(129,176,229,.10) 42%,transparent 72%);
+  pointer-events:none;
+}
+.clarity-hero-card:hover{
+  transform:translateY(-10px) scale(1.012) !important;
+  box-shadow:0 55px 130px rgba(0,0,0,.36), 0 0 0 1px rgba(232,201,106,.18), inset 0 1px 0 rgba(255,255,255,1) !important;
+}
+
+/* 4) CONFIGURATORE — superfici più leggibili e hover deciso */
+.cfg-section::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 16% 18%,rgba(129,176,229,.11),transparent 28%),radial-gradient(circle at 84% 72%,rgba(232,201,106,.09),transparent 30%);
+}
+.cfg-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:14px !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.10) !important;
+  backdrop-filter:blur(12px);
+}
+.cfg-card:hover{
+  background:linear-gradient(145deg,rgba(232,201,106,.16),rgba(255,255,255,.06)) !important;
+  border-color:rgba(232,201,106,.62) !important;
+  transform:translateY(-7px) scale(1.02) !important;
+  box-shadow:0 28px 60px rgba(0,0,0,.22),0 0 30px rgba(232,201,106,.08) !important;
+}
+.cfg-flight{
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:16px !important;
+  box-shadow:0 26px 70px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+.cfg-confirm{border-radius:8px !important;box-shadow:0 16px 40px rgba(201,165,53,.28) !important}
+
+/* 5) EMPTY LEG — card più editoriali/luxury */
+.el-card{
+  background:linear-gradient(150deg,#fff 0%,#fbfcfe 72%,#f3f7fb 100%) !important;
+  border:1px solid rgba(10,22,40,.075) !important;
+  border-radius:14px !important;
+  box-shadow:0 18px 45px rgba(10,22,40,.08), inset 0 1px 0 rgba(255,255,255,.95) !important;
+}
+.el-card::after{
+  content:"";position:absolute;inset:-30% -50%;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.72) 49%,rgba(232,201,106,.12) 52%,transparent 60%);
+  transform:translateX(-70%) rotate(4deg);transition:transform .9s var(--lux-ease);pointer-events:none;
+}
+.el-card:hover{
+  transform:translateY(-10px) !important;
+  border-color:rgba(201,165,53,.30) !important;
+  box-shadow:0 32px 68px rgba(10,22,40,.15),0 0 0 1px rgba(232,201,106,.10) !important;
+}
+.el-card:hover::after{transform:translateX(70%) rotate(4deg)}
+.price-current,.el-price{filter:drop-shadow(0 8px 18px rgba(201,165,53,.16))}
+
+/* 6) MODAL PRENOTAZIONE — hospitality suite */
+.modal-overlay{
+  background:rgba(2,7,15,.76) !important;
+  backdrop-filter:blur(18px) saturate(125%) !important;
+  -webkit-backdrop-filter:blur(18px) saturate(125%) !important;
+}
+.booking-modal-box,.reserved-box,.modal-box{
+  border-radius:18px !important;
+  border:1px solid rgba(255,255,255,.70) !important;
+  box-shadow:0 50px 140px rgba(1,5,12,.50),0 0 0 1px rgba(129,176,229,.08),inset 0 1px 0 rgba(255,255,255,.92) !important;
+  overflow:hidden;
+}
+.booking-modal-body,.reserved-body{background:linear-gradient(180deg,#fff,#f8fafc)}
+.booking-modal-head,.reserved-header{
+  background:linear-gradient(135deg,#07111f 0%,#0e2340 58%,#17385f 100%) !important;
+  position:relative;overflow:hidden;
+}
+.booking-modal-head::after,.reserved-header::after{
+  content:"";position:absolute;width:330px;height:180px;right:-100px;top:-125px;
+  background:radial-gradient(circle,rgba(232,201,106,.34),rgba(129,176,229,.11) 46%,transparent 72%);pointer-events:none;
+}
+
+/* 7) INPUT — focus visibile ma raffinato */
+.fg input,.fg select,.fg textarea,.cont-input,.res-input,.home-newsletter-email,.newsletter-email{
+  border-radius:8px !important;
+  background:rgba(255,255,255,.86) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+  transition:all .24s ease !important;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus,.cont-input:focus,.res-input:focus,.home-newsletter-email:focus,.newsletter-email:focus{
+  border-color:rgba(201,165,53,.70) !important;
+  box-shadow:0 0 0 4px rgba(232,201,106,.13),0 16px 34px rgba(10,22,40,.09),inset 0 1px 0 rgba(255,255,255,1) !important;
+  transform:translateY(-1px);
+}
+
+/* 8) DASHBOARD — più contrasto, layer e card flottanti */
+.customer-main{
+  background:radial-gradient(circle at 88% 0%,rgba(129,176,229,.12),transparent 30%),radial-gradient(circle at 2% 92%,rgba(232,201,106,.08),transparent 28%),linear-gradient(180deg,#f9fbfd,#f3f6fa) !important;
+}
+.customer-summary-card,.customer-panel,.flight-ticket-detail{
+  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(248,250,253,.90)) !important;
+  border:1px solid rgba(255,255,255,.95) !important;
+  border-radius:16px !important;
+  box-shadow:0 22px 55px rgba(10,22,40,.09),0 0 0 1px rgba(10,22,40,.035),inset 0 1px 0 rgba(255,255,255,1) !important;
+}
+.customer-summary-card{transition:all .3s var(--lux-ease) !important}
+.customer-summary-card:hover{
+  transform:translateY(-7px) scale(1.01);
+  box-shadow:0 34px 70px rgba(10,22,40,.13),0 0 0 1px rgba(129,176,229,.08),inset 0 1px 0 rgba(255,255,255,1) !important;
+}
+.customer-sidebar{box-shadow:18px 0 55px rgba(10,22,40,.07) !important}
+.customer-menu-item.active{box-shadow:0 10px 28px rgba(10,22,40,.10),inset 0 1px 0 rgba(255,255,255,.6)}
+
+/* Passenger Wallet: non cambiamo composizione, solo luce coerente */
+.passenger-wallet-card,.passenger-contact-card,.passenger-directory-card{
+  box-shadow:0 22px 58px rgba(10,22,40,.10),inset 0 1px 0 rgba(255,255,255,.85) !important;
+}
+
+/* 9) NEWSLETTER + FOOTER — layering più evidente */
+.home-newsletter{
+  position:relative;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 -20px 50px rgba(5,13,26,.08);
+}
+.home-newsletter::before{
+  content:"";position:absolute;width:620px;height:620px;left:-320px;bottom:-410px;border-radius:50%;
+  background:radial-gradient(circle,rgba(129,176,229,.14),transparent 67%);pointer-events:none;
+}
+.home-newsletter::after{
+  content:"";position:absolute;width:520px;height:520px;right:-270px;top:-300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,201,106,.14),transparent 68%);pointer-events:none;
+}
+footer{
+  position:relative;
+  box-shadow:0 -28px 70px rgba(3,8,17,.16) !important;
+  border-top:1px solid rgba(255,255,255,.09) !important;
+}
+footer::before{
+  content:"";position:absolute;top:0;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,201,106,.34),rgba(129,176,229,.25),transparent);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .el-card::after{display:none}
+  .el-card,.clarity-hero-card,.customer-summary-card,.btn-reserved,.el-btn,.submit-big,.customer-primary-btn,.cfg-card{transition:none !important}
+}
+@media(max-width:768px){
+  #mainnav{background:rgba(255,255,255,.95) !important}
+  .clarity-hero-card{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .el-card:hover,.customer-summary-card:hover,.cfg-card:hover{transform:none !important}
+}
+</style>
+
+
+<style id="auralis-soft-bubble-v3">
+/* =========================================================
+   AURALIS SOFT BUBBLE SYSTEM — Luxury V3
+   Inspired by soft, continuous mobile surfaces without
+   changing layout, content, routing or functionality.
+   ========================================================= */
+:root{
+  --bubble-r-xs:14px;
+  --bubble-r-sm:18px;
+  --bubble-r-md:22px;
+  --bubble-r-lg:28px;
+  --bubble-r-xl:34px;
+  --bubble-r-pill:999px;
+  --bubble-border:rgba(10,22,40,.08);
+  --bubble-shadow:0 18px 48px rgba(10,22,40,.08), inset 0 1px 0 rgba(255,255,255,.86);
+  --bubble-shadow-hover:0 26px 64px rgba(10,22,40,.12), inset 0 1px 0 rgba(255,255,255,.92);
+}
+
+/* Form controls: softer continuous shapes */
+.fg input,.fg select,.fg textarea,
+.cont-input,.res-input,.home-newsletter-email,.newsletter-email,
+.customer-profile-form input,.customer-profile-form select,
+.passenger-contact-select,
+input[type="text"],input[type="email"],input[type="tel"],input[type="date"],input[type="time"],input[type="number"],select,textarea{
+  border-radius:var(--bubble-r-sm) !important;
+}
+
+/* Larger form rows / panels become one soft surface */
+.pax-body,.customer-profile-form,.contact-form,.custom-request-form,
+.passenger-wallet-form,.passenger-editor-form,
+.booking-modal-body .bm-details,.booking-modal-body .split-box,
+.newsletter-form,.home-newsletter-form{
+  border-radius:var(--bubble-r-lg) !important;
+}
+
+/* Buttons, pills and compact controls */
+.btn-reserved,.btn-operator,.el-btn,.submit-big,.customer-primary-btn,.customer-secondary-btn,
+.customer-text-btn,.res-btn,.newsletter-submit,.home-newsletter-submit,.cfg-confirm,
+.customer-filter,.res-tab,.fc-opt,.wallet-action-button,
+button[type="submit"],button[type="button"].pill,
+.passenger-wallet-add,.passenger-wallet-action,.passenger-contact-trigger{
+  border-radius:var(--bubble-r-pill) !important;
+}
+
+/* Cards / bubbles */
+.clarity-hero-card,.el-card,.cfg-card,.cfg-flight,
+.customer-summary-card,.customer-panel,.flight-ticket-detail,
+.passenger-wallet-card,.passenger-contact-card,.passenger-directory-card,
+.passenger-quick-card,.passenger-sheet,.passenger-sheet-card,
+.newsletter-modal,.reserved-box,.modal-box,.booking-modal-box,
+.custom-alert,.custom-alert-box,.customer-empty-state,
+.home-newsletter-inner,.flight-wallet-pocket{
+  border-radius:var(--bubble-r-lg) !important;
+}
+
+/* Booking/passenger sections should feel like iOS-style grouped bubbles */
+#passengers-wrap .pax-block,
+#extra-pax .pax-block,
+.passenger-selector-shell,
+.saved-contact-picker,
+.passenger-picker-trigger,
+.passenger-directory-row,
+.passenger-row,
+.passenger-contact-row{
+  border-radius:var(--bubble-r-md) !important;
+  overflow:hidden;
+}
+
+/* Soft grouped surface for passenger form body */
+#passengers-wrap .pax-body,
+#extra-pax .pax-body{
+  background:linear-gradient(180deg,rgba(245,247,250,.98),rgba(239,242,246,.95)) !important;
+  border:1px solid rgba(10,22,40,.055) !important;
+  padding:18px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96) !important;
+}
+#passengers-wrap .pax-body .fg,
+#extra-pax .pax-body .fg{
+  margin-bottom:10px;
+}
+#passengers-wrap .pax-body .fg input,
+#passengers-wrap .pax-body .fg select,
+#extra-pax .pax-body .fg input,
+#extra-pax .pax-body .fg select{
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid rgba(10,22,40,.065) !important;
+  min-height:48px;
+  padding:13px 16px !important;
+}
+
+/* Passenger/contact picker: make the dropdown look unmistakably selectable */
+.passenger-picker-trigger,.passenger-contact-trigger,.saved-contact-picker,
+.passenger-contact-select + button,.contact-picker-trigger{
+  background:linear-gradient(180deg,#f4f5f7,#eceef1) !important;
+  border:1px solid rgba(10,22,40,.06) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 22px rgba(10,22,40,.055) !important;
+}
+
+/* Nav / dropdown / chips */
+.nav-links a,.customer-menu-item,.cfg-chip,.chip,.tag,.badge,.status-badge,
+.customer-status-badge,.flight-status-badge,.pax-num-badge{
+  border-radius:var(--bubble-r-pill) !important;
+}
+
+/* Inputs: more premium resting state, stronger focus */
+.fg input,.fg select,.fg textarea,.cont-input,.res-input,
+.home-newsletter-email,.newsletter-email,
+.customer-profile-form input,.customer-profile-form select{
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(247,249,252,.96)) !important;
+  border:1px solid rgba(10,22,40,.075) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,1),0 6px 18px rgba(10,22,40,.035) !important;
+}
+.fg input:hover,.fg select:hover,.fg textarea:hover,
+.cont-input:hover,.res-input:hover,.customer-profile-form input:hover,.customer-profile-form select:hover{
+  border-color:rgba(10,22,40,.14) !important;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus,.cont-input:focus,.res-input:focus,
+.home-newsletter-email:focus,.newsletter-email:focus,.customer-profile-form input:focus,.customer-profile-form select:focus{
+  border-color:rgba(201,165,53,.48) !important;
+  box-shadow:0 0 0 4px rgba(232,201,106,.11),0 14px 32px rgba(10,22,40,.08),inset 0 1px 0 #fff !important;
+}
+
+/* Dashboard & directory cards — rounder but still editorial */
+.customer-summary-card,.customer-panel,.flight-ticket-detail,
+.passenger-wallet-card,.passenger-directory-card{
+  box-shadow:var(--bubble-shadow) !important;
+}
+.customer-summary-card:hover,.passenger-directory-card:hover,.passenger-wallet-card:hover{
+  box-shadow:var(--bubble-shadow-hover) !important;
+}
+
+/* Empty-leg card: rounder, but not full pill */
+.el-card{border-radius:26px !important;overflow:hidden}
+
+/* Modal silhouettes */
+.booking-modal-box,.reserved-box,.newsletter-modal,.modal-box{
+  border-radius:32px !important;
+}
+.booking-modal-head,.reserved-header{
+  border-radius:32px 32px 0 0 !important;
+}
+.newsletter-modal{overflow:hidden}
+
+/* Search bars and quick selectors */
+.passenger-search,.passenger-search input,.search-input,.customer-search input{
+  border-radius:var(--bubble-r-pill) !important;
+}
+
+/* Soft hover for interactive bubbles */
+.customer-primary-btn,.customer-secondary-btn,.el-btn,.btn-reserved,.btn-operator,
+.passenger-wallet-add,.passenger-wallet-action,.passenger-picker-trigger,.passenger-contact-trigger{
+  transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease !important;
+}
+.customer-primary-btn:hover,.customer-secondary-btn:hover,.el-btn:hover,.btn-reserved:hover,.btn-operator:hover,
+.passenger-wallet-add:hover,.passenger-wallet-action:hover,.passenger-picker-trigger:hover,.passenger-contact-trigger:hover{
+  transform:translateY(-2px);
+}
+
+@media(max-width:768px){
+  .booking-modal-box,.reserved-box,.newsletter-modal,.modal-box{border-radius:28px !important}
+  .customer-summary-card,.customer-panel,.flight-ticket-detail,.el-card,.cfg-flight{border-radius:24px !important}
+  .pax-body{border-radius:22px !important}
+}
+</style>
+
+
+<style>
+/* ===== OPERATOR COLLABORATION MODAL ===== */
+.operator-collab-overlay{position:fixed;inset:0;z-index:9998;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(4,12,24,.68);backdrop-filter:blur(18px) saturate(120%);-webkit-backdrop-filter:blur(18px) saturate(120%)}
+.operator-collab-overlay.open{display:flex}
+.operator-collab-modal{position:relative;width:min(760px,100%);max-height:min(900px,92vh);overflow:auto;border:1px solid rgba(255,255,255,.34);border-radius:34px;background:linear-gradient(155deg,rgba(255,255,255,.98),rgba(245,248,252,.96));box-shadow:0 40px 110px rgba(4,12,24,.34),inset 0 1px 0 rgba(255,255,255,.92);padding:34px}
+.operator-collab-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border:0;border-radius:50%;background:rgba(10,22,40,.06);color:var(--navy);font-size:22px;cursor:pointer;transition:.2s ease}
+.operator-collab-close:hover{background:rgba(10,22,40,.11);transform:rotate(4deg)}
+.operator-collab-kicker{font-size:9px;font-weight:900;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.operator-collab-title{font-size:34px;line-height:1.03;letter-spacing:-.04em;color:var(--navy);margin:0 54px 12px 0;font-weight:900}
+.operator-collab-copy{font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;margin:0 0 24px}
+.operator-collab-form{display:flex;flex-direction:column;gap:12px}
+.operator-collab-bubble{overflow:hidden;border:1px solid rgba(10,22,40,.08);border-radius:24px;background:rgba(10,22,40,.035);box-shadow:inset 0 1px 0 rgba(255,255,255,.78)}
+.operator-collab-row{display:grid;grid-template-columns:160px 1fr;align-items:center;gap:18px;padding:14px 18px;border-bottom:1px solid rgba(10,22,40,.07)}
+.operator-collab-row:last-child{border-bottom:0}
+.operator-collab-row label{font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#748095}
+.operator-collab-row input,.operator-collab-row textarea{width:100%;border:0;outline:0;background:transparent;color:var(--navy);font:inherit;font-size:14px;resize:vertical}
+.operator-collab-row input::placeholder,.operator-collab-row textarea::placeholder{color:#a4adba}
+.operator-collab-subject{margin-top:2px;padding:14px 18px;border-radius:20px;background:linear-gradient(135deg,rgba(201,165,53,.12),rgba(74,123,196,.08));border:1px solid rgba(201,165,53,.24)}
+.operator-collab-subject span{display:block;font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.operator-collab-subject strong{font-size:14px;color:var(--navy);word-break:break-word}
+.operator-collab-submit{margin-top:4px;border:0;border-radius:999px;padding:17px 22px;background:linear-gradient(135deg,#07182d,#0d2a4c);color:#fff;font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;box-shadow:0 16px 34px rgba(7,24,45,.22);transition:.22s ease}
+.operator-collab-submit:hover{transform:translateY(-2px);box-shadow:0 22px 44px rgba(7,24,45,.28)}
+.operator-collab-submit:disabled{opacity:.55;cursor:wait;transform:none}
+.operator-collab-status{min-height:20px;font-size:12px;color:var(--muted);padding:0 4px}
+.operator-collab-success{display:none;margin-top:6px;padding:18px 20px;border-radius:22px;background:#f2f8f4;border:1px solid rgba(31,107,69,.18);color:var(--navy)}
+.operator-collab-success strong{display:block;margin-bottom:4px;font-size:15px}
+@media(max-width:700px){.operator-collab-overlay{padding:0;align-items:flex-end}.operator-collab-modal{width:100%;max-height:92vh;border-radius:30px 30px 0 0;padding:28px 20px 24px}.operator-collab-title{font-size:29px}.operator-collab-row{grid-template-columns:1fr;gap:6px;padding:14px 16px}.operator-collab-row label{font-size:9px}}
+</style>
+
 </head>
 <body>
 
@@ -2910,12 +3321,12 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
     <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Prenota Ora</a></li>
     <li><a href="/journal/" id="nl-blog">Journal</a></li>
     <li><a onclick="showPage('contatti')" id="nl-contatti">Contatti</a></li>
-    <li class="mobile-only" id="btn-operator-cta-mobile"><button class="btn-operator" onclick="closeMobileMenu();window.location.href='mailto:contatti@auralisair.it?subject=Operatore%20Auralis'">Sono un Operatore</button></li>
+    <li class="mobile-only" id="btn-operator-cta-mobile"><button class="btn-operator" onclick="closeMobileMenu();openOperatorCollabModal()">Sono un Operatore</button></li>
     <li class="mobile-only" id="mob-dash-item" style="display:none"><button class="btn-operator" id="btn-dashboard-mobile"></button></li>
     <li class="mobile-only"><button class="btn-reserved" id="btn-auth-mobile" onclick="closeMobileMenu();loginWithAuth0()">Login</button></li>
   </ul>
   <div class="nav-right">
-    <button id="btn-operator-cta" class="btn-operator" onclick="window.location.href='mailto:contatti@auralisair.it?subject=Operatore%20Auralis'">Sono un Operatore</button>
+    <button id="btn-operator-cta" class="btn-operator" onclick="openOperatorCollabModal()">Sono un Operatore</button>
     <button id="btn-auth" class="btn-reserved" onclick="loginWithAuth0()">Login</button>
   </div>
   <button class="nav-burger" id="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
@@ -7785,5 +8196,133 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && document.getElementById('passenger-picker-overlay')?.classList.contains('open')) closePassengerPicker(); });
+
+<!-- ===== OPERATOR COLLABORATION MODAL ===== -->
+<div class="operator-collab-overlay" id="operator-collab-overlay" aria-hidden="true">
+  <section class="operator-collab-modal" role="dialog" aria-modal="true" aria-labelledby="operator-collab-title">
+    <button class="operator-collab-close" type="button" aria-label="Chiudi" onclick="closeOperatorCollabModal()">×</button>
+    <div class="operator-collab-kicker">Operator Network</div>
+    <h2 class="operator-collab-title" id="operator-collab-title">Porta i tuoi Empty Leg nel network Auralis.</h2>
+    <p class="operator-collab-copy">Trasforma le tratte di riposizionamento in nuove opportunità commerciali. Raccontaci chi sei: il team Auralis valuterà il profilo del tuo operatore e ti contatterà per approfondire una possibile collaborazione.</p>
+
+    <form class="operator-collab-form" id="operator-collab-form" novalidate>
+      <div class="operator-collab-bubble">
+        <div class="operator-collab-row"><label for="operator-company">Operatore *</label><input id="operator-company" name="company" type="text" placeholder="Nome compagnia / operatore" autocomplete="organization" required></div>
+        <div class="operator-collab-row"><label for="operator-contact-name">Referente *</label><input id="operator-contact-name" name="name" type="text" placeholder="Nome e cognome" autocomplete="name" required></div>
+        <div class="operator-collab-row"><label for="operator-email">Email aziendale *</label><input id="operator-email" name="email" type="email" placeholder="nome@operatore.com" autocomplete="email" required></div>
+        <div class="operator-collab-row"><label for="operator-phone">Telefono</label><input id="operator-phone" name="phone" type="tel" placeholder="+39 ..." autocomplete="tel"></div>
+        <div class="operator-collab-row"><label for="operator-website">Sito web</label><input id="operator-website" name="website" type="url" placeholder="https://"></div>
+        <div class="operator-collab-row"><label for="operator-fleet">Flotta</label><input id="operator-fleet" name="fleet" type="text" placeholder="Es. Citation CJ2+, Phenom 300..."></div>
+        <div class="operator-collab-row"><label for="operator-message">Messaggio</label><textarea id="operator-message" name="message" rows="3" placeholder="Rotte, mercati serviti o qualsiasi informazione utile..."></textarea></div>
+      </div>
+
+      <div class="operator-collab-subject">
+        <span>Oggetto della richiesta</span>
+        <strong id="operator-subject-preview">Collaborazione con operatore – [Nome operatore]</strong>
+      </div>
+
+      <button class="operator-collab-submit" id="operator-collab-submit" type="submit">Proponi una collaborazione →</button>
+      <div class="operator-collab-status" id="operator-collab-status" role="status" aria-live="polite"></div>
+      <div class="operator-collab-success" id="operator-collab-success">
+        <strong>Richiesta ricevuta.</strong>
+        Il team Auralis valuterà il profilo dell'operatore e ti contatterà per approfondire la collaborazione.
+      </div>
+    </form>
+  </section>
+</div>
+
+
+<script>
+function openOperatorCollabModal(){
+  const overlay=document.getElementById('operator-collab-overlay');
+  if(!overlay) return;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  window.setTimeout(()=>document.getElementById('operator-company')?.focus(),120);
+}
+function closeOperatorCollabModal(){
+  const overlay=document.getElementById('operator-collab-overlay');
+  if(!overlay) return;
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+function operatorCollabSubject(){
+  const company=(document.getElementById('operator-company')?.value||'').trim();
+  return `Collaborazione con operatore – ${company || '[Nome operatore]'}`;
+}
+function updateOperatorCollabSubject(){
+  const preview=document.getElementById('operator-subject-preview');
+  if(preview) preview.textContent=operatorCollabSubject();
+}
+document.addEventListener('input',event=>{
+  if(event.target?.id==='operator-company') updateOperatorCollabSubject();
+});
+document.getElementById('operator-collab-overlay')?.addEventListener('click',event=>{
+  if(event.target?.id==='operator-collab-overlay') closeOperatorCollabModal();
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape' && document.getElementById('operator-collab-overlay')?.classList.contains('open')) closeOperatorCollabModal();
+});
+document.getElementById('operator-collab-form')?.addEventListener('submit',async event=>{
+  event.preventDefault();
+  const company=(document.getElementById('operator-company')?.value||'').trim();
+  const name=(document.getElementById('operator-contact-name')?.value||'').trim();
+  const email=(document.getElementById('operator-email')?.value||'').trim();
+  const phone=(document.getElementById('operator-phone')?.value||'').trim();
+  const website=(document.getElementById('operator-website')?.value||'').trim();
+  const fleet=(document.getElementById('operator-fleet')?.value||'').trim();
+  const freeMessage=(document.getElementById('operator-message')?.value||'').trim();
+  const status=document.getElementById('operator-collab-status');
+  const submit=document.getElementById('operator-collab-submit');
+  const success=document.getElementById('operator-collab-success');
+
+  if(!company || !name || !email){
+    if(status){status.textContent='Compila nome operatore, referente ed email aziendale.';status.style.color='#9d2f2f';}
+    return;
+  }
+  const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!emailOk){
+    if(status){status.textContent='Inserisci un indirizzo email valido.';status.style.color='#9d2f2f';}
+    return;
+  }
+
+  const subject=operatorCollabSubject();
+  const message=[
+    'Nuova richiesta di collaborazione operatore',
+    '',
+    `Operatore: ${company}`,
+    `Referente: ${name}`,
+    `Email: ${email}`,
+    phone ? `Telefono: ${phone}` : null,
+    website ? `Sito web: ${website}` : null,
+    fleet ? `Flotta: ${fleet}` : null,
+    '',
+    'Messaggio:',
+    freeMessage || 'Nessun messaggio aggiuntivo.'
+  ].filter(v=>v!==null).join('\n');
+
+  try{
+    if(submit){submit.disabled=true;submit.textContent='Invio in corso…';}
+    if(status){status.textContent='Stiamo inviando la richiesta…';status.style.color='var(--muted)';}
+    if(success) success.style.display='none';
+    await apiFetch('/api/contact-requests',{
+      method:'POST',
+      auth:false,
+      body:JSON.stringify({name,email,phone:phone||undefined,topic:subject,message})
+    });
+    if(status) status.textContent='';
+    if(success) success.style.display='block';
+    event.target.reset();
+    updateOperatorCollabSubject();
+  }catch(error){
+    if(status){status.textContent=error?.message||'Invio non riuscito. Riprova tra poco.';status.style.color='#9d2f2f';}
+  }finally{
+    if(submit){submit.disabled=false;submit.textContent='Proponi una collaborazione →';}
+  }
+});
+</script>
+
 </body>
 </html>
