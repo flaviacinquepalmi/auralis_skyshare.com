@@ -2741,6 +2741,25 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
   .newsletter-submit{width:100%;}
 }
 
+
+.customer-sidebar-logout{
+  margin-top:12px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#D84A4A;
+  font:inherit;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.2px;
+  cursor:pointer;
+  text-align:left;
+  transition:color .2s ease, transform .2s ease, opacity .2s ease;
+}
+.customer-sidebar-logout:hover{
+  color:#B42323;
+  transform:translateX(2px);
+}
 </style>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
 
@@ -3804,6 +3823,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <a href="mailto:contatti@auralisair.it">
           Contatta Auralis
         </a>
+        <button type="button" class="customer-sidebar-logout" onclick="logoutWithAuth0()">
+          Logout
+        </button>
       </div>
     </aside>
 
@@ -3832,15 +3854,7 @@ document.addEventListener("DOMContentLoaded", () => {
             type="button"
             onclick="showPage('prenota')"
           >
-            Richiedi un volo
-          </button>
-
-          <button
-            class="customer-secondary-btn"
-            type="button"
-            onclick="logoutWithAuth0()"
-          >
-            Logout
+            Invia richiesta
           </button>
         </div>
       </header>
@@ -8326,3 +8340,50 @@ document.getElementById('operator-collab-form')?.addEventListener('submit',async
 
 </body>
 </html>
+
+<style id="auralis-booking-scroll-hotfix">
+/* Keep the luxury rounded modal, but let long booking content scroll. */
+#booking-modal{
+  overflow:hidden;
+}
+#booking-modal .booking-modal-box{
+  display:flex !important;
+  flex-direction:column !important;
+  max-height:min(92vh,920px) !important;
+  overflow:hidden !important;
+}
+#booking-modal .booking-modal-head{
+  flex:0 0 auto;
+  z-index:2;
+}
+#booking-modal .booking-modal-body{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(10,22,40,.22) transparent;
+}
+#booking-modal .booking-modal-body::-webkit-scrollbar{width:7px}
+#booking-modal .booking-modal-body::-webkit-scrollbar-track{background:transparent}
+#booking-modal .booking-modal-body::-webkit-scrollbar-thumb{
+  background:rgba(10,22,40,.18);
+  border-radius:999px;
+}
+@media(max-width:768px){
+  #booking-modal{
+    align-items:flex-end !important;
+    padding:10px !important;
+  }
+  #booking-modal .booking-modal-box{
+    width:100% !important;
+    max-height:calc(100dvh - 20px) !important;
+    border-radius:28px !important;
+  }
+  #booking-modal .booking-modal-body{
+    padding-bottom:max(28px,env(safe-area-inset-bottom)) !important;
+  }
+}
+</style>
