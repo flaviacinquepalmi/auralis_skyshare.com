@@ -1841,6 +1841,70 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
   text-align: center;
 }
 
+
+/* ═══════════════════════════════════════════════
+   PASSENGER WALLET / CONTACTS
+════════════════════════════════════════════════ */
+.passenger-wallet-shell{display:grid;gap:16px}
+.passenger-owner-card{position:relative;overflow:hidden}
+.passenger-owner-card::after{content:"";position:absolute;width:180px;height:180px;right:-70px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,53,.16),rgba(201,165,53,0) 68%);pointer-events:none}
+.passenger-wallet-toolbar{display:flex;align-items:center;gap:12px;margin:4px 0 2px}
+.passenger-search{position:relative;flex:1}
+.passenger-search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:#7a8799;pointer-events:none}
+.passenger-search input{width:100%;height:46px;padding:0 16px 0 43px;border:1px solid rgba(10,22,40,.09);border-radius:14px;background:rgba(255,255,255,.88);color:var(--navy);font:inherit;font-size:13px;outline:none;box-shadow:0 6px 24px rgba(10,22,40,.035);transition:.22s ease}
+.passenger-search input:focus{border-color:rgba(74,123,196,.38);box-shadow:0 0 0 4px rgba(74,123,196,.08),0 8px 26px rgba(10,22,40,.05)}
+.passenger-section-label{margin:4px 0 10px;color:#8a95a5;font-size:9px;font-weight:800;letter-spacing:.20em;text-transform:uppercase}
+.passenger-recents{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.passenger-recents::-webkit-scrollbar{display:none}
+.passenger-recent{min-width:82px;border:0;background:transparent;cursor:pointer;text-align:center;scroll-snap-align:start;padding:0;color:var(--navy)}
+.passenger-avatar{width:50px;height:50px;margin:0 auto 8px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#10233d,#244b7d);color:#fff;font-size:14px;font-weight:900;letter-spacing:.02em;box-shadow:0 8px 22px rgba(10,22,40,.14),inset 0 0 0 1px rgba(255,255,255,.13);transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
+.passenger-recent:hover .passenger-avatar{transform:translateY(-3px) scale(1.05);box-shadow:0 12px 28px rgba(10,22,40,.18)}
+.passenger-recent-name{display:block;max-width:82px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:800}
+.passenger-recent-sub{display:block;margin-top:2px;color:#929bab;font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.passenger-contact-scroll{max-height:520px;overflow-y:auto;padding:5px 5px 70px 2px;scroll-snap-type:y proximity;scrollbar-width:thin;scrollbar-color:rgba(10,22,40,.16) transparent;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;mask-image:linear-gradient(to bottom,transparent 0,#000 26px,#000 calc(100% - 42px),transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 26px,#000 calc(100% - 42px),transparent 100%)}
+.passenger-contact-card{--wallet-scale:1;--wallet-opacity:1;position:relative;margin:9px 0;padding:15px 16px;display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:14px;border:1px solid rgba(10,22,40,.075);border-radius:18px;background:rgba(255,255,255,.93);box-shadow:0 8px 24px rgba(10,22,40,.035);cursor:pointer;scroll-snap-align:center;transform:scale(var(--wallet-scale));opacity:var(--wallet-opacity);transform-origin:center;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease,transform .16s linear,opacity .16s linear}
+.passenger-contact-card:hover,.passenger-contact-card.is-open{border-color:rgba(74,123,196,.24);background:#fff;box-shadow:0 16px 38px rgba(10,22,40,.075)}
+.passenger-contact-card .passenger-avatar{width:46px;height:46px;margin:0;font-size:13px}
+.passenger-contact-main{min-width:0}
+.passenger-contact-label{display:block;margin-bottom:4px;color:var(--gold);font-size:8px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.passenger-contact-name{display:block;color:var(--navy);font-size:15px;font-weight:900;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.passenger-contact-meta{display:block;margin-top:4px;color:#8b96a6;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.passenger-contact-chevron{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#8490a0;background:#f4f6f9;font-size:19px;transition:.25s ease}
+.passenger-contact-card.is-open .passenger-contact-chevron{transform:rotate(90deg);background:rgba(201,165,53,.12);color:var(--gold)}
+.passenger-contact-actions{grid-column:2/-1;max-height:0;overflow:hidden;opacity:0;display:flex;gap:8px;transition:max-height .28s cubic-bezier(.22,1,.36,1),opacity .2s ease,padding .28s ease;padding-top:0}
+.passenger-contact-card.is-open .passenger-contact-actions{max-height:60px;opacity:1;padding-top:11px}
+.passenger-wallet-empty{padding:36px 22px;text-align:center;border:1px dashed rgba(10,22,40,.12);border-radius:18px;background:rgba(255,255,255,.55);color:var(--muted);font-size:12px}
+
+/* Booking passenger picker */
+.passenger-picker-field{grid-column:1/-1}
+.passenger-picker-trigger{width:100%;min-height:54px;padding:9px 13px;display:flex;align-items:center;gap:11px;border:1px solid #dfe4ea;border-radius:8px;background:#fff;color:var(--navy);cursor:pointer;text-align:left;transition:.2s ease}
+.passenger-picker-trigger:hover{border-color:rgba(74,123,196,.45);box-shadow:0 5px 18px rgba(10,22,40,.055)}
+.passenger-picker-trigger .mini-avatar{width:34px;height:34px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#10233d,#244b7d);color:white;font-size:10px;font-weight:900}
+.passenger-picker-copy{min-width:0;flex:1}
+.passenger-picker-copy small{display:block;margin-bottom:2px;color:#97a0ae;font-size:8px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.passenger-picker-copy strong{display:block;font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.passenger-picker-arrow{font-size:18px;color:#8d98a7}
+.passenger-contact-select{display:none!important}
+
+.passenger-picker-overlay{position:fixed;inset:0;z-index:16000;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(3,10,20,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.passenger-picker-overlay.open{display:flex;animation:pickerFade .2s ease both}
+.passenger-picker-sheet{width:min(560px,100%);max-height:min(720px,88vh);overflow:hidden;border-radius:26px 26px 18px 18px;background:#f6f8fb;box-shadow:0 26px 90px rgba(0,0,0,.26);animation:pickerUp .38s cubic-bezier(.22,1,.36,1) both}
+.passenger-picker-handle{width:38px;height:4px;margin:10px auto 4px;border-radius:99px;background:#cbd2dc}
+.passenger-picker-head{padding:17px 22px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.passenger-picker-head h3{color:var(--navy);font-size:20px;font-weight:900;letter-spacing:-.03em}
+.passenger-picker-close{width:34px;height:34px;border:0;border-radius:50%;background:#e7ebf1;color:#596678;font-size:20px;cursor:pointer}
+.passenger-picker-list{max-height:58vh;overflow-y:auto;padding:4px 12px 18px;-webkit-overflow-scrolling:touch}
+.passenger-picker-option{width:100%;padding:12px 13px;margin:6px 0;display:flex;align-items:center;gap:12px;border:1px solid transparent;border-radius:15px;background:#fff;color:var(--navy);cursor:pointer;text-align:left;box-shadow:0 4px 18px rgba(10,22,40,.035);transition:.18s ease}
+.passenger-picker-option:hover{transform:translateY(-1px);border-color:rgba(74,123,196,.18);box-shadow:0 8px 24px rgba(10,22,40,.07)}
+.passenger-picker-option .passenger-avatar{width:40px;height:40px;margin:0;font-size:11px}
+.passenger-picker-option.manual .passenger-avatar{background:#eef1f5;color:#657285;box-shadow:none;font-size:20px;font-weight:500}
+.passenger-picker-option strong{display:block;font-size:12px;font-weight:900}
+.passenger-picker-option small{display:block;margin-top:3px;color:#8b96a6;font-size:9px}
+.passenger-picker-group{padding:10px 10px 2px;color:#8d98a7;font-size:8px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+@keyframes pickerFade{from{opacity:0}to{opacity:1}}
+@keyframes pickerUp{from{opacity:0;transform:translateY(28px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:700px){.passenger-wallet-toolbar{position:sticky;top:0;z-index:3;padding:8px 0;background:linear-gradient(#f5f7fb 72%,rgba(245,247,251,0))}.passenger-contact-scroll{max-height:58vh;padding-bottom:100px}.passenger-contact-card{border-radius:16px;grid-template-columns:48px minmax(0,1fr) auto}.passenger-picker-overlay{padding:0;align-items:flex-end}.passenger-picker-sheet{width:100%;border-radius:28px 28px 0 0;max-height:86vh}.passenger-picker-list{max-height:68vh}}
+
 /* VOLI */
 
 .customer-flights-archive-head {
@@ -2818,10 +2882,10 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
         <div class="pax-block" style="opacity:1;transform:none">
           <div class="pax-head primary">
             <div class="pax-num-badge">1</div>
-            <div class="pax-head-info"><h4>I Tuoi Dati</h4><small>Passeggero principale · ricevi la conferma</small></div>
+            <div class="pax-head-info"><h4>Passeggero principale</h4><small>Scegli dalla rubrica oppure inserisci i dati manualmente</small></div>
           </div>
           <div class="pax-body">
-            <div class="fg" style="grid-column:1/-1"><label>Usa contatto salvato</label><select class="res-input passenger-contact-select" onchange="applySavedContactToBlock(this)"></select></div>
+            <div class="fg passenger-picker-field"><label>Passeggero</label><button class="passenger-picker-trigger" type="button" onclick="openPassengerPickerForBlock(this)"><span class="mini-avatar">+</span><span class="passenger-picker-copy"><small>Rubrica passeggeri</small><strong>Scegli un contatto</strong></span><span class="passenger-picker-arrow">›</span></button><select class="passenger-contact-select" aria-label="Scegli un passeggero dalla rubrica" onchange="applySavedContactToBlock(this)"></select><small style="display:block;margin-top:7px;color:var(--muted);font-size:10px;letter-spacing:.2px">Scegli dalla rubrica oppure inserisci i dati manualmente.</small></div>
             <div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>
             <div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>
             <div class="fg"><label>Email</label><input type="email" id="booking-email" placeholder="email@esempio.com" autocomplete="email"></div>
@@ -3633,47 +3697,53 @@ document.addEventListener("DOMContentLoaded", () => {
       >
         <div class="customer-panel-head customer-page-heading">
           <div>
-            <span class="customer-panel-eyebrow">
-              Viaggiatori
-            </span>
-            <h2>Passeggeri salvati</h2>
-            <p>
-              Gestisci i dati delle persone con cui viaggi più spesso.
-            </p>
+            <span class="customer-panel-eyebrow">Viaggiatori</span>
+            <h2>La tua rubrica di viaggio</h2>
+            <p>Salva chi viaggia con te e richiamalo in un attimo durante la prenotazione.</p>
           </div>
-
-          <button
-            type="button"
-            class="customer-primary-btn"
-            onclick="openSavedPassengerModal()"
-          >
-            Aggiungi passeggero
-          </button>
+          <button type="button" class="customer-primary-btn" onclick="openSavedPassengerModal()">+ Aggiungi passeggero</button>
         </div>
 
-        <article class="customer-panel" style="margin-bottom:18px">
-          <div class="customer-panel-head">
-            <div>
-              <span class="customer-panel-eyebrow">Passeggero principale</span>
-              <h3>I tuoi dati</h3>
-              <p style="font-size:12px;color:var(--muted);margin-top:5px">Usati per precompilare automaticamente richieste e prenotazioni.</p>
+        <div class="passenger-wallet-shell">
+          <article class="customer-panel passenger-owner-card">
+            <div class="customer-panel-head">
+              <div>
+                <span class="customer-panel-eyebrow">Il mio profilo</span>
+                <h3>I tuoi dati</h3>
+                <p style="font-size:12px;color:var(--muted);margin-top:5px">Il contatto principale proposto automaticamente nelle prenotazioni.</p>
+              </div>
+            </div>
+            <form class="customer-profile-form" onsubmit="saveOwnerContact(event)">
+              <div class="form-row">
+                <div class="fg"><label>Nome</label><input id="owner-first-name" type="text" required></div>
+                <div class="fg"><label>Cognome</label><input id="owner-last-name" type="text" required></div>
+              </div>
+              <div class="form-row">
+                <div class="fg"><label>Email</label><input id="owner-email" type="email" readonly></div>
+                <div class="fg"><label>Telefono</label><input id="owner-phone" type="tel"></div>
+              </div>
+              <button class="customer-primary-btn" type="submit">Salva dati</button>
+            </form>
+          </article>
+
+          <div class="passenger-wallet-toolbar">
+            <div class="passenger-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.4-3.4"></path></svg>
+              <input id="passenger-search-input" type="search" placeholder="Cerca nella rubrica" autocomplete="off" oninput="filterPassengerWallet(this.value)">
             </div>
           </div>
-          <form class="customer-profile-form" onsubmit="saveOwnerContact(event)">
-            <div class="form-row">
-              <div class="fg"><label>Nome</label><input id="owner-first-name" type="text" required></div>
-              <div class="fg"><label>Cognome</label><input id="owner-last-name" type="text" required></div>
-            </div>
-            <div class="form-row">
-              <div class="fg"><label>Email</label><input id="owner-email" type="email" readonly></div>
-              <div class="fg"><label>Telefono</label><input id="owner-phone" type="tel"></div>
-            </div>
-            <button class="customer-primary-btn" type="submit">Salva dati</button>
-          </form>
-        </article>
 
-        <div id="customer-passengers-list">
-          <div class="customer-empty-state">Nessun passeggero salvato.</div>
+          <div id="passenger-recents-wrap" style="display:none">
+            <div class="passenger-section-label">Accesso rapido</div>
+            <div class="passenger-recents" id="passenger-recents"></div>
+          </div>
+
+          <div>
+            <div class="passenger-section-label">Passeggeri salvati</div>
+            <div class="passenger-contact-scroll" id="customer-passengers-list" onscroll="schedulePassengerWalletMotion()">
+              <div class="passenger-wallet-empty">Nessun passeggero salvato.</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -3935,6 +4005,15 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
   <div class="foot-bottom"><span>© 2026 Auralis SkyShare. Tutti i diritti riservati.</span><div style="display:flex;gap:20px"><a style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none;cursor:pointer">Privacy Policy</a><a style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none;cursor:pointer">Termini di Servizio</a></div></div>
 </footer>
+<!-- ══ PASSENGER PICKER ══ -->
+<div class="passenger-picker-overlay" id="passenger-picker-overlay" aria-hidden="true" onclick="if(event.target===this) closePassengerPicker()">
+  <section class="passenger-picker-sheet" role="dialog" aria-modal="true" aria-labelledby="passenger-picker-title">
+    <div class="passenger-picker-handle"></div>
+    <div class="passenger-picker-head"><h3 id="passenger-picker-title">Scegli un passeggero</h3><button type="button" class="passenger-picker-close" onclick="closePassengerPicker()" aria-label="Chiudi">×</button></div>
+    <div class="passenger-picker-list" id="passenger-picker-list"></div>
+  </section>
+</div>
+
 <!-- ══ NEWSLETTER POPUP ══ -->
 <div class="newsletter-overlay" id="newsletter-overlay" aria-hidden="true">
   <section class="newsletter-modal" role="dialog" aria-modal="true" aria-labelledby="newsletter-title">
@@ -3994,7 +4073,18 @@ async function apiFetch(path, options = {}) {
     throw new Error(errorMessage);
   }
 
-  return response.json();
+  // DELETE endpoints legitimately return HTTP 204 with an empty body.
+  // Trying to parse an empty response as JSON throws even though the request succeeded.
+  if (response.status === 204) return null;
+
+  const responseText = await response.text();
+  if (!responseText) return null;
+
+  try {
+    return JSON.parse(responseText);
+  } catch {
+    return responseText;
+  }
 }
 
 function customRequestValue(id) {
@@ -5443,18 +5533,64 @@ async function saveOwnerContact(event) {
 
 let savedPassengers = [];
 
+function passengerInitials(firstName = "", lastName = "") {
+  const bits = [firstName, lastName].filter(Boolean);
+  return bits.map(v => String(v).trim()[0] || "").join("").slice(0,2).toUpperCase() || "•";
+}
+
 function contactOptionsHtml() {
-  const ownerLabel = currentUser?.firstName || currentUser?.lastName ? "I miei dati" : "I miei dati (da completare)";
-  return `<option value="owner">${ownerLabel}</option>` +
-    savedPassengers.map(p => `<option value="${escapeHTML(p.id)}">${escapeHTML(p.label || (p.firstName + " " + p.lastName))}</option>`).join("") +
-    `<option value="new">Inserisci nuovi dati</option>`;
+  const ownerName = [currentUser?.firstName, currentUser?.lastName].filter(Boolean).join(" ").trim();
+  const ownerLabel = ownerName ? `I miei dati — ${escapeHTML(ownerName)}` : "I miei dati";
+  const savedOptions = savedPassengers.length
+    ? `<optgroup label="Passeggeri salvati">${savedPassengers.map(p => {
+        const label = p.label || [p.firstName, p.lastName].filter(Boolean).join(" ") || "Passeggero";
+        const fullName = [p.firstName, p.lastName].filter(Boolean).join(" ").trim();
+        const text = fullName && fullName !== label ? `${label} — ${fullName}` : label;
+        return `<option value="${escapeHTML(p.id)}">${escapeHTML(text)}</option>`;
+      }).join("")}</optgroup>`
+    : `<optgroup label="Passeggeri salvati"><option value="" disabled>Nessun passeggero salvato</option></optgroup>`;
+
+  return `<optgroup label="Il mio profilo"><option value="owner">${ownerLabel}</option></optgroup>` +
+    savedOptions +
+    `<optgroup label="Altro"><option value="new">Inserisci dati manualmente</option></optgroup>`;
+}
+
+function contactForValue(value) {
+  if (value === "owner") return {
+    id:"owner", label:"I miei dati", firstName:currentUser?.firstName || "", lastName:currentUser?.lastName || "",
+    email:currentUser?.email || "", phone:currentUser?.phone || ""
+  };
+  if (value === "new") return { id:"new", label:"Inserisci dati manualmente", firstName:"", lastName:"", email:"", phone:"" };
+  return savedPassengers.find(p => String(p.id) === String(value));
+}
+
+function updatePickerTriggerForSelect(select) {
+  const field = select?.closest('.passenger-picker-field');
+  const trigger = field?.querySelector('.passenger-picker-trigger');
+  if (!trigger) return;
+  const contact = contactForValue(select.value);
+  const strong = trigger.querySelector('strong');
+  const avatar = trigger.querySelector('.mini-avatar');
+  const small = trigger.querySelector('small');
+  if (!contact) {
+    if (strong) strong.textContent = 'Scegli un contatto';
+    if (avatar) avatar.textContent = '+';
+    if (small) small.textContent = 'Rubrica passeggeri';
+    return;
+  }
+  const fullName = [contact.firstName, contact.lastName].filter(Boolean).join(' ').trim();
+  if (strong) strong.textContent = contact.id === 'new' ? 'Inserisci dati manualmente' : (fullName || contact.label);
+  if (avatar) avatar.textContent = contact.id === 'new' ? '+' : passengerInitials(contact.firstName, contact.lastName);
+  if (small) small.textContent = contact.id === 'owner' ? 'Il mio profilo' : (contact.id === 'new' ? 'Nuovo contatto' : (contact.label || 'Passeggero salvato'));
 }
 
 function refreshContactSelectors() {
   document.querySelectorAll(".passenger-contact-select").forEach(select => {
-    const old = select.value;
+    const old = select.value || 'owner';
     select.innerHTML = contactOptionsHtml();
     if ([...select.options].some(o => o.value === old)) select.value = old;
+    else if ([...select.options].some(o => o.value === 'owner')) select.value = 'owner';
+    updatePickerTriggerForSelect(select);
   });
 }
 
@@ -5462,10 +5598,7 @@ function applySavedContactToBlock(select) {
   const block = select.closest(".pax-block");
   if (!block) return;
   const value = select.value;
-  const contact = value === "owner" ? {
-    firstName: currentUser?.firstName || "", lastName: currentUser?.lastName || "",
-    email: currentUser?.email || "", phone: currentUser?.phone || ""
-  } : savedPassengers.find(p => p.id === value);
+  const contact = contactForValue(value);
   const data = value === "new" ? { firstName:"", lastName:"", email:"", phone:"" } : (contact || {});
   const fields = {
     'input[placeholder="Nome"]': data.firstName || "",
@@ -5474,24 +5607,136 @@ function applySavedContactToBlock(select) {
     'input[type="tel"]': data.phone || ""
   };
   Object.entries(fields).forEach(([q,v]) => { const el=block.querySelector(q); if(el) el.value=v; });
+  updatePickerTriggerForSelect(select);
+}
+
+let activePassengerPickerSelect = null;
+
+function openPassengerPickerForBlock(trigger) {
+  const field = trigger.closest('.passenger-picker-field');
+  activePassengerPickerSelect = field?.querySelector('.passenger-contact-select') || null;
+  if (!activePassengerPickerSelect) return;
+  renderPassengerPickerSheet();
+  const overlay = document.getElementById('passenger-picker-overlay');
+  overlay?.classList.add('open');
+  overlay?.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function closePassengerPicker() {
+  const overlay = document.getElementById('passenger-picker-overlay');
+  overlay?.classList.remove('open');
+  overlay?.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  activePassengerPickerSelect = null;
+}
+
+function pickerOptionHtml(value, contact, extraClass='') {
+  const fullName = [contact.firstName, contact.lastName].filter(Boolean).join(' ').trim();
+  const subtitle = value === 'owner' ? 'Contatto principale' : (value === 'new' ? 'Compila i campi da zero' : [contact.email, contact.phone].filter(Boolean).join(' · '));
+  const label = value === 'new' ? 'Inserisci dati manualmente' : (fullName || contact.label || 'Passeggero');
+  const initials = value === 'new' ? '+' : passengerInitials(contact.firstName, contact.lastName);
+  return `<button type="button" class="passenger-picker-option ${extraClass}" onclick="choosePassengerFromPicker('${escapeHTML(value)}')"><span class="passenger-avatar">${escapeHTML(initials)}</span><span><strong>${escapeHTML(label)}</strong><small>${escapeHTML(subtitle || contact.label || '')}</small></span></button>`;
+}
+
+function renderPassengerPickerSheet() {
+  const list = document.getElementById('passenger-picker-list');
+  if (!list) return;
+  const owner = contactForValue('owner');
+  let html = `<div class="passenger-picker-group">Il mio profilo</div>${pickerOptionHtml('owner', owner)}`;
+  html += `<div class="passenger-picker-group">Passeggeri salvati</div>`;
+  if (savedPassengers.length) html += savedPassengers.map(p => pickerOptionHtml(String(p.id), p)).join('');
+  else html += `<div class="passenger-wallet-empty" style="margin:6px 0 10px">Nessun passeggero salvato nella rubrica.</div>`;
+  html += `<div class="passenger-picker-group">Altro</div>${pickerOptionHtml('new', contactForValue('new'), 'manual')}`;
+  list.innerHTML = html;
+}
+
+function choosePassengerFromPicker(value) {
+  if (!activePassengerPickerSelect) return;
+  activePassengerPickerSelect.value = value;
+  applySavedContactToBlock(activePassengerPickerSelect);
+  closePassengerPicker();
+}
+
+function togglePassengerCard(card) {
+  document.querySelectorAll('.passenger-contact-card.is-open').forEach(el => { if(el !== card) el.classList.remove('is-open'); });
+  card.classList.toggle('is-open');
+}
+
+function focusPassengerFromRecent(id) {
+  const el = document.querySelector(`.passenger-contact-card[data-passenger-id="${CSS.escape(String(id))}"]`);
+  if (!el) return;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.add('is-open');
+  window.setTimeout(() => schedulePassengerWalletMotion(), 250);
+}
+
+function filterPassengerWallet(query = '') {
+  const q = String(query).trim().toLowerCase();
+  document.querySelectorAll('.passenger-contact-card').forEach(card => {
+    const hay = (card.dataset.search || '').toLowerCase();
+    card.style.display = !q || hay.includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.passenger-recent').forEach(card => {
+    const hay = (card.dataset.search || '').toLowerCase();
+    card.style.display = !q || hay.includes(q) ? '' : 'none';
+  });
+  schedulePassengerWalletMotion();
+}
+
+let passengerWalletMotionRaf = 0;
+function schedulePassengerWalletMotion() {
+  if (passengerWalletMotionRaf) return;
+  passengerWalletMotionRaf = requestAnimationFrame(() => {
+    passengerWalletMotionRaf = 0;
+    const scroller = document.getElementById('customer-passengers-list');
+    if (!scroller) return;
+    const box = scroller.getBoundingClientRect();
+    const center = box.top + box.height / 2;
+    const falloff = Math.max(220, box.height * .58);
+    scroller.querySelectorAll('.passenger-contact-card').forEach(card => {
+      if (card.style.display === 'none') return;
+      const r = card.getBoundingClientRect();
+      const dist = Math.abs((r.top + r.height/2) - center);
+      const t = Math.min(1, dist / falloff);
+      const scale = 1 - t * .035;
+      const opacity = 1 - t * .28;
+      card.style.setProperty('--wallet-scale', scale.toFixed(3));
+      card.style.setProperty('--wallet-opacity', opacity.toFixed(3));
+    });
+  });
 }
 
 function renderSavedPassengers() {
   const list = document.getElementById("customer-passengers-list");
+  const recents = document.getElementById('passenger-recents');
+  const recentsWrap = document.getElementById('passenger-recents-wrap');
   if (!list) return;
   if (!savedPassengers.length) {
-    list.innerHTML = `<div class="customer-empty-state">Nessun passeggero salvato.</div>`;
+    list.innerHTML = `<div class="passenger-wallet-empty">Nessun passeggero salvato.<br><span style="font-size:10px">Aggiungine uno per ritrovarlo qui e nelle prenotazioni.</span></div>`;
+    if (recentsWrap) recentsWrap.style.display='none';
   } else {
-    list.innerHTML = savedPassengers.map(p => `
-      <article class="customer-panel" style="margin-bottom:12px">
-        <div class="customer-panel-head" style="align-items:center">
-          <div><span class="customer-panel-eyebrow">${escapeHTML(p.label)}</span><h3>${escapeHTML(p.firstName)} ${escapeHTML(p.lastName)}</h3>
-          <p style="font-size:12px;color:var(--muted);margin-top:4px">${escapeHTML(p.email || "Email non inserita")}${p.phone ? " · " + escapeHTML(p.phone) : ""}</p></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="customer-text-btn" onclick="openSavedPassengerModal('${escapeHTML(p.id)}')">Modifica</button><button type="button" class="customer-text-btn" onclick="deleteSavedPassenger('${escapeHTML(p.id)}')">Elimina</button></div>
-        </div>
-      </article>`).join("");
+    list.innerHTML = savedPassengers.map(p => {
+      const fullName = [p.firstName,p.lastName].filter(Boolean).join(' ').trim();
+      const search = [p.label,fullName,p.email,p.phone].filter(Boolean).join(' ');
+      return `<article class="passenger-contact-card" data-passenger-id="${escapeHTML(p.id)}" data-search="${escapeHTML(search)}" onclick="togglePassengerCard(this)">
+        <span class="passenger-avatar">${escapeHTML(passengerInitials(p.firstName,p.lastName))}</span>
+        <span class="passenger-contact-main"><span class="passenger-contact-label">${escapeHTML(p.label || 'Passeggero')}</span><span class="passenger-contact-name">${escapeHTML(fullName || 'Passeggero')}</span><span class="passenger-contact-meta">${escapeHTML([p.email,p.phone].filter(Boolean).join(' · ') || 'Nessun recapito')}</span></span>
+        <span class="passenger-contact-chevron">›</span>
+        <span class="passenger-contact-actions"><button type="button" class="customer-text-btn" onclick="event.stopPropagation();openSavedPassengerModal('${escapeHTML(p.id)}')">Modifica</button><button type="button" class="customer-text-btn" onclick="event.stopPropagation();deleteSavedPassenger('${escapeHTML(p.id)}')">Elimina</button></span>
+      </article>`;
+    }).join('');
+    if (recents && recentsWrap) {
+      recents.innerHTML = savedPassengers.slice(0,8).map(p => {
+        const fullName=[p.firstName,p.lastName].filter(Boolean).join(' ').trim();
+        const search=[p.label,fullName,p.email,p.phone].filter(Boolean).join(' ');
+        return `<button type="button" class="passenger-recent" data-search="${escapeHTML(search)}" onclick="focusPassengerFromRecent('${escapeHTML(p.id)}')"><span class="passenger-avatar">${escapeHTML(passengerInitials(p.firstName,p.lastName))}</span><span class="passenger-recent-name">${escapeHTML(p.label || fullName || 'Passeggero')}</span><span class="passenger-recent-sub">${escapeHTML(fullName)}</span></button>`;
+      }).join('');
+      recentsWrap.style.display='block';
+    }
   }
   refreshContactSelectors();
+  requestAnimationFrame(schedulePassengerWalletMotion);
 }
 
 function openSavedPassengerModal(id = "") {
@@ -5507,8 +5752,22 @@ function openSavedPassengerModal(id = "") {
 }
 function closeSavedPassengerModal(){ document.getElementById("saved-passenger-modal")?.classList.remove("open"); }
 
+let savedPassengerSaving = false;
+
 async function saveSavedPassenger(event) {
   event.preventDefault();
+  if (savedPassengerSaving) return;
+
+  const form = event.currentTarget;
+  const submitButton = event.submitter || form?.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton?.textContent || "Salva passeggero";
+
+  savedPassengerSaving = true;
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Salvataggio…";
+  }
+
   const id = document.getElementById("saved-passenger-id").value;
   const payload = {
     label: document.getElementById("saved-passenger-label").value.trim(),
@@ -5520,17 +5779,32 @@ async function saveSavedPassenger(event) {
   try {
     await apiFetch(id ? `/api/my/passengers/${id}` : "/api/my/passengers", { method: id ? "PATCH" : "POST", body: JSON.stringify(payload) });
     const result = await apiFetch("/api/my/passengers");
-    savedPassengers = result.data || [];
-    renderSavedPassengers(); closeSavedPassengerModal();
-  } catch (error) { alert(error.message || "Non è stato possibile salvare il passeggero."); }
+    savedPassengers = result?.data || [];
+    renderSavedPassengers();
+    closeSavedPassengerModal();
+  } catch (error) {
+    alert(error.message || "Non è stato possibile salvare il passeggero.");
+  } finally {
+    savedPassengerSaving = false;
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  }
 }
 
 async function deleteSavedPassenger(id) {
   if (!confirm("Eliminare questo passeggero salvato?")) return;
   try {
     await apiFetch(`/api/my/passengers/${id}`, { method: "DELETE" });
-    savedPassengers = savedPassengers.filter(p => p.id !== id); renderSavedPassengers();
-  } catch (error) { alert(error.message || "Non è stato possibile eliminare il passeggero."); }
+
+    // Re-read the server state instead of assuming the local array is current.
+    const result = await apiFetch("/api/my/passengers");
+    savedPassengers = result?.data || [];
+    renderSavedPassengers();
+  } catch (error) {
+    alert(error.message || "Non è stato possibile eliminare il passeggero.");
+  }
 }
 
 async function ensureCustomerContactsLoaded() {
@@ -5886,7 +6160,7 @@ function rebuildExtraPax(total){
         '<div class="pax-head-info"><h4>Guest Passenger ' + i + '</h4><small>Riceverà richiesta di pagamento: ' + _fmtEuro(perPerson) + '</small></div>' +
       '</div>' +
       '<div class="pax-body">' +
-        '<div class="fg" style="grid-column:1/-1"><label>Usa contatto salvato</label><select class="res-input passenger-contact-select" onchange="applySavedContactToBlock(this)">' + contactOptionsHtml() + '</select></div>' +
+        '<div class="fg passenger-picker-field"><label>Passeggero</label><button class="passenger-picker-trigger" type="button" onclick="openPassengerPickerForBlock(this)"><span class="mini-avatar">+</span><span class="passenger-picker-copy"><small>Rubrica passeggeri</small><strong>Scegli un contatto</strong></span><span class="passenger-picker-arrow">›</span></button><select class="passenger-contact-select" aria-label="Scegli un passeggero dalla rubrica" onchange="applySavedContactToBlock(this)">' + contactOptionsHtml() + '</select><small style="display:block;margin-top:7px;color:var(--muted);font-size:10px;letter-spacing:.2px">Scegli dalla rubrica oppure inserisci i dati manualmente.</small></div>' +
         '<div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>' +
         '<div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>' +
         '<div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com" autocomplete="email"></div>' +
@@ -5925,7 +6199,7 @@ function preloginLogin() {
   loginWithAuth0();
 }
   
-function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
+async function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
   if (!currentUser && !skipLoginPrompt) {
     pendingBookingArgs = [from, to, aircraft, pax, dur, date, price, save];
     document.getElementById('prelogin-modal').classList.add('open');
@@ -5957,13 +6231,16 @@ function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
     note.textContent = '⚠ Volo non ancora confermato — probabilità di conferma stimata: ' + selectedLegProb + '%. In caso di mancata conferma riceverai il rimborso completo.';
     document.querySelector('#booking-modal .booking-modal-body').insertBefore(note, document.querySelector('#booking-modal .bm-details'));
   }
-  document.getElementById('booking-modal').classList.add('open');
+  // Carica prima profilo e rubrica: il menu deve aprirsi già completo.
+  await ensureCustomerContactsLoaded();
   initSplit(price, pax);
-  ensureCustomerContactsLoaded().then(() => {
-    refreshContactSelectors();
-    const mainSelect = document.querySelector('#passengers-wrap > .pax-block .passenger-contact-select');
-    if (mainSelect) { mainSelect.value = 'owner'; applySavedContactToBlock(mainSelect); }
-  });
+  refreshContactSelectors();
+  const mainSelect = document.querySelector('#passengers-wrap > .pax-block .passenger-contact-select');
+  if (mainSelect) {
+    mainSelect.value = 'owner';
+    applySavedContactToBlock(mainSelect);
+  }
+  document.getElementById('booking-modal').classList.add('open');
   
 }
 
@@ -7506,5 +7783,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 </script>
 
+
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && document.getElementById('passenger-picker-overlay')?.classList.contains('open')) closePassengerPicker(); });
 </body>
 </html>
