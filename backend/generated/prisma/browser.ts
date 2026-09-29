@@ -58,6 +58,16 @@ export type Passenger = Prisma.PassengerModel
  */
 export type ContactRequest = Prisma.ContactRequestModel
 /**
+ * Model NewsletterSubscriber
+ * 
+ */
+export type NewsletterSubscriber = Prisma.NewsletterSubscriberModel
+/**
+ * Model FlightRequest
+ * 
+ */
+export type FlightRequest = Prisma.FlightRequestModel
+/**
  * Model AuditLog
  * 
  */

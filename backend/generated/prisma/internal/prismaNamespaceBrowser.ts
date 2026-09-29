@@ -59,6 +59,8 @@ export const ModelName = {
   BookingPayment: 'BookingPayment',
   Passenger: 'Passenger',
   ContactRequest: 'ContactRequest',
+  NewsletterSubscriber: 'NewsletterSubscriber',
+  FlightRequest: 'FlightRequest',
   AuditLog: 'AuditLog'
 } as const
 
@@ -210,6 +212,52 @@ export const ContactRequestScalarFieldEnum = {
 } as const
 
 export type ContactRequestScalarFieldEnum = (typeof ContactRequestScalarFieldEnum)[keyof typeof ContactRequestScalarFieldEnum]
+
+
+export const NewsletterSubscriberScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  status: 'status',
+  source: 'source',
+  consentGiven: 'consentGiven',
+  consentAt: 'consentAt',
+  confirmationTokenHash: 'confirmationTokenHash',
+  unsubscribeTokenHash: 'unsubscribeTokenHash',
+  confirmationExpiresAt: 'confirmationExpiresAt',
+  confirmedAt: 'confirmedAt',
+  unsubscribedAt: 'unsubscribedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewsletterSubscriberScalarFieldEnum = (typeof NewsletterSubscriberScalarFieldEnum)[keyof typeof NewsletterSubscriberScalarFieldEnum]
+
+
+export const FlightRequestScalarFieldEnum = {
+  requestId: 'requestId',
+  submissionKey: 'submissionKey',
+  customerAuth0Sub: 'customerAuth0Sub',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  phone: 'phone',
+  from: 'from',
+  to: 'to',
+  departureDate: 'departureDate',
+  preferredTime: 'preferredTime',
+  passengers: 'passengers',
+  aircraftCategory: 'aircraftCategory',
+  requestType: 'requestType',
+  leadSource: 'leadSource',
+  status: 'status',
+  hubspotDealId: 'hubspotDealId',
+  crmSyncedAt: 'crmSyncedAt',
+  crmSyncStartedAt: 'crmSyncStartedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FlightRequestScalarFieldEnum = (typeof FlightRequestScalarFieldEnum)[keyof typeof FlightRequestScalarFieldEnum]
 
 
 export const AuditLogScalarFieldEnum = {

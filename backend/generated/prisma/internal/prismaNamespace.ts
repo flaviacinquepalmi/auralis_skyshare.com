@@ -392,6 +392,8 @@ export const ModelName = {
   BookingPayment: 'BookingPayment',
   Passenger: 'Passenger',
   ContactRequest: 'ContactRequest',
+  NewsletterSubscriber: 'NewsletterSubscriber',
+  FlightRequest: 'FlightRequest',
   AuditLog: 'AuditLog'
 } as const
 
@@ -408,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "operator" | "aircraft" | "emptyLeg" | "booking" | "bookingPayment" | "passenger" | "contactRequest" | "auditLog"
+    modelProps: "user" | "operator" | "aircraft" | "emptyLeg" | "booking" | "bookingPayment" | "passenger" | "contactRequest" | "newsletterSubscriber" | "flightRequest" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1004,6 +1006,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    NewsletterSubscriber: {
+      payload: Prisma.$NewsletterSubscriberPayload<ExtArgs>
+      fields: Prisma.NewsletterSubscriberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NewsletterSubscriberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NewsletterSubscriberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>
+        }
+        findFirst: {
+          args: Prisma.NewsletterSubscriberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NewsletterSubscriberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>
+        }
+        findMany: {
+          args: Prisma.NewsletterSubscriberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>[]
+        }
+        create: {
+          args: Prisma.NewsletterSubscriberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>
+        }
+        createMany: {
+          args: Prisma.NewsletterSubscriberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NewsletterSubscriberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>[]
+        }
+        delete: {
+          args: Prisma.NewsletterSubscriberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>
+        }
+        update: {
+          args: Prisma.NewsletterSubscriberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>
+        }
+        deleteMany: {
+          args: Prisma.NewsletterSubscriberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NewsletterSubscriberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NewsletterSubscriberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>[]
+        }
+        upsert: {
+          args: Prisma.NewsletterSubscriberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewsletterSubscriberPayload>
+        }
+        aggregate: {
+          args: Prisma.NewsletterSubscriberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNewsletterSubscriber>
+        }
+        groupBy: {
+          args: Prisma.NewsletterSubscriberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NewsletterSubscriberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NewsletterSubscriberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NewsletterSubscriberCountAggregateOutputType> | number
+        }
+      }
+    }
+    FlightRequest: {
+      payload: Prisma.$FlightRequestPayload<ExtArgs>
+      fields: Prisma.FlightRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FlightRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FlightRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.FlightRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FlightRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>
+        }
+        findMany: {
+          args: Prisma.FlightRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>[]
+        }
+        create: {
+          args: Prisma.FlightRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>
+        }
+        createMany: {
+          args: Prisma.FlightRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FlightRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.FlightRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>
+        }
+        update: {
+          args: Prisma.FlightRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.FlightRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FlightRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FlightRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.FlightRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlightRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.FlightRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFlightRequest>
+        }
+        groupBy: {
+          args: Prisma.FlightRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FlightRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FlightRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FlightRequestCountAggregateOutputType> | number
+        }
+      }
+    }
     AuditLog: {
       payload: Prisma.$AuditLogPayload<ExtArgs>
       fields: Prisma.AuditLogFieldRefs
@@ -1251,6 +1401,52 @@ export const ContactRequestScalarFieldEnum = {
 export type ContactRequestScalarFieldEnum = (typeof ContactRequestScalarFieldEnum)[keyof typeof ContactRequestScalarFieldEnum]
 
 
+export const NewsletterSubscriberScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  status: 'status',
+  source: 'source',
+  consentGiven: 'consentGiven',
+  consentAt: 'consentAt',
+  confirmationTokenHash: 'confirmationTokenHash',
+  unsubscribeTokenHash: 'unsubscribeTokenHash',
+  confirmationExpiresAt: 'confirmationExpiresAt',
+  confirmedAt: 'confirmedAt',
+  unsubscribedAt: 'unsubscribedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewsletterSubscriberScalarFieldEnum = (typeof NewsletterSubscriberScalarFieldEnum)[keyof typeof NewsletterSubscriberScalarFieldEnum]
+
+
+export const FlightRequestScalarFieldEnum = {
+  requestId: 'requestId',
+  submissionKey: 'submissionKey',
+  customerAuth0Sub: 'customerAuth0Sub',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  phone: 'phone',
+  from: 'from',
+  to: 'to',
+  departureDate: 'departureDate',
+  preferredTime: 'preferredTime',
+  passengers: 'passengers',
+  aircraftCategory: 'aircraftCategory',
+  requestType: 'requestType',
+  leadSource: 'leadSource',
+  status: 'status',
+  hubspotDealId: 'hubspotDealId',
+  crmSyncedAt: 'crmSyncedAt',
+  crmSyncStartedAt: 'crmSyncStartedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FlightRequestScalarFieldEnum = (typeof FlightRequestScalarFieldEnum)[keyof typeof FlightRequestScalarFieldEnum]
+
+
 export const AuditLogScalarFieldEnum = {
   id: 'id',
   actorUserId: 'actorUserId',
@@ -1466,6 +1662,27 @@ export type ListEnumContactRequestStatusFieldRefInput<$PrismaModel> = FieldRefIn
 
 
 /**
+ * Reference to a field of type 'NewsletterSubscriberStatus'
+ */
+export type EnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NewsletterSubscriberStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'NewsletterSubscriberStatus[]'
+ */
+export type ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NewsletterSubscriberStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -1610,6 +1827,8 @@ export type GlobalOmitConfig = {
   bookingPayment?: Prisma.BookingPaymentOmit
   passenger?: Prisma.PassengerOmit
   contactRequest?: Prisma.ContactRequestOmit
+  newsletterSubscriber?: Prisma.NewsletterSubscriberOmit
+  flightRequest?: Prisma.FlightRequestOmit
   auditLog?: Prisma.AuditLogOmit
 }
 

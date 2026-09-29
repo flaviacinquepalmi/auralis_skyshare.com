@@ -74,3 +74,12 @@ export const ContactRequestStatus = {
 } as const
 
 export type ContactRequestStatus = (typeof ContactRequestStatus)[keyof typeof ContactRequestStatus]
+
+
+export const NewsletterSubscriberStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  UNSUBSCRIBED: 'UNSUBSCRIBED'
+} as const
+
+export type NewsletterSubscriberStatus = (typeof NewsletterSubscriberStatus)[keyof typeof NewsletterSubscriberStatus]

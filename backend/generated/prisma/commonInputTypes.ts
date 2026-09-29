@@ -335,6 +335,36 @@ export type EnumContactRequestStatusWithAggregatesFilter<$PrismaModel = never> =
   _max?: Prisma.NestedEnumContactRequestStatusFilter<$PrismaModel>
 }
 
+export type EnumNewsletterSubscriberStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.NewsletterSubscriberStatus | Prisma.EnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNewsletterSubscriberStatusFilter<$PrismaModel> | $Enums.NewsletterSubscriberStatus
+}
+
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
+export type EnumNewsletterSubscriberStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NewsletterSubscriberStatus | Prisma.EnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNewsletterSubscriberStatusWithAggregatesFilter<$PrismaModel> | $Enums.NewsletterSubscriberStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNewsletterSubscriberStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNewsletterSubscriberStatusFilter<$PrismaModel>
+}
+
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
 export type JsonNullableFilter<$PrismaModel = never> =
 | Prisma.PatchUndefined<
     Prisma.Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -718,6 +748,36 @@ export type NestedEnumContactRequestStatusWithAggregatesFilter<$PrismaModel = ne
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumContactRequestStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumContactRequestStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumNewsletterSubscriberStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.NewsletterSubscriberStatus | Prisma.EnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNewsletterSubscriberStatusFilter<$PrismaModel> | $Enums.NewsletterSubscriberStatus
+}
+
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
+export type NestedEnumNewsletterSubscriberStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NewsletterSubscriberStatus | Prisma.EnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NewsletterSubscriberStatus[] | Prisma.ListEnumNewsletterSubscriberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNewsletterSubscriberStatusWithAggregatesFilter<$PrismaModel> | $Enums.NewsletterSubscriberStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNewsletterSubscriberStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNewsletterSubscriberStatusFilter<$PrismaModel>
+}
+
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedJsonNullableFilter<$PrismaModel = never> =
