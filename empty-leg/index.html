@@ -4,18 +4,19 @@
 <base href="/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auralis SkyShare | Empty Leg e Jet Privati</title>
-<meta name="description" content="Scopri gli Empty Leg disponibili con Auralis SkyShare: voli di riposizionamento in jet privato e guide per capire come funzionano, prezzi, rotte e prenotazioni.">
-<link rel="canonical" href="https://auralisair.it/">
-<meta property="og:title" content="Auralis SkyShare | Empty Leg e Jet Privati">
-<meta property="og:description" content="Empty Leg, jet privati e guide per capire come funzionano prezzi, rotte e prenotazioni.">
+<title>Voli Empty Leg: disponibilità e prezzi | Auralis</title>
+<meta name="description" content="Scopri i voli Empty Leg disponibili con Auralis: rotte, date, aeromobili, prezzi indicativi e richieste di volo privato.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://auralisair.it/empty-leg/">
+<meta property="og:title" content="Voli Empty Leg disponibili | Auralis">
+<meta property="og:description" content="Rotte e disponibilità Empty Leg: voli di riposizionamento in jet privato.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://auralisair.it/">
+<meta property="og:url" content="https://auralisair.it/empty-leg/">
 <meta property="og:image" content="https://auralisair.it/assets/jet_door_opening.jpg">
 <meta property="og:image:alt" content="Ingresso a bordo di un jet privato Auralis">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Auralis SkyShare | Empty Leg e Jet Privati">
-<meta name="twitter:description" content="Empty Leg, jet privati e guide per capire come funzionano prezzi, rotte e prenotazioni.">
+<meta name="twitter:title" content="Voli Empty Leg disponibili | Auralis">
+<meta name="twitter:description" content="Rotte e disponibilità Empty Leg: voli di riposizionamento in jet privato.">
 <meta name="twitter:image" content="https://auralisair.it/assets/jet_door_opening.jpg">
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
@@ -1842,70 +1843,6 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
   text-align: center;
 }
 
-
-/* ═══════════════════════════════════════════════
-   PASSENGER WALLET / CONTACTS
-════════════════════════════════════════════════ */
-.passenger-wallet-shell{display:grid;gap:16px}
-.passenger-owner-card{position:relative;overflow:hidden}
-.passenger-owner-card::after{content:"";position:absolute;width:180px;height:180px;right:-70px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,53,.16),rgba(201,165,53,0) 68%);pointer-events:none}
-.passenger-wallet-toolbar{display:flex;align-items:center;gap:12px;margin:4px 0 2px}
-.passenger-search{position:relative;flex:1}
-.passenger-search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:#7a8799;pointer-events:none}
-.passenger-search input{width:100%;height:46px;padding:0 16px 0 43px;border:1px solid rgba(10,22,40,.09);border-radius:14px;background:rgba(255,255,255,.88);color:var(--navy);font:inherit;font-size:13px;outline:none;box-shadow:0 6px 24px rgba(10,22,40,.035);transition:.22s ease}
-.passenger-search input:focus{border-color:rgba(74,123,196,.38);box-shadow:0 0 0 4px rgba(74,123,196,.08),0 8px 26px rgba(10,22,40,.05)}
-.passenger-section-label{margin:4px 0 10px;color:#8a95a5;font-size:9px;font-weight:800;letter-spacing:.20em;text-transform:uppercase}
-.passenger-recents{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.passenger-recents::-webkit-scrollbar{display:none}
-.passenger-recent{min-width:82px;border:0;background:transparent;cursor:pointer;text-align:center;scroll-snap-align:start;padding:0;color:var(--navy)}
-.passenger-avatar{width:50px;height:50px;margin:0 auto 8px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#10233d,#244b7d);color:#fff;font-size:14px;font-weight:900;letter-spacing:.02em;box-shadow:0 8px 22px rgba(10,22,40,.14),inset 0 0 0 1px rgba(255,255,255,.13);transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
-.passenger-recent:hover .passenger-avatar{transform:translateY(-3px) scale(1.05);box-shadow:0 12px 28px rgba(10,22,40,.18)}
-.passenger-recent-name{display:block;max-width:82px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:800}
-.passenger-recent-sub{display:block;margin-top:2px;color:#929bab;font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.passenger-contact-scroll{max-height:520px;overflow-y:auto;padding:5px 5px 70px 2px;scroll-snap-type:y proximity;scrollbar-width:thin;scrollbar-color:rgba(10,22,40,.16) transparent;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;mask-image:linear-gradient(to bottom,transparent 0,#000 26px,#000 calc(100% - 42px),transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 26px,#000 calc(100% - 42px),transparent 100%)}
-.passenger-contact-card{--wallet-scale:1;--wallet-opacity:1;position:relative;margin:9px 0;padding:15px 16px;display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:14px;border:1px solid rgba(10,22,40,.075);border-radius:18px;background:rgba(255,255,255,.93);box-shadow:0 8px 24px rgba(10,22,40,.035);cursor:pointer;scroll-snap-align:center;transform:scale(var(--wallet-scale));opacity:var(--wallet-opacity);transform-origin:center;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease,transform .16s linear,opacity .16s linear}
-.passenger-contact-card:hover,.passenger-contact-card.is-open{border-color:rgba(74,123,196,.24);background:#fff;box-shadow:0 16px 38px rgba(10,22,40,.075)}
-.passenger-contact-card .passenger-avatar{width:46px;height:46px;margin:0;font-size:13px}
-.passenger-contact-main{min-width:0}
-.passenger-contact-label{display:block;margin-bottom:4px;color:var(--gold);font-size:8px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.passenger-contact-name{display:block;color:var(--navy);font-size:15px;font-weight:900;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.passenger-contact-meta{display:block;margin-top:4px;color:#8b96a6;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.passenger-contact-chevron{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#8490a0;background:#f4f6f9;font-size:19px;transition:.25s ease}
-.passenger-contact-card.is-open .passenger-contact-chevron{transform:rotate(90deg);background:rgba(201,165,53,.12);color:var(--gold)}
-.passenger-contact-actions{grid-column:2/-1;max-height:0;overflow:hidden;opacity:0;display:flex;gap:8px;transition:max-height .28s cubic-bezier(.22,1,.36,1),opacity .2s ease,padding .28s ease;padding-top:0}
-.passenger-contact-card.is-open .passenger-contact-actions{max-height:60px;opacity:1;padding-top:11px}
-.passenger-wallet-empty{padding:36px 22px;text-align:center;border:1px dashed rgba(10,22,40,.12);border-radius:18px;background:rgba(255,255,255,.55);color:var(--muted);font-size:12px}
-
-/* Booking passenger picker */
-.passenger-picker-field{grid-column:1/-1}
-.passenger-picker-trigger{width:100%;min-height:54px;padding:9px 13px;display:flex;align-items:center;gap:11px;border:1px solid #dfe4ea;border-radius:8px;background:#fff;color:var(--navy);cursor:pointer;text-align:left;transition:.2s ease}
-.passenger-picker-trigger:hover{border-color:rgba(74,123,196,.45);box-shadow:0 5px 18px rgba(10,22,40,.055)}
-.passenger-picker-trigger .mini-avatar{width:34px;height:34px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#10233d,#244b7d);color:white;font-size:10px;font-weight:900}
-.passenger-picker-copy{min-width:0;flex:1}
-.passenger-picker-copy small{display:block;margin-bottom:2px;color:#97a0ae;font-size:8px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
-.passenger-picker-copy strong{display:block;font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.passenger-picker-arrow{font-size:18px;color:#8d98a7}
-.passenger-contact-select{display:none!important}
-
-.passenger-picker-overlay{position:fixed;inset:0;z-index:16000;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(3,10,20,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.passenger-picker-overlay.open{display:flex;animation:pickerFade .2s ease both}
-.passenger-picker-sheet{width:min(560px,100%);max-height:min(720px,88vh);overflow:hidden;border-radius:26px 26px 18px 18px;background:#f6f8fb;box-shadow:0 26px 90px rgba(0,0,0,.26);animation:pickerUp .38s cubic-bezier(.22,1,.36,1) both}
-.passenger-picker-handle{width:38px;height:4px;margin:10px auto 4px;border-radius:99px;background:#cbd2dc}
-.passenger-picker-head{padding:17px 22px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.passenger-picker-head h3{color:var(--navy);font-size:20px;font-weight:900;letter-spacing:-.03em}
-.passenger-picker-close{width:34px;height:34px;border:0;border-radius:50%;background:#e7ebf1;color:#596678;font-size:20px;cursor:pointer}
-.passenger-picker-list{max-height:58vh;overflow-y:auto;padding:4px 12px 18px;-webkit-overflow-scrolling:touch}
-.passenger-picker-option{width:100%;padding:12px 13px;margin:6px 0;display:flex;align-items:center;gap:12px;border:1px solid transparent;border-radius:15px;background:#fff;color:var(--navy);cursor:pointer;text-align:left;box-shadow:0 4px 18px rgba(10,22,40,.035);transition:.18s ease}
-.passenger-picker-option:hover{transform:translateY(-1px);border-color:rgba(74,123,196,.18);box-shadow:0 8px 24px rgba(10,22,40,.07)}
-.passenger-picker-option .passenger-avatar{width:40px;height:40px;margin:0;font-size:11px}
-.passenger-picker-option.manual .passenger-avatar{background:#eef1f5;color:#657285;box-shadow:none;font-size:20px;font-weight:500}
-.passenger-picker-option strong{display:block;font-size:12px;font-weight:900}
-.passenger-picker-option small{display:block;margin-top:3px;color:#8b96a6;font-size:9px}
-.passenger-picker-group{padding:10px 10px 2px;color:#8d98a7;font-size:8px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
-@keyframes pickerFade{from{opacity:0}to{opacity:1}}
-@keyframes pickerUp{from{opacity:0;transform:translateY(28px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-@media(max-width:700px){.passenger-wallet-toolbar{position:sticky;top:0;z-index:3;padding:8px 0;background:linear-gradient(#f5f7fb 72%,rgba(245,247,251,0))}.passenger-contact-scroll{max-height:58vh;padding-bottom:100px}.passenger-contact-card{border-radius:16px;grid-template-columns:48px minmax(0,1fr) auto}.passenger-picker-overlay{padding:0;align-items:flex-end}.passenger-picker-sheet{width:100%;border-radius:28px 28px 0 0;max-height:86vh}.passenger-picker-list{max-height:68vh}}
-
 /* VOLI */
 
 .customer-flights-archive-head {
@@ -2743,25 +2680,6 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 }
 
 
-.customer-sidebar-logout{
-  margin-top:12px;
-  padding:0;
-  border:0;
-  background:transparent;
-  color:#D84A4A;
-  font:inherit;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.2px;
-  cursor:pointer;
-  text-align:left;
-  transition:color .2s ease, transform .2s ease, opacity .2s ease;
-}
-.customer-sidebar-logout:hover{
-  color:#B42323;
-  transform:translateX(2px);
-}
-
 /* === AURALIS MOBILE DASHBOARD DRAWER + MAP FIX === */
 .customer-mobile-menu-toggle,
 .customer-mobile-menu-backdrop{display:none;}
@@ -3027,8 +2945,8 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 .el-filter-panel.inspire .el-inspire-panel{display:block}
 .el-inspire-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end}
 .el-inspire-go{height:48px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);padding:0 18px;font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 24px rgba(201,165,53,.18)}
-.el-inspire-results{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 56px 0}
-.el-inspire-results.show{display:grid}
+.el-inspire-results{display:none!important}
+.el-inspire-results.show{display:none!important}
 .el-inspire-card{padding:20px;border-radius:24px;background:linear-gradient(145deg,#0b1a30,#142d50);color:#fff;border:1px solid rgba(255,255,255,.09);box-shadow:0 18px 50px rgba(10,22,40,.17)}
 .el-inspire-kicker{font-size:8px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold2);font-weight:800;margin-bottom:8px}
 .el-inspire-route{font-size:22px;font-weight:900;letter-spacing:-.6px;margin-bottom:10px}
@@ -3150,12 +3068,65 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
  .el-view-toggle{width:100%}.el-view-toggle button{flex:1}
  .el-cards-section{padding:16px 20px 54px!important}
  .el-cards-grid{grid-template-columns:1fr!important}
- .el-cards-grid.is-list .el-card{display:block!important;padding:20px!important;min-height:0!important}
- .el-cards-grid.is-list .el-aircraft-media{height:160px!important;margin:-20px -20px 20px!important;border-radius:24px 24px 0 0!important}
- .el-cards-grid.is-list .el-prob{position:static!important;margin-bottom:12px!important}
- .el-cards-grid.is-list .el-foot{border-left:0!important;border-top:1px solid var(--bdr)!important;padding-top:14px!important}
+ .el-cards-grid.is-list{gap:12px!important}
+ .el-cards-grid.is-list .el-card{
+   display:grid!important;
+   grid-template-columns:104px minmax(0,1fr)!important;
+   grid-template-areas:"media route" "media prob" "meta meta" "foot foot"!important;
+   align-items:start!important;
+   gap:12px 14px!important;
+   padding:14px!important;
+   min-height:0!important;
+   border-radius:22px!important;
+ }
+ .el-cards-grid.is-list .el-aircraft-media{
+   grid-area:media!important;
+   width:104px!important;
+   height:104px!important;
+   margin:0!important;
+   border-radius:18px!important;
+   align-self:start!important;
+ }
+ .el-cards-grid.is-list .el-aircraft-media-label{
+   left:8px!important;right:8px!important;bottom:8px!important;
+   padding:5px 7px!important;font-size:6.5px!important;line-height:1.1!important;
+   white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+ }
+ .el-cards-grid.is-list .el-rt{grid-area:route!important;margin:2px 0 0!important;gap:7px!important;min-width:0!important}
+ .el-cards-grid.is-list .el-iata{font-size:24px!important;letter-spacing:-.8px!important}
+ .el-cards-grid.is-list .el-city{font-size:9px!important;max-width:68px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+ .el-cards-grid.is-list .el-arr{gap:4px!important;min-width:26px!important}
+ .el-cards-grid.is-list .el-prob{grid-area:prob!important;position:static!important;justify-self:start!important;margin:0!important;font-size:8px!important;padding:4px 8px!important}
+ .el-cards-grid.is-list .el-meta{
+   grid-area:meta!important;
+   grid-template-columns:1.35fr .65fr .65fr 1fr!important;
+   gap:8px!important;margin:2px 0 0!important;padding-top:12px!important;
+   border-top:1px solid var(--bdr)!important;
+ }
+ .el-cards-grid.is-list .el-m .v{font-size:11px!important;line-height:1.25!important}
+ .el-cards-grid.is-list .el-m .k{font-size:7px!important;letter-spacing:.9px!important}
+ .el-cards-grid.is-list .el-foot{
+   grid-area:foot!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+   align-items:end!important;gap:12px!important;border-left:0!important;border-top:1px solid var(--bdr)!important;
+   padding:12px 0 0!important;
+ }
+ .el-cards-grid.is-list .price-current{font-size:22px!important}
+ .el-cards-grid.is-list .price-original{font-size:10px!important}
+ .el-cards-grid.is-list .price-saving{font-size:9px!important}
+ .el-cards-grid.is-list .el-right{align-items:flex-end!important;min-width:0!important}
+ .el-cards-grid.is-list .el-cd{font-size:9px!important}
+ .el-cards-grid.is-list .el-btn{padding:10px 14px!important;font-size:9px!important;letter-spacing:1.4px!important;border-radius:999px!important}
  .map-wrap{margin:0 20px 64px!important;width:auto!important;border-radius:26px!important}
 }
+@media(max-width:420px){
+ .el-cards-grid.is-list .el-card{grid-template-columns:88px minmax(0,1fr)!important;gap:10px 12px!important;padding:12px!important}
+ .el-cards-grid.is-list .el-aircraft-media{width:88px!important;height:88px!important;border-radius:16px!important}
+ .el-cards-grid.is-list .el-meta{grid-template-columns:1fr 1fr!important}
+ .el-cards-grid.is-list .el-foot{grid-template-columns:1fr!important}
+ .el-cards-grid.is-list .el-right{align-items:stretch!important;text-align:left!important}
+ .el-cards-grid.is-list .el-btn{width:100%!important}
+}
+.el-card.el-filter-hidden{display:none!important}
 
 </style>
 <link rel="preconnect" href="https://cdn.auth0.com" crossorigin>
@@ -3189,416 +3160,212 @@ footer{background:var(--navy2);padding:28px 56px 18px;border-top:1px solid rgba(
 }
 </script>
 
-<style id="auralis-luxury-visual-draft">
+<style id="auralis-route-visual-sync">
 /* =========================================================
-   AURALIS — LUXURY VISUAL DRAFT V2
-   Intervento più visibile ma selettivo. Nessun layout,
-   contenuto o comportamento applicativo viene modificato.
+   AURALIS ROUTE VISUAL SYNC — luxury / soft bubble system
+   Solo presentazione: nessuna modifica a routing, SEO o logica.
    ========================================================= */
 :root{
-  --lux-ease:cubic-bezier(.22,.75,.16,1);
-  --lux-gold:#E8C96A;
-  --lux-gold-soft:rgba(232,201,106,.18);
-  --lux-blue-soft:rgba(129,176,229,.16);
-  --lux-shadow:0 22px 60px rgba(5,13,26,.14);
-  --lux-shadow-deep:0 34px 90px rgba(5,13,26,.22);
+  --auralis-radius-sm:16px;
+  --auralis-radius-md:22px;
+  --auralis-radius-lg:28px;
+  --auralis-radius-xl:34px;
+  --auralis-shadow:0 18px 52px rgba(10,22,40,.08), inset 0 1px 0 rgba(255,255,255,.78);
+  --auralis-shadow-hover:0 26px 68px rgba(10,22,40,.13), inset 0 1px 0 rgba(255,255,255,.88);
+  --auralis-glass:rgba(255,255,255,.78);
+  --auralis-line:rgba(10,22,40,.085);
 }
 
-/* 1) NAVBAR — vetro più evidente e link "pill" */
-#mainnav{
-  background:linear-gradient(180deg,rgba(255,255,255,.93),rgba(248,250,253,.82)) !important;
-  border-bottom:1px solid rgba(255,255,255,.72) !important;
-  box-shadow:0 14px 45px rgba(6,15,28,.10), inset 0 -1px 0 rgba(10,22,40,.04) !important;
-  backdrop-filter:blur(26px) saturate(160%) !important;
-  -webkit-backdrop-filter:blur(26px) saturate(160%) !important;
-}
-.nav-links a{
-  border:1px solid transparent;
-  transition:all .28s var(--lux-ease) !important;
-}
-.nav-links a:hover,.nav-links a.active-link{
-  background:rgba(255,255,255,.72) !important;
-  border-color:rgba(10,22,40,.07);
-  box-shadow:0 8px 20px rgba(10,22,40,.07), inset 0 1px 0 rgba(255,255,255,.9);
-  transform:translateY(-2px);
-}
-
-/* 2) CTA — profondità, bordo luce e micro-glow */
-.btn-reserved,.el-btn,.submit-big,.customer-primary-btn,.cont-btn,.pilot-btn{
-  border:1px solid rgba(255,255,255,.10) !important;
-  box-shadow:0 13px 30px rgba(7,17,31,.24), inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.12) !important;
-  transition:all .3s var(--lux-ease) !important;
-}
-.btn-reserved:hover,.el-btn:hover,.submit-big:hover,.customer-primary-btn:hover,.cont-btn:hover,.pilot-btn:hover{
-  transform:translateY(-3px) scale(1.015) !important;
-  box-shadow:0 21px 42px rgba(7,17,31,.28), 0 0 0 1px rgba(232,201,106,.18), 0 0 28px rgba(232,201,106,.10) !important;
-}
-.btn-operator,.customer-secondary-btn{
-  background:rgba(255,255,255,.66) !important;
-  border-color:rgba(10,22,40,.16) !important;
-  box-shadow:0 8px 24px rgba(10,22,40,.08), inset 0 1px 0 rgba(255,255,255,.95);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-}
-
-/* 3) HERO CARD — vera superficie premium */
-.clarity-hero-card{
-  background:linear-gradient(150deg,rgba(255,255,255,.97) 0%,rgba(247,249,252,.90) 58%,rgba(235,242,250,.84) 100%) !important;
-  border:1px solid rgba(255,255,255,.92) !important;
-  border-radius:20px !important;
-  box-shadow:0 42px 110px rgba(0,0,0,.32), 0 0 0 1px rgba(129,176,229,.08), inset 0 1px 0 rgba(255,255,255,1) !important;
-  backdrop-filter:blur(22px) saturate(140%) !important;
-  -webkit-backdrop-filter:blur(22px) saturate(140%) !important;
+/* Geometria comune */
+.modal-box,.reserved-box,.booking-modal-box,.custom-alert-box,
+.newsletter-modal,.operator-collab-modal{
+  border-radius:var(--auralis-radius-xl) !important;
+  box-shadow:0 36px 100px rgba(10,22,40,.20) !important;
   overflow:hidden;
 }
-.clarity-hero-card::before{
-  content:"";position:absolute;inset:0 0 auto 0;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(232,201,106,.85),rgba(129,176,229,.6),transparent);
-  z-index:3;
-}
-.clarity-hero-card::after{
-  content:"";position:absolute;width:260px;height:260px;right:-120px;top:-145px;
-  background:radial-gradient(circle,rgba(232,201,106,.30),rgba(129,176,229,.10) 42%,transparent 72%);
-  pointer-events:none;
-}
-.clarity-hero-card:hover{
-  transform:translateY(-10px) scale(1.012) !important;
-  box-shadow:0 55px 130px rgba(0,0,0,.36), 0 0 0 1px rgba(232,201,106,.18), inset 0 1px 0 rgba(255,255,255,1) !important;
-}
 
-/* 4) CONFIGURATORE — superfici più leggibili e hover deciso */
-.cfg-section::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(circle at 16% 18%,rgba(129,176,229,.11),transparent 28%),radial-gradient(circle at 84% 72%,rgba(232,201,106,.09),transparent 30%);
+.fg input,.fg select,.fg textarea,.cont-input,.res-input,
+.newsletter-email,.passenger-search-input{
+  border-radius:var(--auralis-radius-sm) !important;
+  border-color:var(--auralis-line) !important;
+  background:rgba(255,255,255,.88) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 6px 20px rgba(10,22,40,.035);
+  transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease !important;
 }
-.cfg-card{
-  background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035)) !important;
-  border:1px solid rgba(255,255,255,.20) !important;
-  border-radius:14px !important;
-  box-shadow:0 18px 50px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.10) !important;
-  backdrop-filter:blur(12px);
-}
-.cfg-card:hover{
-  background:linear-gradient(145deg,rgba(232,201,106,.16),rgba(255,255,255,.06)) !important;
-  border-color:rgba(232,201,106,.62) !important;
-  transform:translateY(-7px) scale(1.02) !important;
-  box-shadow:0 28px 60px rgba(0,0,0,.22),0 0 30px rgba(232,201,106,.08) !important;
-}
-.cfg-flight{
-  border:1px solid rgba(255,255,255,.75);
-  border-radius:16px !important;
-  box-shadow:0 26px 70px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.9) !important;
-}
-.cfg-confirm{border-radius:8px !important;box-shadow:0 16px 40px rgba(201,165,53,.28) !important}
-
-/* 5) EMPTY LEG — card più editoriali/luxury */
-.el-card{
-  background:linear-gradient(150deg,#fff 0%,#fbfcfe 72%,#f3f7fb 100%) !important;
-  border:1px solid rgba(10,22,40,.075) !important;
-  border-radius:14px !important;
-  box-shadow:0 18px 45px rgba(10,22,40,.08), inset 0 1px 0 rgba(255,255,255,.95) !important;
-}
-.el-card::after{
-  content:"";position:absolute;inset:-30% -50%;
-  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.72) 49%,rgba(232,201,106,.12) 52%,transparent 60%);
-  transform:translateX(-70%) rotate(4deg);transition:transform .9s var(--lux-ease);pointer-events:none;
-}
-.el-card:hover{
-  transform:translateY(-10px) !important;
-  border-color:rgba(201,165,53,.30) !important;
-  box-shadow:0 32px 68px rgba(10,22,40,.15),0 0 0 1px rgba(232,201,106,.10) !important;
-}
-.el-card:hover::after{transform:translateX(70%) rotate(4deg)}
-.price-current,.el-price{filter:drop-shadow(0 8px 18px rgba(201,165,53,.16))}
-
-/* 6) MODAL PRENOTAZIONE — hospitality suite */
-.modal-overlay{
-  background:rgba(2,7,15,.76) !important;
-  backdrop-filter:blur(18px) saturate(125%) !important;
-  -webkit-backdrop-filter:blur(18px) saturate(125%) !important;
-}
-.booking-modal-box,.reserved-box,.modal-box{
-  border-radius:18px !important;
-  border:1px solid rgba(255,255,255,.70) !important;
-  box-shadow:0 50px 140px rgba(1,5,12,.50),0 0 0 1px rgba(129,176,229,.08),inset 0 1px 0 rgba(255,255,255,.92) !important;
-  overflow:hidden;
-}
-.booking-modal-body,.reserved-body{background:linear-gradient(180deg,#fff,#f8fafc)}
-.booking-modal-head,.reserved-header{
-  background:linear-gradient(135deg,#07111f 0%,#0e2340 58%,#17385f 100%) !important;
-  position:relative;overflow:hidden;
-}
-.booking-modal-head::after,.reserved-header::after{
-  content:"";position:absolute;width:330px;height:180px;right:-100px;top:-125px;
-  background:radial-gradient(circle,rgba(232,201,106,.34),rgba(129,176,229,.11) 46%,transparent 72%);pointer-events:none;
-}
-
-/* 7) INPUT — focus visibile ma raffinato */
-.fg input,.fg select,.fg textarea,.cont-input,.res-input,.home-newsletter-email,.newsletter-email{
-  border-radius:8px !important;
-  background:rgba(255,255,255,.86) !important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
-  transition:all .24s ease !important;
-}
-.fg input:focus,.fg select:focus,.fg textarea:focus,.cont-input:focus,.res-input:focus,.home-newsletter-email:focus,.newsletter-email:focus{
-  border-color:rgba(201,165,53,.70) !important;
-  box-shadow:0 0 0 4px rgba(232,201,106,.13),0 16px 34px rgba(10,22,40,.09),inset 0 1px 0 rgba(255,255,255,1) !important;
+.fg input:focus,.fg select:focus,.fg textarea:focus,.cont-input:focus,.res-input:focus,
+.newsletter-email:focus,.passenger-search-input:focus{
+  border-color:rgba(201,165,53,.55) !important;
+  box-shadow:0 0 0 4px rgba(232,201,106,.13),0 12px 28px rgba(10,22,40,.07) !important;
   transform:translateY(-1px);
 }
 
-/* 8) DASHBOARD — più contrasto, layer e card flottanti */
-.customer-main{
-  background:radial-gradient(circle at 88% 0%,rgba(129,176,229,.12),transparent 30%),radial-gradient(circle at 2% 92%,rgba(232,201,106,.08),transparent 28%),linear-gradient(180deg,#f9fbfd,#f3f6fa) !important;
-}
-.customer-summary-card,.customer-panel,.flight-ticket-detail{
-  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(248,250,253,.90)) !important;
-  border:1px solid rgba(255,255,255,.95) !important;
-  border-radius:16px !important;
-  box-shadow:0 22px 55px rgba(10,22,40,.09),0 0 0 1px rgba(10,22,40,.035),inset 0 1px 0 rgba(255,255,255,1) !important;
-}
-.customer-summary-card{transition:all .3s var(--lux-ease) !important}
-.customer-summary-card:hover{
-  transform:translateY(-7px) scale(1.01);
-  box-shadow:0 34px 70px rgba(10,22,40,.13),0 0 0 1px rgba(129,176,229,.08),inset 0 1px 0 rgba(255,255,255,1) !important;
-}
-.customer-sidebar{box-shadow:18px 0 55px rgba(10,22,40,.07) !important}
-.customer-menu-item.active{box-shadow:0 10px 28px rgba(10,22,40,.10),inset 0 1px 0 rgba(255,255,255,.6)}
-
-/* Passenger Wallet: non cambiamo composizione, solo luce coerente */
-.passenger-wallet-card,.passenger-contact-card,.passenger-directory-card{
-  box-shadow:0 22px 58px rgba(10,22,40,.10),inset 0 1px 0 rgba(255,255,255,.85) !important;
+.btn-operator,.btn-reserved,.el-btn,.cont-btn,.submit-big,.pilot-btn,
+.pay-btn,.res-btn,.newsletter-submit,.customer-primary-btn,.customer-secondary-btn{
+  border-radius:999px !important;
 }
 
-/* 9) NEWSLETTER + FOOTER — layering più evidente */
-.home-newsletter{
-  position:relative;overflow:hidden;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 -20px 50px rgba(5,13,26,.08);
+/* CHI SIAMO — stesso linguaggio della home */
+.about-hero{
+  border-radius:0 0 var(--auralis-radius-xl) var(--auralis-radius-xl);
+  box-shadow:0 24px 60px rgba(10,22,40,.13);
 }
-.home-newsletter::before{
-  content:"";position:absolute;width:620px;height:620px;left:-320px;bottom:-410px;border-radius:50%;
-  background:radial-gradient(circle,rgba(129,176,229,.14),transparent 67%);pointer-events:none;
+.about-photo{
+  border-radius:var(--auralis-radius-lg) !important;
+  box-shadow:var(--auralis-shadow);
 }
-.home-newsletter::after{
-  content:"";position:absolute;width:520px;height:520px;right:-270px;top:-300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(232,201,106,.14),transparent 68%);pointer-events:none;
+.about-photo img{transition:transform .7s cubic-bezier(.22,.75,.16,1)}
+.about-photo:hover img{transform:scale(1.025)}
+.about-photo-label{border-radius:999px !important;backdrop-filter:blur(10px)}
+.av-card{
+  border-radius:var(--auralis-radius-lg) !important;
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(247,249,252,.82)) !important;
+  border:1px solid rgba(255,255,255,.8) !important;
+  box-shadow:var(--auralis-shadow);
 }
-footer{
-  position:relative;
-  box-shadow:0 -28px 70px rgba(3,8,17,.16) !important;
-  border-top:1px solid rgba(255,255,255,.09) !important;
+.av-card:hover{box-shadow:var(--auralis-shadow-hover) !important;transform:translateY(-5px)}
+.sn-i:first-child{border-radius:var(--auralis-radius-lg) 0 0 var(--auralis-radius-lg)}
+.sn-i:last-child{border-radius:0 var(--auralis-radius-lg) var(--auralis-radius-lg) 0}
+
+/* EMPTY LEG — card coerenti con la card in home */
+.el-hero{
+  border-radius:0 0 var(--auralis-radius-xl) var(--auralis-radius-xl);
+  box-shadow:0 24px 60px rgba(10,22,40,.13);
 }
-footer::before{
-  content:"";position:absolute;top:0;left:8%;right:8%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(232,201,106,.34),rgba(129,176,229,.25),transparent);
+.el-info-strip{gap:12px !important}
+.el-inf{
+  border-radius:var(--auralis-radius-md) !important;
+  background:rgba(255,255,255,.8) !important;
+  box-shadow:0 14px 36px rgba(10,22,40,.06);
+}
+.map-wrap{
+  border-radius:var(--auralis-radius-xl) !important;
+  box-shadow:0 30px 80px rgba(10,22,40,.18);
+}
+.el-cards-grid{gap:20px !important}
+.el-card{
+  border-radius:var(--auralis-radius-lg) !important;
+  border:1px solid rgba(255,255,255,.78) !important;
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(247,249,252,.88)) !important;
+  box-shadow:var(--auralis-shadow) !important;
+  overflow:hidden !important;
+}
+.el-card::before{border-bottom-left-radius:16px}
+.el-card:hover{
+  transform:translateY(-7px) !important;
+  box-shadow:var(--auralis-shadow-hover) !important;
+  border-color:rgba(232,201,106,.42) !important;
+}
+.el-prob,.el-save{border-radius:999px !important}
+
+/* Richiesta volo su misura */
+.custom-request-section{
+  margin:26px 56px 76px;
+  padding:54px !important;
+  border:1px solid rgba(255,255,255,.7) !important;
+  border-radius:var(--auralis-radius-xl) !important;
+  background:linear-gradient(145deg,rgba(247,249,252,.92),rgba(255,255,255,.84)) !important;
+  box-shadow:var(--auralis-shadow);
+}
+.custom-request-section .form-sec,
+.custom-request-section form{
+  border-radius:var(--auralis-radius-lg);
 }
 
-@media (prefers-reduced-motion:reduce){
-  .el-card::after{display:none}
-  .el-card,.clarity-hero-card,.customer-summary-card,.btn-reserved,.el-btn,.submit-big,.customer-primary-btn,.cfg-card{transition:none !important}
+/* PRENOTA ORA */
+.prenota-wrap{
+  background:linear-gradient(145deg,#f7f9fc 0%,#fff 52%,#f5f8fc 100%);
+  gap:18px;
+  padding:18px;
 }
-@media(max-width:768px){
-  #mainnav{background:rgba(255,255,255,.95) !important}
-  .clarity-hero-card{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-  .el-card:hover,.customer-summary-card:hover,.cfg-card:hover{transform:none !important}
+.prenota-form-col{
+  border-radius:var(--auralis-radius-xl) !important;
+  background:rgba(255,255,255,.82) !important;
+  backdrop-filter:blur(18px) saturate(118%);
+  -webkit-backdrop-filter:blur(18px) saturate(118%);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:var(--auralis-shadow);
 }
-</style>
-
-
-<style id="auralis-soft-bubble-v3">
-/* =========================================================
-   AURALIS SOFT BUBBLE SYSTEM — Luxury V3
-   Inspired by soft, continuous mobile surfaces without
-   changing layout, content, routing or functionality.
-   ========================================================= */
-:root{
-  --bubble-r-xs:14px;
-  --bubble-r-sm:18px;
-  --bubble-r-md:22px;
-  --bubble-r-lg:28px;
-  --bubble-r-xl:34px;
-  --bubble-r-pill:999px;
-  --bubble-border:rgba(10,22,40,.08);
-  --bubble-shadow:0 18px 48px rgba(10,22,40,.08), inset 0 1px 0 rgba(255,255,255,.86);
-  --bubble-shadow-hover:0 26px 64px rgba(10,22,40,.12), inset 0 1px 0 rgba(255,255,255,.92);
+.prenota-visual-col{
+  border-radius:var(--auralis-radius-xl) !important;
+  top:106px !important;
+  height:calc(100vh - 124px) !important;
+  box-shadow:0 28px 70px rgba(10,22,40,.17);
 }
-
-/* Form controls: softer continuous shapes */
-.fg input,.fg select,.fg textarea,
-.cont-input,.res-input,.home-newsletter-email,.newsletter-email,
-.customer-profile-form input,.customer-profile-form select,
-.passenger-contact-select,
-input[type="text"],input[type="email"],input[type="tel"],input[type="date"],input[type="time"],input[type="number"],select,textarea{
-  border-radius:var(--bubble-r-sm) !important;
+.form-sec{
+  padding:22px;
+  border-radius:var(--auralis-radius-lg);
+  background:rgba(247,249,252,.68);
+  border:1px solid rgba(10,22,40,.055);
+}
+.prefilled-banner,.split-section,.bm-route-badge,.split-result{
+  border-radius:var(--auralis-radius-md) !important;
 }
 
-/* Larger form rows / panels become one soft surface */
-.pax-body,.customer-profile-form,.contact-form,.custom-request-form,
-.passenger-wallet-form,.passenger-editor-form,
-.booking-modal-body .bm-details,.booking-modal-body .split-box,
-.newsletter-form,.home-newsletter-form{
-  border-radius:var(--bubble-r-lg) !important;
+/* Booking modal e passeggeri */
+.booking-modal-box{max-height:90vh !important;overflow:hidden !important}
+.booking-modal-head{border-radius:var(--auralis-radius-xl) var(--auralis-radius-xl) 0 0}
+.booking-modal-body{max-height:calc(90vh - 84px);overflow-y:auto;overscroll-behavior:contain}
+.bm-route-badge{
+  background:linear-gradient(135deg,rgba(201,165,53,.10),rgba(74,123,196,.06)) !important;
+  box-shadow:0 10px 26px rgba(10,22,40,.045);
 }
-
-/* Buttons, pills and compact controls */
-.btn-reserved,.btn-operator,.el-btn,.submit-big,.customer-primary-btn,.customer-secondary-btn,
-.customer-text-btn,.res-btn,.newsletter-submit,.home-newsletter-submit,.cfg-confirm,
-.customer-filter,.res-tab,.fc-opt,.wallet-action-button,
-button[type="submit"],button[type="button"].pill,
-.passenger-wallet-add,.passenger-wallet-action,.passenger-contact-trigger{
-  border-radius:var(--bubble-r-pill) !important;
+.split-section{
+  background:linear-gradient(135deg,rgba(255,255,255,.86),rgba(247,249,252,.78)) !important;
+  box-shadow:0 12px 32px rgba(10,22,40,.055);
 }
+.pax-block{
+  border-radius:var(--auralis-radius-lg) !important;
+  box-shadow:0 14px 34px rgba(10,22,40,.06);
+  border-color:rgba(10,22,40,.065) !important;
+}
+.pax-head.primary,.pax-head.secondary{border-radius:var(--auralis-radius-lg) var(--auralis-radius-lg) 0 0}
+.pax-body{border-radius:0 0 var(--auralis-radius-lg) var(--auralis-radius-lg)}
 
-/* Cards / bubbles */
-.clarity-hero-card,.el-card,.cfg-card,.cfg-flight,
+/* CONTATTI */
+.cont-hero{
+  border-radius:0 0 var(--auralis-radius-xl) var(--auralis-radius-xl);
+  box-shadow:0 24px 60px rgba(10,22,40,.13);
+}
+.cont-body{gap:28px !important}
+.cont-left,.cont-right{
+  margin-top:36px;
+  padding:30px !important;
+  border-radius:var(--auralis-radius-xl);
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(10,22,40,.06);
+  box-shadow:var(--auralis-shadow);
+}
+.ci-icon{border-radius:18px !important}
+.cont-form{gap:14px !important}
+
+/* Dashboard / richieste / wallet: uniforma le superfici */
 .customer-summary-card,.customer-panel,.flight-ticket-detail,
 .passenger-wallet-card,.passenger-contact-card,.passenger-directory-card,
-.passenger-quick-card,.passenger-sheet,.passenger-sheet-card,
-.newsletter-modal,.reserved-box,.modal-box,.booking-modal-box,
-.custom-alert,.custom-alert-box,.customer-empty-state,
-.home-newsletter-inner,.flight-wallet-pocket{
-  border-radius:var(--bubble-r-lg) !important;
+.customer-empty-state,.flight-wallet-pocket{
+  border-radius:var(--auralis-radius-lg) !important;
+}
+.customer-panel,.customer-summary-card,.flight-ticket-detail{
+  box-shadow:0 14px 38px rgba(10,22,40,.055);
 }
 
-/* Booking/passenger sections should feel like iOS-style grouped bubbles */
-#passengers-wrap .pax-block,
-#extra-pax .pax-block,
-.passenger-selector-shell,
-.saved-contact-picker,
-.passenger-picker-trigger,
-.passenger-directory-row,
-.passenger-row,
-.passenger-contact-row{
-  border-radius:var(--bubble-r-md) !important;
-  overflow:hidden;
+/* Configuratore e card interattive */
+.cfg-card,.cfg-flight,.how-step,.pg-card,.destination-card{
+  border-radius:var(--auralis-radius-lg) !important;
+}
+.cfg-card,.cfg-flight,.how-step,.pg-card{
+  box-shadow:0 12px 34px rgba(10,22,40,.05);
 }
 
-/* Soft grouped surface for passenger form body */
-#passengers-wrap .pax-body,
-#extra-pax .pax-body{
-  background:linear-gradient(180deg,rgba(245,247,250,.98),rgba(239,242,246,.95)) !important;
-  border:1px solid rgba(10,22,40,.055) !important;
-  padding:18px !important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.96) !important;
-}
-#passengers-wrap .pax-body .fg,
-#extra-pax .pax-body .fg{
-  margin-bottom:10px;
-}
-#passengers-wrap .pax-body .fg input,
-#passengers-wrap .pax-body .fg select,
-#extra-pax .pax-body .fg input,
-#extra-pax .pax-body .fg select{
-  background:rgba(255,255,255,.92) !important;
-  border:1px solid rgba(10,22,40,.065) !important;
-  min-height:48px;
-  padding:13px 16px !important;
+@media(max-width:900px){
+  .custom-request-section{margin:18px 20px 54px;padding:30px 20px !important}
+  .prenota-wrap{display:block;padding:12px}
+  .prenota-form-col{padding:44px 22px !important;max-height:none !important}
+  .prenota-visual-col{position:relative !important;top:auto !important;height:420px !important;margin-top:12px}
+  .cont-left,.cont-right{margin-top:18px;padding:24px !important}
+  .sn-i:first-child,.sn-i:last-child{border-radius:var(--auralis-radius-md)}
 }
 
-/* Passenger/contact picker: make the dropdown look unmistakably selectable */
-.passenger-picker-trigger,.passenger-contact-trigger,.saved-contact-picker,
-.passenger-contact-select + button,.contact-picker-trigger{
-  background:linear-gradient(180deg,#f4f5f7,#eceef1) !important;
-  border:1px solid rgba(10,22,40,.06) !important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 22px rgba(10,22,40,.055) !important;
-}
-
-/* Nav / dropdown / chips */
-.nav-links a,.customer-menu-item,.cfg-chip,.chip,.tag,.badge,.status-badge,
-.customer-status-badge,.flight-status-badge,.pax-num-badge{
-  border-radius:var(--bubble-r-pill) !important;
-}
-
-/* Inputs: more premium resting state, stronger focus */
-.fg input,.fg select,.fg textarea,.cont-input,.res-input,
-.home-newsletter-email,.newsletter-email,
-.customer-profile-form input,.customer-profile-form select{
-  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(247,249,252,.96)) !important;
-  border:1px solid rgba(10,22,40,.075) !important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,1),0 6px 18px rgba(10,22,40,.035) !important;
-}
-.fg input:hover,.fg select:hover,.fg textarea:hover,
-.cont-input:hover,.res-input:hover,.customer-profile-form input:hover,.customer-profile-form select:hover{
-  border-color:rgba(10,22,40,.14) !important;
-}
-.fg input:focus,.fg select:focus,.fg textarea:focus,.cont-input:focus,.res-input:focus,
-.home-newsletter-email:focus,.newsletter-email:focus,.customer-profile-form input:focus,.customer-profile-form select:focus{
-  border-color:rgba(201,165,53,.48) !important;
-  box-shadow:0 0 0 4px rgba(232,201,106,.11),0 14px 32px rgba(10,22,40,.08),inset 0 1px 0 #fff !important;
-}
-
-/* Dashboard & directory cards — rounder but still editorial */
-.customer-summary-card,.customer-panel,.flight-ticket-detail,
-.passenger-wallet-card,.passenger-directory-card{
-  box-shadow:var(--bubble-shadow) !important;
-}
-.customer-summary-card:hover,.passenger-directory-card:hover,.passenger-wallet-card:hover{
-  box-shadow:var(--bubble-shadow-hover) !important;
-}
-
-/* Empty-leg card: rounder, but not full pill */
-.el-card{border-radius:26px !important;overflow:hidden}
-
-/* Modal silhouettes */
-.booking-modal-box,.reserved-box,.newsletter-modal,.modal-box{
-  border-radius:32px !important;
-}
-.booking-modal-head,.reserved-header{
-  border-radius:32px 32px 0 0 !important;
-}
-.newsletter-modal{overflow:hidden}
-
-/* Search bars and quick selectors */
-.passenger-search,.passenger-search input,.search-input,.customer-search input{
-  border-radius:var(--bubble-r-pill) !important;
-}
-
-/* Soft hover for interactive bubbles */
-.customer-primary-btn,.customer-secondary-btn,.el-btn,.btn-reserved,.btn-operator,
-.passenger-wallet-add,.passenger-wallet-action,.passenger-picker-trigger,.passenger-contact-trigger{
-  transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease !important;
-}
-.customer-primary-btn:hover,.customer-secondary-btn:hover,.el-btn:hover,.btn-reserved:hover,.btn-operator:hover,
-.passenger-wallet-add:hover,.passenger-wallet-action:hover,.passenger-picker-trigger:hover,.passenger-contact-trigger:hover{
-  transform:translateY(-2px);
-}
-
-@media(max-width:768px){
-  .booking-modal-box,.reserved-box,.newsletter-modal,.modal-box{border-radius:28px !important}
-  .customer-summary-card,.customer-panel,.flight-ticket-detail,.el-card,.cfg-flight{border-radius:24px !important}
-  .pax-body{border-radius:22px !important}
-}
 </style>
-
-
-<style>
-/* ===== OPERATOR COLLABORATION MODAL ===== */
-.operator-collab-overlay{position:fixed;inset:0;z-index:9998;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(4,12,24,.68);backdrop-filter:blur(18px) saturate(120%);-webkit-backdrop-filter:blur(18px) saturate(120%)}
-.operator-collab-overlay.open{display:flex}
-.operator-collab-modal{position:relative;width:min(760px,100%);max-height:min(900px,92vh);overflow:auto;border:1px solid rgba(255,255,255,.34);border-radius:34px;background:linear-gradient(155deg,rgba(255,255,255,.98),rgba(245,248,252,.96));box-shadow:0 40px 110px rgba(4,12,24,.34),inset 0 1px 0 rgba(255,255,255,.92);padding:34px}
-.operator-collab-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border:0;border-radius:50%;background:rgba(10,22,40,.06);color:var(--navy);font-size:22px;cursor:pointer;transition:.2s ease}
-.operator-collab-close:hover{background:rgba(10,22,40,.11);transform:rotate(4deg)}
-.operator-collab-kicker{font-size:9px;font-weight:900;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.operator-collab-title{font-size:34px;line-height:1.03;letter-spacing:-.04em;color:var(--navy);margin:0 54px 12px 0;font-weight:900}
-.operator-collab-copy{font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;margin:0 0 24px}
-.operator-collab-form{display:flex;flex-direction:column;gap:12px}
-.operator-collab-bubble{overflow:hidden;border:1px solid rgba(10,22,40,.08);border-radius:24px;background:rgba(10,22,40,.035);box-shadow:inset 0 1px 0 rgba(255,255,255,.78)}
-.operator-collab-row{display:grid;grid-template-columns:160px 1fr;align-items:center;gap:18px;padding:14px 18px;border-bottom:1px solid rgba(10,22,40,.07)}
-.operator-collab-row:last-child{border-bottom:0}
-.operator-collab-row label{font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#748095}
-.operator-collab-row input,.operator-collab-row textarea{width:100%;border:0;outline:0;background:transparent;color:var(--navy);font:inherit;font-size:14px;resize:vertical}
-.operator-collab-row input::placeholder,.operator-collab-row textarea::placeholder{color:#a4adba}
-.operator-collab-subject{margin-top:2px;padding:14px 18px;border-radius:20px;background:linear-gradient(135deg,rgba(201,165,53,.12),rgba(74,123,196,.08));border:1px solid rgba(201,165,53,.24)}
-.operator-collab-subject span{display:block;font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.operator-collab-subject strong{font-size:14px;color:var(--navy);word-break:break-word}
-.operator-collab-submit{margin-top:4px;border:0;border-radius:999px;padding:17px 22px;background:linear-gradient(135deg,#07182d,#0d2a4c);color:#fff;font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;box-shadow:0 16px 34px rgba(7,24,45,.22);transition:.22s ease}
-.operator-collab-submit:hover{transform:translateY(-2px);box-shadow:0 22px 44px rgba(7,24,45,.28)}
-.operator-collab-submit:disabled{opacity:.55;cursor:wait;transform:none}
-.operator-collab-status{min-height:20px;font-size:12px;color:var(--muted);padding:0 4px}
-.operator-collab-success{display:none;margin-top:6px;padding:18px 20px;border-radius:22px;background:#f2f8f4;border:1px solid rgba(31,107,69,.18);color:var(--navy)}
-.operator-collab-success strong{display:block;margin-bottom:4px;font-size:15px}
-@media(max-width:700px){.operator-collab-overlay{padding:0;align-items:flex-end}.operator-collab-modal{width:100%;max-height:92vh;border-radius:30px 30px 0 0;padding:28px 20px 24px}.operator-collab-title{font-size:29px}.operator-collab-row{grid-template-columns:1fr;gap:6px;padding:14px 16px}.operator-collab-row label{font-size:9px}}
-</style>
-
 
 <style id="auralis-canonical-navbar-services-fix">
 /* Canonical Auralis navigation: same geometry and treatment on every public page. */
@@ -3733,152 +3500,6 @@ button[type="submit"],button[type="button"].pill,
 }
 </style>
 
-
-<style id="auralis-fleet-visual-v3">
-/* =========================================================
-   AURALIS — FLEET / EMPTY LEG VISUAL V3
-   Uses the existing Auralis language: navy, warm white, gold,
-   glass surfaces, rounded cards and strong editorial spacing.
-   ========================================================= */
-
-/* Alternating section rhythm: warm white -> navy -> warm white */
-.empty-leg-story{
-  background:
-    radial-gradient(circle at 8% 12%,rgba(232,201,106,.10),transparent 25%),
-    linear-gradient(180deg,#fbfaf6 0%,#ffffff 100%) !important;
-  border-top:1px solid rgba(10,22,40,.055) !important;
-}
-.empty-leg-story-media{border:1px solid rgba(10,22,40,.08);box-shadow:0 34px 90px rgba(10,22,40,.16) !important}
-.empty-leg-story-point{background:rgba(255,255,255,.82) !important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-
-.fleet-guide{
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 11% 8%,rgba(101,159,222,.18),transparent 28%),
-    radial-gradient(circle at 88% 88%,rgba(232,201,106,.12),transparent 30%),
-    linear-gradient(145deg,#071426 0%,#0b203a 54%,#102d4e 100%) !important;
-  border-top:1px solid rgba(255,255,255,.06) !important;
-}
-.fleet-guide::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 0 44%,rgba(255,255,255,.025) 51%,transparent 58%)}
-.fleet-guide-inner{position:relative;z-index:1}
-.fleet-guide .sec-eye{color:var(--gold2) !important}
-.fleet-guide-title{color:#fff !important}
-.fleet-guide-title em{color:var(--gold2) !important}
-.fleet-guide-sub{color:rgba(255,255,255,.62) !important}
-.fleet-guide-note{color:rgba(255,255,255,.58) !important;background:rgba(255,255,255,.075) !important;border-color:rgba(255,255,255,.12) !important;box-shadow:0 22px 60px rgba(0,0,0,.18) !important}
-.fleet-guide-note strong{color:#fff !important}
-
-.fleet-grid{gap:18px !important}
-.fleet-card{
-  display:flex;flex-direction:column;
-  min-height:430px !important;
-  padding:14px 14px 20px !important;
-  border-radius:30px !important;
-  background:linear-gradient(155deg,#ffffff 0%,#f8fafc 100%) !important;
-  border:1px solid rgba(255,255,255,.52) !important;
-  box-shadow:0 24px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.92) !important;
-}
-.fleet-card:nth-child(even){background:linear-gradient(155deg,#faf7ef 0%,#ffffff 100%) !important}
-.fleet-card:hover{transform:translateY(-8px) !important;box-shadow:0 34px 85px rgba(0,0,0,.28),0 0 0 1px rgba(232,201,106,.16) !important}
-.fleet-card-visual{
-  height:190px !important;margin-bottom:20px !important;border-radius:23px !important;
-  background:#0a1b31 !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
-}
-.fleet-card-visual img{width:100%!important;height:100%!important;object-fit:cover!important;opacity:1!important;transform:scale(1.015);transition:transform .55s cubic-bezier(.2,.7,.2,1)!important}
-.fleet-card:hover .fleet-card-visual img{transform:scale(1.065)!important}
-.fleet-card-visual::after{background:linear-gradient(180deg,rgba(5,13,25,.04) 35%,rgba(5,13,25,.68) 100%) !important}
-.fleet-card--turboprop .fleet-card-visual img{object-position:center 46%}
-.fleet-card--light .fleet-card-visual img{object-position:center 46%}
-.fleet-card--midsize .fleet-card-visual img{object-position:center 50%}
-.fleet-card--heavy .fleet-card-visual img{object-position:center 45%}
-.fleet-card-number{position:absolute;z-index:2;top:13px;left:14px;color:rgba(255,255,255,.72);font-size:9px;font-weight:900;letter-spacing:.18em}
-.fleet-card-photo-label{position:absolute;z-index:2;left:14px;bottom:13px;padding:6px 9px;border-radius:999px;background:rgba(7,20,38,.52);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff}
-.fleet-card-kicker{padding:0 5px;color:#b78d18 !important}
-.fleet-card h3{padding:0 5px;font-size:24px !important}
-.fleet-card p{padding:0 5px;font-size:12px !important;line-height:1.7 !important}
-.fleet-specs{padding:0 5px}
-.fleet-card-models{margin:13px 5px 0;padding-top:12px;border-top:1px solid rgba(10,22,40,.07);font-size:9px;line-height:1.55;color:#718097}
-.fleet-card-models strong{display:block;margin-bottom:3px;color:var(--navy);font-size:8px;letter-spacing:.13em;text-transform:uppercase}
-.fleet-card-action{margin:15px 5px 0 !important;margin-top:auto !important;padding-top:15px !important}
-
-/* Explorer: dark editorial header + exact model photography */
-.fleet-explorer-panel{background:#f5f7fa !important;border:1px solid rgba(255,255,255,.38) !important}
-.fleet-explorer-head{
-  background:linear-gradient(135deg,rgba(7,20,38,.98),rgba(15,44,77,.96)) !important;
-  border-bottom:1px solid rgba(255,255,255,.08) !important;
-}
-.fleet-explorer-kicker{color:var(--gold2) !important}
-.fleet-explorer-title{color:#fff !important}
-.fleet-explorer-sub{color:rgba(255,255,255,.61) !important}
-.fleet-explorer-close{color:#fff !important;background:rgba(255,255,255,.08) !important;border-color:rgba(255,255,255,.16) !important;box-shadow:none !important}
-.fleet-model-grid{gap:18px !important}
-.fleet-model-card{border-radius:28px !important;overflow:hidden;background:#fff !important}
-.fleet-model-card:nth-child(2){background:linear-gradient(160deg,#0a1b31,#113357) !important;border-color:rgba(255,255,255,.08) !important}
-.fleet-model-card:nth-child(2) .fleet-model-maker{color:var(--gold2) !important}
-.fleet-model-card:nth-child(2) .fleet-model-body h4{color:#fff !important}
-.fleet-model-card:nth-child(2) .fleet-model-body p,.fleet-model-card:nth-child(2) .fleet-model-use{color:rgba(255,255,255,.66) !important}
-.fleet-model-card:nth-child(2) .fleet-model-specs span{color:#fff !important;background:rgba(255,255,255,.08) !important;border-color:rgba(255,255,255,.10) !important}
-.fleet-model-photo{height:220px !important}
-.fleet-model-photo img{object-position:center center}
-.fleet-model-photo small{padding:6px 9px;border-radius:999px;background:rgba(7,20,38,.55);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
-.fleet-model-body{padding:20px 20px 22px !important}
-.fleet-model-body h4{font-size:21px !important}
-.fleet-model-use{font-size:10px;line-height:1.5;color:#64758a;margin:10px 0 14px}
-.fleet-model-use strong{color:inherit}
-.fleet-model-disclaimer{grid-column:1/-1;padding:0 4px 6px;color:#8390a1;font-size:9px;line-height:1.55}
-
-/* Pro/contro: visual contrast instead of two identical white cards */
-.empty-leg-proscons{background:linear-gradient(180deg,#f7f3e9 0%,#fbfaf6 100%) !important;border-top:1px solid rgba(10,22,40,.055)}
-.empty-leg-procon-card{padding:32px !important;border-radius:30px !important}
-.empty-leg-procon-card.pro{background:rgba(255,255,255,.92) !important}
-.empty-leg-procon-card.con{background:linear-gradient(145deg,#08182d,#102f52) !important;border-color:rgba(255,255,255,.08) !important;box-shadow:0 24px 65px rgba(10,22,40,.17) !important}
-.empty-leg-procon-card.con h3{color:#fff !important}
-.empty-leg-procon-card.con .empty-leg-procon-item{color:rgba(255,255,255,.72) !important}
-.empty-leg-procon-card.con .empty-leg-procon-item strong{color:#fff !important}
-.empty-leg-procon-card.con .empty-leg-procon-icon{background:rgba(232,201,106,.14) !important;color:var(--gold2) !important;border:1px solid rgba(232,201,106,.16)}
-
-/* Exact aircraft image appears on an Empty Leg only when the model matches our library. */
-.el-card::before{z-index:5 !important}
-.el-aircraft-media{position:relative;height:156px;margin:-24px -24px 20px;overflow:hidden;background:#0a1b31;border-bottom:1px solid rgba(10,22,40,.07)}
-.el-aircraft-media img{width:100%;height:100%;display:block;object-fit:cover;object-position:center center;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.el-card:hover .el-aircraft-media img{transform:scale(1.045)}
-.el-aircraft-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,15,29,.02),rgba(6,15,29,.56))}
-.el-aircraft-media-label{position:absolute;z-index:2;left:15px;bottom:12px;max-width:calc(100% - 30px);padding:6px 9px;border-radius:999px;background:rgba(7,20,38,.58);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:8px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-
-/* Image credits: kept in legal footer, never in the main navigation. */
-.footer-credit-link{border:0;background:none;padding:0;font:inherit;font-size:11px;color:rgba(255,255,255,.22);cursor:pointer;transition:color .2s ease}
-.footer-credit-link:hover{color:rgba(255,255,255,.60)}
-.fleet-credits-overlay{position:fixed;inset:0;z-index:13000;display:none;align-items:flex-end;justify-content:center;padding:24px;background:rgba(3,9,18,.76);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.fleet-credits-overlay.open{display:flex}
-.fleet-credits-panel{width:min(900px,100%);max-height:82vh;overflow:auto;border-radius:32px;background:#f8fafc;border:1px solid rgba(255,255,255,.45);box-shadow:0 40px 110px rgba(0,0,0,.40)}
-.fleet-credits-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;gap:18px;align-items:flex-start;padding:24px 26px 20px;background:rgba(248,250,252,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(10,22,40,.07)}
-.fleet-credits-head h3{margin:0;color:var(--navy);font-size:26px;letter-spacing:-.7px}
-.fleet-credits-head p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.55}
-.fleet-credits-close{width:42px;height:42px;flex:0 0 auto;border-radius:50%;border:1px solid rgba(10,22,40,.09);background:#fff;color:var(--navy);font-size:22px;cursor:pointer}
-.fleet-credits-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:22px 24px 28px}
-.fleet-credit-item{padding:14px 15px;border-radius:18px;background:#fff;border:1px solid rgba(10,22,40,.07);font-size:10px;line-height:1.55;color:#607187}
-.fleet-credit-item strong{display:block;color:var(--navy);font-size:11px;margin-bottom:2px}
-.fleet-credit-item a{color:#7b6116;text-decoration:none;font-weight:700}
-
-@media(max-width:1050px){
-  .fleet-card{min-height:410px !important}
-  .fleet-card-visual{height:210px !important}
-}
-@media(max-width:760px){
-  .fleet-guide{padding-top:66px !important}
-  .fleet-card{min-height:0 !important}
-  .fleet-card-visual{height:210px !important}
-  .fleet-model-photo{height:205px !important}
-  .fleet-model-card:nth-child(2){background:linear-gradient(160deg,#0a1b31,#113357) !important}
-  .fleet-credits-overlay{padding:10px}
-  .fleet-credits-panel{max-height:90vh;border-radius:28px}
-  .fleet-credits-list{grid-template-columns:1fr;padding:18px 16px 24px}
-  .fleet-credits-head{padding:20px 18px 16px}
-  .el-aircraft-media{height:145px}
-}
-</style>
-
   <script src="/assets/auralis-consent.js"></script>
 </head>
 <body>
@@ -3991,10 +3612,9 @@ button[type="submit"],button[type="button"].pill,
         <div class="pax-block" style="opacity:1;transform:none">
           <div class="pax-head primary">
             <div class="pax-num-badge">1</div>
-            <div class="pax-head-info"><h4>Passeggero principale</h4><small>Scegli dalla rubrica oppure inserisci i dati manualmente</small></div>
+            <div class="pax-head-info"><h4>I Tuoi Dati</h4><small>Passeggero principale · ricevi la conferma</small></div>
           </div>
           <div class="pax-body">
-            <div class="fg passenger-picker-field"><label>Passeggero</label><button class="passenger-picker-trigger" type="button" onclick="openPassengerPickerForBlock(this)"><span class="mini-avatar">+</span><span class="passenger-picker-copy"><small>Rubrica passeggeri</small><strong>Scegli un contatto</strong></span><span class="passenger-picker-arrow">›</span></button><select class="passenger-contact-select" aria-label="Scegli un passeggero dalla rubrica" onchange="applySavedContactToBlock(this)"></select><small style="display:block;margin-top:7px;color:var(--muted);font-size:10px;letter-spacing:.2px">Scegli dalla rubrica oppure inserisci i dati manualmente.</small></div>
             <div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>
             <div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>
             <div class="fg"><label>Email</label><input type="email" id="booking-email" placeholder="email@esempio.com" autocomplete="email"></div>
@@ -4014,9 +3634,9 @@ button[type="submit"],button[type="button"].pill,
 <nav id="mainnav">
   <div class="nav-logo" onclick="showPage('home')"><img src="auralis-logo.png" alt="Auralis SkyShare" id="nav-logo-img"></div>
   <ul class="nav-links">
-    <li><a onclick="showPage('home')" id="nl-home" class="active-link">Home</a></li>
+    <li><a onclick="showPage('home')" id="nl-home">Home</a></li>
     <li><a onclick="showPage('about')" id="nl-about">Chi Siamo</a></li>
-    <li><a onclick="showPage('emptyleg')" id="nl-emptyleg">Prenota Ora</a></li>
+    <li><a onclick="showPage('emptyleg')" id="nl-emptyleg" class="active-link">Prenota Ora</a></li>
     <li><a onclick="showPage('contatti')" id="nl-contatti">Contatti</a></li>
     <li class="mobile-only" id="btn-operator-cta-mobile"><button class="btn-operator" onclick="closeMobileMenu();openOperatorCollabModal()">Sono un Operatore</button></li>
     <li class="mobile-only" id="mob-dash-item" style="display:none"><button class="btn-operator" id="btn-dashboard-mobile"></button></li>
@@ -4032,7 +3652,7 @@ button[type="submit"],button[type="button"].pill,
 </nav>
 
 <!-- ══ HOME ══ -->
-<div class="page active" id="page-home">
+<div class="page" id="page-home">
   <section class="clarity-hero">
   <video class="clarity-hero-bg" autoplay muted loop playsinline preload="none" poster="assets/hero/hero-exterior-poster.webp" data-home-hero-video aria-hidden="true">
     <source data-src="assets/hero/hero-exterior.mp4" type="video/mp4">
@@ -4207,40 +3827,36 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
       <div class="fleet-grid">
-        <article class="fleet-card fleet-card--turboprop" role="button" tabindex="0" onclick="openFleetExplorer('turboprop')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('turboprop')}">
-          <div class="fleet-card-visual"><img src="assets/fleet/turboprop/pilatus_pc-12-ngx.webp" alt="Pilatus PC-12 NGX, esempio di aeromobile turboprop" loading="lazy" decoding="async"><span class="fleet-card-photo-label">Pilatus PC-12 NGX</span></div>
+        <article class="fleet-card" role="button" tabindex="0" onclick="openFleetExplorer('turboprop')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('turboprop')}">
+          <div class="fleet-card-visual"><img src="assets/jet_door_opening.jpg" alt="Aeromobile rappresentativo della categoria Turboprop" loading="lazy"></div>
           
           <h3>Turboprop</h3>
-          <p>Versatili ed efficienti, sono ideali per collegamenti regionali e aeroporti più piccoli, con grande flessibilità sulle distanze brevi.</p>
-          <div class="fleet-specs"><span class="fleet-spec">4–9 pax</span><span class="fleet-spec">Corto raggio</span><span class="fleet-spec">Piste più corte</span></div>
-          <div class="fleet-card-models"><strong>Nell’explorer</strong>PC-12 NGX · TBM 960 · King Air 350</div>
+          <p>Una soluzione efficiente per collegamenti regionali e aeroporti più piccoli. Offre grande flessibilità operativa sulle distanze brevi.</p>
+          <div class="fleet-specs"><span class="fleet-spec">4–8 pax</span><span class="fleet-spec">Corto raggio</span><span class="fleet-spec">Aeroporti regionali</span></div>
           <span class="fleet-card-action">Scopri i modelli</span>
         </article>
-        <article class="fleet-card fleet-card--light" role="button" tabindex="0" onclick="openFleetExplorer('light')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('light')}">
-          <div class="fleet-card-visual"><img src="assets/fleet/light/embraer_phenom_300.webp" alt="Embraer Phenom 300, esempio di Light Jet" loading="lazy" decoding="async"><span class="fleet-card-photo-label">Embraer Phenom 300</span></div>
+        <article class="fleet-card" role="button" tabindex="0" onclick="openFleetExplorer('light')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('light')}">
+          <div class="fleet-card-visual"><img src="assets/champagne_jet.jpg" alt="Aeromobile rappresentativo della categoria Light Jet" loading="lazy"></div>
           
           <h3>Light Jet</h3>
-          <p>Compatti, veloci e perfetti per city-hop europei. Offrono tempi rapidi, privacy e costi più contenuti rispetto alle categorie superiori.</p>
-          <div class="fleet-specs"><span class="fleet-spec">4–8 pax</span><span class="fleet-spec">Medio raggio</span><span class="fleet-spec">Agili</span></div>
-          <div class="fleet-card-models"><strong>Nell’explorer</strong>Citation CJ4 · Phenom 300 · HondaJet Elite II</div>
+          <p>Compatto e veloce, è ideale per piccoli gruppi e spostamenti europei. È una delle categorie più frequenti nel mercato dei voli privati.</p>
+          <div class="fleet-specs"><span class="fleet-spec">4–8 pax</span><span class="fleet-spec">Medio raggio</span><span class="fleet-spec">Bagaglio essenziale</span></div>
           <span class="fleet-card-action">Scopri i modelli</span>
         </article>
-        <article class="fleet-card fleet-card--midsize" role="button" tabindex="0" onclick="openFleetExplorer('midsize')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('midsize')}">
-          <div class="fleet-card-visual"><img src="assets/fleet/midsize/cessna_680A.webp" alt="Cessna Citation Latitude, esempio di Midsize Jet" loading="lazy" decoding="async"><span class="fleet-card-photo-label">Citation Latitude</span></div>
+        <article class="fleet-card" role="button" tabindex="0" onclick="openFleetExplorer('midsize')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('midsize')}">
+          <div class="fleet-card-visual"><img src="assets/hero/hero-interior.jpg" alt="Cabina rappresentativa della categoria Midsize Jet" loading="lazy"></div>
           
           <h3>Midsize Jet</h3>
-          <p>Cabine più ampie, maggiore autonomia e più capacità per i bagagli. Una scelta equilibrata per tratte più lunghe e gruppi medi.</p>
-          <div class="fleet-specs"><span class="fleet-spec">8–12 pax</span><span class="fleet-spec">Medio-lungo raggio</span><span class="fleet-spec">Cabina più ampia</span></div>
-          <div class="fleet-card-models"><strong>Nell’explorer</strong>Latitude · Challenger 3500 · Praetor 600</div>
+          <p>Cabina più ampia, maggiore autonomia e più capacità per i bagagli. Pensato per tratte più lunghe e gruppi di medie dimensioni.</p>
+          <div class="fleet-specs"><span class="fleet-spec">6–9 pax</span><span class="fleet-spec">Medio-lungo raggio</span><span class="fleet-spec">Cabina più ampia</span></div>
           <span class="fleet-card-action">Scopri i modelli</span>
         </article>
-        <article class="fleet-card fleet-card--heavy" role="button" tabindex="0" onclick="openFleetExplorer('heavy')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('heavy')}">
-          <div class="fleet-card-visual"><img src="assets/fleet/heavy/bombardier_BD-700.webp" alt="Bombardier Global 7500, esempio di Heavy Jet" loading="lazy" decoding="async"><span class="fleet-card-photo-label">Bombardier Global 7500</span></div>
+        <article class="fleet-card" role="button" tabindex="0" onclick="openFleetExplorer('heavy')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFleetExplorer('heavy')}">
+          <div class="fleet-card-visual"><img src="jetinterior.jpg" alt="Cabina rappresentativa della categoria Heavy Jet" loading="lazy"></div>
           
           <h3>Heavy Jet</h3>
-          <p>Per tratte intercontinentali e gruppi più numerosi: autonomia molto elevata, cabine spaziose e più zone dedicate al viaggio.</p>
-          <div class="fleet-specs"><span class="fleet-spec">12–19 pax</span><span class="fleet-spec">Lungo raggio</span><span class="fleet-spec">Comfort superiore</span></div>
-          <div class="fleet-card-models"><strong>Nell’explorer</strong>G650ER · Global 7500 · Falcon 8X</div>
+          <p>La categoria dedicata ai viaggi più lunghi: cabine spaziose, maggiore autonomia e configurazioni pensate per il massimo comfort.</p>
+          <div class="fleet-specs"><span class="fleet-spec">10–16 pax</span><span class="fleet-spec">Lungo raggio</span><span class="fleet-spec">Comfort superiore</span></div>
           <span class="fleet-card-action">Scopri i modelli</span>
         </article>
       </div>
@@ -4408,7 +4024,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <!-- ══ EMPTY LEG ══ -->
-<div class="page" id="page-emptyleg">
+<div class="page active" id="page-emptyleg">
   <section class="el-intro el-intro-premium">
     <h1 class="el-intro-title fu">Cosa Sono i Voli Empty-Leg?</h1>
     <p class="el-intro-text fu">Un volo empty-leg si verifica quando un jet privato deve riposizionarsi verso un'altra destinazione senza passeggeri a bordo. Questi voli sono completamente operativi e certificati, ma generano zero ricavi per l'operatore. Auralis SkyShare li trasforma in opportunità esclusive per chi vuole vivere il suo sogno e non sapeva di poterlo fare.</p>
@@ -4630,9 +4246,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <a href="mailto:contatti@auralisair.it">
           Contatta Auralis
         </a>
-        <button type="button" class="customer-sidebar-logout" onclick="logoutWithAuth0()">
-          Logout
-        </button>
       </div>
     </aside>
 
@@ -4661,7 +4274,15 @@ document.addEventListener("DOMContentLoaded", () => {
             type="button"
             onclick="showPage('prenota')"
           >
-            Invia richiesta
+            Richiedi un volo
+          </button>
+
+          <button
+            class="customer-secondary-btn"
+            type="button"
+            onclick="logoutWithAuth0()"
+          >
+            Logout
           </button>
         </div>
       </header>
@@ -4929,76 +4550,29 @@ document.addEventListener("DOMContentLoaded", () => {
       >
         <div class="customer-panel-head customer-page-heading">
           <div>
-            <span class="customer-panel-eyebrow">Viaggiatori</span>
-            <h2>La tua rubrica di viaggio</h2>
-            <p>Salva chi viaggia con te e richiamalo in un attimo durante la prenotazione.</p>
+            <span class="customer-panel-eyebrow">
+              Viaggiatori
+            </span>
+            <h2>Passeggeri salvati</h2>
+            <p>
+              Gestisci i dati delle persone con cui viaggi più spesso.
+            </p>
           </div>
-          <button type="button" class="customer-primary-btn" onclick="openSavedPassengerModal()">+ Aggiungi passeggero</button>
+
+          <button
+            type="button"
+            class="customer-primary-btn"
+          >
+            Aggiungi passeggero
+          </button>
         </div>
 
-        <div class="passenger-wallet-shell">
-          <article class="customer-panel passenger-owner-card">
-            <div class="customer-panel-head">
-              <div>
-                <span class="customer-panel-eyebrow">Il mio profilo</span>
-                <h3>I tuoi dati</h3>
-                <p style="font-size:12px;color:var(--muted);margin-top:5px">Il contatto principale proposto automaticamente nelle prenotazioni.</p>
-              </div>
-            </div>
-            <form class="customer-profile-form" onsubmit="saveOwnerContact(event)">
-              <div class="form-row">
-                <div class="fg"><label>Nome</label><input id="owner-first-name" type="text" required></div>
-                <div class="fg"><label>Cognome</label><input id="owner-last-name" type="text" required></div>
-              </div>
-              <div class="form-row">
-                <div class="fg"><label>Email</label><input id="owner-email" type="email" readonly></div>
-                <div class="fg"><label>Telefono</label><input id="owner-phone" type="tel"></div>
-              </div>
-              <button class="customer-primary-btn" type="submit">Salva dati</button>
-            </form>
-          </article>
-
-          <div class="passenger-wallet-toolbar">
-            <div class="passenger-search">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.4-3.4"></path></svg>
-              <input id="passenger-search-input" type="search" placeholder="Cerca nella rubrica" autocomplete="off" oninput="filterPassengerWallet(this.value)">
-            </div>
-          </div>
-
-          <div id="passenger-recents-wrap" style="display:none">
-            <div class="passenger-section-label">Accesso rapido</div>
-            <div class="passenger-recents" id="passenger-recents"></div>
-          </div>
-
-          <div>
-            <div class="passenger-section-label">Passeggeri salvati</div>
-            <div class="passenger-contact-scroll" id="customer-passengers-list" onscroll="schedulePassengerWalletMotion()">
-              <div class="passenger-wallet-empty">Nessun passeggero salvato.</div>
-            </div>
+        <div id="customer-passengers-list">
+          <div class="customer-empty-state">
+            Nessun passeggero salvato.
           </div>
         </div>
       </section>
-
-      <div class="modal-overlay" id="saved-passenger-modal">
-        <div class="modal-box" style="max-width:620px">
-          <button class="modal-close" type="button" onclick="closeSavedPassengerModal()">×</button>
-          <h3 class="modal-title" id="saved-passenger-modal-title">Aggiungi passeggero</h3>
-          <p class="modal-sub">Salva i dati per ritrovarli automaticamente nelle prossime prenotazioni.</p>
-          <form id="saved-passenger-form" onsubmit="saveSavedPassenger(event)">
-            <input type="hidden" id="saved-passenger-id">
-            <div class="fg" style="margin-bottom:12px"><label>Nome in rubrica</label><input class="res-input" id="saved-passenger-label" type="text" placeholder="Es. Passeggero 1, Mamma, Luca"></div>
-            <div class="form-row" style="margin-bottom:12px">
-              <div class="fg"><label>Nome</label><input class="res-input" id="saved-passenger-first-name" type="text" required></div>
-              <div class="fg"><label>Cognome</label><input class="res-input" id="saved-passenger-last-name" type="text" required></div>
-            </div>
-            <div class="form-row">
-              <div class="fg"><label>Email</label><input class="res-input" id="saved-passenger-email" type="email"></div>
-              <div class="fg"><label>Telefono</label><input class="res-input" id="saved-passenger-phone" type="tel"></div>
-            </div>
-            <button class="customer-primary-btn" type="submit" style="margin-top:20px">Salva passeggero</button>
-          </form>
-        </div>
-      </div>
 
       <!-- PAGAMENTI -->
       <section
@@ -5227,28 +4801,6 @@ document.addEventListener("DOMContentLoaded", () => {
   <div class="fc-opts" id="fc-opts"></div>
 </div>
 
-
-<div class="fleet-credits-overlay" id="fleet-credits" aria-hidden="true" onclick="if(event.target===this) closeFleetCredits()">
-  <section class="fleet-credits-panel" role="dialog" aria-modal="true" aria-labelledby="fleet-credits-title">
-    <div class="fleet-credits-head"><div><h3 id="fleet-credits-title">Crediti immagini aeromobili</h3><p>Fotografie Wikimedia Commons, ottimizzate in WebP per il sito. Le rispettive licenze restano quelle indicate alla fonte.</p></div><button class="fleet-credits-close" type="button" onclick="closeFleetCredits()" aria-label="Chiudi">×</button></div>
-    <div class="fleet-credits-list">
-      <div class="fleet-credit-item"><strong>Pilatus PC-12 NGX</strong>André Gerwing · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Pilatus_PC-12_NGX_(c-n_2328,_HB-FGA)_2025-04-10_Andre_Gerwing_Collection_ID_023423.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Daher TBM 960</strong>ZLEA · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Daher_TBM_960_(N330KT,_cn_1524)_(4-9-2024).jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Beechcraft King Air 350</strong>Ronnie Macdonald · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Beechcraft_King_Air_350_N772HP_5D4_2429_(53920575101).jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Cessna Citation CJ4</strong>Duncan Kirk · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:N8GQ_Citation_CJ4,_Centennial_07-26-26.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Embraer Phenom 300</strong>Duncan Kirk · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:N282GS_Phenom_300,_Reno_08-26-26.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>HondaJet Elite II</strong>New York-air · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:HondaJet_Elite_II_Aero_Friedrichshafen_2025-0702.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Citation Latitude</strong>André Gerwing · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Cessna_680A_-_Citation_Latitude_(c-n_343,_CS-LTX)_2026-01-24_Andre_Gerwing_Collection_ID_027835.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Bombardier Challenger 3500</strong>André Gerwing · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Bombardier_BD-100-1A10_-_Challenger_3500_(c-n_21040,_HB-JLE)_2026-09-09_Andre_Gerwing_Collection_ID_031085.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Embraer Praetor 600</strong>Jonathan Payne · CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:N600RX_PRAETOR_600_(54573368615).jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Gulfstream G650ER</strong>Maxime C-M · CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Gulfstream_G650ER_(27707963891).jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Bombardier Global 7500</strong>André Gerwing · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Bombardier_BD-700-2A12_Global_7500_(c-n_70074,_N3TS)_2026-09-09_Andre_Gerwing_Collection_ID_031062.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-      <div class="fleet-credit-item"><strong>Dassault Falcon 8X</strong>André Gerwing · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Dassault_Falcon_8X_(c-n_499,_D-ALDG)_2025-12-15_Andre_Gerwing_Collection_ID_027569.jpg" target="_blank" rel="noopener noreferrer">Fonte</a></div>
-    </div>
-  </section>
-</div>
-
-
 <!-- FOOTER -->
 <footer id="main-footer">
   <div class="foot-top footer-clean">
@@ -5263,15 +4815,6 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
   <div class="foot-bottom"><span>© 2026 Auralis SkyShare. Tutti i diritti riservati.</span><div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap"><a href="/privacy/" style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none">Privacy Policy</a><a href="/cookie-policy/" style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none">Cookie Policy</a><a href="/termini/" style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none">Termini di Servizio</a><a href="/crediti-immagini/" style="font-size:11px;color:rgba(255,255,255,.22);text-decoration:none">Crediti immagini</a></div></div>
 </footer>
-<!-- ══ PASSENGER PICKER ══ -->
-<div class="passenger-picker-overlay" id="passenger-picker-overlay" aria-hidden="true" onclick="if(event.target===this) closePassengerPicker()">
-  <section class="passenger-picker-sheet" role="dialog" aria-modal="true" aria-labelledby="passenger-picker-title">
-    <div class="passenger-picker-handle"></div>
-    <div class="passenger-picker-head"><h3 id="passenger-picker-title">Scegli un passeggero</h3><button type="button" class="passenger-picker-close" onclick="closePassengerPicker()" aria-label="Chiudi">×</button></div>
-    <div class="passenger-picker-list" id="passenger-picker-list"></div>
-  </section>
-</div>
-
 <script>
 const AUTH0_DOMAIN = "dev-ivx8addf2ul5rxcz.eu.auth0.com";
 const AUTH0_CLIENT_ID = "QOdnC2STmWvh2k5Qos5LaoTgDcOGzYPF";
@@ -5304,18 +4847,7 @@ async function apiFetch(path, options = {}) {
     throw new Error(errorMessage);
   }
 
-  // DELETE endpoints legitimately return HTTP 204 with an empty body.
-  // Trying to parse an empty response as JSON throws even though the request succeeded.
-  if (response.status === 204) return null;
-
-  const responseText = await response.text();
-  if (!responseText) return null;
-
-  try {
-    return JSON.parse(responseText);
-  } catch {
-    return responseText;
-  }
+  return response.json();
 }
 
 function customRequestValue(id) {
@@ -5440,7 +4972,6 @@ async function loadCurrentUser() {
     }
   }
   updateNavForRole();
-  if (currentUser) { ensureCustomerContactsLoaded(); }
 }
 
 function navDisplayLabel() {
@@ -6162,10 +5693,9 @@ async function loadCustomerDashboard() {
     void loadCustomerRequests();
 
   try {
-    const [profileResult, bookingsResult, passengersResult] = await Promise.all([
+    const [profileResult, bookingsResult] = await Promise.all([
       apiFetch("/api/me"),
-      apiFetch("/api/my/bookings"),
-      apiFetch("/api/my/passengers")
+      apiFetch("/api/my/bookings")
     ]);
 
     const profile =
@@ -6178,9 +5708,7 @@ async function loadCustomerDashboard() {
       bookingsResult.bookings ||
       [];
 
-    savedPassengers = passengersResult.data || [];
     renderCustomerProfile(profile);
-    renderSavedPassengers();
     renderCustomerDashboard(customerBookings);
 
     customerDashboardLoaded = true;
@@ -6222,15 +5750,6 @@ function renderCustomerProfile(profile = {}) {
 
   document.getElementById("customer-language").value =
     profile.language || "it";
-
-  const ownerMap = {
-    "owner-first-name": profile.firstName || profile.given_name || "",
-    "owner-last-name": profile.lastName || profile.family_name || "",
-    "owner-email": profile.email || "",
-    "owner-phone": profile.phone || ""
-  };
-  Object.entries(ownerMap).forEach(([id, value]) => { const el = document.getElementById(id); if (el) el.value = value; });
-  currentUser = { ...(currentUser || {}), ...profile };
 }
 
 function renderCustomerDashboard(bookings) {
@@ -6761,335 +6280,39 @@ async function addBookingToGoogleWallet(bookingId) {
   }
 }
 
-async function updateCustomerProfile(payload) {
-  const result = await apiFetch("/api/me", { method: "PATCH", body: JSON.stringify(payload) });
-  const profile = result.user || result;
-  currentUser = { ...(currentUser || {}), ...profile };
-  renderCustomerProfile(profile);
-  updateNavForRole();
-  prefillCustomRequestFromProfile();
-  return profile;
-}
-
 async function saveCustomerProfile(event) {
   event.preventDefault();
-  try {
-    await updateCustomerProfile({
-      firstName: document.getElementById("customer-first-name").value.trim(),
-      lastName: document.getElementById("customer-last-name").value.trim(),
-      phone: document.getElementById("customer-phone").value.trim(),
-      preferredAirport: document.getElementById("customer-preferred-airport").value.trim().toUpperCase(),
-      language: document.getElementById("customer-language").value
-    });
-    alert("Profilo aggiornato.");
-  } catch (error) { alert(error.message || "Non è stato possibile aggiornare il profilo."); }
-}
 
-async function saveOwnerContact(event) {
-  event.preventDefault();
-  try {
-    await updateCustomerProfile({
-      firstName: document.getElementById("owner-first-name").value.trim(),
-      lastName: document.getElementById("owner-last-name").value.trim(),
-      phone: document.getElementById("owner-phone").value.trim(),
-      preferredAirport: document.getElementById("customer-preferred-airport")?.value.trim().toUpperCase() || "",
-      language: document.getElementById("customer-language")?.value || "it"
-    });
-    alert("I tuoi dati sono stati salvati.");
-  } catch (error) { alert(error.message || "Non è stato possibile salvare i dati."); }
-}
-
-let savedPassengers = [];
-
-function passengerInitials(firstName = "", lastName = "") {
-  const bits = [firstName, lastName].filter(Boolean);
-  return bits.map(v => String(v).trim()[0] || "").join("").slice(0,2).toUpperCase() || "•";
-}
-
-function contactOptionsHtml() {
-  const ownerName = [currentUser?.firstName, currentUser?.lastName].filter(Boolean).join(" ").trim();
-  const ownerLabel = ownerName ? `I miei dati — ${escapeHTML(ownerName)}` : "I miei dati";
-  const savedOptions = savedPassengers.length
-    ? `<optgroup label="Passeggeri salvati">${savedPassengers.map(p => {
-        const label = p.label || [p.firstName, p.lastName].filter(Boolean).join(" ") || "Passeggero";
-        const fullName = [p.firstName, p.lastName].filter(Boolean).join(" ").trim();
-        const text = fullName && fullName !== label ? `${label} — ${fullName}` : label;
-        return `<option value="${escapeHTML(p.id)}">${escapeHTML(text)}</option>`;
-      }).join("")}</optgroup>`
-    : `<optgroup label="Passeggeri salvati"><option value="" disabled>Nessun passeggero salvato</option></optgroup>`;
-
-  return `<optgroup label="Il mio profilo"><option value="owner">${ownerLabel}</option></optgroup>` +
-    savedOptions +
-    `<optgroup label="Altro"><option value="new">Inserisci dati manualmente</option></optgroup>`;
-}
-
-function contactForValue(value) {
-  if (value === "owner") return {
-    id:"owner", label:"I miei dati", firstName:currentUser?.firstName || "", lastName:currentUser?.lastName || "",
-    email:currentUser?.email || "", phone:currentUser?.phone || ""
-  };
-  if (value === "new") return { id:"new", label:"Inserisci dati manualmente", firstName:"", lastName:"", email:"", phone:"" };
-  return savedPassengers.find(p => String(p.id) === String(value));
-}
-
-function updatePickerTriggerForSelect(select) {
-  const field = select?.closest('.passenger-picker-field');
-  const trigger = field?.querySelector('.passenger-picker-trigger');
-  if (!trigger) return;
-  const contact = contactForValue(select.value);
-  const strong = trigger.querySelector('strong');
-  const avatar = trigger.querySelector('.mini-avatar');
-  const small = trigger.querySelector('small');
-  if (!contact) {
-    if (strong) strong.textContent = 'Scegli un contatto';
-    if (avatar) avatar.textContent = '+';
-    if (small) small.textContent = 'Rubrica passeggeri';
-    return;
-  }
-  const fullName = [contact.firstName, contact.lastName].filter(Boolean).join(' ').trim();
-  if (strong) strong.textContent = contact.id === 'new' ? 'Inserisci dati manualmente' : (fullName || contact.label);
-  if (avatar) avatar.textContent = contact.id === 'new' ? '+' : passengerInitials(contact.firstName, contact.lastName);
-  if (small) small.textContent = contact.id === 'owner' ? 'Il mio profilo' : (contact.id === 'new' ? 'Nuovo contatto' : (contact.label || 'Passeggero salvato'));
-}
-
-function refreshContactSelectors() {
-  document.querySelectorAll(".passenger-contact-select").forEach(select => {
-    const old = select.value || 'owner';
-    select.innerHTML = contactOptionsHtml();
-    if ([...select.options].some(o => o.value === old)) select.value = old;
-    else if ([...select.options].some(o => o.value === 'owner')) select.value = 'owner';
-    updatePickerTriggerForSelect(select);
-  });
-}
-
-function applySavedContactToBlock(select) {
-  const block = select.closest(".pax-block");
-  if (!block) return;
-  const value = select.value;
-  const contact = contactForValue(value);
-  const data = value === "new" ? { firstName:"", lastName:"", email:"", phone:"" } : (contact || {});
-  const fields = {
-    'input[placeholder="Nome"]': data.firstName || "",
-    'input[placeholder="Cognome"]': data.lastName || "",
-    'input[type="email"]': data.email || "",
-    'input[type="tel"]': data.phone || ""
-  };
-  Object.entries(fields).forEach(([q,v]) => { const el=block.querySelector(q); if(el) el.value=v; });
-  updatePickerTriggerForSelect(select);
-}
-
-let activePassengerPickerSelect = null;
-
-function openPassengerPickerForBlock(trigger) {
-  const field = trigger.closest('.passenger-picker-field');
-  activePassengerPickerSelect = field?.querySelector('.passenger-contact-select') || null;
-  if (!activePassengerPickerSelect) return;
-  renderPassengerPickerSheet();
-  const overlay = document.getElementById('passenger-picker-overlay');
-  overlay?.classList.add('open');
-  overlay?.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
-}
-
-function closePassengerPicker() {
-  const overlay = document.getElementById('passenger-picker-overlay');
-  overlay?.classList.remove('open');
-  overlay?.setAttribute('aria-hidden','true');
-  document.body.style.overflow='';
-  activePassengerPickerSelect = null;
-}
-
-function pickerOptionHtml(value, contact, extraClass='') {
-  const fullName = [contact.firstName, contact.lastName].filter(Boolean).join(' ').trim();
-  const subtitle = value === 'owner' ? 'Contatto principale' : (value === 'new' ? 'Compila i campi da zero' : [contact.email, contact.phone].filter(Boolean).join(' · '));
-  const label = value === 'new' ? 'Inserisci dati manualmente' : (fullName || contact.label || 'Passeggero');
-  const initials = value === 'new' ? '+' : passengerInitials(contact.firstName, contact.lastName);
-  return `<button type="button" class="passenger-picker-option ${extraClass}" onclick="choosePassengerFromPicker('${escapeHTML(value)}')"><span class="passenger-avatar">${escapeHTML(initials)}</span><span><strong>${escapeHTML(label)}</strong><small>${escapeHTML(subtitle || contact.label || '')}</small></span></button>`;
-}
-
-function renderPassengerPickerSheet() {
-  const list = document.getElementById('passenger-picker-list');
-  if (!list) return;
-  const owner = contactForValue('owner');
-  let html = `<div class="passenger-picker-group">Il mio profilo</div>${pickerOptionHtml('owner', owner)}`;
-  html += `<div class="passenger-picker-group">Passeggeri salvati</div>`;
-  if (savedPassengers.length) html += savedPassengers.map(p => pickerOptionHtml(String(p.id), p)).join('');
-  else html += `<div class="passenger-wallet-empty" style="margin:6px 0 10px">Nessun passeggero salvato nella rubrica.</div>`;
-  html += `<div class="passenger-picker-group">Altro</div>${pickerOptionHtml('new', contactForValue('new'), 'manual')}`;
-  list.innerHTML = html;
-}
-
-function choosePassengerFromPicker(value) {
-  if (!activePassengerPickerSelect) return;
-  activePassengerPickerSelect.value = value;
-  applySavedContactToBlock(activePassengerPickerSelect);
-  closePassengerPicker();
-}
-
-function togglePassengerCard(card) {
-  document.querySelectorAll('.passenger-contact-card.is-open').forEach(el => { if(el !== card) el.classList.remove('is-open'); });
-  card.classList.toggle('is-open');
-}
-
-function focusPassengerFromRecent(id) {
-  const el = document.querySelector(`.passenger-contact-card[data-passenger-id="${CSS.escape(String(id))}"]`);
-  if (!el) return;
-  el.scrollIntoView({behavior:'smooth',block:'center'});
-  el.classList.add('is-open');
-  window.setTimeout(() => schedulePassengerWalletMotion(), 250);
-}
-
-function filterPassengerWallet(query = '') {
-  const q = String(query).trim().toLowerCase();
-  document.querySelectorAll('.passenger-contact-card').forEach(card => {
-    const hay = (card.dataset.search || '').toLowerCase();
-    card.style.display = !q || hay.includes(q) ? '' : 'none';
-  });
-  document.querySelectorAll('.passenger-recent').forEach(card => {
-    const hay = (card.dataset.search || '').toLowerCase();
-    card.style.display = !q || hay.includes(q) ? '' : 'none';
-  });
-  schedulePassengerWalletMotion();
-}
-
-let passengerWalletMotionRaf = 0;
-function schedulePassengerWalletMotion() {
-  if (passengerWalletMotionRaf) return;
-  passengerWalletMotionRaf = requestAnimationFrame(() => {
-    passengerWalletMotionRaf = 0;
-    const scroller = document.getElementById('customer-passengers-list');
-    if (!scroller) return;
-    const box = scroller.getBoundingClientRect();
-    const center = box.top + box.height / 2;
-    const falloff = Math.max(220, box.height * .58);
-    scroller.querySelectorAll('.passenger-contact-card').forEach(card => {
-      if (card.style.display === 'none') return;
-      const r = card.getBoundingClientRect();
-      const dist = Math.abs((r.top + r.height/2) - center);
-      const t = Math.min(1, dist / falloff);
-      const scale = 1 - t * .035;
-      const opacity = 1 - t * .28;
-      card.style.setProperty('--wallet-scale', scale.toFixed(3));
-      card.style.setProperty('--wallet-opacity', opacity.toFixed(3));
-    });
-  });
-}
-
-function renderSavedPassengers() {
-  const list = document.getElementById("customer-passengers-list");
-  const recents = document.getElementById('passenger-recents');
-  const recentsWrap = document.getElementById('passenger-recents-wrap');
-  if (!list) return;
-  if (!savedPassengers.length) {
-    list.innerHTML = `<div class="passenger-wallet-empty">Nessun passeggero salvato.<br><span style="font-size:10px">Aggiungine uno per ritrovarlo qui e nelle prenotazioni.</span></div>`;
-    if (recentsWrap) recentsWrap.style.display='none';
-  } else {
-    list.innerHTML = savedPassengers.map(p => {
-      const fullName = [p.firstName,p.lastName].filter(Boolean).join(' ').trim();
-      const search = [p.label,fullName,p.email,p.phone].filter(Boolean).join(' ');
-      return `<article class="passenger-contact-card" data-passenger-id="${escapeHTML(p.id)}" data-search="${escapeHTML(search)}" onclick="togglePassengerCard(this)">
-        <span class="passenger-avatar">${escapeHTML(passengerInitials(p.firstName,p.lastName))}</span>
-        <span class="passenger-contact-main"><span class="passenger-contact-label">${escapeHTML(p.label || 'Passeggero')}</span><span class="passenger-contact-name">${escapeHTML(fullName || 'Passeggero')}</span><span class="passenger-contact-meta">${escapeHTML([p.email,p.phone].filter(Boolean).join(' · ') || 'Nessun recapito')}</span></span>
-        <span class="passenger-contact-chevron">›</span>
-        <span class="passenger-contact-actions"><button type="button" class="customer-text-btn" onclick="event.stopPropagation();openSavedPassengerModal('${escapeHTML(p.id)}')">Modifica</button><button type="button" class="customer-text-btn" onclick="event.stopPropagation();deleteSavedPassenger('${escapeHTML(p.id)}')">Elimina</button></span>
-      </article>`;
-    }).join('');
-    if (recents && recentsWrap) {
-      recents.innerHTML = savedPassengers.slice(0,8).map(p => {
-        const fullName=[p.firstName,p.lastName].filter(Boolean).join(' ').trim();
-        const search=[p.label,fullName,p.email,p.phone].filter(Boolean).join(' ');
-        return `<button type="button" class="passenger-recent" data-search="${escapeHTML(search)}" onclick="focusPassengerFromRecent('${escapeHTML(p.id)}')"><span class="passenger-avatar">${escapeHTML(passengerInitials(p.firstName,p.lastName))}</span><span class="passenger-recent-name">${escapeHTML(p.label || fullName || 'Passeggero')}</span><span class="passenger-recent-sub">${escapeHTML(fullName)}</span></button>`;
-      }).join('');
-      recentsWrap.style.display='block';
-    }
-  }
-  refreshContactSelectors();
-  requestAnimationFrame(schedulePassengerWalletMotion);
-}
-
-function openSavedPassengerModal(id = "") {
-  const passenger = savedPassengers.find(p => p.id === id);
-  document.getElementById("saved-passenger-id").value = passenger?.id || "";
-  document.getElementById("saved-passenger-label").value = passenger?.label || "";
-  document.getElementById("saved-passenger-first-name").value = passenger?.firstName || "";
-  document.getElementById("saved-passenger-last-name").value = passenger?.lastName || "";
-  document.getElementById("saved-passenger-email").value = passenger?.email || "";
-  document.getElementById("saved-passenger-phone").value = passenger?.phone || "";
-  document.getElementById("saved-passenger-modal-title").textContent = passenger ? "Modifica passeggero" : "Aggiungi passeggero";
-  document.getElementById("saved-passenger-modal").classList.add("open");
-}
-function closeSavedPassengerModal(){ document.getElementById("saved-passenger-modal")?.classList.remove("open"); }
-
-let savedPassengerSaving = false;
-
-async function saveSavedPassenger(event) {
-  event.preventDefault();
-  if (savedPassengerSaving) return;
-
-  const form = event.currentTarget;
-  const submitButton = event.submitter || form?.querySelector('button[type="submit"]');
-  const originalButtonText = submitButton?.textContent || "Salva passeggero";
-
-  savedPassengerSaving = true;
-  if (submitButton) {
-    submitButton.disabled = true;
-    submitButton.textContent = "Salvataggio…";
-  }
-
-  const id = document.getElementById("saved-passenger-id").value;
   const payload = {
-    label: document.getElementById("saved-passenger-label").value.trim(),
-    firstName: document.getElementById("saved-passenger-first-name").value.trim(),
-    lastName: document.getElementById("saved-passenger-last-name").value.trim(),
-    email: document.getElementById("saved-passenger-email").value.trim(),
-    phone: document.getElementById("saved-passenger-phone").value.trim()
+    firstName:
+      document.getElementById("customer-first-name").value.trim(),
+
+    lastName:
+      document.getElementById("customer-last-name").value.trim(),
+
+    phone:
+      document.getElementById("customer-phone").value.trim(),
+
+    preferredAirport:
+      document.getElementById(
+        "customer-preferred-airport"
+      ).value.trim().toUpperCase(),
+
+    language:
+      document.getElementById("customer-language").value
   };
+
   try {
-    await apiFetch(id ? `/api/my/passengers/${id}` : "/api/my/passengers", { method: id ? "PATCH" : "POST", body: JSON.stringify(payload) });
-    const result = await apiFetch("/api/my/passengers");
-    savedPassengers = result?.data || [];
-    renderSavedPassengers();
-    closeSavedPassengerModal();
+    // Endpoint di salvataggio profilo non ancora presente sul backend:
+    // evitiamo una chiamata destinata a fallire e lo diciamo chiaramente.
+    void payload;
+    alert("Il salvataggio del profilo non \u00e8 ancora attivo: nome ed email derivano dal tuo account di accesso. Arriver\u00e0 con un prossimo aggiornamento.");
   } catch (error) {
-    alert(error.message || "Non è stato possibile salvare il passeggero.");
-  } finally {
-    savedPassengerSaving = false;
-    if (submitButton) {
-      submitButton.disabled = false;
-      submitButton.textContent = originalButtonText;
-    }
+    alert(
+      error.message ||
+      "Non è stato possibile aggiornare il profilo."
+    );
   }
-}
-
-async function deleteSavedPassenger(id) {
-  if (!confirm("Eliminare questo passeggero salvato?")) return;
-  try {
-    await apiFetch(`/api/my/passengers/${id}`, { method: "DELETE" });
-
-    // Re-read the server state instead of assuming the local array is current.
-    const result = await apiFetch("/api/my/passengers");
-    savedPassengers = result?.data || [];
-    renderSavedPassengers();
-  } catch (error) {
-    alert(error.message || "Non è stato possibile eliminare il passeggero.");
-  }
-}
-
-async function ensureCustomerContactsLoaded() {
-  if (!auth0Client || !(await auth0Client.isAuthenticated())) return;
-  try {
-    const [me, passengers] = await Promise.all([apiFetch("/api/me"), apiFetch("/api/my/passengers")]);
-    currentUser = { ...(currentUser || {}), ...(me.user || me) };
-    savedPassengers = passengers.data || [];
-    refreshContactSelectors();
-    prefillCustomRequestFromProfile();
-  } catch (error) { console.warn("Contatti salvati non disponibili:", error); }
-}
-
-function prefillCustomRequestFromProfile() {
-  if (!currentUser) return;
-  const map = { "pren-first-name":currentUser.firstName, "pren-last-name":currentUser.lastName, "pren-email":currentUser.email, "pren-phone":currentUser.phone };
-  Object.entries(map).forEach(([id,value]) => { const el=document.getElementById(id); if(el && !el.value && value) el.value=value; });
 }
 
 function renderCustomerDashboardError(error) {
@@ -7456,7 +6679,6 @@ function rebuildExtraPax(total){
         '<div class="pax-head-info"><h4>Guest Passenger ' + i + '</h4><small>Riceverà richiesta di pagamento: ' + _fmtEuro(perPerson) + '</small></div>' +
       '</div>' +
       '<div class="pax-body">' +
-        '<div class="fg passenger-picker-field"><label>Passeggero</label><button class="passenger-picker-trigger" type="button" onclick="openPassengerPickerForBlock(this)"><span class="mini-avatar">+</span><span class="passenger-picker-copy"><small>Rubrica passeggeri</small><strong>Scegli un contatto</strong></span><span class="passenger-picker-arrow">›</span></button><select class="passenger-contact-select" aria-label="Scegli un passeggero dalla rubrica" onchange="applySavedContactToBlock(this)">' + contactOptionsHtml() + '</select><small style="display:block;margin-top:7px;color:var(--muted);font-size:10px;letter-spacing:.2px">Scegli dalla rubrica oppure inserisci i dati manualmente.</small></div>' +
         '<div class="fg"><label>Nome</label><input type="text" placeholder="Nome"></div>' +
         '<div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome"></div>' +
         '<div class="fg"><label>Email</label><input type="email" placeholder="email@esempio.com" autocomplete="email"></div>' +
@@ -7495,7 +6717,7 @@ function preloginLogin() {
   loginWithAuth0();
 }
   
-async function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
+function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
   if (!currentUser && !skipLoginPrompt) {
     pendingBookingArgs = [from, to, aircraft, pax, dur, date, price, save];
     document.getElementById('prelogin-modal').classList.add('open');
@@ -7527,16 +6749,8 @@ async function openBookingModal(from,to,aircraft,pax,dur,date,price,save){
     note.textContent = '⚠ Volo non ancora confermato — probabilità di conferma stimata: ' + selectedLegProb + '%. In caso di mancata conferma riceverai il rimborso completo.';
     document.querySelector('#booking-modal .booking-modal-body').insertBefore(note, document.querySelector('#booking-modal .bm-details'));
   }
-  // Carica prima profilo e rubrica: il menu deve aprirsi già completo.
-  await ensureCustomerContactsLoaded();
-  initSplit(price, pax);
-  refreshContactSelectors();
-  const mainSelect = document.querySelector('#passengers-wrap > .pax-block .passenger-contact-select');
-  if (mainSelect) {
-    mainSelect.value = 'owner';
-    applySavedContactToBlock(mainSelect);
-  }
   document.getElementById('booking-modal').classList.add('open');
+  initSplit(price, pax);
   
 }
 
@@ -8534,75 +7748,59 @@ function fcPick(id) {
 
 
 // ===== FLEET EXPLORER =====
-const AIRCRAFT_MEDIA_LIBRARY = [
-  { key:'cj2plus', category:'light', manufacturer:'Cessna', model:'Citation CJ2+', image:'assets/fleet/light/cessna_525A_Citation_CJ2+.webp', aliases:['cessna citation cj2+','citation cj2+','cj2+','citation cj2 plus','cessna cj2+','cessna 525a citation cj2+'] },
-  { key:'pc12ngx', category:'turboprop', manufacturer:'Pilatus', model:'PC-12 NGX', image:'assets/fleet/turboprop/pilatus_pc-12-ngx.webp', aliases:['pilatus pc-12 ngx','pilatus pc12 ngx','pc-12 ngx','pc12 ngx','pilatus pc-12','pilatus pc12'] },
-  { key:'tbm960', category:'turboprop', manufacturer:'Daher', model:'TBM 960', image:'assets/fleet/turboprop/daher_TBM_960.webp', aliases:['daher tbm 960','tbm 960','tbm960'] },
-  { key:'kingair350', category:'turboprop', manufacturer:'Beechcraft', model:'King Air 350', image:'assets/fleet/turboprop/beechcraft_King_Air_350.webp', aliases:['beechcraft king air 350','king air 350','kingair 350','b350'] },
-  { key:'cj4', category:'light', manufacturer:'Cessna', model:'Citation CJ4', image:'assets/fleet/light/citation_CJ4.webp', aliases:['cessna citation cj4','citation cj4','cj4 gen2','cj4 gen3','cj4'] },
-  { key:'phenom300', category:'light', manufacturer:'Embraer', model:'Phenom 300', image:'assets/fleet/light/embraer_phenom_300.webp', aliases:['embraer phenom 300e','embraer phenom 300','phenom 300e','phenom 300','emb-505','emb 505'] },
-  { key:'hondajeteliteii', category:'light', manufacturer:'Honda Aircraft', model:'HondaJet Elite II', image:'assets/fleet/light/hondaJet_Elite_II.webp', aliases:['hondajet elite ii','honda jet elite ii','honda ha-420','honda ha 420','ha-420','ha 420'] },
-  { key:'latitude', category:'midsize', manufacturer:'Cessna', model:'Citation Latitude', image:'assets/fleet/midsize/cessna_680A.webp', aliases:['cessna citation latitude','citation latitude','cessna 680a','680a'] },
-  { key:'challenger3500', category:'midsize', manufacturer:'Bombardier', model:'Challenger 3500', image:'assets/fleet/midsize/bombardier_BD-100.webp', aliases:['bombardier challenger 3500','challenger 3500','bd-100-1a10','bd 100 1a10'] },
-  { key:'praetor600', category:'midsize', manufacturer:'Embraer', model:'Praetor 600', image:'assets/fleet/midsize/praetor_600.webp', aliases:['embraer praetor 600e','embraer praetor 600','praetor 600e','praetor 600','emb-550','emb 550'] },
-  { key:'g650er', category:'heavy', manufacturer:'Gulfstream', model:'G650ER', image:'assets/fleet/heavy/gulfstream_G650ER.webp', aliases:['gulfstream g650er','g650er','g650 er'] },
-  { key:'global7500', category:'heavy', manufacturer:'Bombardier', model:'Global 7500', image:'assets/fleet/heavy/bombardier_BD-700.webp', aliases:['bombardier global 7500','global 7500','bd-700-2a12','bd 700 2a12'] },
-  { key:'falcon8x', category:'heavy', manufacturer:'Dassault', model:'Falcon 8X', image:'assets/fleet/heavy/dassault_Falcon_8X.webp', aliases:['dassault falcon 8x','falcon 8x','falcon8x'] }
-];
-
-function normalizeAircraftName(value=''){
-  return String(value).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
-}
-function getAircraftMedia(aircraft={}){
-  const full=normalizeAircraftName(`${aircraft.manufacturer||''} ${aircraft.model||''}`);
-  if(!full)return null;
-  return AIRCRAFT_MEDIA_LIBRARY.find(entry=>entry.aliases.some(alias=>{
-    const a=normalizeAircraftName(alias);
-    return full===a || full.includes(a);
-  })) || null;
-}
-function renderEmptyLegAircraftMedia(aircraft={}){
-  const media=getAircraftMedia(aircraft);
-  if(!media)return '';
-  const label=escapeHTML(`${media.manufacturer} ${media.model}`);
-  return `<div class="el-aircraft-media"><img src="${media.image}" alt="${label}, aeromobile associato a questo Empty Leg" loading="lazy" decoding="async"><span class="el-aircraft-media-label">${label}</span></div>`;
-}
-
+const FLEET_MODEL_IMAGES=['assets/jet_door_opening.jpg','assets/champagne_jet.jpg','assets/hero/hero-interior.jpg','jetinterior.jpg'];
 const FLEET_CATALOG = {
   turboprop: {
-    title:'Turboprop', kicker:'Tratte brevi · aeroporti regionali',
-    sub:'Efficienza e flessibilità per collegamenti regionali, piste più contenute e piccoli gruppi.',
-    models:[
-      {manufacturer:'Pilatus',model:'PC-12 NGX',image:'assets/fleet/turboprop/pilatus_pc-12-ngx.webp',pax:'6–8 pax',range:'~3.400 km',use:'Aeroporti regionali, bagagli voluminosi e tratte brevi/medie.',description:'Una cabina business versatile abbinata alla capacità di operare su piste più contenute rispetto a molti jet.'},
-      {manufacturer:'Daher',model:'TBM 960',image:'assets/fleet/turboprop/daher_TBM_960.webp',pax:'4–5 pax',range:'~3.200 km',use:'Piccoli gruppi che privilegiano velocità ed efficienza.',description:'Un turboprop ad alte prestazioni: compatto, rapido e pensato per collegamenti point-to-point efficienti.'},
-      {manufacturer:'Beechcraft',model:'King Air 350',image:'assets/fleet/turboprop/beechcraft_King_Air_350.webp',pax:'8–9 pax',range:'~3.300 km',use:'Gruppi più numerosi, aeroporti regionali e viaggi con più bagagli.',description:'Più spazio rispetto ai turboprop compatti, con una cabina apprezzata per flessibilità e accessibilità aeroportuale.'}
+    title: 'Turboprop',
+    kicker: 'Tratte brevi · aeroporti regionali',
+    sub: 'Modelli diffusi nella categoria, pensati per collegamenti brevi, piste più contenute e grande flessibilità operativa.',
+    image: 'assets/jet_door_opening.jpg',
+    models: [
+      ['Pilatus','PC-12','6–8 pax','~2.900 km','Versatile e confortevole, combina cabina business e capacità di operare da aeroporti regionali.'],
+      ['Beechcraft','King Air 200','6–8 pax','~2.900 km','Un classico dell’aviazione executive: affidabile, flessibile e ideale sulle tratte brevi.'],
+      ['Beechcraft','King Air 350','8–11 pax','~3.300 km','Più spazio e capacità rispetto ai turboprop più compatti, con ottima accessibilità aeroportuale.'],
+      ['Piaggio Aerospace','P.180 Avanti','6–8 pax','~2.700 km','Design distintivo, cabina silenziosa e prestazioni vicine a quelle di un light jet.']
     ]
   },
   light: {
-    title:'Light Jet', kicker:'Europa · piccoli gruppi',
-    sub:'Velocità, agilità e dimensioni compatte: una delle categorie più adatte ai city-hop europei.',
-    models:[
-      {manufacturer:'Cessna',model:'Citation CJ4',image:'assets/fleet/light/citation_CJ4.webp',pax:'7–8 pax',range:'~4.000 km',use:'City-hop europei, weekend e trasferte point-to-point.',description:'Un light jet veloce e versatile, con più autonomia e spazio rispetto ai modelli entry-level della categoria.'},
-      {manufacturer:'Embraer',model:'Phenom 300',image:'assets/fleet/light/embraer_phenom_300.webp',pax:'6–8 pax',range:'~3.700 km',use:'Viaggi europei con piccoli gruppi e priorità a comfort e velocità.',description:'Cabina moderna e prestazioni elevate lo rendono uno dei riferimenti del segmento light jet.'},
-      {manufacturer:'Honda Aircraft',model:'HondaJet Elite II',image:'assets/fleet/light/hondaJet_Elite_II.webp',pax:'5–6 pax',range:'~2.865 km',use:'Piccoli gruppi e tratte brevi/medie con bagaglio contenuto.',description:'Compatto e distintivo, combina efficienza, una cabina luminosa e una capacità bagagli notevole per la classe.'}
+    title: 'Light Jet', kicker: 'Europa · piccoli gruppi',
+    sub: 'La categoria più agile per viaggi europei: tempi rapidi, costi più contenuti e cabine perfette per piccoli gruppi.',
+    image: 'assets/champagne_jet.jpg',
+    models: [
+      ['Cessna','Citation Mustang','4 pax','~2.100 km','Compatto, efficiente e adatto ai city-hop europei.'],
+      ['Cessna','Citation CJ2+','6 pax','~3.000 km','Molto diffuso, veloce e ideale per tratte europee con piccoli gruppi.'],
+      ['Cessna','Citation CJ3+','6–7 pax','~3.700 km','Più autonomia e comfort mantenendo l’agilità tipica della famiglia CJ.'],
+      ['Cessna','Citation CJ4','7–8 pax','~4.000 km','Il più capace della famiglia CJ, con cabina più generosa e ottime prestazioni.'],
+      ['Embraer','Phenom 100','4–5 pax','~2.100 km','Cabina luminosa e moderna per tratte brevi e medie.'],
+      ['Embraer','Phenom 300','6–8 pax','~3.700 km','Uno dei light jet più apprezzati per velocità, autonomia e qualità della cabina.']
     ]
   },
   midsize: {
-    title:'Midsize Jet', kicker:'Più spazio · medio-lungo raggio',
-    sub:'Cabine più ampie e maggiore autonomia per chi vuole più comfort senza passare agli heavy jet.',
-    models:[
-      {manufacturer:'Cessna',model:'Citation Latitude',image:'assets/fleet/midsize/cessna_680A.webp',pax:'8–9 pax',range:'~5.000 km',use:'Europa estesa, Nord Africa e tratte medio-lunghe.',description:'Cabina stand-up e pavimento piatto: un salto netto in termini di spazio e comfort rispetto ai light jet.'},
-      {manufacturer:'Bombardier',model:'Challenger 3500',image:'assets/fleet/midsize/bombardier_BD-100.webp',pax:'9–10 pax',range:'~6.300 km',use:'Tratte medio-lunghe con gruppi medi e maggiore attenzione al comfort.',description:'Una cabina generosa e una buona autonomia lo rendono adatto a viaggi più lunghi senza entrare nella categoria heavy.'},
-      {manufacturer:'Embraer',model:'Praetor 600',image:'assets/fleet/midsize/praetor_600.webp',pax:'8–12 pax',range:'~7.440 km',use:'Lungo raggio e alcune missioni transatlantiche con pochi scali.',description:'Un super-midsize con cabina stand-up, tecnologia moderna e autonomia intercontinentale per alcune combinazioni di rotta.'}
+    title: 'Midsize Jet', kicker: 'Più spazio · medio raggio',
+    sub: 'Cabine più ampie, maggiore autonomia e più bagagli: la scelta per tratte più lunghe senza passare agli heavy jet.',
+    image: 'assets/hero/hero-interior.jpg',
+    models: [
+      ['Cessna','Citation XLS+','8–9 pax','~3.900 km','Cabina spaziosa, buona capacità bagagli e grande flessibilità operativa.'],
+      ['Cessna','Citation Latitude','8–9 pax','~5.000 km','Cabina stand-up e comfort superiore per tratte europee e medio raggio.'],
+      ['Hawker','800XP','8 pax','~4.700 km','Un midsize classico, noto per la cabina ampia e il comfort.'],
+      ['Bombardier','Learjet 60','7–8 pax','~4.400 km','Prestazioni brillanti e velocità elevate, con una cabina business tradizionale.'],
+      ['Embraer','Praetor 500','7–9 pax','~6.000 km','Tecnologia moderna, cabina premium e autonomia da super-midsize.'],
+      ['Bombardier','Challenger 350','8–10 pax','~5.900 km','Grande cabina, autonomia importante e comfort da categoria superiore.']
     ]
   },
   heavy: {
-    title:'Heavy Jet', kicker:'Long haul · massimo comfort',
-    sub:'Autonomia intercontinentale, cabine molto spaziose e più zone per lavorare, cenare o riposare.',
-    models:[
-      {manufacturer:'Gulfstream',model:'G650ER',image:'assets/fleet/heavy/gulfstream_G650ER.webp',pax:'14–19 pax',range:'~13.900 km',use:'Missioni intercontinentali e ultra long-range.',description:'Alta velocità, grande autonomia e una cabina ampia pensata per trascorrere molte ore a bordo con comfort elevato.'},
-      {manufacturer:'Bombardier',model:'Global 7500',image:'assets/fleet/heavy/bombardier_BD-700.webp',pax:'14–19 pax',range:'~14.260 km',use:'Ultra-long-range con più ambienti dedicati al viaggio.',description:'Può offrire fino a quattro zone living, una caratteristica pensata per separare lavoro, relax e riposo sui voli più lunghi.'},
-      {manufacturer:'Dassault',model:'Falcon 8X',image:'assets/fleet/heavy/dassault_Falcon_8X.webp',pax:'12–16 pax',range:'~11.945 km',use:'Lungo raggio con particolare flessibilità aeroportuale.',description:'Cabina molto silenziosa e configurazioni flessibili, con autonomia adatta a numerose rotte intercontinentali.'}
+    title: 'Heavy Jet', kicker: 'Long haul · massimo comfort',
+    sub: 'Per tratte intercontinentali e gruppi più numerosi: cabine ampie, zone separate e autonomia di lungo raggio.',
+    image: 'jetinterior.jpg',
+    models: [
+      ['Bombardier','Challenger 650','10–12 pax','~7.400 km','Cabina larga e confortevole, ideale per lungo raggio europeo e transatlantico selezionato.'],
+      ['Dassault','Falcon 2000','10–12 pax','~7.000 km','Cabina ampia, grande efficienza e accesso a numerosi aeroporti.'],
+      ['Dassault','Falcon 7X','12–14 pax','~11.000 km','Trireattore long-range con cabina modulare e grande autonomia.'],
+      ['Dassault','Falcon 8X','12–16 pax','~12.000 km','Evoluzione long-range con cabina molto silenziosa e configurazioni multiple.'],
+      ['Gulfstream','G550','14–16 pax','~12.500 km','Un riferimento del lungo raggio, con autonomia intercontinentale e cabina premium.'],
+      ['Gulfstream','G650 / G650ER','14–18 pax','~13.000+ km','Velocità, autonomia e cabina ai vertici della categoria.'],
+      ['Bombardier','Global 6000 / 6500','13–17 pax','~12.000 km','Cabina ampia con più zone living e autonomia intercontinentale.'],
+      ['Bombardier','Global 7500','14–19 pax','~14.000 km','Ultra-long-range con più ambienti di cabina e autonomia tra le più elevate del segmento.']
     ]
   }
 };
@@ -8611,15 +7809,11 @@ function openFleetExplorer(category){
   const overlay=document.getElementById('fleet-explorer'); if(!overlay)return;
   document.getElementById('fleet-explorer-kicker').textContent=data.kicker;
   document.getElementById('fleet-explorer-title').textContent=data.title;
-  document.getElementById('fleet-explorer-sub').textContent=data.sub+' Foto e dati sono riferimenti orientativi: posti, autonomia e allestimento effettivi dipendono dall’aeromobile e dalla configurazione dell’operatore.';
-  document.getElementById('fleet-model-grid').innerHTML=data.models.map((m,i)=>`<article class="fleet-model-card"><div class="fleet-model-photo"><img src="${m.image}" alt="${m.manufacturer} ${m.model}" loading="lazy" decoding="async"><small>${String(i+1).padStart(2,'0')} · ${data.title}</small></div><div class="fleet-model-body"><div class="fleet-model-maker">${m.manufacturer}</div><h4>${m.model}</h4><p>${m.description}</p><div class="fleet-model-use"><strong>Ideale per:</strong> ${m.use}</div><div class="fleet-model-specs"><span>${m.pax}</span><span>${m.range}</span></div></div></article>`).join('')+`<div class="fleet-model-disclaimer">* Valori indicativi. Autonomia, numero di passeggeri e prestazioni variano in base a configurazione, payload, condizioni meteo, riserve e profilo operativo.</div>`;
+  document.getElementById('fleet-explorer-sub').textContent=data.sub+' Le foto sono rappresentative della categoria; configurazione e modello effettivi dipendono dall’operatore.';
+  document.getElementById('fleet-model-grid').innerHTML=data.models.map((m,i)=>`<article class="fleet-model-card"><div class="fleet-model-photo"><img src="${FLEET_MODEL_IMAGES[i%FLEET_MODEL_IMAGES.length]}" alt="${m[0]} ${m[1]} - immagine rappresentativa della categoria ${data.title}" loading="lazy"><small>Immagine rappresentativa</small></div><div class="fleet-model-body"><div class="fleet-model-maker">${m[0]}</div><h4>${m[1]}</h4><p>${m[4]}</p><div class="fleet-model-specs"><span>${m[2]}</span><span>${m[3]}</span></div></div></article>`).join('');
   overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
 }
 function closeFleetExplorer(){const o=document.getElementById('fleet-explorer');if(!o)return;o.classList.remove('open');o.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-
-function openFleetCredits(){const o=document.getElementById('fleet-credits');if(!o)return;o.classList.add('open');o.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function closeFleetCredits(){const o=document.getElementById('fleet-credits');if(!o)return;o.classList.remove('open');o.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-
 
 
 // ===== AIRCRAFT MEDIA: exact model -> category fallback =====
@@ -8642,7 +7836,7 @@ const AURALIS_CATEGORY_FALLBACK={
   turboprop:{image:'assets/fleet/turboprop/pilatus_pc-12-ngx.webp',label:'Turboprop'},
   light:{image:'assets/fleet/light/embraer_phenom_300.webp',label:'Light Jet'},
   midsize:{image:'assets/fleet/midsize/cessna_680A.webp',label:'Midsize Jet'},
-  heavy:{image:'assets/fleet/heavy/bombardier_BD-700.webp',label:'Heavy Jet'}
+  heavy:{image:'assets/fleet/heavy/gulfstream_G650ER.webp',label:'Heavy Jet'}
 };
 function auralisNormalizeAircraft(value=''){return String(value).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ')}
 function getAuralisAircraftMedia(aircraft={}){
@@ -8673,20 +7867,59 @@ document.addEventListener('DOMContentLoaded',()=>{try{setEmptyLegView(localStora
 // ===== EMPTY LEG FILTERS / INSPIRE MODE =====
 let allEmptyLegs=[];
 const AIRPORT_METRO={LIN:'Milano',MXP:'Milano',BGY:'Milano',LTN:'Londra',LHR:'Londra',LGW:'Londra',STN:'Londra',LCY:'Londra',FAB:'Londra',CDG:'Parigi',ORY:'Parigi',LBG:'Parigi',FCO:'Roma',CIA:'Roma',VCE:'Venezia',TSF:'Venezia',GVA:'Ginevra',NCE:'Nizza / Monaco',MAD:'Madrid',IBZ:'Ibiza',OLB:'Olbia',NAP:'Napoli',TRN:'Torino',PMO:'Palermo',CTA:'Catania'};
-function jetCategoryFor(aircraft={}){const t=`${aircraft.manufacturer||''} ${aircraft.model||''}`.toLowerCase();if(/pc[- ]?12|tbm ?960|king air|kingair|turboprop/.test(t))return'turboprop';if(/mustang|cj1|cj2|cj3|cj4|phenom 100|phenom 300|hondajet|ha[- ]?420/.test(t))return'light';if(/xls|latitude|hawker|learjet 60|praetor 500|praetor 600|challenger 300|challenger 350|challenger 3500|bd[- ]?100/.test(t))return'midsize';if(/gulfstream|g650|global 7500|bd[- ]?700|falcon 2000|falcon 7x|falcon 8x|challenger 650|legacy 650/.test(t))return'heavy';const p=Number(aircraft.maxPax||0);if(p>=12)return'heavy';if(p>=8)return'midsize';return'light';}
+function jetCategoryFor(aircraft={}){const t=`${aircraft.manufacturer||''} ${aircraft.model||''}`.toLowerCase();if(/pc-12|king air|p\.180|avanti|turboprop/.test(t))return'turboprop';if(/mustang|cj1|cj2|cj3|cj4|phenom 100|phenom 300/.test(t))return'light';if(/xls|latitude|hawker|learjet 60|praetor 500|challenger 300|challenger 350/.test(t))return'midsize';if(/gulfstream|global|falcon 2000|falcon 7x|falcon 8x|challenger 650|legacy 650/.test(t))return'heavy';const p=Number(aircraft.maxPax||0);if(p>=10)return'heavy';if(p>=7)return'midsize';return'light';}
 function metroFor(code){return AIRPORT_METRO[String(code||'').toUpperCase()]||null;}
 function locationOptions(flights,side){const airportMap=new Map(),metros=new Set();flights.forEach(f=>{const c=side==='from'?f.fromAirport:f.toAirport;if(!c)return;const city=(side==='from'?f.fromCity:f.toCity)||c;airportMap.set(c,city);const m=metroFor(c);if(m)metros.add(m);});let html='<option value="*">Qualsiasi città</option>';[...metros].sort().forEach(m=>html+=`<option value="metro:${m}">${m} nel raggio di 100 km</option>`);[...airportMap].sort((a,b)=>String(a[1]).localeCompare(String(b[1]))).forEach(([code,city])=>html+=`<option value="airport:${code}">${city} (${code})</option>`);return html;}
 function matchesLocation(leg,side,value){if(!value||value==='*')return true;const code=side==='from'?leg.fromAirport:leg.toAirport;if(value.startsWith('airport:'))return code===value.slice(8);if(value.startsWith('metro:'))return metroFor(code)===value.slice(6);return true;}
 function populateEmptyLegFilters(flights){['el-filter-from','el-filter-to','el-inspire-from'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const side=id==='el-filter-to'?'to':'from';const old=el.value;el.innerHTML=locationOptions(flights,side);if([...el.options].some(o=>o.value===old))el.value=old;});}
 function filteredEmptyLegs(){const from=document.getElementById('el-filter-from')?.value||'*',to=document.getElementById('el-filter-to')?.value||'*',date=document.getElementById('el-filter-date')?.value||'',pax=Number(document.getElementById('el-filter-pax')?.value||1),jet=document.getElementById('el-filter-jet')?.value||'*';return allEmptyLegs.filter(l=>{if(!matchesLocation(l,'from',from)||!matchesLocation(l,'to',to))return false;if(date&&String(l.departureAt||'').slice(0,10)!==date)return false;if(Number(l.availablePax||l.aircraft?.maxPax||0)<pax)return false;if(jet!=='*'&&jetCategoryFor(l.aircraft)!==jet)return false;return true;});}
-function applyEmptyLegFilters(){if(document.getElementById('el-filter-panel')?.classList.contains('inspire'))return;const list=filteredEmptyLegs(),ids=new Set(list.map(l=>String(l.id)));document.querySelectorAll('#empty-leg-grid .el-card').forEach(c=>c.style.display=ids.has(c.dataset.legId)?'':'none');const count=document.getElementById('el-filter-count');if(count)count.textContent=`${list.length} ${list.length===1?'volo disponibile':'voli disponibili'}`;renderRoutesMap(list);}
+function applyEmptyLegFilters(){if(document.getElementById('el-filter-panel')?.classList.contains('inspire'))return;const list=filteredEmptyLegs(),ids=new Set(list.map(l=>String(l.id)));document.querySelectorAll('#empty-leg-grid .el-card').forEach(c=>c.classList.toggle('el-filter-hidden',!ids.has(c.dataset.legId)));const count=document.getElementById('el-filter-count');if(count)count.textContent=`${list.length} ${list.length===1?'volo disponibile':'voli disponibili'}`;renderRoutesMap(list);}
 function resetEmptyLegFilters(){['el-filter-from','el-filter-to','el-filter-jet'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='*'});const d=document.getElementById('el-filter-date');if(d)d.value='';const p=document.getElementById('el-filter-pax');if(p)p.value='1';applyEmptyLegFilters();}
-function setEmptyLegMode(mode){const p=document.getElementById('el-filter-panel');if(!p)return;const inspire=mode==='inspire';p.classList.toggle('inspire',inspire);document.getElementById('el-mode-search')?.classList.toggle('active',!inspire);document.getElementById('el-mode-inspire')?.classList.toggle('active',inspire);const grid=document.getElementById('empty-leg-grid'),results=document.getElementById('el-inspire-results');if(grid)grid.style.display=inspire?'none':'';if(results){results.classList.toggle('show',inspire);if(!inspire)results.innerHTML='';}if(inspire)renderInspireResults();else applyEmptyLegFilters();}
+function setEmptyLegMode(mode){
+  const p=document.getElementById('el-filter-panel');
+  if(!p)return;
+  const inspire=mode==='inspire';
+  p.classList.toggle('inspire',inspire);
+  document.getElementById('el-mode-search')?.classList.toggle('active',!inspire);
+  document.getElementById('el-mode-inspire')?.classList.toggle('active',inspire);
+
+  // In entrambe le modalita' usiamo SEMPRE le stesse card Empty Leg.
+  // Lasciati ispirare cambia solo il criterio di filtro, non il componente visuale.
+  const grid=document.getElementById('empty-leg-grid');
+  if(grid)grid.style.display='';
+
+  const legacyResults=document.getElementById('el-inspire-results');
+  if(legacyResults){
+    legacyResults.classList.remove('show');
+    legacyResults.innerHTML='';
+  }
+
+  if(inspire)renderInspireResults();
+  else applyEmptyLegFilters();
+}
 function prettyLegDate(v){try{return new Date(v).toLocaleDateString('it-IT',{weekday:'short',day:'2-digit',month:'short'});}catch{return''}}
 function openLegById(id){const leg=allEmptyLegs.find(x=>String(x.id)===String(id));if(!leg)return;const aircraft=formatAircraftName(leg.aircraft),pax=leg.availablePax||leg.aircraft?.maxPax||'-',duration=formatDuration(leg.durationMin||0),date=formatDate(leg.departureAt),price=formatPrice(leg.priceTotal),saving=leg.savingPct?`${leg.savingPct}%`:'—';selectedEmptyLegId=leg.id;selectedLegProb=leg.confirmationProbability||null;openBookingModal(leg.fromAirport,leg.toAirport,aircraft,`${pax} pax`,duration,date,price,saving);}
-function renderInspireResults(){const wrap=document.getElementById('el-inspire-results');if(!wrap)return;const from=document.getElementById('el-inspire-from')?.value||'*';let outbound=allEmptyLegs.filter(l=>matchesLocation(l,'from',from));outbound.sort((a,b)=>new Date(b.createdAt||b.departureAt)-new Date(a.createdAt||a.departureAt));renderRoutesMap(outbound);const pairs=[];for(const out of outbound){const outDate=new Date(out.departureAt);const ret=allEmptyLegs.filter(r=>r.fromAirport===out.toAirport&&r.toAirport===out.fromAirport&&new Date(r.departureAt)>outDate&&new Date(r.departureAt)-outDate<=5*86400000).sort((a,b)=>new Date(a.departureAt)-new Date(b.departureAt))[0];pairs.push({out,ret});if(pairs.length>=6)break;}if(!pairs.length){wrap.innerHTML='<div class="el-inspire-card"><div class="el-inspire-kicker">Nessuna combinazione trovata</div><div class="el-inspire-route">Prova un’altra partenza</div><div class="el-inspire-dates">Le disponibilità cambiano rapidamente: torna tra poco oppure cerca una tratta singola.</div></div>';return;}wrap.innerHTML=pairs.map(({out,ret})=>`<article class="el-inspire-card"><div class="el-inspire-kicker">Idea viaggio · disponibilità recente</div><div class="el-inspire-route">${out.fromAirport} → ${out.toAirport}${ret?` → ${ret.toAirport}`:''}</div><div class="el-inspire-dates"><strong>Andata:</strong> ${prettyLegDate(out.departureAt)} · ${formatAircraftName(out.aircraft)}${ret?`<br><strong>Ritorno:</strong> ${prettyLegDate(ret.departureAt)} · ${formatAircraftName(ret.aircraft)}`:'<br><strong>Ritorno:</strong> da trovare separatamente'}</div><div class="el-inspire-actions"><button class="primary" type="button" onclick="openLegById('${out.id}')">Vedi andata</button>${ret?`<button type="button" onclick="openLegById('${ret.id}')">Vedi ritorno</button>`:''}</div></article>`).join('');}
+function renderInspireResults(){
+  const from=document.getElementById('el-inspire-from')?.value||'*';
+  const outbound=allEmptyLegs
+    .filter(leg=>matchesLocation(leg,'from',from))
+    .sort((a,b)=>new Date(b.createdAt||b.departureAt)-new Date(a.createdAt||a.departureAt));
+
+  const visibleIds=new Set(outbound.map(leg=>String(leg.id)));
+  document.querySelectorAll('#empty-leg-grid .el-card').forEach(card=>{
+    card.classList.toggle('el-filter-hidden',!visibleIds.has(card.dataset.legId));
+  });
+
+  const count=document.getElementById('el-filter-count');
+  if(count){
+    count.textContent=`${outbound.length} ${outbound.length===1?'volo disponibile':'voli disponibili'}`;
+  }
+
+  // La mappa rispecchia esattamente le stesse disponibilita' mostrate nelle card.
+  renderRoutesMap(outbound);
+}
 document.addEventListener('change',e=>{if(['el-filter-from','el-filter-to','el-filter-date','el-filter-pax','el-filter-jet'].includes(e.target?.id))applyEmptyLegFilters();if(e.target?.id==='el-inspire-from')renderInspireResults();});
-document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(document.getElementById('fleet-explorer')?.classList.contains('open'))closeFleetExplorer();if(document.getElementById('fleet-credits')?.classList.contains('open'))closeFleetCredits();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('fleet-explorer')?.classList.contains('open'))closeFleetExplorer();});
 
 // ===== CONFIGURATORE VOLO =====
 let cfgFlights = [];
@@ -9167,8 +8400,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
 <!-- ===== OPERATOR COLLABORATION MODAL ===== -->
 <div class="operator-collab-overlay" id="operator-collab-overlay" aria-hidden="true">
   <section class="operator-collab-modal" role="dialog" aria-modal="true" aria-labelledby="operator-collab-title">
@@ -9314,50 +8545,3 @@ document.getElementById('operator-collab-form')?.addEventListener('submit',async
 </script>
 </body>
 </html>
-
-<style id="auralis-booking-scroll-hotfix">
-/* Keep the luxury rounded modal, but let long booking content scroll. */
-#booking-modal{
-  overflow:hidden;
-}
-#booking-modal .booking-modal-box{
-  display:flex !important;
-  flex-direction:column !important;
-  max-height:min(92vh,920px) !important;
-  overflow:hidden !important;
-}
-#booking-modal .booking-modal-head{
-  flex:0 0 auto;
-  z-index:2;
-}
-#booking-modal .booking-modal-body{
-  flex:1 1 auto;
-  min-height:0;
-  overflow-y:auto !important;
-  overflow-x:hidden !important;
-  overscroll-behavior:contain;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(10,22,40,.22) transparent;
-}
-#booking-modal .booking-modal-body::-webkit-scrollbar{width:7px}
-#booking-modal .booking-modal-body::-webkit-scrollbar-track{background:transparent}
-#booking-modal .booking-modal-body::-webkit-scrollbar-thumb{
-  background:rgba(10,22,40,.18);
-  border-radius:999px;
-}
-@media(max-width:768px){
-  #booking-modal{
-    align-items:flex-end !important;
-    padding:10px !important;
-  }
-  #booking-modal .booking-modal-box{
-    width:100% !important;
-    max-height:calc(100dvh - 20px) !important;
-    border-radius:28px !important;
-  }
-  #booking-modal .booking-modal-body{
-    padding-bottom:max(28px,env(safe-area-inset-bottom)) !important;
-  }
-}
-</style>
