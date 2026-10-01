@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "updated": "1 ottobre 2026",
+  "draft": true,
+  "documents": {
+    "privacy-policy": {
+      "title": "Informativa sulla privacy",
+      "sections": [
+        ["1. Titolare e contatti", "Auralis SkyShare è un progetto in fase di pre-lancio con riferimento operativo a Milano. Identità e indirizzo completo della persona fisica o del soggetto titolare: DA COMPLETARE. Per informazioni e richieste sui dati personali: contatti@auralisair.it."],
+        ["2. Dati e finalità", "Trattiamo i dati di contatto e quelli forniti per account, richieste di volo, prenotazioni e passeggeri per rispondere alle richieste e fornire i servizi richiesti. La base giuridica è l'esecuzione del contratto o di misure precontrattuali richieste dall'interessato. I dati necessari per questi servizi sono obbligatori: senza di essi non possiamo gestire la relativa richiesta."],
+        ["3. Comunicazioni, statistiche e sicurezza", "Newsletter e statistiche facoltative sull'uso del sito si basano sul consenso, che può essere rifiutato o revocato senza perdere l'accesso alle altre funzioni. La newsletter include un collegamento per disiscriversi. I dati necessari a prevenire abusi e proteggere il servizio sono trattati per il legittimo interesse alla sicurezza. I dati richiesti dalla legge sono trattati per adempiere ai relativi obblighi."],
+        ["4. Destinatari", "I dati possono essere trattati da persone autorizzate e fornitori incaricati per gestione del sito, account, assistenza, comunicazioni e statistiche. Quando richiesto dal servizio, vengono comunicati agli operatori di volo coinvolti e ai prestatori di pagamento. Possono essere comunicati alle autorità nei casi previsti dalla legge. Le informazioni sui cookie e sulle statistiche facoltative sono contenute nella Cookie Policy."],
+        ["5. Trasferimenti fuori dallo Spazio economico europeo", "Le sedi e le condizioni dei fornitori devono essere verificate prima della pubblicazione: DA COMPLETARE con i trasferimenti effettivi, le garanzie applicabili e come ottenerne copia. Per informazioni: contatti@auralisair.it."],
+        ["6. Conservazione", "Conserviamo i dati per il tempo necessario a gestire la richiesta o il servizio e, successivamente, nei limiti degli obblighi di legge e delle esigenze documentate di tutela dei diritti. I dati dell'account sono conservati finché è attivo, salvo obblighi o contestazioni che ne richiedano ulteriore conservazione. Il consenso alla newsletter può essere revocato in qualsiasi momento; la prova del consenso può essere conservata per tutelare i diritti. I periodi effettivi relativi a log e statistiche sono DA COMPLETARE prima della pubblicazione."],
+        ["7. I tuoi diritti", "Nei casi previsti puoi chiedere accesso, rettifica, cancellazione, limitazione e portabilità dei dati, opporti ai trattamenti basati sul legittimo interesse e revocare il consenso. La revoca non rende illeciti i trattamenti già effettuati. Scrivi a contatti@auralisair.it: la risposta è fornita entro un mese, salve le proroghe motivate previste dal GDPR. Puoi presentare reclamo al Garante per la protezione dei dati personali: www.garanteprivacy.it."],
+        ["8. Decisioni automatizzate e aggiornamenti", "Le funzionalità esaminate non prevedono decisioni esclusivamente automatizzate che producano effetti giuridici o analogamente significativi sulla persona. Questa informativa viene aggiornata quando cambiano i trattamenti; la versione e la data sono indicate nel documento."]
+      ]
+    },
+    "cookie-policy": {
+      "title": "Cookie Policy",
+      "sections": [
+        ["1. Chi gestisce il sito", "Questa informativa riguarda auralisair.it. Identità e indirizzo completo del titolare del progetto Auralis SkyShare: DA COMPLETARE. Per informazioni: contatti@auralisair.it. Il trattamento dei dati personali è descritto anche nell'Informativa sulla privacy."],
+        ["2. Strumenti necessari", "Il sito utilizza strumenti necessari per ricordare le preferenze, proteggere il servizio e consentire l'accesso all'account. Sono gestiti da Auralis e dal fornitore di autenticazione Auth0. Non richiedono consenso e non sono disattivabili dal pannello. Le preferenze Analytics sono ricordate per sei mesi, salvo modifica o cancellazione dei dati del browser. La durata effettiva degli strumenti di autenticazione è DA VERIFICARE prima della pubblicazione."],
+        ["3. Statistiche facoltative", "Con il tuo consenso, Umami Cloud misura le pagine visitate e le interazioni con il sito per aiutarci a comprenderne l'utilizzo. Questa categoria resta disattivata fino all'accettazione. Non utilizziamo questi eventi per inviare nomi, email o numeri di telefono. La durata di conservazione delle statistiche presso il fornitore è DA COMPLETARE dopo verifica della configurazione."],
+        ["4. La tua scelta", "Dal banner puoi accettare, rifiutare gli strumenti facoltativi o scegliere le preferenze. Il rifiuto non impedisce l'uso del sito. Per modificare o revocare il consenso usa Preferenze cookie nel footer. La revoca blocca le nuove misurazioni e non incide sulla liceità di quelle già effettuate. Puoi inoltre cancellare i dati salvati sul dispositivo dalle impostazioni del browser; alcune funzioni potrebbero richiedere un nuovo accesso."],
+        ["5. Diritti e aggiornamenti", "Per esercitare i diritti sui dati personali scrivi a contatti@auralisair.it. Puoi presentare reclamo al Garante per la protezione dei dati personali. Destinatari, trasferimenti e ulteriori informazioni sono descritti nell'Informativa sulla privacy. La versione e la data di aggiornamento sono riportate in questo documento."]
+      ]
+    }
+  }
+}
